@@ -1,9 +1,5 @@
 package IngSftw.Monopoly;
 
-
-import java.util.*;
-import java.time.*;
-
 public class Tassa extends Casella {
 
     private int amount;
