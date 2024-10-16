@@ -9,54 +9,27 @@ package IngSftw.Monopoly;
 import java.util.*;
 import java.time.*;
 
-
-
-// ----------- << imports@AAAAAAGSQwo+s5HRtXM= >>
-// ----------- >>
-
-// ----------- << class.annotations@AAAAAAGSQwo+s5HRtXM= >>
-// ----------- >>
 public class Player {
-    // ----------- << attribute.annotations@AAAAAAGSQyT475IhErI= >>
-    // ----------- >>
+
     private int id;
-
-    // ----------- << attribute.annotations@AAAAAAGSQw1ikZH7vI0= >>
-    // ----------- >>
     private String name;
-
-    // ----------- << attribute.annotations@AAAAAAGSQxSs3ZIW9U4= >>
-    // ----------- >>
     private int wallet;
-
-    // ----------- << attribute.annotations@AAAAAAGSQyZa9pIzjII= >>
-    // ----------- >>
     private boolean isInJail;
-
-    // ----------- << attribute.annotations@AAAAAAGSQybb3pI6nqk= >>
-    // ----------- >>
     private int location;
-
-    // ----------- << attribute.annotations@AAAAAAGSQ0OnhJNUxAM= >>
-    // ----------- >>
     private boolean passedGo;
-
-    // ----------- << attribute.annotations@AAAAAAGSQ0bs+JNb03A= >>
-    // ----------- >>
     private ArrayList<Proprieta> properties;
-
-    // ----------- << attribute.annotations@AAAAAAGSQ0d5XpNizQc= >>
-    // ----------- >>
-    private final int MAX_EXIT_JAIL_ATTEMPTS;
-
-    // ----------- << attribute.annotations@AAAAAAGSQ0k+ipNr5kE= >>
-    // ----------- >>
+    private final int MAX_EXIT_JAIL_ATTEMPTS=3;
     private int numExitJailAttempt;
-
-    // ----------- << attribute.annotations@AAAAAAGSQ0pmIJNyFrA= >>
-    // ----------- >>
     private ArrayList<Carta> cards;
-
+    
+    public Player(int id, String name, int wallet, boolean isInJail, int location) {
+    	this.id=id;
+    	this.name=name;
+    	this.wallet=wallet;
+    	this.isInJail=isInJail;
+    	this.location=location;
+    }
+    
     public int getId() {
         return id;
     }
@@ -68,13 +41,17 @@ public class Player {
     public int getWallet() {
         return wallet;
     }
+    
+    public int getLocation() {
+        return location;
+    }
+    
+    public int getNumExitJailAttempt() {
+        return numExitJailAttempt;
+    }
 
     public boolean isIsInJail() {
         return isInJail;
-    }
-
-    public int getLocation() {
-        return location;
     }
 
     public boolean isPassedGo() {
@@ -87,10 +64,6 @@ public class Player {
 
     public final int getMAX_EXIT_JAIL_ATTEMPTS() {
         return MAX_EXIT_JAIL_ATTEMPTS;
-    }
-
-    public int getNumExitJailAttempt() {
-        return numExitJailAttempt;
     }
 
     public ArrayList<Carta> getCards() {
@@ -133,164 +106,57 @@ public class Player {
         this.cards = cards;
     }
 
-    /**
-    * @param id 
-    * @param name 
-    * @param wallet 
-    * @param isInJail 
-    * @param location
-    */
-
-    // ----------- << method.annotations@AAAAAAGSQyeHB5JCTkQ= >>
-    // ----------- >>
-    public Player(int id, String name, int wallet, boolean isInJail, int location) {
-    // ----------- << method.body@AAAAAAGSQyeHB5JCTkQ= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQytfC5J8zAA= >>
-    // ----------- >>
-    public String getName() {
-    // ----------- << method.body@AAAAAAGSQytfC5J8zAA= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQy+ai5KliNY= >>
-    // ----------- >>
-    public int getLocation() {
-    // ----------- << method.body@AAAAAAGSQy+ai5KliNY= >>
-    // ----------- >>
-    }
-    /**
-    * @param totalDiceValue
-    */
-
-    // ----------- << method.annotations@AAAAAAGSQytdUpJ2BRI= >>
-    // ----------- >>
     public void move(int totalDiceValue) {
-    // ----------- << method.body@AAAAAAGSQytdUpJ2BRI= >>
-    // ----------- >>
     }
-    // ----------- << method.annotations@AAAAAAGSQ0+yt5Onlgw= >>
-    // ----------- >>
-    public boolean passedGo() {
-    // ----------- << method.body@AAAAAAGSQ0+yt5Onlgw= >>
-    // ----------- >>
-    }
-    /**
-    * @param location
-    */
 
-    // ----------- << method.annotations@AAAAAAGSQytZbZJq0GQ= >>
-    // ----------- >>
     public void goToJail(int location) {
-    // ----------- << method.body@AAAAAAGSQytZbZJq0GQ= >>
-    // ----------- >>
+
     }
-    // ----------- << method.annotations@AAAAAAGSQ1CrMZO3aCg= >>
-    // ----------- >>
+
     public void freeFromJail() {
-    // ----------- << method.body@AAAAAAGSQ1CrMZO3aCg= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQy+Y2pKfRKc= >>
-    // ----------- >>
-    public boolean isInJail() {
-    // ----------- << method.body@AAAAAAGSQy+Y2pKfRKc= >>
-    // ----------- >>
-    }
-    /**
-    * @param isInJail
-    */
 
-    // ----------- << method.annotations@AAAAAAGSQytbVZJwjls= >>
-    // ----------- >>
-    public void setIsInJail(boolean isInJail) {
-    // ----------- << method.body@AAAAAAGSQytbVZJwjls= >>
-    // ----------- >>
     }
-    // ----------- << method.annotations@AAAAAAGSQ1HD75PGCWo= >>
-    // ----------- >>
+
     public void exceededExitJailAttempts() {
-    // ----------- << method.body@AAAAAAGSQ1HD75PGCWo= >>
-    // ----------- >>
     }
-    /**
-    * @param square
-    */
 
-    // ----------- << method.annotations@AAAAAAGSQ06KKZOcswU= >>
-    // ----------- >>
     public void moveTo(int square) {
-    // ----------- << method.body@AAAAAAGSQ06KKZOcswU= >>
-    // ----------- >>
+
     }
-    // ----------- << method.annotations@AAAAAAGSQ1NF6pPnmnk= >>
-    // ----------- >>
-    public booelan hasGetOutOfJailCard() {
-    // ----------- << method.body@AAAAAAGSQ1NF6pPnmnk= >>
-    // ----------- >>
+
+    public boolean hasGetOutOfJailCard() {
+		return isInJail;
+
     }
-    // ----------- << method.annotations@AAAAAAGSQ1UAH5PywVc= >>
-    // ----------- >>
+
     public Carta getCard() {
-    // ----------- << method.body@AAAAAAGSQ1UAH5PywVc= >>
-    // ----------- >>
-    }
-    /**
-    * @param amount
-    */
 
-    // ----------- << method.annotations@AAAAAAGSQyjamJJJhjU= >>
-    // ----------- >>
+    }
+
     public void doTransaction(int amount) {
-    // ----------- << method.body@AAAAAAGSQyjamJJJhjU= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQ1V3QJP77Jw= >>
-    // ----------- >>
-    public int getTransaction() {
-    // ----------- << method.body@AAAAAAGSQ1V3QJP77Jw= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQy+HT5KUKdU= >>
-    // ----------- >>
-    public int getWallet() {
-    // ----------- << method.body@AAAAAAGSQy+HT5KUKdU= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQ1enBZQK2ts= >>
-    // ----------- >>
-    public void addProperty() {
-    // ----------- << method.body@AAAAAAGSQ1enBZQK2ts= >>
-    // ----------- >>
-    }
-    // ----------- << method.annotations@AAAAAAGSQ1gYapQT1uc= >>
-    // ----------- >>
-    public ArrayList<Proprieta> getProperties() {
-    // ----------- << method.body@AAAAAAGSQ1gYapQT1uc= >>
-    // ----------- >>
-    }
-    /**
-    * @param cantiere
-    */
 
-    // ----------- << method.annotations@AAAAAAGSQ1nnO5QcEC0= >>
-    // ----------- >>
+    }
+
+    public int getTransaction() {
+		return MAX_EXIT_JAIL_ATTEMPTS;
+
+    }
+
+
+    public void addProperty() {
+
+    }
+
     public boolean isGroupOwner(Cantiere cantiere) {
-    // ----------- << method.body@AAAAAAGSQ1nnO5QcEC0= >>
-    // ----------- >>
+
     }
-    // ----------- << method.annotations@AAAAAAGSQ1veXZQucNQ= >>
-    // ----------- >>
+
     public int getNumStationsOwned() {
-    // ----------- << method.body@AAAAAAGSQ1veXZQucNQ= >>
-    // ----------- >>
+
     }
-    // ----------- << method.annotations@AAAAAAGSQ1xv95Q40OE= >>
-    // ----------- >>
+
     public int getNumUtilitiesOwned() {
-    // ----------- << method.body@AAAAAAGSQ1xv95Q40OE= >>
-    // ----------- >>
+
     }
-// ----------- << class.extras@AAAAAAGSQwo+s5HRtXM= >>
-// ----------- >>
+
 }
