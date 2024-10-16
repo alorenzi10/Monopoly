@@ -1,8 +1,5 @@
 package IngSftw.Monopoly;
 
-import java.util.*;
-import java.time.*;
-
 public class Cantiere extends Proprieta {
     
     private int[] rentTable;
@@ -16,26 +13,30 @@ public class Cantiere extends Proprieta {
 		this.rentTable = rentTable;
 		this.colourGroup = colourGroup;
 		this.buildPrice = buildPrice;
+		this.numBuildings = 0;
+		colourGroup.addMember(this);
 	}
 
     public boolean canBuild(int numToBuild) {
-    	return true;
+    	return (numBuildings + numToBuild) <= MAX_NUM_UNITS;
     }
 
     public void build(int numToBuild) {
-
+    	if(canBuild(numToBuild))
+    		numBuildings += numToBuild;
     }
     
     public boolean canDemolish(int numToDemolish) {
-    	return true;
+    	return (numToDemolish <= numBuildings);
     }
 
     public void demolish(int numToDemolish) {
-    	
+    	if(canDemolish(numToDemolish))
+    		numBuildings -= numToDemolish;
     }
   
     public void demolishAll() {
-    	
+    	numBuildings = 0;
     }
  
     public int getNumBuildings() {
@@ -43,24 +44,40 @@ public class Cantiere extends Proprieta {
     }
     
     public int getBuildingPrice() {
-    	return 
+    	return this.buildPrice;
     }
     
     public boolean hasBuildings() {
+    	return (numBuildings >0);
     }
     
     public int getNumHouses() {
+    	int numHouses;
+		if (numBuildings < 5) { numHouses = numBuildings; } 
+		 else { numHouses = 0; }
+		return numHouses;
     }
     
     public int getNumHotels() {
+    	int numHotels;
+		if (numBuildings == 5) { numHotels = 1; } 
+		 else { numHotels = 0; }
+		return numHotels;
     }
     
     public GruppoColore getColourGroup() {
+    	return this.colourGroup;
     }
     
-    public int getRent() {
+    public int getRent() {//da sistemare
+    	int rent = 0;
+    	if((numBuildings == 0 && super.getOwner().isGroupOwner(this))) {
+    		rent = rentTable[0];
+    	}//else if
+		return rent;
     }
     
     public String toString() {
+    	return super.toString();
     }
 }

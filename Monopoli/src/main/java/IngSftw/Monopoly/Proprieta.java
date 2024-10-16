@@ -1,9 +1,5 @@
 package IngSftw.Monopoly;
 
-
-import java.util.*;
-import java.time.*;
-
 public class Proprieta extends Casella {
 	
     private final double VALORE_DISIPOTECA = 1.1;
@@ -15,8 +11,15 @@ public class Proprieta extends Casella {
     private int mortgageValue;
 
     public Proprieta(String name, int price, String shortName, int mortgageValue) {
-    
+    	super(name);
+    	this.price = price;
+    	this.shortName = shortName;
+    	isOwned = false;
+    	owner = null;
+    	mortgaged = false;
+    	this.mortgageValue = mortgageValue;
     }
+    
     public String getShortName() {
     	return this.shortName;
     }
@@ -26,7 +29,7 @@ public class Proprieta extends Casella {
     }
 
     public int getRent() {
-    	return (int) (price*VALORE_DISIPOTECA);
+    	return 0;
     }
 
     public Player getOwner() {
@@ -34,43 +37,45 @@ public class Proprieta extends Casella {
     }
 
     public boolean isOwned() {
-
+    	return isOwned;
     }
 
     public void setOwner(Player player) {
     	this.owner = player;
+    	isOwned = true;
     }
-    // ----------- << method.annotations@AAAAAAGScSgcMwFRw7Y= >>
-    // ----------- >>
+
     public void releaseOwnership() {
-    	
+    	this.owner = null;
+    	this.isOwned = false;
+    	this.mortgaged = false;
     }
     
     public void setMortgaged() {
+    	this.mortgaged = true;
     }
     
-    public void isMortgaged() {
-    	
+    public boolean isMortgaged() {
+    	return this.mortgaged;
     }
     
     public void setNotMortgaged() {
-    	
+    	this.mortgaged = false;
     }
     
     public int getMortgagedValue() {
-    	
+    	return this.mortgageValue;
     }
     
     public int getMortgageRedemption() {
-
+    	return (int) (this.mortgageValue * VALORE_DISIPOTECA);
     }
     
     public boolean equals(String string) {
-    	
+    	return shortName.equals(string);
     }
-    // ----------- << method.annotations@AAAAAAGScSg4EAggNcQ= >>
-    // ----------- >>
+
     public String toString() {
-    	
+    	return super.toString();
     }
 }

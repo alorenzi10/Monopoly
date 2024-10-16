@@ -1,31 +1,39 @@
 package IngSftw.Monopoly;
 
-import java.util.*;
-import java.time.*;
-
 public class Carta {
 	
     private int type;
     private String message;
     private int actionID;
     private int parameter;
-    private int parameters;
-
+    private int[] parameters;
+    
+    //diversi tipi di carte
     public Carta() {
+    	message = "";
     }
     
     public Carta(int type, String message, int actionID) {
-    	
+    	this.type = type;
+		this.message = message;
+		this.actionID = actionID;
     }
     
     public Carta(int type, String message, int actionID, int parameter) {
-		super();
 		this.type = type;
 		this.message = message;
 		this.actionID = actionID;
 		this.parameter = parameter;
 	}
 
+    public Carta(int type, String message, int actionID, int parameter, int[] parameters) {
+		this.type = type;
+		this.message = message;
+		this.actionID = actionID;
+		this.parameter = parameter;
+		this.parameters = parameters;
+	}
+    
 	public int getType() {
     	return this.type;
     }
@@ -35,26 +43,26 @@ public class Carta {
     }
     
     public int getDestination() {
-    	
+    	return this.parameter;
     }
     
     public int getNumSpaces() {
-    	
+    	return this.parameter;
     }
     
     public int getAmount() {
-    	
+    	return this.parameter;
     }
     
     public int getHouseCost() {
-    	
+    	return this.parameters[0];
     }
 
     public int getHotelCost() {
-    	return 
+    	return this.parameters[1];
     }
     
     public String toString() {
-    	
+    	return message;
     }
 }

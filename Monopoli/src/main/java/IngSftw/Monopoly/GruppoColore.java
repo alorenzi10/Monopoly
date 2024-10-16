@@ -1,8 +1,6 @@
 package IngSftw.Monopoly;
 
-
-import java.util.*;
-import java.time.*;
+import java.util.ArrayList;
 
 public class GruppoColore {
 	
@@ -26,6 +24,6 @@ public class GruppoColore {
     }
 
     public int size() {
-    	
+    	return this.cantieri.size();
     }
 }
