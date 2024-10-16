@@ -7,59 +7,27 @@ package IngSftw.Monopoly;
 
 
 import java.util.*;
-import java.time.*;
 
-
-
-// ----------- << imports@AAAAAAGSUWFLXJSMmPQ= >>
-// ----------- >>
-
-// ----------- << class.annotations@AAAAAAGSUWFLXJSMmPQ= >>
-// ----------- >>
 public class Monopoly {
-    // ----------- << attribute.annotations@AAAAAAGSUWG9EJS3M/g= >>
-    // ----------- >>
-    private final int MONEY_START;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVHV5y2ktQ= >>
-    // ----------- >>
-    private final int MONEY_VIA;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVJb5zaEXs= >>
-    // ----------- >>
+	
+    private final int MONEY_START=1500;
+    private final int MONEY_VIA=200;
     private final int CAUZIONE_PRIGIONE;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVLf5z+w/0= >>
-    // ----------- >>
     private Player currPlayer;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVNsJ0i2/0= >>
-    // ----------- >>
     private Dadi dice;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVPtZ1GuQA= >>
-    // ----------- >>
     private Tabellone board;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVRnZ1qBlg= >>
-    // ----------- >>
     private UI ui;
-
-    // ----------- << attribute.annotations@AAAAAAGSUWVTfp2OQOg= >>
-    // ----------- >>
     private MazzoProbabilita mazzoProbabilita;
-
-    // ----------- << attribute.annotations@AAAAAAGSUXKuzaakFCc= >>
-    // ----------- >>
     private MazzoImprevisti mazzoImprevisti;
-
-    // ----------- << attribute.annotations@AAAAAAGSUXKwrabINKY= >>
-    // ----------- >>
     private boolean gameOver;
-
-    // ----------- << attribute.annotations@AAAAAAGSUXKyK6bsVX0= >>
-    // ----------- >>
     private boolean turnFinished;
+    
+    
+    
+    
+    
+    
+    
 
     public final int getMONEY_START() {
         return MONEY_START;
