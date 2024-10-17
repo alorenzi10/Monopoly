@@ -3,8 +3,8 @@ package IngSftw.Monopoly;
 public class Stazione extends Proprieta {
     private int[] rentTable;
 
-    public Stazione(String name, String shortName, int price, int mortgageValue, int[] rentTable) {
-    	super(name, price, shortName, mortgageValue);
+    public Stazione(String name, int price, int mortgageValue, int[] rentTable) {
+    	super(name, price, mortgageValue);
 		this.rentTable = rentTable;
     }
     public int getRent() {

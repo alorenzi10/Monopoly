@@ -6,22 +6,16 @@ public class Proprieta extends Casella {
     private boolean isOwned;
     private int price;
     private Player owner;
-    private String shortName;
     private boolean mortgaged;
     private int mortgageValue;
 
-    public Proprieta(String name, int price, String shortName, int mortgageValue) {
+    public Proprieta(String name, int price, int mortgageValue) {
     	super(name);
     	this.price = price;
-    	this.shortName = shortName;
     	isOwned = false;
     	owner = null;
     	mortgaged = false;
     	this.mortgageValue = mortgageValue;
-    }
-    
-    public String getShortName() {
-    	return this.shortName;
     }
 
     public int getPrice() {
@@ -69,10 +63,6 @@ public class Proprieta extends Casella {
     
     public int getMortgageRedemption() {
     	return (int) (this.mortgageValue * VALORE_DISIPOTECA);
-    }
-    
-    public boolean equals(String string) {
-    	return shortName.equals(string);
     }
 
     public String toString() {
