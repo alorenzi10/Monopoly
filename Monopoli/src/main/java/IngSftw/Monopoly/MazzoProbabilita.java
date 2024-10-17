@@ -10,8 +10,7 @@ public class MazzoProbabilita extends Mazzo {
     	cards.add(new Carta(PROBABILITA, "Andate avanti fino al via e ritirate M200.", AZIONE_VAI_AVANTI, Tabellone.POS_VIA));//da sistemare i 200
 
     	// Tasse, parcelle
-    	//da sistemare in base al numero di case/hotel
-    	cards.add(new Carta(PROBABILITA, "Pagate per contributi di miglioria stradale. M40 per ogni casa e M115 per ogni albergo che possedete.", AZIONE_PAGA_CASE, 200));
+    	cards.add(new Carta(PROBABILITA, "Pagate per contributi di miglioria stradale. M40 per ogni casa e M115 per ogni albergo che possedete.", AZIONE_PAGA_CASE, new int[] {40, 115}));
     	cards.add(new Carta(PROBABILITA, "Pagate la retta ospedaliera di M100.", AZIONE_PAGA, 100));
     	cards.add(new Carta(PROBABILITA, "Ricevete la parcella del dottore: pagate M50.", AZIONE_PAGA, 50));
     	cards.add(new Carta(PROBABILITA, "Pagate le rette scolastiche dei vostri figli: versate M50.", AZIONE_PAGA, 50));

@@ -26,14 +26,13 @@ public class Carta {
 		this.parameter = parameter;
 	}
 
-    public Carta(int type, String message, int actionID, int parameter, int[] parameters) {
+    public Carta(int type, String message, int actionID, int[] parameters) {
 		this.type = type;
 		this.message = message;
 		this.actionID = actionID;
-		this.parameter = parameter;
 		this.parameters = parameters;
 	}
-    
+
 	public int getType() {
     	return this.type;
     }
