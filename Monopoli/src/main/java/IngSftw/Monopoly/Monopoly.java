@@ -12,8 +12,9 @@ public class Monopoly {
 	
     private final int MONEY_START=1500;
     private final int MONEY_VIA=200;
-    private final int CAUZIONE_PRIGIONE;
-    private Player currPlayer;
+    private final int CAUZIONE_PRIGIONE=50;
+    public int numero_giocatori;
+    private int currPlayer;
     private Dadi dice;
     private Tabellone board;
     private UI ui;
@@ -22,12 +23,18 @@ public class Monopoly {
     private boolean gameOver;
     private boolean turnFinished;
     
+    ArrayList<Player> players = new ArrayList<Player>();
     
-    
-    
-    
-    
-    
+    //crea nuova partita
+    public Monopoly(int numero_giocatori, String[] nomi){
+    	Player newPlayer;
+    	this.numero_giocatori=numero_giocatori;
+    	for(int i=0; i<numero_giocatori; i++) {
+    		newPlayer= new Player(i, nomi[i], MONEY_START, false, 0);
+    		players.add(newPlayer);
+    	}
+    	
+    }
 
     public final int getMONEY_START() {
         return MONEY_START;
