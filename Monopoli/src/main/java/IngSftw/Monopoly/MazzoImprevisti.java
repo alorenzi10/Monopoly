@@ -25,13 +25,13 @@ public class MazzoImprevisti extends Mazzo {
     	cards.add(new Carta(IMPREVISTI, "Fate 3 passi indietro (con tanti auguri!);", AZIONE_VAI_INDIETRO));
     	
 		// Tasse
-		cards.add(new Carta(IMPREVISTI, "Multa per eccesso di velocità: pagate 15M.", AZIONE_PAGA));
-		cards.add(new Carta(IMPREVISTI, "Eseguite lavori di manutenzione su tutti i vostri edifici: Pagte M25 per ogni casa e 100M per ogni albergo che possedete.", AZIONE_PAGA_CASE));
+		cards.add(new Carta(IMPREVISTI, "Multa per eccesso di velocità: pagate M15.", AZIONE_PAGA, 15));
+		cards.add(new Carta(IMPREVISTI, "Eseguite lavori di manutenzione su tutti i vostri edifici: Pagte M25 per ogni casa e 100M per ogni albergo che possedete.", AZIONE_PAGA_CASE, 25));
 		
 		// Pagamenti
-		cards.add(new Carta(IMPREVISTI, "Siete stati promossi alla presidenza del consiglio di amministrazione pagate 50M ad ogni giocatore", REGALI));
-		cards.add(new Carta(IMPREVISTI, "Maturano le vostre cedole dei vostri fondi immobiliari: incassate M150.", AZIONE_RICEVI));
-		cards.add(new Carta(IMPREVISTI, "La banca vi paga un dividendo di M50.", AZIONE_RICEVI));
+		cards.add(new Carta(IMPREVISTI, "Siete stati promossi alla presidenza del consiglio di amministrazione pagate M50 ad ogni giocatore", REGALI, 50));
+		cards.add(new Carta(IMPREVISTI, "Maturano le vostre cedole dei vostri fondi immobiliari: incassate M150.", AZIONE_RICEVI, 150));
+		cards.add(new Carta(IMPREVISTI, "La banca vi paga un dividendo di M50.", AZIONE_RICEVI, 50));
 
 		// Prigione
 		cards.add(new Carta(IMPREVISTI, "Andate in prigione direttamente e senza passare dal “via”." , AZIONE_VAI_IN_CARCERE));
