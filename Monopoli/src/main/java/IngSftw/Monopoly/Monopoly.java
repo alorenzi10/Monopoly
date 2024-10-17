@@ -27,13 +27,22 @@ public class Monopoly {
     
     //crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi){
+    	//crea i giocatori e assegna loro i soldi iniziali, crea il tabllone, che inizializza a sua vola le caselle
+    	//crea i mazzi di probabilità e imprevisti
     	Player newPlayer;
     	this.numero_giocatori=numero_giocatori;
     	for(int i=0; i<numero_giocatori; i++) {
     		newPlayer= new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
     	}
+    	dice=new Dadi();
+    	board=new Tabellone(dice);
+    	mazzoImprevisti=new MazzoImprevisti();
+    	mazzoProbabilita=new MazzoProbabilita();
     	
+    	//decidi il primo giocatore
+    	Random random=new Random();
+    	currPlayer=random.nextInt(numero_giocatori-1);
     }
 
     public final int getMONEY_START() {

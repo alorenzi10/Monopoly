@@ -6,10 +6,6 @@ public class Tabellone {
     public final static int POS_VIA = 0;
     public final int POS_PRIGIONE = 10;
     public final int POS_VAI_IN_PRIGIONE = 30;
-    public final int POS_PRIGIONE = 10;//da sistemare
-    public final int POS_VAI_IN_PRIGIONE = 30;
-    public final int POS_PRIGIONE = 10;
-    public final int POS_VAI_IN_PRIGIONE = 30;
     
     private Casella[] squares = new Casella[NUM_SQUARES];
     private GruppoColore marrone = new GruppoColore("marrone");
