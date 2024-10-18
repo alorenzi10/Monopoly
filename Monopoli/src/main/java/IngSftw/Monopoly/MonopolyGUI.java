@@ -41,7 +41,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella0);
 		
 		JLabel via_png = new JLabel("");
-		via_png.setIcon(new ImageIcon("./icons/VIA!!.png")); //VA AGGIUNTO IL PERCORSO
+		via_png.setIcon(new ImageIcon("./icons/VIA!!.png"));
 		via_png.setBounds(2, 2, 86, 86);
 		casella0.add(via_png);
 		
