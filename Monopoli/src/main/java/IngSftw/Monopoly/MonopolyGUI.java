@@ -41,7 +41,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella0);
 		
 		JLabel via_png = new JLabel("");
-		via_png.setIcon(new ImageIcon("VIA!!.png")); //VA AGGIUNTO IL PERCORSO
+		via_png.setIcon(new ImageIcon("./icons/VIA!!.png")); //VA AGGIUNTO IL PERCORSO
 		via_png.setBounds(2, 2, 86, 86);
 		casella0.add(via_png);
 		
@@ -52,7 +52,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella1);
 		
 		JLabel vicolo_corto = new JLabel("");
-		vicolo_corto.setIcon(new ImageIcon("vicolo_corto.png"));
+		vicolo_corto.setIcon(new ImageIcon("./icons/vicolo_corto.png"));
 		vicolo_corto.setBounds(0, 2, 60, 86);
 		casella1.add(vicolo_corto);
 		
@@ -63,7 +63,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella2);
 		
 		JLabel probabilita1 = new JLabel("");
-		probabilita1.setIcon(new ImageIcon("Probablita1.png"));
+		probabilita1.setIcon(new ImageIcon("./icons/Probablita1.png"));
 		probabilita1.setBounds(2, 2, 58, 86);
 		casella2.add(probabilita1);
 		
@@ -74,7 +74,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella3);
 		
 		JLabel vicolo_stretto = new JLabel("");
-		vicolo_stretto.setIcon(new ImageIcon("vicolo_stretto.png"));
+		vicolo_stretto.setIcon(new ImageIcon("./icons/vicolo_stretto.png"));
 		vicolo_stretto.setBounds(2, 2, 58, 86);
 		casella3.add(vicolo_stretto);
 		
@@ -85,7 +85,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella4);
 		
 		JLabel tassa_patrimoniale = new JLabel("");
-		tassa_patrimoniale.setIcon(new ImageIcon("tassa_patrimoniale.png"));
+		tassa_patrimoniale.setIcon(new ImageIcon("./icons/tassa_patrimoniale.png"));
 		tassa_patrimoniale.setBounds(2, 2, 58, 86);
 		casella4.add(tassa_patrimoniale);		
 		
@@ -96,7 +96,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella5);
 		
 		JLabel stazione_nord = new JLabel("");
-		stazione_nord.setIcon(new ImageIcon("Stazione_nord.png"));
+		stazione_nord.setIcon(new ImageIcon("./icons/Stazione_nord.png"));
 		stazione_nord.setBounds(2, 2, 58, 86);
 		casella5.add(stazione_nord);
 		
@@ -107,7 +107,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella6);
 		
 		JLabel bastioni_gran_sasso = new JLabel("");
-		bastioni_gran_sasso.setIcon(new ImageIcon("Bastioni_Gran_Sasso.png"));
+		bastioni_gran_sasso.setIcon(new ImageIcon("./icons/Bastioni_Gran_Sasso.png"));
 		bastioni_gran_sasso.setBounds(2, 2, 58, 86);
 		casella6.add(bastioni_gran_sasso);
 		
@@ -118,7 +118,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella7);
 		
 		JLabel imprevisti1 = new JLabel("");
-		imprevisti1.setIcon(new ImageIcon("imprevisti1-2.png"));
+		imprevisti1.setIcon(new ImageIcon("./icons/imprevisti1-2.png"));
 		imprevisti1.setBounds(2, 2, 58, 86);
 		casella7.add(imprevisti1);
 		
@@ -129,7 +129,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella8);
 		
 		JLabel viale_monterosa = new JLabel("");
-		viale_monterosa.setIcon(new ImageIcon("Viale_Monterosa.png"));
+		viale_monterosa.setIcon(new ImageIcon("./icons/Viale_Monterosa.png"));
 		viale_monterosa.setBounds(2, 2, 58, 86);
 		casella8.add(viale_monterosa);
 		
@@ -140,7 +140,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella9);
 		
 		JLabel viale_vesuvio = new JLabel("");
-		viale_vesuvio.setIcon(new ImageIcon("viale_vesuvio.png"));
+		viale_vesuvio.setIcon(new ImageIcon("./icons/viale_vesuvio.png"));
 		viale_vesuvio.setBounds(2, 2, 58, 86);
 		casella9.add(viale_vesuvio);
 		
@@ -151,7 +151,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella10);
 		
 		JLabel transito = new JLabel("");
-		transito.setIcon(new ImageIcon("transito.png"));
+		transito.setIcon(new ImageIcon("./icons/transito.png"));
 		transito.setBounds(2, 2, 86, 86);
 		casella10.add(transito);
 
@@ -162,7 +162,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella11);
 		
 		JLabel via_accademia = new JLabel("");
-		via_accademia.setIcon(new ImageIcon("via_accademia.png"));
+		via_accademia.setIcon(new ImageIcon("./icons/via_accademia.png"));
 		via_accademia.setBounds(2, 0, 86, 58);
 		casella11.add(via_accademia);
 		
@@ -173,7 +173,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella12);
 		
 		JLabel societa_elettrica = new JLabel("");
-		societa_elettrica.setIcon(new ImageIcon("societa_elettrica.png"));
+		societa_elettrica.setIcon(new ImageIcon("./icons/societa_elettrica.png"));
 		societa_elettrica.setBounds(2, 0, 86, 58);
 		casella12.add(societa_elettrica);
 		
@@ -184,7 +184,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella13);
 		
 		JLabel corso_ateneo = new JLabel("");
-		corso_ateneo.setIcon(new ImageIcon("corso_ateneo.png"));
+		corso_ateneo.setIcon(new ImageIcon("./icons/corso_ateneo.png"));
 		corso_ateneo.setBounds(2, 0, 86, 58);
 		casella13.add(corso_ateneo);
 		
@@ -195,7 +195,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella14);
 		
 		JLabel piazza_universita = new JLabel("");
-		piazza_universita.setIcon(new ImageIcon("piazza_universita.png"));
+		piazza_universita.setIcon(new ImageIcon("./icons/piazza_universita.png"));
 		piazza_universita.setBounds(2, 0, 86, 58);
 		casella14.add(piazza_universita);
 		
@@ -206,7 +206,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella15);
 		
 		JLabel stazione_est = new JLabel("");
-		stazione_est.setIcon(new ImageIcon("stazione_est.png"));
+		stazione_est.setIcon(new ImageIcon("./icons/stazione_est.png"));
 		stazione_est.setBounds(2, 0, 86, 58);
 		casella15.add(stazione_est);
 		
@@ -217,7 +217,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella16);
 		
 		JLabel via_verdi = new JLabel("");
-		via_verdi.setIcon(new ImageIcon("via_verdi.png"));
+		via_verdi.setIcon(new ImageIcon("./icons/via_verdi.png"));
 		via_verdi.setBounds(2, 0, 86, 58);
 		casella16.add(via_verdi);
 		
@@ -228,7 +228,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella17);
 		
 		JLabel probabilita2 = new JLabel("");
-		probabilita2.setIcon(new ImageIcon("Probabilita2.png"));
+		probabilita2.setIcon(new ImageIcon("./icons/Probabilita2.png"));
 		probabilita2.setBounds(2, 0, 86, 58);
 		casella17.add(probabilita2);
 		
@@ -239,7 +239,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella18);
 		
 		JLabel corso_raffaello = new JLabel("");
-		corso_raffaello.setIcon(new ImageIcon("corso_raffaello.png"));
+		corso_raffaello.setIcon(new ImageIcon("./icons/corso_raffaello.png"));
 		corso_raffaello.setBounds(2, 0, 86, 58);
 		casella18.add(corso_raffaello);
 		
@@ -250,7 +250,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella19);
 		
 		JLabel piazza_dante = new JLabel("");
-		piazza_dante.setIcon(new ImageIcon("piazza_dante.png"));
+		piazza_dante.setIcon(new ImageIcon("./icons/piazza_dante.png"));
 		piazza_dante.setBounds(2, 0, 86, 60);
 		casella19.add(piazza_dante);
 		
@@ -261,7 +261,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella20);
 		
 		JLabel parcheggio_gratuito = new JLabel("");
-		parcheggio_gratuito.setIcon(new ImageIcon("parcheggio_gratuito.png"));
+		parcheggio_gratuito.setIcon(new ImageIcon("./icons/parcheggio_gratuito.png"));
 		parcheggio_gratuito.setBounds(2, 2, 86, 86);
 		casella20.add(parcheggio_gratuito);
 		
@@ -272,7 +272,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella21);
 		
 		JLabel via_marco_polo = new JLabel("");
-		via_marco_polo.setIcon(new ImageIcon("via_marco_polo.png"));
+		via_marco_polo.setIcon(new ImageIcon("./icons/via_marco_polo.png"));
 		via_marco_polo.setBounds(2, 2, 58, 86);
 		casella21.add(via_marco_polo);
 		
@@ -283,7 +283,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella22);
 		
 		JLabel imprevisti2 = new JLabel("");
-		imprevisti2.setIcon(new ImageIcon("imprevisti1-2.png"));
+		imprevisti2.setIcon(new ImageIcon("./icons/imprevisti1-2.png"));
 		imprevisti2.setBounds(2, 2, 58, 86);
 		casella22.add(imprevisti2);
 		
@@ -294,7 +294,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella23);
 		
 		JLabel corso_magellano = new JLabel("");
-		corso_magellano.setIcon(new ImageIcon("corso_magellano.png"));
+		corso_magellano.setIcon(new ImageIcon("./icons/corso_magellano.png"));
 		corso_magellano.setBounds(2, 2, 58, 86);
 		casella23.add(corso_magellano);
 		
@@ -305,7 +305,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella24);
 		
 		JLabel largo_colombo = new JLabel("");
-		largo_colombo.setIcon(new ImageIcon("largo _colombo.png"));
+		largo_colombo.setIcon(new ImageIcon("./icons/largo _colombo.png"));
 		largo_colombo.setBounds(2, 2, 58, 86);
 		casella24.add(largo_colombo);
 		
@@ -316,7 +316,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella25);
 		
 		JLabel stazione_sud = new JLabel("");
-		stazione_sud.setIcon(new ImageIcon("stazione_sud.png"));
+		stazione_sud.setIcon(new ImageIcon("./icons/stazione_sud.png"));
 		stazione_sud.setBounds(2, 2, 58, 86);
 		casella25.add(stazione_sud);
 		
@@ -327,7 +327,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella26);
 		
 		JLabel viale_costantino = new JLabel("");
-		viale_costantino.setIcon(new ImageIcon("viale_costantino.png"));
+		viale_costantino.setIcon(new ImageIcon("./icons/viale_costantino.png"));
 		viale_costantino.setBounds(2, 2, 58, 86);
 		casella26.add(viale_costantino);
 		
@@ -338,7 +338,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella27);
 		
 		JLabel viale_traiano = new JLabel("");
-		viale_traiano.setIcon(new ImageIcon("viale_traiano.png"));
+		viale_traiano.setIcon(new ImageIcon("./icons/viale_traiano.png"));
 		viale_traiano.setBounds(2, 2, 58, 86);
 		casella27.add(viale_traiano);
 		
@@ -349,7 +349,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella28);
 		
 		JLabel societa_acqua_potabile = new JLabel("");
-		societa_acqua_potabile.setIcon(new ImageIcon("societa_acqua_potabile.png"));
+		societa_acqua_potabile.setIcon(new ImageIcon("./icons/societa_acqua_potabile.png"));
 		societa_acqua_potabile.setBounds(2, 2, 59, 86);
 		casella28.add(societa_acqua_potabile);
 		
@@ -360,7 +360,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella29);
 		
 		JLabel piazza_giulio_cesare = new JLabel("");
-		piazza_giulio_cesare.setIcon(new ImageIcon("piazza_giulio_cesare.png"));
+		piazza_giulio_cesare.setIcon(new ImageIcon("./icons/piazza_giulio_cesare.png"));
 		piazza_giulio_cesare.setBounds(0, 2, 60, 86);
 		casella29.add(piazza_giulio_cesare);
 
@@ -371,7 +371,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella30);
 		
 		JLabel vai_in_prigione = new JLabel("");
-		vai_in_prigione.setIcon(new ImageIcon("vai_in_prigione.png"));
+		vai_in_prigione.setIcon(new ImageIcon("./icons/vai_in_prigione.png"));
 		vai_in_prigione.setBounds(2, 2, 86, 86);
 		casella30.add(vai_in_prigione);
 		
@@ -382,7 +382,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella31);
 		
 		JLabel via_roma = new JLabel("");
-		via_roma.setIcon(new ImageIcon("via_roma.png"));
+		via_roma.setIcon(new ImageIcon("./icons/via_roma.png"));
 		via_roma.setBounds(2, 0, 86, 60);
 		casella31.add(via_roma);
 		
@@ -393,7 +393,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella32);
 		
 		JLabel corso_impero = new JLabel("");
-		corso_impero.setIcon(new ImageIcon("corso_impero.png"));
+		corso_impero.setIcon(new ImageIcon("./icons/corso_impero.png"));
 		corso_impero.setBounds(2, 0, 86, 58);
 		casella32.add(corso_impero);
 		
@@ -404,7 +404,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella33);
 		
 		JLabel probabilita3 = new JLabel("");
-		probabilita3.setIcon(new ImageIcon("probabilita3.png"));
+		probabilita3.setIcon(new ImageIcon("./icons/probabilita3.png"));
 		probabilita3.setBounds(2, 0, 86, 58);
 		casella33.add(probabilita3);
 
@@ -415,7 +415,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella34);
 		
 		JLabel largo_augusto = new JLabel("");
-		largo_augusto.setIcon(new ImageIcon("largo_augusto.png"));
+		largo_augusto.setIcon(new ImageIcon("./icons/largo_augusto.png"));
 		largo_augusto.setBounds(2, 0, 86, 58);
 		casella34.add(largo_augusto);
 		
@@ -426,7 +426,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella35);
 		
 		JLabel stazione_ovest = new JLabel("");
-		stazione_ovest.setIcon(new ImageIcon("stazione_ovest.png"));
+		stazione_ovest.setIcon(new ImageIcon("./icons/stazione_ovest.png"));
 		stazione_ovest.setBounds(2, 0, 86, 58);
 		casella35.add(stazione_ovest);
 		
@@ -437,7 +437,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella36);
 		
 		JLabel imprevisti3 = new JLabel("");
-		imprevisti3.setIcon(new ImageIcon("imprevisti3.png"));
+		imprevisti3.setIcon(new ImageIcon("./icons/imprevisti3.png"));
 		imprevisti3.setBounds(2, 0, 86, 58);
 		casella36.add(imprevisti3);
 
@@ -448,7 +448,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella37);
 		
 		JLabel viale_dei_giardini = new JLabel("");
-		viale_dei_giardini.setIcon(new ImageIcon("viale_dei_giardini.png"));
+		viale_dei_giardini.setIcon(new ImageIcon("./icons/viale_dei_giardini.png"));
 		viale_dei_giardini.setBounds(2, 0, 86, 58);
 		casella37.add(viale_dei_giardini);
 		
@@ -459,7 +459,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella38);
 		
 		JLabel tassa_di_lusso = new JLabel("");
-		tassa_di_lusso.setIcon(new ImageIcon("tassa_di_lusso.png"));
+		tassa_di_lusso.setIcon(new ImageIcon("./icons/tassa_di_lusso.png"));
 		tassa_di_lusso.setBounds(2, 0, 86, 58);
 		casella38.add(tassa_di_lusso);
 		
@@ -470,7 +470,7 @@ public class MonopolyGUI extends JFrame {
 		contentPane.add(casella39);
 		
 		JLabel parco_della_vittoria = new JLabel("");
-		parco_della_vittoria.setIcon(new ImageIcon("parco_della_vittoria.png"));
+		parco_della_vittoria.setIcon(new ImageIcon("./icons/parco_della_vittoria.png"));
 		parco_della_vittoria.setBounds(2, 0, 86, 58);
 		casella39.add(parco_della_vittoria);
 		
