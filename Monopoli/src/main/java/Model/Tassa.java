@@ -8,8 +8,4 @@ public class Tassa extends Casella {
     	super(name);
     	this.amount = amount;
     }
-    
-    public int getAmount() {
-        return this.amount;
-    }
 }
