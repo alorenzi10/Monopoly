@@ -69,6 +69,11 @@ public class MenuIniziale extends JFrame {
         JButton btnEsci = new JButton("Esci");
         btnEsci.setBounds(444, 338, 267, 57);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
+        btnEsci.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);  // Chiude l'applicazione
+            }
+        });
         contentPane.add(btnEsci);
     }
 }

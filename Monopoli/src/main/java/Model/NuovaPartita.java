@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -49,7 +51,7 @@ public class NuovaPartita extends JFrame {
         labelInizioPartita.setBounds(385, 10, 294, 64);
         contentPane.add(labelInizioPartita);
         
-        setUp = new JPanel();  // Pannello dinamico per cambiare le visualizzazioni
+        setUp = new JPanel();  // Pannello al cui interno cambiano le schermate di setUp inizio partita
         setUp.setBounds(10, 84, 1044, 485);
         contentPane.add(setUp);
         setUp.setLayout(new GridLayout(1, 0, 0, 0));
@@ -73,11 +75,11 @@ public class NuovaPartita extends JFrame {
             JButton btn = new JButton(String.valueOf(i));
             btn.setFont(new Font("Tahoma", Font.PLAIN, 25));
             btn.setBounds(150 + (i - 2) * 150, 150, 100, 50);
-            final int NUM_GIOCATORI = i;
+            final int NUM_GIOCATORI = i; //ogni pulsante ha il suo
             btn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    numGiocatori = NUM_GIOCATORI;  // Memorizza il numero di giocatori selezionato
-                    showNameInputScreen();  // Passa alla schermata per inserire i nomi
+                    numGiocatori = NUM_GIOCATORI;  // Memorizza fuori dal ciclo il numero di giocatori selezionato 
+                    inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
                 }
             });
             setUp.add(btn);
@@ -99,9 +101,9 @@ public class NuovaPartita extends JFrame {
     }
 
     // Seconda schermata: Inserimento dei nomi dei giocatori
-    private void showNameInputScreen() {
+    private void inserimentoNomiGiocatori() {
         setUp.removeAll();  // Pulisci il pannello
-        setUp.setLayout(null);  // Disattiva il layout manager
+        setUp.setLayout(null);
         
         JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
         lblInserisciNomi.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -112,10 +114,10 @@ public class NuovaPartita extends JFrame {
         playerNames = new JTextField[numGiocatori];
         
         for (int i = 0; i < numGiocatori; i++) {
-            JLabel lblPlayer = new JLabel("Giocatore " + (i + 1) + ":");
-            lblPlayer.setFont(new Font("Tahoma", Font.PLAIN, 20));
-            lblPlayer.setBounds(200, 150 + (i * 50), 150, 30);
-            setUp.add(lblPlayer);
+            JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
+            lblNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            lblNomeGiocatore.setBounds(200, 150 + (i * 50), 150, 30);
+            setUp.add(lblNomeGiocatore);
             
             playerNames[i] = new JTextField();
             playerNames[i].setBounds(350, 150 + (i * 50), 300, 30);
@@ -128,6 +130,15 @@ public class NuovaPartita extends JFrame {
         btnConferma.setBounds(400, 400, 200, 50);
         btnConferma.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	
+            	// Controllo che i campi dei nomi giocatori non siano vuoti
+            	
+            	if (controlloNomeGiocatori()) {
+                    JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
+                } else {
+                    JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
+                }
+            	
                 handlePlayerNames();  // Metodo per gestire i nomi inseriti
             }
         });
@@ -135,16 +146,26 @@ public class NuovaPartita extends JFrame {
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
+        
     }
-
+    
+    // Funzione controllo campi nomi
+    private boolean controlloNomeGiocatori() {
+        for (JTextField field : playerNames) {
+            if (field.getText().trim().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     // Gestione dei nomi dei giocatori inseriti
     private void handlePlayerNames() {
         String[] nomiGiocatori = new String[numGiocatori];
         for (int i = 0; i < numGiocatori; i++) {
             nomiGiocatori[i] = playerNames[i].getText();
-            System.out.println("Giocatore " + (i + 1) + ": " + nomiGiocatori[i]);  // Stampare i nomi (puoi aggiungere altre logiche qui)
+            System.out.println("Giocatore " + (i + 1) + ": " + nomiGiocatori[i]);
         }
-
-        // Qui potresti procedere con l'inizio della partita o passare a un'altra fase del gioco.
     }
+    
 }
