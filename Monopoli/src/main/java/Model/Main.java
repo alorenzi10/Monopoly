@@ -1,7 +1,10 @@
-package IngSftw.Monopoly;
+package Model;
 
 
 import java.util.*;
+
+import View.MonopolyGUI;
+
 import java.awt.EventQueue;
 import java.time.*;
 

@@ -3,6 +3,8 @@ package IngSftw.Monopoly;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import Model.Dadi;
+
 public class DadiTest {
 	
 	@Test

@@ -3,7 +3,7 @@
 *
 * Drop us a line or two at feedback@archetypesoftware.com: we would love to hear from you!
 */
-package IngSftw.Monopoly;
+package Model;
 
 
 import java.util.*;
@@ -129,9 +129,7 @@ public class Player {
 
     }
 
-    public Carta getCard() {
 
-    }
 
     public void doTransaction(int amount) {
 
@@ -147,16 +145,21 @@ public class Player {
 
     }
 
-    public boolean isGroupOwner(Cantiere cantiere) {
+	public int getNumUtilitiesOwned() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-    }
+	public int getNumStationsOwned() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-    public int getNumStationsOwned() {
+	public boolean isGroupOwner(Cantiere cantiere) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    }
 
-    public int getNumUtilitiesOwned() {
-
-    }
 
 }

@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class Mazzo {
     public final int AZIONE_PAGA_CASE = 5; //quando il giocatore paga la banca in base alle case e agli hotel
     public final int AZIONE_PAGA = 6; //quando il giocatore paga la banca
     public final int AZIONE_RICEVI = 7; //quando il giocatore riceve dalla banca
-    public final int REGALI = 8; //quando il giocatore riceve o da agli altri giocatori
+    public final int REGALI = 8; //quando il giocatore riceve o da a tutti gli altri giocatori
     
     ArrayList<Carta> cards = new ArrayList<Carta>();
 

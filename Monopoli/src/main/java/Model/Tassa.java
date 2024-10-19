@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Tassa extends Casella {
 

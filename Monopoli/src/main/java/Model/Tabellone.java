@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Tabellone {
     public final int NUM_SQUARES = 40;

@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Menu {
 	
@@ -12,7 +12,6 @@ public class Menu {
 		this.numero_giocatori = numero_giocatori;
 		this.nomi = nomi;
 		gioco = new Monopoly(numero_giocatori, nomi);
-		
 	}
 	
 	public void caricaPartita(String id_partita) {

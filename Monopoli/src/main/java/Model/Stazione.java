@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Stazione extends Proprieta {
     private int[] rentTable;

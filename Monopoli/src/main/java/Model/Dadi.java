@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 import java.util.Random;
 

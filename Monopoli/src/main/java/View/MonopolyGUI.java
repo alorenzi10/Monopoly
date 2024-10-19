@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package View;
 
 import java.awt.Color;
 import java.awt.EventQueue;

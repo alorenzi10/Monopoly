@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class MazzoProbabilita extends Mazzo {
 	
