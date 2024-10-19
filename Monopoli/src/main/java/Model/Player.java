@@ -15,6 +15,7 @@ public class Player {
     private String name;
     private int wallet;
     private boolean isInJail;
+    private boolean tiri;
     private int location;
     private boolean passedGo;
     private ArrayList<Proprieta> properties;
@@ -29,6 +30,8 @@ public class Player {
     	this.isInJail=isInJail;
     	this.location=location;
     }
+    
+    
     
 
 }

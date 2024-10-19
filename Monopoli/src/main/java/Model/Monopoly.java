@@ -43,5 +43,13 @@ public class Monopoly {
     	Random random=new Random();
     	currPlayer=random.nextInt(numero_giocatori-1);
     }
+    
+    public void gioca() {
+    	
+    }
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
 }
   
