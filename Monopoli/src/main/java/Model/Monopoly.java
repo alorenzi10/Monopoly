@@ -44,5 +44,4 @@ public class Monopoly {
     	currPlayer=random.nextInt(numero_giocatori-1);
     }
 }
-}
   
