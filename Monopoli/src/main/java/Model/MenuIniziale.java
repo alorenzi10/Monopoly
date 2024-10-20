@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class MenuIniziale extends JFrame {
@@ -52,7 +53,7 @@ public class MenuIniziale extends JFrame {
         
         
         JLabel title_label = new JLabel("Monopoly");
-        title_label.setBounds(418, 5, 299, 85);
+        title_label.setBounds(418, 10, 299, 85);
         title_label.setFont(new Font("Tahoma", Font.PLAIN, 70));
         panel.add(title_label);
         
@@ -67,6 +68,15 @@ public class MenuIniziale extends JFrame {
         panel.add(btnNuovaPartita);
         
         JButton btnCaricaPartita = new JButton("Carica partita");
+        btnCaricaPartita.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					caricaPartita(panel);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+        	}
+        });
         btnCaricaPartita.setBounds(434, 245, 267, 57);
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
         panel.add(btnCaricaPartita);
@@ -88,6 +98,16 @@ public class MenuIniziale extends JFrame {
         NuovaPartita nuovaPartita = new NuovaPartita();
         panel.setLayout(new BorderLayout());
         panel.add(nuovaPartita.getContentPane(), BorderLayout.CENTER);
+        panel.revalidate();
+        panel.repaint();
+    }
+    
+    public void caricaPartita(JPanel panel) throws SQLException {
+    	
+    	panel.removeAll();
+        CaricaPartita caricaPartita = new CaricaPartita();
+        panel.setLayout(new BorderLayout());
+        panel.add(caricaPartita.getContentPane(), BorderLayout.CENTER);
         panel.revalidate();
         panel.repaint();
     }
