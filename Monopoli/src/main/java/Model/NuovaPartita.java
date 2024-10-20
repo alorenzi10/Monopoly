@@ -60,7 +60,6 @@ public class NuovaPartita extends JFrame {
 
     // Prima schermata: Selezione del numero di giocatori
     private void selezionaNumGiocatori() {
-        setUp.removeAll();
         setUp.setLayout(null);
         
         JLabel lblSelezionaGiocatori = new JLabel("Inserisci il numero di giocatori");
