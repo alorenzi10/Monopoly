@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
@@ -47,14 +46,13 @@ public class NuovaPartita extends JFrame {
         contentPane.setLayout(null);
         
         JLabel labelInizioPartita = new JLabel("Inizio partita");
+        labelInizioPartita.setBounds(375, 10, 294, 64);
         labelInizioPartita.setFont(new Font("Tahoma", Font.PLAIN, 53));
-        labelInizioPartita.setBounds(385, 10, 294, 64);
         contentPane.add(labelInizioPartita);
         
-        setUp = new JPanel();  // Pannello al cui interno cambiano le schermate di setUp inizio partita
+        setUp = new JPanel();
         setUp.setBounds(10, 84, 1044, 485);
         contentPane.add(setUp);
-        setUp.setLayout(new GridLayout(1, 0, 0, 0));
 
         // Mostra la schermata per selezionare il numero di giocatori
         selezionaNumGiocatori();
@@ -62,12 +60,12 @@ public class NuovaPartita extends JFrame {
 
     // Prima schermata: Selezione del numero di giocatori
     private void selezionaNumGiocatori() {
-        setUp.removeAll();  // Rimuove tutti gli elementi dal pannello
-        setUp.setLayout(null);  // Disattiva il layout manager per posizionare gli elementi a mano
+        setUp.removeAll();
+        setUp.setLayout(null);
         
         JLabel lblSelezionaGiocatori = new JLabel("Inserisci il numero di giocatori");
+        lblSelezionaGiocatori.setBounds(318, 30, 408, 50);
         lblSelezionaGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblSelezionaGiocatori.setBounds(350, 50, 450, 50);
         setUp.add(lblSelezionaGiocatori);
         
         // Pulsanti per selezionare il numero di giocatori
@@ -87,8 +85,8 @@ public class NuovaPartita extends JFrame {
 
         // Pulsante Esci
         JButton btnEsci = new JButton("Esci");
+        btnEsci.setBounds(422, 300, 200, 50);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        btnEsci.setBounds(400, 300, 200, 50);
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
@@ -116,11 +114,11 @@ public class NuovaPartita extends JFrame {
         for (int i = 0; i < numGiocatori; i++) {
             JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
             lblNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
-            lblNomeGiocatore.setBounds(200, 150 + (i * 50), 150, 30);
+            lblNomeGiocatore.setBounds(200, 150 + (i * 40), 150, 30);
             setUp.add(lblNomeGiocatore);
             
             playerNames[i] = new JTextField();
-            playerNames[i].setBounds(350, 150 + (i * 50), 300, 30);
+            playerNames[i].setBounds(350, 150 + (i * 40), 300, 30);
             setUp.add(playerNames[i]);
         }
 

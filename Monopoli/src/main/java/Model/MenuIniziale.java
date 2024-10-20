@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,36 +45,50 @@ public class MenuIniziale extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
+        JPanel panel = new JPanel();
+        panel.setBounds(10, 10, 1136, 542);
+        contentPane.add(panel);
+        panel.setLayout(null);
+        
+        
         JLabel title_label = new JLabel("Monopoly");
-        title_label.setBounds(428, 10, 299, 92);
+        title_label.setBounds(418, 5, 299, 85);
         title_label.setFont(new Font("Tahoma", Font.PLAIN, 70));
-        contentPane.add(title_label);
+        panel.add(title_label);
         
         JButton btnNuovaPartita = new JButton("Nuova partita");
         btnNuovaPartita.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Apri la nuova finestra
-                NuovaPartita nuovaPartita = new NuovaPartita();
-                nuovaPartita.setVisible(true);
-            }
+        	public void actionPerformed(ActionEvent e) {
+        		creaNuovaPartita(panel);
+        	}
         });
-        btnNuovaPartita.setBounds(444, 129, 267, 62);
+        btnNuovaPartita.setBounds(434, 145, 267, 57);
         btnNuovaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        contentPane.add(btnNuovaPartita);
+        panel.add(btnNuovaPartita);
         
         JButton btnCaricaPartita = new JButton("Carica partita");
-        btnCaricaPartita.setBounds(444, 233, 267, 57);
+        btnCaricaPartita.setBounds(434, 245, 267, 57);
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        contentPane.add(btnCaricaPartita);
+        panel.add(btnCaricaPartita);
         
         JButton btnEsci = new JButton("Esci");
-        btnEsci.setBounds(444, 338, 267, 57);
+        btnEsci.setBounds(434, 345, 267, 57);
+        panel.add(btnEsci);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
             }
         });
-        contentPane.add(btnEsci);
+    }
+    
+    public void creaNuovaPartita(JPanel panel) {
+    	
+    	panel.removeAll();
+        NuovaPartita nuovaPartita = new NuovaPartita();
+        panel.setLayout(new BorderLayout());
+        panel.add(nuovaPartita.getContentPane(), BorderLayout.CENTER);
+        panel.revalidate();
+        panel.repaint();
     }
 }
