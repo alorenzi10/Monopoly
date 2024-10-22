@@ -57,7 +57,7 @@ public class MenuIniziale extends JFrame {
         	
         	protected void paintComponent(Graphics g) {
         		super.paintComponent(g);
-        		ImageIcon icon = new ImageIcon("C:\\Users\\gabri\\Downloads\\sfondo.jpg"); //carica l'immagine di sfondo
+        		ImageIcon icon = new ImageIcon("./icons/sfondo_menu.jpg"); //carica l'immagine di sfondo
         		Image image = icon.getImage();
         		int panelWidth = getWidth();
         		int imageWidth = image.getWidth(this);
@@ -81,7 +81,7 @@ public class MenuIniziale extends JFrame {
         Dimension buttonSize = new Dimension(360, 80); //dimensione predefinita dei bottoni
         
         JLabel title_label = new JLabel("");
-        title_label.setIcon(new ImageIcon("C:\\Users\\gabri\\Downloads\\monopoly.png"));
+        title_label.setIcon(new ImageIcon("./icons/monopoly_menu.jpg"));
         title_label.setHorizontalAlignment(SwingConstants.CENTER);
         gbc.gridx = 0;
         gbc.gridy = 0;
