@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.sql.SQLException;
 
@@ -19,7 +18,6 @@ public class CaricaPartita extends JPanel {
 	private JPanel setUp;
 	private JTable table;
 	private JButton btn_indietro;
-	private JPanel previousPanel;
 
 	/**
 	 * Launch the application.
@@ -87,17 +85,13 @@ public class CaricaPartita extends JPanel {
         }
 	}
 	
-	// Metodo per ripristinare il pannello precedente
     public void vaiIndietro() {
-    	previousPanel.removeAll(); // Rimuovi il contenuto corrente
     	
-    	//Ripristino del menu iniziale
-    	MenuIniziale menuIniziale = new MenuIniziale();
-        previousPanel.setLayout(new BorderLayout());
-        previousPanel.add(menuIniziale.getContentPane(), BorderLayout.CENTER);
-        
-     // Aggiorna il layout del pannello
-        previousPanel.revalidate();
-        previousPanel.repaint();
+    	removeAll();
+        MenuIniziale menuIniziale = new MenuIniziale();
+		menuIniziale.setBounds(0, 0, 1920, 1080);
+		add(menuIniziale);
+		revalidate();
+		repaint();
     }
 }

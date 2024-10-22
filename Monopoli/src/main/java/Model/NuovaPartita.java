@@ -117,6 +117,17 @@ public class NuovaPartita extends JPanel {
             }
         });
         setUp.add(btnEsci);
+        
+        // Bottone indietro
+        JButton btn_indietro = new JButton("Indietro");
+        btn_indietro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		vaiIndietro();
+        	}
+        });
+        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btn_indietro);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
@@ -165,11 +176,33 @@ public class NuovaPartita extends JPanel {
             }
         });
         setUp.add(btnConferma);
+        
+     // Bottone indietro
+        JButton btn_indietro = new JButton("Indietro");
+        btn_indietro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		vaiIndietro();
+        	}
+        });
+        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btn_indietro);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
         
     }
+
+    public void vaiIndietro() {
+    	
+    	removeAll();
+        MenuIniziale menuIniziale = new MenuIniziale();
+		menuIniziale.setBounds(0, 0, 1920, 1080);
+		add(menuIniziale);
+		revalidate();
+		repaint();
+    }
+    
     
     // Funzione controllo campi nomi
     private boolean controlloNomeGiocatori() {
