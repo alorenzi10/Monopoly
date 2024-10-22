@@ -1,9 +1,6 @@
 package Model;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,46 +10,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
-public class NuovaPartita extends JFrame {
+public class NuovaPartita extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
-    private JPanel setUp;  // Panel interno per i vari step del processo
-    private int numGiocatori;  // Variabile per memorizzare il numero di giocatori
-    private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
+	 private static final long serialVersionUID = 1L;
+	 private JPanel setUp;  // Panel interno per i vari step del processo
+	 private int numGiocatori;  // Variabile per memorizzare il numero di giocatori
+	 private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    NuovaPartita frame = new NuovaPartita();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
     public NuovaPartita() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 1078, 616);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-        
+    	
+    	setOpaque(false);
+    	setBounds(0, 0, 1540, 845);
+    	setLayout(null);
         JLabel labelInizioPartita = new JLabel("Inizio partita");
-        labelInizioPartita.setBounds(375, 10, 294, 64);
+        labelInizioPartita.setBounds(623, 58, 294, 64);
         labelInizioPartita.setFont(new Font("Tahoma", Font.PLAIN, 53));
-        contentPane.add(labelInizioPartita);
+        add(labelInizioPartita);
         
         setUp = new JPanel();
-        setUp.setBounds(10, 84, 1044, 485);
-        contentPane.add(setUp);
+        setUp.setBounds(248, 208, 1044, 521);
+        setUp.setOpaque(false);
+        add(setUp);
 
         // Mostra la schermata per selezionare il numero di giocatori
         selezionaNumGiocatori();
@@ -67,20 +45,67 @@ public class NuovaPartita extends JFrame {
         lblSelezionaGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 30));
         setUp.add(lblSelezionaGiocatori);
         
-        // Pulsanti per selezionare il numero di giocatori
-        for (int i = 2; i <= 6; i++) {
-            JButton btn = new JButton(String.valueOf(i));
-            btn.setFont(new Font("Tahoma", Font.PLAIN, 25));
-            btn.setBounds(150 + (i - 2) * 150, 150, 100, 50);
-            final int NUM_GIOCATORI = i; //ogni pulsante ha il suo
-            btn.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    numGiocatori = NUM_GIOCATORI;  // Memorizza fuori dal ciclo il numero di giocatori selezionato 
-                    inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
-                }
-            });
-            setUp.add(btn);
-        }
+        // Pulsanti per selezionare il numero di giocatori        
+        JPanel panel_bottoni = new JPanel();
+        panel_bottoni.setBounds(10, 90, 1024, 163);
+        panel_bottoni.setOpaque(false);
+        setUp.add(panel_bottoni);
+        panel_bottoni.setLayout(null);
+        
+        JButton btn_2 = new JButton("2");
+        btn_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btn_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                numGiocatori = 2;
+                inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
+            }
+        });
+        btn_2.setBounds(87, 56, 100, 50);
+        panel_bottoni.add(btn_2);
+        
+        JButton btn_3 = new JButton("3");
+        btn_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btn_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                numGiocatori = 3;  
+                inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
+            }
+        });
+        btn_3.setBounds(274, 56, 100, 50);
+        panel_bottoni.add(btn_3);
+        
+        JButton btn_4 = new JButton("4");
+        btn_4.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btn_4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                numGiocatori = 4; 
+                inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
+            }
+        });
+        btn_4.setBounds(461, 56, 100, 50);
+        panel_bottoni.add(btn_4);
+        
+        JButton btn_5 = new JButton("5");
+        btn_5.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btn_5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                numGiocatori = 5; 
+                inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
+            }
+        });
+        btn_5.setBounds(648, 56, 100, 50);
+        panel_bottoni.add(btn_5);
+        
+        JButton btn_6 = new JButton("6");
+        btn_6.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btn_6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                numGiocatori = 6;  
+                inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
+            }
+        });
+        btn_6.setBounds(835, 56, 100, 50);
+        panel_bottoni.add(btn_6);
 
         // Pulsante Esci
         JButton btnEsci = new JButton("Esci");
@@ -92,6 +117,17 @@ public class NuovaPartita extends JFrame {
             }
         });
         setUp.add(btnEsci);
+        
+        // Bottone indietro
+        JButton btn_indietro = new JButton("Indietro");
+        btn_indietro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		vaiIndietro();
+        	}
+        });
+        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btn_indietro);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
@@ -140,11 +176,33 @@ public class NuovaPartita extends JFrame {
             }
         });
         setUp.add(btnConferma);
+        
+     // Bottone indietro
+        JButton btn_indietro = new JButton("Indietro");
+        btn_indietro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		vaiIndietro();
+        	}
+        });
+        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btn_indietro);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
         
     }
+
+    public void vaiIndietro() {
+    	
+    	removeAll();
+        MenuIniziale menuIniziale = new MenuIniziale();
+		menuIniziale.setBounds(0, 0, 1920, 1080);
+		add(menuIniziale);
+		revalidate();
+		repaint();
+    }
+    
     
     // Funzione controllo campi nomi
     private boolean controlloNomeGiocatori() {

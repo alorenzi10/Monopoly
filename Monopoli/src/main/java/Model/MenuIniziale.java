@@ -1,89 +1,66 @@
 package Model;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
-public class MenuIniziale extends JFrame {
+public class MenuIniziale extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
 
     /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MenuIniziale frame = new MenuIniziale();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
+     * Create the frame
      */
     public MenuIniziale() {
-    
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1170, 599);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+    	
+    	setOpaque(false);
+        setBounds(0, 0, 1920, 1080);
+        setLayout(null);
 
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(10, 10, 1136, 542);
-        contentPane.add(panel);
-        panel.setLayout(null);
-        
-        
-        JLabel title_label = new JLabel("Monopoly");
-        title_label.setBounds(418, 10, 299, 85);
-        title_label.setFont(new Font("Tahoma", Font.PLAIN, 70));
-        panel.add(title_label);
+        // Scritta titolo Monopoly
+        JLabel title_label = new JLabel("");
+        title_label.setIcon(new ImageIcon("./icons/monopoly_menu.png"));
+        title_label.setHorizontalAlignment(SwingConstants.CENTER);
+        title_label.setBounds(180, 10, 1180, 415);
+        add(title_label);
         
         JButton btnNuovaPartita = new JButton("Nuova partita");
         btnNuovaPartita.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		creaNuovaPartita(panel);
+        		creaNuovaPartita();
         	}
         });
-        btnNuovaPartita.setBounds(434, 145, 267, 57);
+        btnNuovaPartita.setBounds(590, 435, 360, 80);
+        btnNuovaPartita.setBackground(new Color(240, 240, 240));
         btnNuovaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        panel.add(btnNuovaPartita);
+        add(btnNuovaPartita);
         
         JButton btnCaricaPartita = new JButton("Carica partita");
         btnCaricaPartita.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					caricaPartita(panel);
+					caricaPartita();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
         	}
         });
-        btnCaricaPartita.setBounds(434, 245, 267, 57);
+        btnCaricaPartita.setBounds(590, 545, 360, 80);
+        btnCaricaPartita.setBackground(new Color(240, 240, 240));
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        panel.add(btnCaricaPartita);
+        add(btnCaricaPartita);
         
         JButton btnEsci = new JButton("Esci");
-        btnEsci.setBounds(434, 345, 267, 57);
-        panel.add(btnEsci);
+        btnEsci.setBounds(590, 655, 360, 80);
+        btnEsci.setBackground(new Color(240, 240, 240));
+        add(btnEsci);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -92,23 +69,23 @@ public class MenuIniziale extends JFrame {
         });
     }
     
-    public void creaNuovaPartita(JPanel panel) {
-    	
-    	panel.removeAll();
+    public void creaNuovaPartita() {    	
+    	removeAll();
+    	setLayout(null);
         NuovaPartita nuovaPartita = new NuovaPartita();
-        panel.setLayout(new BorderLayout());
-        panel.add(nuovaPartita.getContentPane(), BorderLayout.CENTER);
-        panel.revalidate();
-        panel.repaint();
+        nuovaPartita.setBounds(0, 0, getWidth(), getHeight());  // Imposta le dimensioni di NuovaPartita
+        add(nuovaPartita);
+        revalidate();
+        repaint();
     }
     
-    public void caricaPartita(JPanel panel) throws SQLException {
-    	
-    	panel.removeAll();
-        CaricaPartita caricaPartita = new CaricaPartita();
-        panel.setLayout(new BorderLayout());
-        panel.add(caricaPartita.getContentPane(), BorderLayout.CENTER);
-        panel.revalidate();
-        panel.repaint();
+    public void caricaPartita() throws SQLException {
+    	removeAll();
+        setLayout(null);
+    	CaricaPartita caricaPartita = new CaricaPartita();
+        caricaPartita.setBounds(0, 0, getWidth(), getHeight());
+        add(caricaPartita);
+        revalidate();
+        repaint();
     }
 }

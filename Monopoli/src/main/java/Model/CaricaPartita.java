@@ -1,73 +1,57 @@
 package Model;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class CaricaPartita extends JFrame {
+public class CaricaPartita extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JPanel setUp;
 	private JTable table;
-	private JButton btnNewButton;
+	private JButton btn_indietro;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CaricaPartita frame = new CaricaPartita();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
+	
 	public CaricaPartita() throws SQLException {
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1078, 616);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+		setOpaque(false);
+		setBounds(0, 0, 1540, 845);	
+		setLayout(null);
 		JLabel lblCaricaPartita = new JLabel("Carica partita");
-        lblCaricaPartita.setBounds(376, 10, 311, 64);
+        lblCaricaPartita.setBounds(614, 32, 311, 64);
         lblCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 53));
-        contentPane.add(lblCaricaPartita);
+        add(lblCaricaPartita);
         
         setUp = new JPanel();
-        setUp.setBounds(10, 84, 1044, 485);
-        contentPane.add(setUp);
+        setUp.setBounds(248, 180, 1044, 485);
+        setUp.setOpaque(false);
         setUp.setLayout(null);
+        add(setUp);
         
-        btnNewButton = new JButton("<- Indietro");
-        btnNewButton.setBounds(54, 41, 107, 27);
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        setUp.add(btnNewButton);
+        btn_indietro = new JButton("Indietro");
+        btn_indietro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		vaiIndietro();
+        	}
+        });
+        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btn_indietro);
         
 		// Panel con barra di scorrimento
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(296, 92, 738, 383);
+        scrollPane.setBounds(258, 51, 738, 383);
         setUp.add(scrollPane);
 
         table = new JTable();
@@ -99,9 +83,15 @@ public class CaricaPartita extends JFrame {
         	 table.setBounds(10, 90, 1024, 385);
         	 setUp.add(table);
         }
-        
-       
-        
-        
 	}
+	
+    public void vaiIndietro() {
+    	
+    	removeAll();
+        MenuIniziale menuIniziale = new MenuIniziale();
+		menuIniziale.setBounds(0, 0, 1920, 1080);
+		add(menuIniziale);
+		revalidate();
+		repaint();
+    }
 }
