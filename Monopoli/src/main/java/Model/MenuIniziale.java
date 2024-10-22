@@ -7,10 +7,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Dimension;
 
 public class MenuIniziale extends JFrame {
 
@@ -37,25 +47,48 @@ public class MenuIniziale extends JFrame {
      * Create the frame.
      */
     public MenuIniziale() {
-    
+    	setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1170, 599);
-        contentPane = new JPanel();
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Massimizza la finestra
+        setBounds(0, 0, 1920, 1080);
+        
+        contentPane = new JPanel() {
+        	private static final long serialVersionUID = 1L;
+        	
+        	protected void paintComponent(Graphics g) {
+        		super.paintComponent(g);
+        		ImageIcon icon = new ImageIcon("C:\\Users\\gabri\\Downloads\\sfondo.jpg"); //carica l'immagine di sfondo
+        		Image image = icon.getImage();
+        		int panelWidth = getWidth();
+        		int imageWidth = image.getWidth(this);
+                int imageHeight = image.getHeight(this);
+                int newHeight = (imageHeight * panelWidth) / imageWidth;
+                g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
+        		}
+        	};
+        	
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
-        contentPane.setLayout(null);
+        contentPane.setLayout(new BorderLayout());
         
-        JPanel panel = new JPanel();
-        panel.setBounds(10, 10, 1136, 542);
-        contentPane.add(panel);
-        panel.setLayout(null);
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setOpaque(false);
+        contentPane.add(panel, BorderLayout.CENTER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.NONE;
         
+        Dimension buttonSize = new Dimension(360, 80); //dimensione predefinita dei bottoni
         
-        JLabel title_label = new JLabel("Monopoly");
-        title_label.setBounds(418, 10, 299, 85);
-        title_label.setFont(new Font("Tahoma", Font.PLAIN, 70));
-        panel.add(title_label);
+        JLabel title_label = new JLabel("");
+        title_label.setIcon(new ImageIcon("C:\\Users\\gabri\\Downloads\\monopoly.png"));
+        title_label.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(title_label, gbc);
         
         JButton btnNuovaPartita = new JButton("Nuova partita");
         btnNuovaPartita.addActionListener(new ActionListener() {
@@ -63,9 +96,13 @@ public class MenuIniziale extends JFrame {
         		creaNuovaPartita(panel);
         	}
         });
-        btnNuovaPartita.setBounds(434, 145, 267, 57);
+        btnNuovaPartita.setBackground(new Color(240, 240, 240));
         btnNuovaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        panel.add(btnNuovaPartita);
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.5;
+        btnNuovaPartita.setPreferredSize(buttonSize);
+        panel.add(btnNuovaPartita, gbc);
         
         JButton btnCaricaPartita = new JButton("Carica partita");
         btnCaricaPartita.addActionListener(new ActionListener() {
@@ -77,19 +114,23 @@ public class MenuIniziale extends JFrame {
 				}
         	}
         });
-        btnCaricaPartita.setBounds(434, 245, 267, 57);
+        btnCaricaPartita.setBackground(new Color(240, 240, 240));
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        panel.add(btnCaricaPartita);
+        btnCaricaPartita.setPreferredSize(buttonSize);
+        gbc.gridy = 2;
+        panel.add(btnCaricaPartita, gbc);
         
         JButton btnEsci = new JButton("Esci");
-        btnEsci.setBounds(434, 345, 267, 57);
-        panel.add(btnEsci);
+        btnEsci.setBackground(new Color(240, 240, 240));
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
+        btnEsci.setPreferredSize(buttonSize);
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
             }
         });
+        gbc.gridy = 3;
+        panel.add(btnEsci, gbc);
     }
     
     public void creaNuovaPartita(JPanel panel) {
