@@ -1,17 +1,12 @@
 package Model;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +15,6 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import java.awt.Dimension;
 
 public class MenuIniziale extends JFrame {
 
@@ -47,14 +41,12 @@ public class MenuIniziale extends JFrame {
      * Create the frame.
      */
     public MenuIniziale() {
-    	setResizable(false);
+    	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Massimizza la finestra
         setBounds(0, 0, 1920, 1080);
-        
         contentPane = new JPanel() {
         	private static final long serialVersionUID = 1L;
-        	
         	protected void paintComponent(Graphics g) {
         		super.paintComponent(g);
         		ImageIcon icon = new ImageIcon("./icons/sfondo_menu.jpg"); //carica l'immagine di sfondo
@@ -65,30 +57,24 @@ public class MenuIniziale extends JFrame {
                 int newHeight = (imageHeight * panelWidth) / imageWidth;
                 g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
         		}
-        	};
         	
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        };
+
         setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout());
+        contentPane.setLayout(null);
         
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 1540, 845);
+        contentPane.add(panel);
+        panel.setLayout(null);
         panel.setOpaque(false);
-        contentPane.add(panel, BorderLayout.CENTER);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.NONE;
         
-        Dimension buttonSize = new Dimension(360, 80); //dimensione predefinita dei bottoni
         
         JLabel title_label = new JLabel("");
-        title_label.setIcon(new ImageIcon("./icons/monopoly_menu.jpg"));
+        title_label.setIcon(new ImageIcon("./icons/monopoly_menu.png"));
         title_label.setHorizontalAlignment(SwingConstants.CENTER);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        panel.add(title_label, gbc);
+        title_label.setBounds(180, 10, 1180, 415);
+        panel.add(title_label);
         
         JButton btnNuovaPartita = new JButton("Nuova partita");
         btnNuovaPartita.addActionListener(new ActionListener() {
@@ -96,13 +82,10 @@ public class MenuIniziale extends JFrame {
         		creaNuovaPartita(panel);
         	}
         });
+        btnNuovaPartita.setBounds(590, 435, 360, 80);
         btnNuovaPartita.setBackground(new Color(240, 240, 240));
         btnNuovaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0.5;
-        btnNuovaPartita.setPreferredSize(buttonSize);
-        panel.add(btnNuovaPartita, gbc);
+        panel.add(btnNuovaPartita);
         
         JButton btnCaricaPartita = new JButton("Carica partita");
         btnCaricaPartita.addActionListener(new ActionListener() {
@@ -114,31 +97,30 @@ public class MenuIniziale extends JFrame {
 				}
         	}
         });
+        btnCaricaPartita.setBounds(590, 545, 360, 80);
         btnCaricaPartita.setBackground(new Color(240, 240, 240));
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        btnCaricaPartita.setPreferredSize(buttonSize);
-        gbc.gridy = 2;
-        panel.add(btnCaricaPartita, gbc);
+        panel.add(btnCaricaPartita);
         
         JButton btnEsci = new JButton("Esci");
+        btnEsci.setBounds(590, 655, 360, 80);
         btnEsci.setBackground(new Color(240, 240, 240));
+        panel.add(btnEsci);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        btnEsci.setPreferredSize(buttonSize);
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
             }
         });
-        gbc.gridy = 3;
-        panel.add(btnEsci, gbc);
     }
     
     public void creaNuovaPartita(JPanel panel) {
     	
     	panel.removeAll();
+    	panel.setLayout(null);
         NuovaPartita nuovaPartita = new NuovaPartita();
-        panel.setLayout(new BorderLayout());
-        panel.add(nuovaPartita.getContentPane(), BorderLayout.CENTER);
+        nuovaPartita.setBounds(0, 0, panel.getWidth(), panel.getHeight());  // Imposta le dimensioni di NuovaPartita
+        panel.add(nuovaPartita);
         panel.revalidate();
         panel.repaint();
     }
@@ -146,9 +128,10 @@ public class MenuIniziale extends JFrame {
     public void caricaPartita(JPanel panel) throws SQLException {
     	
     	panel.removeAll();
-        CaricaPartita caricaPartita = new CaricaPartita();
-        panel.setLayout(new BorderLayout());
-        panel.add(caricaPartita.getContentPane(), BorderLayout.CENTER);
+        panel.setLayout(null);
+    	CaricaPartita caricaPartita = new CaricaPartita();
+        caricaPartita.setBounds(0, 0, panel.getWidth(), panel.getHeight());
+        panel.add(caricaPartita);
         panel.revalidate();
         panel.repaint();
     }
