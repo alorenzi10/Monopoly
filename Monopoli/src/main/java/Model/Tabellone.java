@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Tabellone {
     public final int NUM_SQUARES = 40;
@@ -68,53 +68,4 @@ public class Tabellone {
 		
     }
 
-    public Casella getSquare(int index) {
-    	return squares[index];
-    }
-
-    public Proprieta getProperty(int index) {
-    	return (Proprieta) squares[index];
-    }
-
-    public Proprieta getProperty(String shortName) {
-    	Proprieta property = null;
-		for (Casella c : squares) {
-			if (c instanceof Proprieta) {
-				Proprieta p = (Proprieta) c;
-				if (p.equals(shortName)) {
-					property = p;
-				}
-			}
-		}
-		return property;
-    }
-
-    public boolean isProperty(int index) {
-    	return squares[index] instanceof Proprieta;
-    }
-
-    public boolean isProperty(String shortName) {
-    	boolean found = false;
-		for (Casella c : squares) {
-			if (c instanceof Proprieta) {
-				Proprieta p = (Proprieta) c;
-				if (p.equals(shortName)) {	
-					found = true;
-				}
-			}
-		}
-		return found;
-    }
-
-    public boolean isCantiere(String shortName) {
-    	return isProperty(shortName) && getProperty(shortName) instanceof Cantiere;
-    }
-
-    public boolean isStation(String shortName) {
-    	return isProperty(shortName) && getProperty(shortName) instanceof Stazione;
-    }
-
-    public boolean isUtility(String shortName) {
-    	return isProperty(shortName) && getProperty(shortName) instanceof Societa;
-    }
 }

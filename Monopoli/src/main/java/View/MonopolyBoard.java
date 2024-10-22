@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package View;
 
 public class MonopolyBoard extends javax.swing.JPanel {
 

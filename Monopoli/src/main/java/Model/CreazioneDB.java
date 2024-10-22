@@ -1,18 +1,27 @@
-package IngSftw.Monopoly;
+package Model;
 
-import java.io.File;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class CreazioneDB {
+	
+	public static void main(String[] args) throws SQLException {
+		creaTabella();
+		inserisciDati();
+	}
 
     public static String DB_REL_FILE = "./db/mydb.db3";
     public static String DB_URL = "jdbc:sqlite:" + DB_REL_FILE;
     
-    private static String NomeTabella = "PARTITE";
+    private final static String NomeTabella = "PARTITE";
     
-    public static void creaTabella(Connection conn) throws SQLException {
+    public static void creaTabella() throws SQLException {
+    	
+    	Connection conn = DriverManager.getConnection(DB_URL);
     	try {
     		String sqlCreateTable = "CREATE TABLE IF NOT EXISTS "+NomeTabella+" (" +
     				"ID_PARTITA TEXT PRIMARY KEY, " +
@@ -32,7 +41,9 @@ public class CreazioneDB {
     }
     
     //per quando si decide di uscire e salvare la partita
-    public static void inserisciDati(Connection conn) {
+    public static void inserisciDati() throws SQLException {
+    	
+    	Connection conn = DriverManager.getConnection(DB_URL);
     	try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Inserisci il nome del giocatore: ");//deve farlo la gui
             String username = scanner.nextLine();/**/
@@ -63,14 +74,18 @@ public class CreazioneDB {
     }
     
     //per quando nel menu si vuole far scegliere la partita da caricare
-    public static void visualizzaDati(Connection conn) {
+    public static void visualizzaDati(JTable table) throws SQLException {
+    	
+    	Connection conn = DriverManager.getConnection(DB_URL);
     	String sqlSelect = "SELECT * FROM "+NomeTabella;
+    	
+    	DefaultTableModel model = new DefaultTableModel();
         try (Statement stmt = conn.createStatement();
              ResultSet resultSet = stmt.executeQuery(sqlSelect)) {
 
         	//da far fare alla GUI
-            System.out.println("Risultati della query:");
-            while (resultSet.next()) {
+            /*System.out.println("Risultati della query:");
+            while (resultSet.next()) {			// Per il test
                 String idPartita = resultSet.getString("ID_PARTITA");
                 String player = resultSet.getString("PLAYER");
                 int posPedina = resultSet.getInt("POS_PEDINA");
@@ -78,16 +93,33 @@ public class CreazioneDB {
 
                 System.out.println("ID_PARTITA: " + idPartita + ", PLAYER: " + player + 
                                    ", POS_PEDINA: " + posPedina + ", SOLDI: " + soldi);
+            }*/
+            
+        	ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            
+            for (int i = 1; i <= columnCount; i++) {
+                model.addColumn(metaData.getColumnLabel(i));
             }
-        } catch (SQLException e) {
-        	System.out.println(e.getMessage());
-        } finally {
-        	System.out.println("Esecuzione terminata.");
+            
+            while (resultSet.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    row[i - 1] = resultSet.getObject(i);
+                }
+                model.addRow(row); // Recupera i dati dal database
+            }
         }
-    }
+        
+        table.setModel(model);
+        conn.close();
+            
+     }
     
-    //se si vogliono cancellare salvataggi???
-    public static void eliminaDati(Connection conn) throws SQLException {
+    //se si vogliono cancellare salvataggi(???)
+    public static void eliminaDati() throws SQLException {
+    	
+    	Connection conn = DriverManager.getConnection(DB_URL);
     	try (Scanner scanner = new Scanner(System.in)) {
     		String sqlDelete = "DELETE FROM "+NomeTabella+" WHERE ID_PARTITA = ?";
     		PreparedStatement pstmt = conn.prepareStatement(sqlDelete);
@@ -96,14 +128,30 @@ public class CreazioneDB {
     		pstmt.setString(1, idDaEliminare);
     		int affectedRows = pstmt.executeUpdate(); 	
     		if (affectedRows > 0) {
-                System.out.println("Record deleted successfully.");
+                System.out.println("Salvataggio cancellato con successo.");
             } else {
-                System.out.println("No record found with the provided ID.");
+                System.out.println("Non ci sono salvataggi con questo ID.");
             }
         }catch (SQLException e) {
         	System.out.println(e.getMessage());
         } finally {
         	System.out.println("Esecuzione terminata.");
         }
+    }
+    
+    public static int contaRighe() throws SQLException {
+    	
+    	Connection conn = DriverManager.getConnection(DB_URL);
+    	int rowCount = -1; // Default se non ci sono salvataggi precedenti
+    	try {
+			String sqlCountRows = "SELECT COUNT(*) AS result FROM "+NomeTabella;
+			Statement stmt = conn.createStatement();
+			ResultSet resultSet = stmt.executeQuery(sqlCountRows);
+			if(resultSet.next())
+				rowCount = resultSet.getInt("result");
+		} catch (SQLException e) {
+        	System.out.println(e.getMessage());
+		}
+    	return rowCount;
     }
 }

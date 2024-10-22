@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Carta {
 	
@@ -32,36 +32,4 @@ public class Carta {
 		this.actionID = actionID;
 		this.parameters = parameters;
 	}
-
-	public int getType() {
-    	return this.type;
-    }
-    
-    public int getAction() {
-    	return this.actionID;
-    }
-    
-    public int getDestination() {
-    	return this.parameter;
-    }
-    
-    public int getNumSpaces() {
-    	return this.parameter;
-    }
-    
-    public int getAmount() {
-    	return this.parameter;
-    }
-    
-    public int getHouseCost() {
-    	return this.parameters[0];
-    }
-
-    public int getHotelCost() {
-    	return this.parameters[1];
-    }
-    
-    public String toString() {
-    	return message;
-    }
 }

@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Tassa extends Casella {
 
@@ -7,9 +7,5 @@ public class Tassa extends Casella {
     public Tassa(String name, int amount) {
     	super(name);
     	this.amount = amount;
-    }
-    
-    public int getAmount() {
-        return this.amount;
     }
 }

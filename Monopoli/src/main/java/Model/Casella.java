@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Casella {
 	
@@ -6,9 +6,5 @@ public class Casella {
     
     public Casella(String name) {
 		this.name = name;
-    }
-    
-    public String getName() {
-    	return this.name;
     }
 }

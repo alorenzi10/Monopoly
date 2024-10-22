@@ -1,4 +1,4 @@
-package IngSftw.Monopoly;
+package Model;
 
 public class Societa extends Proprieta {
 	
@@ -10,12 +10,5 @@ public class Societa extends Proprieta {
 		this.rentTable = rentTable;
 		this.dice = dice;
     }
-    
-    public int getRentMultiplier() {
-    	return rentTable[super.getOwner().getNumUtilitiesOwned()-1];
-    }
 
-    public int getRent() {
-    	return dice.getTotal() * getRentMultiplier();
-    }
 }
