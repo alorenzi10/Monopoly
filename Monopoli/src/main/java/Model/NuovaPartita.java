@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,9 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
@@ -42,18 +38,23 @@ public class NuovaPartita extends JFrame {
      * Create the frame.
      */
     public NuovaPartita() {
-        contentPane = new JPanel(new BorderLayout());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 1078, 616);
+        contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setOpaque(false);
         setContentPane(contentPane);
+        contentPane.setLayout(null);
         
         JLabel labelInizioPartita = new JLabel("Inizio partita");
+        labelInizioPartita.setBounds(375, 10, 294, 64);
         labelInizioPartita.setFont(new Font("Tahoma", Font.PLAIN, 53));
         contentPane.add(labelInizioPartita);
         
-        setUp = new JPanel(new GridBagLayout());
+        setUp = new JPanel();
+        setUp.setBounds(10, 84, 1044, 485);
         setUp.setOpaque(false);
-        contentPane.add(setUp, BorderLayout.CENTER);
+        contentPane.add(setUp);
 
         // Mostra la schermata per selezionare il numero di giocatori
         selezionaNumGiocatori();
@@ -61,33 +62,18 @@ public class NuovaPartita extends JFrame {
 
     // Prima schermata: Selezione del numero di giocatori
     private void selezionaNumGiocatori() {
-    	setUp.removeAll();
-        setUp.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Padding
+        setUp.setLayout(null);
         
         JLabel lblSelezionaGiocatori = new JLabel("Inserisci il numero di giocatori");
+        lblSelezionaGiocatori.setBounds(318, 30, 408, 50);
         lblSelezionaGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 5; // Occupa 5 colonne
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Si espande orizzontalmente
-        gbc.anchor = GridBagConstraints.CENTER; // Centra l'etichetta
-        setUp.add(lblSelezionaGiocatori, gbc);
-        
-     // Pulsanti per selezionare il numero di giocatori
-        gbc.gridwidth = 1; // Ogni pulsante occupa una colonna
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.NONE; // Non si espande
-        gbc.weightx = 0; // Assegna uno spazio uguale a ciascun pulsante
-        gbc.anchor = GridBagConstraints.CENTER; // Centra i pulsanti
+        setUp.add(lblSelezionaGiocatori);
         
         // Pulsanti per selezionare il numero di giocatori
         for (int i = 2; i <= 6; i++) {
             JButton btn = new JButton(String.valueOf(i));
             btn.setFont(new Font("Tahoma", Font.PLAIN, 25));
-            gbc.gridx = i + 2;
-            setUp.add(btn, gbc);
+            btn.setBounds(150 + (i - 2) * 150, 150, 100, 50);
             final int NUM_GIOCATORI = i; //ogni pulsante ha il suo
             btn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -95,22 +81,20 @@ public class NuovaPartita extends JFrame {
                     inserimentoNomiGiocatori();  // Passa alla schermata per inserire i nomi
                 }
             });
+            setUp.add(btn);
         }
 
         // Pulsante Esci
         JButton btnEsci = new JButton("Esci");
+        btnEsci.setBounds(422, 300, 200, 50);
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        gbc.gridx = 2; // Centra il pulsante
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.weightx = 0; // Non assegna spazio aggiuntivo
-        setUp.add(btnEsci, gbc);
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
             }
         });
-        
+        setUp.add(btnEsci);
+
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
     }
@@ -118,16 +102,12 @@ public class NuovaPartita extends JFrame {
     // Seconda schermata: Inserimento dei nomi dei giocatori
     private void inserimentoNomiGiocatori() {
         setUp.removeAll();  // Pulisci il pannello
-        setUp.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Padding
+        setUp.setLayout(null);
         
         JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
         lblInserisciNomi.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        setUp.add(lblInserisciNomi, gbc);
+        lblInserisciNomi.setBounds(300, 50, 400, 50);
+        setUp.add(lblInserisciNomi);
 
         // Crea un array di JTextField per i nomi dei giocatori
         playerNames = new JTextField[numGiocatori];
@@ -135,24 +115,18 @@ public class NuovaPartita extends JFrame {
         for (int i = 0; i < numGiocatori; i++) {
             JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
             lblNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = i + 1;
-            setUp.add(lblNomeGiocatore, gbc);
+            lblNomeGiocatore.setBounds(200, 150 + (i * 40), 150, 30);
+            setUp.add(lblNomeGiocatore);
             
             playerNames[i] = new JTextField();
-            gbc.gridx = 1;
-            setUp.add(playerNames[i], gbc);
-
+            playerNames[i].setBounds(350, 150 + (i * 40), 300, 30);
+            setUp.add(playerNames[i]);
         }
 
         // Pulsante per confermare i nomi
         JButton btnConferma = new JButton("Conferma");
         btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        gbc.gridx = 0;
-        gbc.gridy = numGiocatori + 2;
-        gbc.gridwidth = 2; // Occupa due colonne
-        setUp.add(btnConferma, gbc);
+        btnConferma.setBounds(400, 400, 200, 50);
         btnConferma.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
@@ -167,6 +141,7 @@ public class NuovaPartita extends JFrame {
                 handlePlayerNames();  // Metodo per gestire i nomi inseriti
             }
         });
+        setUp.add(btnConferma);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
