@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import View.*;
+import javax.swing.ImageIcon;
 
 public class NuovaPartita extends JPanel {
 
@@ -30,12 +31,12 @@ public class NuovaPartita extends JPanel {
         add(labelInizioPartita);
         
         setUp = new JPanel();
-        setUp.setBounds(248, 208, 1044, 521);
+        setUp.setBounds(184, 152, 1200, 656);
         setUp.setOpaque(false);
         add(setUp);
 
         // Mostra la schermata per selezionare il numero di giocatori
-        selezionaNumGiocatori();
+        inserimentoNomiGiocatori();
     }
 
     // Prima schermata: Selezione del numero di giocatori
@@ -43,13 +44,13 @@ public class NuovaPartita extends JPanel {
         setUp.setLayout(null);
         
         JLabel lblSelezionaGiocatori = new JLabel("Inserisci il numero di giocatori");
-        lblSelezionaGiocatori.setBounds(318, 30, 408, 50);
+        lblSelezionaGiocatori.setBounds(396, 30, 408, 50);
         lblSelezionaGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 30));
         setUp.add(lblSelezionaGiocatori);
         
         // Pulsanti per selezionare il numero di giocatori        
         JPanel panel_bottoni = new JPanel();
-        panel_bottoni.setBounds(10, 90, 1024, 163);
+        panel_bottoni.setBounds(88, 179, 1024, 163);
         panel_bottoni.setOpaque(false);
         setUp.add(panel_bottoni);
         panel_bottoni.setLayout(null);
@@ -111,8 +112,8 @@ public class NuovaPartita extends JPanel {
 
         // Pulsante Esci
         JButton btnEsci = new JButton("Esci");
-        btnEsci.setBounds(422, 300, 200, 50);
-        btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        btnEsci.setBounds(500, 415, 200, 60);
+        btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 30));
         btnEsci.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);  // Chiude l'applicazione
@@ -127,7 +128,7 @@ public class NuovaPartita extends JPanel {
         		vaiIndietro();
         	}
         });
-        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setBounds(50, 415, 200, 60);
         btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
         setUp.add(btn_indietro);
 
@@ -142,7 +143,7 @@ public class NuovaPartita extends JPanel {
         
         JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
         lblInserisciNomi.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblInserisciNomi.setBounds(300, 50, 400, 50);
+        lblInserisciNomi.setBounds(396, 30, 408, 50);
         setUp.add(lblInserisciNomi);
 
         // Crea un array di JTextField per i nomi dei giocatori
@@ -161,8 +162,8 @@ public class NuovaPartita extends JPanel {
 
         // Pulsante per confermare i nomi
         JButton btnConferma = new JButton("Conferma");
-        btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        btnConferma.setBounds(400, 400, 200, 50);
+        btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnConferma.setBounds(950, 550, 200, 60);
         btnConferma.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
@@ -187,9 +188,55 @@ public class NuovaPartita extends JPanel {
         		vaiIndietro();
         	}
         });
-        btn_indietro.setBounds(10, 415, 152, 60);
+        btn_indietro.setBounds(50, 550, 200, 60);
         btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
         setUp.add(btn_indietro);
+        
+        JPanel panel_pedine = new JPanel();
+        panel_pedine.setBounds(100, 400, 1000, 100);
+        panel_pedine.setOpaque(false);
+        panel_pedine.setLayout(null);
+        setUp.add(panel_pedine);
+        
+        JButton btnCane = new JButton("");
+        btnCane.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cane.png"));
+        btnCane.setBounds(50, 20, 60, 60);
+        panel_pedine.add(btnCane);
+        
+        JButton btnCappello = new JButton("");
+        btnCappello.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cappello.png"));
+        btnCappello.setBounds(170, 20, 60, 60);
+        panel_pedine.add(btnCappello);
+        
+        JButton btnCariola = new JButton("");
+        btnCariola.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cariola.png"));
+        btnCariola.setBounds(290, 20, 60, 60);
+        panel_pedine.add(btnCariola);
+        
+        JButton btnNave = new JButton("");
+        btnNave.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\nave.png"));
+        btnNave.setBounds(770, 20, 60, 60);
+        panel_pedine.add(btnNave);
+        
+        JButton btnDitale = new JButton("");
+        btnDitale.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\ditale.png"));
+        btnDitale.setBounds(410, 20, 60, 60);
+        panel_pedine.add(btnDitale);
+        
+        JButton btnFerro = new JButton("");
+        btnFerro.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\ferro_da_stiro.png"));
+        btnFerro.setBounds(530, 20, 60, 60);
+        panel_pedine.add(btnFerro);
+        
+        JButton btnMacchina = new JButton("");
+        btnMacchina.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\macchina.png"));
+        btnMacchina.setBounds(650, 20, 60, 60);
+        panel_pedine.add(btnMacchina);
+        
+        JButton btnStivale = new JButton("");
+        btnStivale.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\stivale.png"));
+        btnStivale.setBounds(890, 20, 60, 60);
+        panel_pedine.add(btnStivale);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
@@ -237,5 +284,4 @@ public class NuovaPartita extends JPanel {
             System.out.println("Giocatore " + (i + 1) + ": " + nomiGiocatori[i]);
         }
     }
-    
 }
