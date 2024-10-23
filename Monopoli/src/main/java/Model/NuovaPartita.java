@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 import View.*;
@@ -25,6 +26,9 @@ public class NuovaPartita extends JPanel {
 	 private JPanel setUp;  // Panel interno per i vari step del processo
 	 private int numGiocatori;  // Variabile per memorizzare il numero di giocatori
 	 private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
+	 String[] nomiGiocatori;
+	 private ArrayList<Player> giocatori = new ArrayList<>();
+	 private MonopolyGUI monopolyGUI = new MonopolyGUI();
 
     public NuovaPartita() {
     	
@@ -142,6 +146,7 @@ public class NuovaPartita extends JPanel {
         setUp.repaint();
     }
 
+    
     // Seconda schermata: Inserimento dei nomi dei giocatori
     private void inserimentoNomiGiocatori() {
         setUp.removeAll();  // Pulisci il pannello
@@ -152,6 +157,7 @@ public class NuovaPartita extends JPanel {
         lblInserisciNomi.setBounds(396, 30, 408, 50);
         setUp.add(lblInserisciNomi);
 
+        nomiGiocatori = new String[numGiocatori];
         // Crea un array di JTextField per i nomi dei giocatori
         playerNames = new JTextField[numGiocatori];
         
@@ -177,7 +183,7 @@ public class NuovaPartita extends JPanel {
             	
             	if (controlloNomeGiocatori()) {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
-                    creatabellone();
+                    scegliPedina();
                 } else {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
@@ -196,8 +202,40 @@ public class NuovaPartita extends JPanel {
         });
         btn_indietro.setBounds(50, 550, 200, 60);
         btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        setUp.add(btn_indietro);
+        setUp.add(btn_indietro);        
+    
+        revalidate();
+        repaint();   
+    }
+    
+    
+    public void scegliPedina() {
+    	
+    	 setUp.removeAll();  // Pulisci il pannello
+         setUp.setLayout(null);
+    	
+    	JLabel lblSceltaPedine = new JLabel("Scelta pedine");
+        lblSceltaPedine.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblSceltaPedine.setBounds(415, 30, 408, 50);
+        setUp.add(lblSceltaPedine);
         
+        JButton btnConferma = new JButton("Conferma");
+        btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnConferma.setBounds(950, 550, 200, 60);
+        btnConferma.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	creaTabellone();
+           	}
+        });
+        
+        // Per far scegliere al giocatore la sua pedina
+        
+       /* for (int i = 1; i <= numGiocatori; i++) {
+            nomiGiocatori[i] = playerNames[i].getText();
+            //creare una label per ogni giocatore, con il suo nome (nomiGiocatori[i]), scrivergli di scegliere la pedina e poi assegnargliela
+            }*/
+        
+        // Pedine da scegliere
         JPanel panel_pedine = new JPanel();
         panel_pedine.setBounds(100, 400, 1000, 100);
         panel_pedine.setOpaque(false);
@@ -205,67 +243,105 @@ public class NuovaPartita extends JPanel {
         setUp.add(panel_pedine);
         
         JButton btnCane = new JButton("");
-        
         btnCane.setBounds(50, 20, 60, 60);
         try {
 			btnCane.setIcon(new ImageIcon(ImageIO.read(new File("./icons/cane.png")).getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+        btnCane.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCane.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnCane);
         
         JButton btnCappello = new JButton("");
         btnCappello.setIcon(new ImageIcon("./icons/cappello.png"));
         btnCappello.setBounds(170, 20, 60, 60);
+        btnCappello.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCappello.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnCappello);
         
         JButton btnCariola = new JButton("");
         btnCariola.setIcon(new ImageIcon("./icons/cariola.png"));
         btnCariola.setBounds(290, 20, 60, 60);
+        btnCariola.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCariola.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnCariola);
         
         JButton btnNave = new JButton("");
         btnNave.setIcon(new ImageIcon("./icons/nave.png"));
         btnNave.setBounds(770, 20, 60, 60);
+        btnNave.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnNave.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnNave);
         
         JButton btnDitale = new JButton("");
         btnDitale.setIcon(new ImageIcon("./icons/ditale.png"));
         btnDitale.setBounds(410, 20, 60, 60);
+        btnDitale.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnDitale.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnDitale);
         
         JButton btnFerro = new JButton();
         btnFerro.setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));
         btnFerro.setBounds(530, 20, 60, 60);
+        btnFerro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnFerro.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnFerro);
         
         JButton btnMacchina = new JButton("");
         btnMacchina.setIcon(new ImageIcon("./icons/macchina.png"));
         btnMacchina.setBounds(650, 20, 60, 60);
+        btnMacchina.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnMacchina.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnMacchina);
         
         JButton btnStivale = new JButton("");
         btnStivale.setIcon(new ImageIcon("./icons/stivale.png"));
         btnStivale.setBounds(890, 20, 60, 60);
+        btnStivale.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnStivale.setVisible(false);
+        	}
+        });
         panel_pedine.add(btnStivale);
 
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
-        
     }
 
-    protected void creatabellone() {
-		
+    
+    protected void creaTabellone() {
     	removeAll();
     	setLayout(null);
         MonopolyGUI monopolyGUI = new MonopolyGUI();
         monopolyGUI.setBounds(0, 0, getWidth(), getHeight());  // Imposta le dimensioni di MonopolyGUI
         add(monopolyGUI);
         revalidate();
-        repaint();
-        
+        repaint();      
 	}
 
+    
 	public void vaiIndietro() {
     	
     	removeAll();
@@ -289,7 +365,6 @@ public class NuovaPartita extends JPanel {
     
     // Gestione dei nomi dei giocatori inseriti
     private void handlePlayerNames() {
-        String[] nomiGiocatori = new String[numGiocatori];
         for (int i = 0; i < numGiocatori; i++) {
             nomiGiocatori[i] = playerNames[i].getText();
             System.out.println("Giocatore " + (i + 1) + ": " + nomiGiocatori[i]);
