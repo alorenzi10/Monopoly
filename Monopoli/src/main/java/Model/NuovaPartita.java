@@ -7,10 +7,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JTextField;
 import View.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class NuovaPartita extends JPanel {
@@ -36,7 +42,7 @@ public class NuovaPartita extends JPanel {
         add(setUp);
 
         // Mostra la schermata per selezionare il numero di giocatori
-        inserimentoNomiGiocatori();
+        selezionaNumGiocatori();
     }
 
     // Prima schermata: Selezione del numero di giocatori
@@ -199,42 +205,47 @@ public class NuovaPartita extends JPanel {
         setUp.add(panel_pedine);
         
         JButton btnCane = new JButton("");
-        btnCane.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cane.png"));
+        
         btnCane.setBounds(50, 20, 60, 60);
+        try {
+			btnCane.setIcon(new ImageIcon(ImageIO.read(new File("./icons/cane.png")).getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
         panel_pedine.add(btnCane);
         
         JButton btnCappello = new JButton("");
-        btnCappello.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cappello.png"));
+        btnCappello.setIcon(new ImageIcon("./icons/cappello.png"));
         btnCappello.setBounds(170, 20, 60, 60);
         panel_pedine.add(btnCappello);
         
         JButton btnCariola = new JButton("");
-        btnCariola.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\cariola.png"));
+        btnCariola.setIcon(new ImageIcon("./icons/cariola.png"));
         btnCariola.setBounds(290, 20, 60, 60);
         panel_pedine.add(btnCariola);
         
         JButton btnNave = new JButton("");
-        btnNave.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\nave.png"));
+        btnNave.setIcon(new ImageIcon("./icons/nave.png"));
         btnNave.setBounds(770, 20, 60, 60);
         panel_pedine.add(btnNave);
         
         JButton btnDitale = new JButton("");
-        btnDitale.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\ditale.png"));
+        btnDitale.setIcon(new ImageIcon("./icons/ditale.png"));
         btnDitale.setBounds(410, 20, 60, 60);
         panel_pedine.add(btnDitale);
         
-        JButton btnFerro = new JButton("");
-        btnFerro.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\ferro_da_stiro.png"));
+        JButton btnFerro = new JButton();
+        btnFerro.setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));
         btnFerro.setBounds(530, 20, 60, 60);
         panel_pedine.add(btnFerro);
         
         JButton btnMacchina = new JButton("");
-        btnMacchina.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\macchina.png"));
+        btnMacchina.setIcon(new ImageIcon("./icons/macchina.png"));
         btnMacchina.setBounds(650, 20, 60, 60);
         panel_pedine.add(btnMacchina);
         
         JButton btnStivale = new JButton("");
-        btnStivale.setIcon(new ImageIcon("C:\\Users\\gabri\\OneDrive\\Desktop\\Monopoly\\Monopoli\\icons\\stivale.png"));
+        btnStivale.setIcon(new ImageIcon("./icons/stivale.png"));
         btnStivale.setBounds(890, 20, 60, 60);
         panel_pedine.add(btnStivale);
 

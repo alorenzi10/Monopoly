@@ -22,13 +22,15 @@ public class Player {
     private final int MAX_EXIT_JAIL_ATTEMPTS=3;
     private int numExitJailAttempt;
     private ArrayList<Carta> cards;
+    Pedina pedina;
     
-    public Player(int id, String name, int wallet, boolean isInJail, int location) {
-    	this.id=id;
-    	this.name=name;
-    	this.wallet=wallet;
-    	this.isInJail=isInJail;
-    	this.location=location;
+    public Player(int id, String name, int wallet, boolean isInJail, int location, Pedina pedina) {
+    	this.id = id;
+    	this.name = name;
+    	this.wallet = wallet;
+    	this.isInJail = isInJail;
+    	this.location = location;
+    	this.pedina = pedina;
     }
     
     
