@@ -1,22 +1,23 @@
 package View;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class MonopolyGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	private JTextArea consoleTextArea;
 
 	
 	public MonopolyGUI() {
@@ -487,6 +488,19 @@ public class MonopolyGUI extends JPanel {
 		btnProprieta.setBounds(156, 540, 144, 60);
 		add(btnProprieta);
 		
+		consoleTextArea = new JTextArea();
+		//consoleTextArea.setEditable(false);
+		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
+		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
+		scrollPane.setBounds(310, 131, 340, 518);
+		add(scrollPane);
+		
+		stampa("prova di stampa");
+	}
+	
+	public void stampa(String text){
+		consoleTextArea.append(">> " +text + "\n");
+		consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength()); //scorre alla fine sempre
 	}
 }
