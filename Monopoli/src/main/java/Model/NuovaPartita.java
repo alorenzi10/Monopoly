@@ -1,5 +1,6 @@
 package Model;
 
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
+import View.*;
 
 public class NuovaPartita extends JPanel {
 
@@ -168,6 +170,7 @@ public class NuovaPartita extends JPanel {
             	
             	if (controlloNomeGiocatori()) {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
+                    creatabellone();
                 } else {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
@@ -193,7 +196,19 @@ public class NuovaPartita extends JPanel {
         
     }
 
-    public void vaiIndietro() {
+    protected void creatabellone() {
+		
+    	removeAll();
+    	setLayout(null);
+        MonopolyGUI monopolyGUI = new MonopolyGUI();
+        monopolyGUI.setBounds(0, 0, getWidth(), getHeight());  // Imposta le dimensioni di MonopolyGUI
+        add(monopolyGUI);
+        revalidate();
+        repaint();
+        
+	}
+
+	public void vaiIndietro() {
     	
     	removeAll();
         MenuIniziale menuIniziale = new MenuIniziale();
