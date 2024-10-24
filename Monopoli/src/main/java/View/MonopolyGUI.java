@@ -6,22 +6,31 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
+
+import Model.NuovaPartita;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class MonopolyGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
 	private JTextArea consoleTextArea;
+	private JPanel[] caselle;
+	private JLabel[] pedine;
 
 	
 	public MonopolyGUI() {
 		
+	
+		
+		caselle=new JPanel[40];
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
 		
@@ -496,7 +505,81 @@ public class MonopolyGUI extends JPanel {
 		scrollPane.setBounds(310, 131, 340, 518);
 		add(scrollPane);
 		
+		caselle[0]=casella0;
+		caselle[1]=casella1;
+		creaPedine();
 		stampa("prova di stampa");
+		//muoviPedina(caselle[0], caselle[1], pedine[0]);
+	}
+	
+	public void creaPedine() {
+		String [] pedineS = NuovaPartita.getPedine();
+		
+		int num = NuovaPartita.getNumGiocatore();
+		pedine = new JLabel[num];
+		for(int i=0; i<num; i++) {
+			JLabel pedina;
+			switch (pedineS[i]) {
+			case "Cane":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/cane.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Cappello":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/cappello.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Cariola":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/cariola.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Nave":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/nave.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Ditale":
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/ditale.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Ferro":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Macchina":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/macchina.png"));
+				this.pedine[i]=pedina;
+			break;
+			case "Stivale":	
+				pedina=new JLabel();
+				pedina.setIcon(new ImageIcon("./icons/stivale.png"));
+				this.pedine[i]=pedina;
+			break;
+			}
+		}
+		for(int i=0; i<num; i++) {
+				pedine[i].setBounds(7, 20, 45, 50);
+				caselle[0].add(pedine[i]);
+				caselle[0].setComponentZOrder(pedine[i], 0);
+			}
+		
+	}
+	
+	public void muoviPedina(JPanel part, JPanel dest, JLabel comp) {
+		
+		stampa("prova di stampa 3");
+		part.remove(comp);
+		dest.add(comp);
+		dest.setComponentZOrder(comp, 0);
+		part.revalidate();
+		part.repaint();
+		dest.revalidate();
+		dest.repaint();
 	}
 	
 	public void stampa(String text){

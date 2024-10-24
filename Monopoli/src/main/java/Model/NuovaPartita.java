@@ -24,13 +24,13 @@ public class NuovaPartita extends JPanel {
 
 	 private static final long serialVersionUID = 1L;
 	 private JPanel setUp;  // Panel interno per i vari step del processo
-	 private int numGiocatori;  // Variabile per memorizzare il numero di giocatori
+	 private static int numGiocatori;  // Variabile per memorizzare il numero di giocatori
 	 private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
 	 String[] nomiGiocatori;
 	 private ArrayList<Player> giocatori = new ArrayList<>();
 	 private MonopolyGUI monopolyGUI = new MonopolyGUI();
      int indice = 0;
-     String[] pedineScelte;
+     static String[] pedineScelte;
 
     public NuovaPartita() {
     	
@@ -370,6 +370,15 @@ public class NuovaPartita extends JPanel {
             btnConferma.setEnabled(true);  // Abilita il bottone di conferma
             creaTabellone();
         }
+    }
+    
+    
+    public static String[] getPedine() {
+    	return pedineScelte;
+    }
+    
+    public static int getNumGiocatore() {
+    	return numGiocatori;
     }
 
     
