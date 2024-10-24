@@ -1,11 +1,15 @@
 package Model;
 
 public class Tabellone {
-    public final int NUM_SQUARES = 40;
+    public final static int NUM_SQUARES = 40;
     
     public final static int POS_VIA = 0;
-    public final int POS_PRIGIONE = 10;
-    public final int POS_VAI_IN_PRIGIONE = 30;
+    public final static int POS_PRIGIONE = 10;
+    public final static int POS_VAI_IN_PRIGIONE = 30;
+    public final static int POS_LARGO_COLOMBO = 24;
+    public static final int POS_PARCO_DELLA_VITTORIA = 39;
+	public static final int POS_STAZIONE_NORD = 5;
+	public static final int POS_CORSO_ATENEO = 13;
     
     private Casella[] squares = new Casella[NUM_SQUARES];
     private GruppoColore marrone = new GruppoColore("marrone");
@@ -28,7 +32,7 @@ public class Tabellone {
 		//tassa(name, ammount)
 		squares[4] = new Tassa("Tassa patrimoniale",200);
 		//Stazione(name, price, mortgageValue, rentTable)
-		squares[5] = new Stazione("Stazione sud", 200, 100, new int[] {25,50,100,200});
+		squares[5] = new Stazione("Stazione nord", 200, 100, new int[] {25,50,100,200});
 		squares[6] = new Cantiere("Bastoni Gran Sasso", 100, 50, new int[] {6,30,90,270,400,550}, azzurro, 50);
 		//Assegna name=Imprevisti con super
 		squares[7] = new Imprevisti();
@@ -40,7 +44,7 @@ public class Tabellone {
 		squares[12] = new Societa("Società elettrica", 150, 75, new int[] {4,10}, dice);
 		squares[13] = new Cantiere("Corso ateneo",  140, 70, new int[] {10,50,150,450,625,750}, viola, 100);
 		squares[14] = new Cantiere("Piazza università", 160, 80, new int[] {12,60,180,500,700,900}, viola, 100);
-		squares[15] = new Stazione("Stazione ovest", 200, 100, new int[] {25,50,100,200});
+		squares[15] = new Stazione("Stazione est", 200, 100, new int[] {25,50,100,200});
 		squares[16] = new Cantiere("Via Verdi", 180, 90, new int[] {14,70,200,550,750,950}, arancio, 100);
 		squares[17] = new Probabilita();
 		squares[18] = new Cantiere("Corso Raffaello", 180, 90, new int[] {14,70,200,550,750,950}, arancio, 100);
@@ -50,7 +54,7 @@ public class Tabellone {
 		squares[22] = new Imprevisti();
 		squares[23] = new Cantiere("Corso Magellano", 220, 110, new int[] {18,90,250,700,875,1050}, rosso, 150);
 		squares[24] = new Cantiere("Largo Colombo", 240, 120, new int[] {20,100,300,750,925,1100}, rosso, 150);
-		squares[25] = new Stazione("Stazione nord", 200, 100, new int[] {25,50,100,200});
+		squares[25] = new Stazione("Stazione sud", 200, 100, new int[] {25,50,100,200});
 		squares[26] = new Cantiere("Viale Costantino", 260, 150, new int[] {22,110,330,800,975,1150}, giallo, 150);
 		squares[27] = new Cantiere("Viale Traiano", 260, 150, new int[] {22,110,330,800,975,1150}, giallo, 150);
 		squares[28] = new Societa("Società acqua potabile", 150, 75, new int[] {4,10}, dice);
@@ -60,12 +64,16 @@ public class Tabellone {
 		squares[32] = new Cantiere("Corso Impero", 300, 200, new int[] {26,130,390,900,1100,1275}, verde, 200);
 		squares[33] = new Probabilita();
 		squares[34] = new Cantiere("Largo Augusto", 320, 200, new int[] {28,150,450,1000,1200,1400}, verde, 200);
-		squares[35] = new Stazione("Stazione est", 200, 100, new int[] {25,50,100,200});
+		squares[35] = new Stazione("Stazione ovest", 200, 100, new int[] {25,50,100,200});
 		squares[36] = new Imprevisti();
 		squares[37] = new Cantiere("Viale dei giardini", 350, 175, new int[] {35,175,500,1100,1300,1500}, blu, 200);
 		squares[38] = new Tassa("Tassa di lusso",100);
 		squares[39] = new Cantiere("Parco della vittoria", 400, 200, new int[] {50,200,600,1400,1700,2000}, blu, 200);
 		
     }
+
+	public Casella getSquare(int i) {
+		return squares[i];
+	}
 
 }
