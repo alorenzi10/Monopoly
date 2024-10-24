@@ -29,6 +29,8 @@ public class NuovaPartita extends JPanel {
 	 String[] nomiGiocatori;
 	 private ArrayList<Player> giocatori = new ArrayList<>();
 	 private MonopolyGUI monopolyGUI = new MonopolyGUI();
+     int indice = 0;
+     String[] pedineScelte;
 
     public NuovaPartita() {
     	
@@ -183,12 +185,12 @@ public class NuovaPartita extends JPanel {
             	
             	if (controlloNomeGiocatori()) {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
+                    
+                    handlePlayerNames();  // Metodo per gestire i nomi inseriti
                     scegliPedina();
                 } else {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
-            	
-                handlePlayerNames();  // Metodo per gestire i nomi inseriti
             }
         });
         setUp.add(btnConferma);
@@ -211,9 +213,11 @@ public class NuovaPartita extends JPanel {
     
     public void scegliPedina() {
     	
-    	 setUp.removeAll();  // Pulisci il pannello
-         setUp.setLayout(null);
-    	
+    	setUp.removeAll();  // Pulisci il pannello
+        setUp.setLayout(null);
+        
+        pedineScelte = new String[numGiocatori];
+        
     	JLabel lblSceltaPedine = new JLabel("Scelta pedine");
         lblSceltaPedine.setFont(new Font("Tahoma", Font.PLAIN, 30));
         lblSceltaPedine.setBounds(415, 30, 408, 50);
@@ -228,12 +232,10 @@ public class NuovaPartita extends JPanel {
            	}
         });
         
-        // Per far scegliere al giocatore la sua pedina
-        
-       /* for (int i = 1; i <= numGiocatori; i++) {
-            nomiGiocatori[i] = playerNames[i].getText();
-            //creare una label per ogni giocatore, con il suo nome (nomiGiocatori[i]), scrivergli di scegliere la pedina e poi assegnargliela
-            }*/
+        JLabel lblTurnoGiocatore = new JLabel(nomiGiocatori[indice] + " scegli la pedina");
+        lblTurnoGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblTurnoGiocatore.setBounds(415, 100, 408, 50);
+        setUp.add(lblTurnoGiocatore);
         
         // Pedine da scegliere
         JPanel panel_pedine = new JPanel();
@@ -249,85 +251,125 @@ public class NuovaPartita extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-        btnCane.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnCane.setVisible(false);
-        	}
-        });
         panel_pedine.add(btnCane);
         
         JButton btnCappello = new JButton("");
         btnCappello.setIcon(new ImageIcon("./icons/cappello.png"));
         btnCappello.setBounds(170, 20, 60, 60);
-        btnCappello.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnCappello.setVisible(false);
-        	}
-        });
         panel_pedine.add(btnCappello);
         
         JButton btnCariola = new JButton("");
         btnCariola.setIcon(new ImageIcon("./icons/cariola.png"));
         btnCariola.setBounds(290, 20, 60, 60);
-        btnCariola.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnCariola.setVisible(false);
-        	}
-        });
         panel_pedine.add(btnCariola);
         
         JButton btnNave = new JButton("");
         btnNave.setIcon(new ImageIcon("./icons/nave.png"));
         btnNave.setBounds(770, 20, 60, 60);
-        btnNave.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnNave.setVisible(false);
-        	}
-        });
-        panel_pedine.add(btnNave);
+        panel_pedine.add(btnNave); 
         
         JButton btnDitale = new JButton("");
         btnDitale.setIcon(new ImageIcon("./icons/ditale.png"));
         btnDitale.setBounds(410, 20, 60, 60);
-        btnDitale.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnDitale.setVisible(false);
-        	}
-        });
-        panel_pedine.add(btnDitale);
+        panel_pedine.add(btnDitale); 
         
         JButton btnFerro = new JButton();
         btnFerro.setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));
         btnFerro.setBounds(530, 20, 60, 60);
-        btnFerro.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnFerro.setVisible(false);
-        	}
-        });
-        panel_pedine.add(btnFerro);
+        panel_pedine.add(btnFerro); 
         
         JButton btnMacchina = new JButton("");
         btnMacchina.setIcon(new ImageIcon("./icons/macchina.png"));
         btnMacchina.setBounds(650, 20, 60, 60);
-        btnMacchina.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnMacchina.setVisible(false);
-        	}
-        });
         panel_pedine.add(btnMacchina);
         
         JButton btnStivale = new JButton("");
         btnStivale.setIcon(new ImageIcon("./icons/stivale.png"));
         btnStivale.setBounds(890, 20, 60, 60);
+        panel_pedine.add(btnStivale);
+
+       
+        btnCane.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCane.setVisible(false);
+        		pedineScelte[indice] = "Cane";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+
+        btnCappello.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCappello.setVisible(false);
+        		pedineScelte[indice] = "Cappello";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
+        btnCariola.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCariola.setVisible(false);
+        		pedineScelte[indice] = "Cariola";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
+        btnNave.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnNave.setVisible(false);
+        		pedineScelte[indice] = "Nave";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
+        btnDitale.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnDitale.setVisible(false);
+        		pedineScelte[indice] = "Ditale";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
+        btnFerro.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnFerro.setVisible(false);
+        		pedineScelte[indice] = "Ferro";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
+        btnMacchina.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnMacchina.setVisible(false);
+        		pedineScelte[indice] = "Macchina";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        	}
+        });
+        
         btnStivale.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnStivale.setVisible(false);
+        		pedineScelte[indice] = "Stivale";
+        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
         	}
         });
-        panel_pedine.add(btnStivale);
-
         setUp.revalidate();  // Aggiorna il pannello
         setUp.repaint();
+       
+    }
+    
+    
+ // Funzione per aggiornare il turno di scelta
+    public void aggiornaTurno(JLabel lblTurnoGiocatore, JButton btnConferma) {
+    	indice++;  // Passa al giocatore successivo
+        if (indice < numGiocatori) {
+            // Aggiorna la label per il turno del prossimo giocatore
+        	lblTurnoGiocatore.setText(nomiGiocatori[indice] + " scegli la pedina");
+        } else {
+            // Tutti i giocatori hanno scelto, abilita il bottone "Conferma"
+        	lblTurnoGiocatore.setText("Tutti i giocatori hanno scelto");
+            btnConferma.setEnabled(true);  // Abilita il bottone di conferma
+            creaTabellone();
+        }
     }
 
     
@@ -355,6 +397,7 @@ public class NuovaPartita extends JPanel {
     
     // Funzione controllo campi nomi
     private boolean controlloNomeGiocatori() {
+
         for (JTextField field : playerNames) {
             if (field.getText().trim().isEmpty()) {
                 return false;
@@ -362,6 +405,7 @@ public class NuovaPartita extends JPanel {
         }
         return true;
     }
+    
     
     // Gestione dei nomi dei giocatori inseriti
     private void handlePlayerNames() {
