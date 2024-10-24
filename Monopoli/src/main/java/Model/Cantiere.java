@@ -4,7 +4,7 @@ public class Cantiere extends Proprieta {
     
     private int[] rentTable;
     private GruppoColore colourGroup;
-    private int numBuildings;
+    private int numCostruzioni;
     private int buildPrice;
     private final int MAX_NUM_UNITS = 5;
  
@@ -13,8 +13,26 @@ public class Cantiere extends Proprieta {
 		this.rentTable = rentTable;
 		this.colourGroup = colourGroup;
 		this.buildPrice = buildPrice;
-		this.numBuildings = 0;
+		this.numCostruzioni = 0;
 		colourGroup.addMember(this);
+	}
+
+	public int getNumCase() {
+		int numCase;
+		if (numCostruzioni < 5) {
+			numCase = numCostruzioni;
+		}
+		else {numCase=0;}
+		return numCase;
+	}
+	
+	public int getNumAlberghi() {
+		int numAlberghi;
+		if (numCostruzioni == 5) {
+			numAlberghi = 1;
+		}
+		else {numAlberghi=0;}
+		return numAlberghi;
 	}
 
 }

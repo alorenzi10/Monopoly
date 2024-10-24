@@ -2,10 +2,14 @@ package Model;
 
 public class Tassa extends Casella {
 
-    private int amount;
+    private int totale;
 
-    public Tassa(String name, int amount) {
+    public Tassa(String name, int totale) {
     	super(name);
-    	this.amount = amount;
+    	this.totale = totale;
     }
+
+	public int getTotale() {
+		return totale;
+	}
 }

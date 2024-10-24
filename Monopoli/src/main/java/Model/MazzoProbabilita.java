@@ -7,7 +7,7 @@ public class MazzoProbabilita extends Mazzo {
     MazzoProbabilita() {
     	
     	// Movimento
-    	cards.add(new Carta(PROBABILITA, "Andate avanti fino al via e ritirate 200€.", AZIONE_VAI_AVANTI, Tabellone.POS_VIA));//da sistemare i 200
+    	cards.add(new Carta(PROBABILITA, "Andate avanti fino al via e ritirate 200€.", AZIONE_VAI_AVANTI, 0, Tabellone.POS_VIA));
 
     	// Tasse, parcelle
     	cards.add(new Carta(PROBABILITA, "Pagate per contributi di miglioria stradale. 40€ per ogni casa e 115€ per ogni albergo che possedete.", AZIONE_PAGA_CASE, new int[] {40, 115}));
