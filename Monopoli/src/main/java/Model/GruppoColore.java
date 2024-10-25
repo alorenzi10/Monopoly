@@ -15,7 +15,7 @@ public class GruppoColore {
     	this.cantieri.add(cantiere);
     }
 
-    public ArrayList<Cantiere> getMembers() {
+    public ArrayList<Cantiere> getMembri() {
     	return cantieri;
     }
 

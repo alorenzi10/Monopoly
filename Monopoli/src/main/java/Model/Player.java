@@ -19,18 +19,20 @@ public class Player {
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> proprieta;
-    private final int MAX_EXIT_JAIL_ATTEMPTS=3;
+    private final int TENTATIVI_MASSIMI_PRIGIONE=3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> cards;
-    Pedina pedina;
     
-    public Player(int id, String name, int wallet, boolean isInJail, int location, Pedina pedina) {
+    public Player(String name) {
+    	this.name = name;
+    }
+    
+    public Player(int id, String name, int wallet, boolean isInJail, int location) {
     	this.id = id;
     	this.name = name;
     	this.wallet = wallet;
     	this.inPrigione = inPrigione;
     	this.location = location;
-    	this.pedina = pedina;
     }
     
     public int getWallet() {
@@ -95,6 +97,37 @@ public class Player {
 			}
 		}
 		return numAlberghi;
+	}
+
+	public boolean possessoreGruppo(Cantiere cantiere) {
+		boolean haTutteProprieta = true;
+		GruppoColore gc = cantiere.getGruppoColore();
+		for (Cantiere c : gc.getMembri()) { 
+			if (!c.posseduta() || (c.posseduta() && c.getPossessore()!=this)) { //controlla che la proprieta non sia posseduta o se è posseduta controlla che il possessore sia diverso dal player
+				haTutteProprieta = false;
+			}
+		}
+		return haTutteProprieta;
+	}
+
+	public boolean eInPrigione() {
+		return inPrigione;
+	}
+
+	public void liberaDaPrigione() {
+		inPrigione = false;
+	}
+
+	public void fallitoTentativo() {
+		tentativiUscitaPrigione++;
+	}
+
+	public boolean tentativiTerminati() {
+		boolean c = false;
+		if(tentativiUscitaPrigione >= TENTATIVI_MASSIMI_PRIGIONE) {
+			c = true;
+		}
+		return c;
 	}
     
     
