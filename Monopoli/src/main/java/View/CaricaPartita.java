@@ -1,4 +1,4 @@
-package Model;
+package View;
 
 import java.awt.Font;
 import java.sql.SQLException;
@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import Model.CreazioneDB;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package Model;
+package View;
 
 
 import javax.swing.JPanel;
@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
-import View.*;
+
+import Model.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;

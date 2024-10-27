@@ -2,6 +2,8 @@ package Model;
 
 import java.awt.EventQueue;
 
+import View.SchermataDiGioco;
+
 public class Main {
 	
     public static void main(String args[]) {
