@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 public class SchermataDiGioco extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 	private JPanel contentPane;
 
 	/**
@@ -40,13 +40,12 @@ public class SchermataDiGioco extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);		
-        contentPane.setBounds(0, 0, 1540, 845);
-        contentPane.setOpaque(false);
-        
-        MenuIniziale menuIniziale = new MenuIniziale();
-		menuIniziale.setBounds(0, 0, 1920, 1080);
-		contentPane.add(menuIniziale);
-
+		contentPane.setBounds(0, 0, 1540, 845); 
+		contentPane.setOpaque(false);
 	}
 
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+	
 }

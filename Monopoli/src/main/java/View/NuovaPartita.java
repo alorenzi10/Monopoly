@@ -36,7 +36,7 @@ public class NuovaPartita extends JPanel {
     public NuovaPartita() {
     	
     	setOpaque(false);
-    	setBounds(0, 0, 1540, 845);
+    	setBounds(0, 0, 1920, 1080);
     	setLayout(null);
         JLabel labelInizioPartita = new JLabel("Inizio partita");
         labelInizioPartita.setBounds(623, 58, 294, 64);
