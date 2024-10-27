@@ -24,13 +24,13 @@ public class NuovaPartita extends JPanel {
 
 	 private static final long serialVersionUID = 1L;
 	 private JPanel setUp;  // Panel interno per i vari step del processo
-	 private static int numGiocatori;  // Variabile per memorizzare il numero di giocatori
+	  public static int numGiocatori;  // Variabile per memorizzare il numero di giocatori
 	 private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
 	 String[] nomiGiocatori;
 	 private ArrayList<Player> giocatori = new ArrayList<>();
 	 private MonopolyGUI monopolyGUI = new MonopolyGUI();
      int indice = 0;
-     static String[] pedineScelte;
+     public static String[] pedineScelte;
 
     public NuovaPartita() {
     	
@@ -186,7 +186,7 @@ public class NuovaPartita extends JPanel {
             	if (controlloNomeGiocatori()) {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
                     
-                    handlePlayerNames();  // Metodo per gestire i nomi inseriti
+                   
                     scegliPedina();
                 } else {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -373,13 +373,7 @@ public class NuovaPartita extends JPanel {
     }
     
     
-    public static String[] getPedine() {
-    	return pedineScelte;
-    }
-    
-    public static int getNumGiocatore() {
-    	return numGiocatori;
-    }
+
 
     
     protected void creaTabellone() {
@@ -415,12 +409,5 @@ public class NuovaPartita extends JPanel {
         return true;
     }
     
-    
-    // Gestione dei nomi dei giocatori inseriti
-    private void handlePlayerNames() {
-        for (int i = 0; i < numGiocatori; i++) {
-            nomiGiocatori[i] = playerNames[i].getText();
-            System.out.println("Giocatore " + (i + 1) + ": " + nomiGiocatori[i]);
-        }
-    }
+ 
 }
