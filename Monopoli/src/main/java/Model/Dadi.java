@@ -9,16 +9,16 @@ public class Dadi {
 	private Random random;
 
     public Dadi() {
-    	random=new Random();
+    	random = new Random();
     }
 
     public void roll() {
-    	dado1=random.nextInt(6)+1;
-    	dado2=random.nextInt(6)+1;
+    	dado1 = random.nextInt(6) + 1;
+    	dado2 = random.nextInt(6) + 1;
     }
     
     public int getTotal() {
-    	return dado1+dado2;
+    	return dado1 + dado2;
     }
     
     public int getDado1() {
@@ -30,7 +30,7 @@ public class Dadi {
     }
   
     public boolean isDouble() {
-    	return dado1==dado2;
+    	return dado1 == dado2;
     }
     
     

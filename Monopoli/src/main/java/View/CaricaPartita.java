@@ -1,26 +1,28 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 
-import Model.CreazioneDB;
+import Model.GestioneDB;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class CaricaPartita extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel setUp;
-	private JTable table;
+	private static JPanel setUp;
+	private static JTable table;
 	private JButton btn_indietro;
+	static JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -53,39 +55,14 @@ public class CaricaPartita extends JPanel {
         setUp.add(btn_indietro);
         
 		// Panel con barra di scorrimento
-        JScrollPane scrollPane = new JScrollPane();
+        scrollPane = new JScrollPane();
         scrollPane.setBounds(258, 51, 738, 383);
         setUp.add(scrollPane);
 
         table = new JTable();
         scrollPane.setViewportView(table);
         
-        //mostraSalvataggi();
-       CreazioneDB.visualizzaDati(table);
-        
-	}
-
-	public void mostraSalvataggi() throws SQLException {
-		
-		setUp.setLayout(null);
-		
-		JLabel lblSelezionaSalvataggio = new JLabel("Partite salvate:");
-		lblSelezionaSalvataggio.setBounds(421, 30, 202, 50);
-		lblSelezionaSalvataggio.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        setUp.add(lblSelezionaSalvataggio);
-        
-        int numeroRighe = CreazioneDB.contaRighe();
-        
-        if(numeroRighe == -1) { // Se non ci sono partite salvate allora mostra la label
-        	JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
-        	lblNoPartiteSalvate.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        	lblNoPartiteSalvate.setBounds(626, 23, 360, 64);
-        	setUp.add(lblNoPartiteSalvate);
-        } else {
-        	 table = new JTable(new DefaultTableModel(new Object[]{"Data salvataggio", "Giocatori"}, numeroRighe)); // Conta quante righe ha il db e ne crea lo stesso numero nella JTable
-        	 table.setBounds(10, 90, 1024, 385);
-        	 setUp.add(table);
-        }
+        GestioneDB.visualizzaDati(table);
 	}
 	
     public void vaiIndietro() {
@@ -97,4 +74,13 @@ public class CaricaPartita extends JPanel {
 		revalidate();
 		repaint();
     }
+
+	public static void mostraLabel() throws SQLException {
+				
+		JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
+		lblNoPartiteSalvate.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNoPartiteSalvate.setBounds(320, 80, 357, 41);
+		setUp.add(lblNoPartiteSalvate);
+		setUp.setComponentZOrder(lblNoPartiteSalvate, 0);
+	}
 }

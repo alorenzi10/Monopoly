@@ -2,17 +2,21 @@ package View;
 
 import java.awt.Color;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MonopolyGUI extends JPanel {
 
@@ -20,12 +24,19 @@ public class MonopolyGUI extends JPanel {
 	
 	private JTextArea consoleTextArea;
 	private JPanel[] caselle;
-	private JLabel[] pedine=new JLabel[2];
-	int prova=0;
+	private JLabel[] pedine;
+	
+	public static final int COMANDO_TIRA_DADI = 0;
+	public static final int COMANDO_SCAMBI = 1;
+	public static final int COMANDO_PROPRIETA = 2;
+	public static final int COMANDO_BANCAROTTA = 3;
+	public static final int COMANDO_FINE_TURNO = 4;
+	
+	private int comando;
 	
 	public MonopolyGUI() {
 		
-		caselle=new JPanel[40];
+		caselle = new JPanel[40];
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
 		
@@ -40,7 +51,7 @@ public class MonopolyGUI extends JPanel {
 		via_png.setIcon(new ImageIcon("./icons/VIA!!.png"));
 		via_png.setBounds(2, 2, 86, 86);
 		casella0.add(via_png);
-		caselle[0]=casella0;
+		caselle[0] = casella0;
 		
 		JPanel casella1 = new JPanel();
 		casella1.setLayout(null);
@@ -512,100 +523,134 @@ public class MonopolyGUI extends JPanel {
 		casella39.add(parco_della_vittoria);
 		caselle[39]=casella39;
 		
-		JButton btnTiraDadi = new JButton("Tira i Dadi");
-		btnTiraDadi.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnTiraDadi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//solo per provare il movimento
-				prova++;
-				muoviPedina(prova-1, prova,0 );
-			}
-		});
-		btnTiraDadi.setBounds(156, 180, 144, 60);
-		add(btnTiraDadi);
-		
-		JButton btnScambi = new JButton("Scambi");
-		btnScambi.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnScambi.setBounds(156, 360, 144, 60);
-		add(btnScambi);
-		
-		JButton btnProprieta = new JButton("Proprieta");
-		btnProprieta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnProprieta.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnProprieta.setBounds(156, 540, 144, 60);
-		add(btnProprieta);
-		
 		consoleTextArea = new JTextArea();
-		//consoleTextArea.setEditable(false);
+		consoleTextArea.setEditable(false);
 		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
-		scrollPane.setBounds(310, 131, 340, 518);
+		scrollPane.setBounds(360, 131, 290, 518);
 		add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(130, 130, 220, 520);
+		add(panel);
+		panel.setLayout(null);
+		
+		JButton btnTiraDadi = new JButton("Tira i dadi");
+		btnTiraDadi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_TIRA_DADI;
+			}
+		});
+		btnTiraDadi.setBounds(10, 36, 200, 60);
+		btnTiraDadi.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		try {
+			btnTiraDadi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/dice.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel.add(btnTiraDadi);
+		
+		JButton btnScambi = new JButton("Scambi");
+		btnScambi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_SCAMBI;
+			}
+		});
+		btnScambi.setBounds(10, 132, 200, 60);
+		btnScambi.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		try {
+			btnScambi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/exchange.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel.add(btnScambi);
+		
+		JButton btnProprieta = new JButton("Proprietà");
+		btnProprieta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_PROPRIETA;
+			}
+		});
+		btnProprieta.setBounds(10, 228, 200, 60);
+		btnProprieta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		try {
+			btnProprieta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/properties.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel.add(btnProprieta);
+		
+		JButton btnDichiaraBancarotta = new JButton("Bancarotta");
+		btnDichiaraBancarotta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_BANCAROTTA;
+			}
+		});
+		btnDichiaraBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnDichiaraBancarotta.setBounds(10, 324, 200, 60);
+		try {
+			btnDichiaraBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel.add(btnDichiaraBancarotta);
+		
+		JButton btnFineTurno = new JButton("Fine del turno");
+		btnFineTurno.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_FINE_TURNO;
+			}
+		});
+		btnFineTurno.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnFineTurno.setBounds(10, 420, 200, 60);
+		try {
+			btnFineTurno.setIcon(new ImageIcon(ImageIO.read(new File("./icons/stop.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel.add(btnFineTurno);
 
 		creaPedine();
 	
 	}
-	
-	public void creaPedine() {
-		String [] pedineS = NuovaPartita.pedineScelte;
-		int num = NuovaPartita.numGiocatori;
 
-		for(int i=0; i<num; i++) {
-			JLabel pedina=new JLabel();
-			switch (pedineS[i]) {
-			case "Cane":	
-				
-				pedina.setIcon(new ImageIcon("./icons/cane.png"));
-				pedine[i]=pedina;
-			break;
-			case "Cappello":	
-				
-				pedina.setIcon(new ImageIcon("./icons/cappello.png"));
-				pedine[i]=pedina;
-			break;
-			case "Cariola":	
-				
-				pedina.setIcon(new ImageIcon("./icons/cariola.png"));
-				pedine[i]=pedina;
-			break;
-			case "Nave":	
+		public void creaPedine() {
 			
-				pedina.setIcon(new ImageIcon("./icons/nave.png"));
-				pedine[i]=pedina;
-			break;
-			case "Ditale":
+			String [] pedineSelezionate = NuovaPartita.getPedineScelte();
+			int num = NuovaPartita.getNumGiocatori();
+			pedine = new JLabel[num];
+			
+			for(int i=0; i<num; i++) {
+				pedine[i] = new JLabel();
 				
-				pedina.setIcon(new ImageIcon("./icons/ditale.png"));
-				pedine[i]=pedina;
-			break;
-			case "Ferro":	
-				
-				pedina.setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));
-				pedine[i]=pedina;
-			break;
-			case "Macchina":	
-				
-				pedina.setIcon(new ImageIcon("./icons/macchina.png"));
-				pedine[i]=pedina;
-			break;
-			case "Stivale":	
-				
-				pedina.setIcon(new ImageIcon("./icons/stivale.png"));
-				pedine[i]=pedina;
-			break;
+				switch (pedineSelezionate[i]) {
+				case "Cane":
+					pedine[i].setIcon(new ImageIcon("./icons/cane.png"));		break;
+				case "Cappello":	
+					pedine[i].setIcon(new ImageIcon("./icons/cappello.png")); 	break;
+				case "Cariola":	
+					pedine[i].setIcon(new ImageIcon("./icons/cariola.png"));	break;
+				case "Nave":	
+					pedine[i].setIcon(new ImageIcon("./icons/nave.png"));		break;
+				case "Ditale":
+					pedine[i].setIcon(new ImageIcon("./icons/ditale.png"));		break;
+				case "Ferro":	
+					pedine[i].setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));	break;
+				case "Macchina":	
+					pedine[i].setIcon(new ImageIcon("./icons/macchina.png"));	break;
+				case "Stivale":	
+					pedine[i].setIcon(new ImageIcon("./icons/stivale.png"));	break;
+				}
 			}
-		}
-		for(int i=0; i<num; i++) {
-				pedine[i].setBounds(15, 20, 45, 50);
-				caselle[0].add(pedine[i]);
-				caselle[0].setComponentZOrder(pedine[i], 0);
+			for(int i=0; i<num; i++) {
+					pedine[i].setBounds(7, 20, 45, 50);
+					caselle[0].add(pedine[i]);
+					caselle[0].setComponentZOrder(pedine[i], 0);
 			}
-	}
-	
+		}	
+		
+		
 	public void muoviPedina(int partenza, int arrivo, int pedina) {
 		
 		//controlla che il vettore non sia nullo per evitare l'eccezione
@@ -620,8 +665,12 @@ public class MonopolyGUI extends JPanel {
 		
 	}
 	
+	public int getComando() {
+		return comando;
+	}
+	
 	public void stampa(String text){
-		consoleTextArea.append(">> " +text + "\n");
+		consoleTextArea.append(">> " + text + "\n");
 		consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength()); //scorre alla fine sempre
 	}
 }

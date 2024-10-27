@@ -14,7 +14,9 @@ public class MenuController {
 	private MenuIniziale menuIniziale;
 	
 	public MenuController() {
+		
 		frame = new SchermataDiGioco();
+		
 		menuIniziale = new MenuIniziale();
 		menuIniziale.setBounds(0, 0, 1920, 1080);
 		frame.getContentPane().add(menuIniziale);  
@@ -28,32 +30,25 @@ public class MenuController {
 	private class NuovaPartitaListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			 creaNuovaPartita();
-
 		}
     }
 	
 	private class CaricaPartitaListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			try {
 				caricaPartita();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 		}
     }
 	
 	private class EsciListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
             System.exit(0);
-
 		}
     }
 	

@@ -183,11 +183,13 @@ public class NuovaPartita extends JPanel {
             public void actionPerformed(ActionEvent e) {
             	
             	// Controllo che i campi dei nomi giocatori non siano vuoti
-            	
             	if (controlloNomeGiocatori()) {
-                    JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
                     
-                   
+            		// Memorizza i nomi dei giocatori
+                    for (int i = 0; i < numGiocatori; i++) {
+                        nomiGiocatori[i] = playerNames[i].getText().trim();
+                    }
+            		JOptionPane.showMessageDialog(NuovaPartita.this, "Nomi confermati!");
                     scegliPedina();
                 } else {
                     JOptionPane.showMessageDialog(NuovaPartita.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -294,7 +296,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnCane.setVisible(false);
         		pedineScelte[indice] = "Cane";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
 
@@ -302,7 +304,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnCappello.setVisible(false);
         		pedineScelte[indice] = "Cappello";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -310,7 +312,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnCariola.setVisible(false);
         		pedineScelte[indice] = "Cariola";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -318,7 +320,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnNave.setVisible(false);
         		pedineScelte[indice] = "Nave";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -326,7 +328,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnDitale.setVisible(false);
         		pedineScelte[indice] = "Ditale";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -334,7 +336,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnFerro.setVisible(false);
         		pedineScelte[indice] = "Ferro";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -342,7 +344,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnMacchina.setVisible(false);
         		pedineScelte[indice] = "Macchina";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         
@@ -350,7 +352,7 @@ public class NuovaPartita extends JPanel {
         	public void actionPerformed(ActionEvent e) {
         		btnStivale.setVisible(false);
         		pedineScelte[indice] = "Stivale";
-        		aggiornaTurno(lblTurnoGiocatore, btnConferma);
+        		aggiornaTurno(lblTurnoGiocatore);
         	}
         });
         setUp.revalidate();  // Aggiorna il pannello
@@ -360,22 +362,15 @@ public class NuovaPartita extends JPanel {
     
     
  // Funzione per aggiornare il turno di scelta
-    public void aggiornaTurno(JLabel lblTurnoGiocatore, JButton btnConferma) {
+    public void aggiornaTurno(JLabel lblTurnoGiocatore) {
     	indice++;  // Passa al giocatore successivo
         if (indice < numGiocatori) {
             // Aggiorna la label per il turno del prossimo giocatore
         	lblTurnoGiocatore.setText(nomiGiocatori[indice] + " scegli la pedina");
-        } else {
-            // Tutti i giocatori hanno scelto, abilita il bottone "Conferma"
-        	lblTurnoGiocatore.setText("Tutti i giocatori hanno scelto");
-            btnConferma.setEnabled(true);  // Abilita il bottone di conferma
+        } else
             creaTabellone();
-        }
     }
     
-    
-
-
     
     protected void creaTabellone() {
     	removeAll();
@@ -409,6 +404,14 @@ public class NuovaPartita extends JPanel {
         }
         return true;
     }
+
+	public static String[] getPedineScelte() {
+		return pedineScelte;
+	}
+
+	public static int getNumGiocatori() {
+		return numGiocatori;
+	}
     
  
 }

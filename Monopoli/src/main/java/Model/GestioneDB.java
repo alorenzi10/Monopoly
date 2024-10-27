@@ -7,7 +7,9 @@ import java.util.Scanner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class CreazioneDB {
+import View.CaricaPartita;
+
+public class GestioneDB {
 	
 	public static void main(String[] args) throws SQLException {
 		creaTabella();
@@ -76,8 +78,9 @@ public class CreazioneDB {
     //per quando nel menu si vuole far scegliere la partita da caricare
     public static void visualizzaDati(JTable table) throws SQLException {
     	
+    	table.setEnabled(false);
     	Connection conn = DriverManager.getConnection(DB_URL);
-    	String sqlSelect = "SELECT * FROM "+NomeTabella;
+    	String sqlSelect = "SELECT * FROM " + NomeTabella;
     	
     	DefaultTableModel model = new DefaultTableModel();
         try (Statement stmt = conn.createStatement();
@@ -95,27 +98,34 @@ public class CreazioneDB {
                                    ", POS_PEDINA: " + posPedina + ", SOLDI: " + soldi);
             }*/
             
-        	ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
+        	//ResultSetMetaData metaData = resultSet.getMetaData();
+            //int columnCount = metaData.getColumnCount();
             
-            for (int i = 1; i <= columnCount; i++) {
+           /* for (int i = 1; i <= 2; i++) {
                 model.addColumn(metaData.getColumnLabel(i));
+            }*/
+            
+            boolean hasData = false;
+            
+            model.addColumn("Data salvataggio");
+            model.addColumn("Giocatori");
+            while (resultSet.next()) {
+            	hasData = true;
+            	Object[] row = new Object[2];
+            	for (int i = 1; i <= 2; i++) {
+            		row[i - 1] = resultSet.getObject(i);
+            	}
+            	model.addRow(row); // Recupera i dati dal database
             }
             
-            while (resultSet.next()) {
-                Object[] row = new Object[columnCount];
-                for (int i = 1; i <= columnCount; i++) {
-                    row[i - 1] = resultSet.getObject(i);
-                }
-                model.addRow(row); // Recupera i dati dal database
-            }
+            if(!hasData) {
+            	CaricaPartita.mostraLabel();
         }
         
         table.setModel(model);
-        conn.close();
-            
-     }
-    
+        conn.close();   
+        }
+    }
     //se si vogliono cancellare salvataggi(???)
     public static void eliminaDati() throws SQLException {
     	
@@ -139,19 +149,4 @@ public class CreazioneDB {
         }
     }
     
-    public static int contaRighe() throws SQLException {
-    	
-    	Connection conn = DriverManager.getConnection(DB_URL);
-    	int rowCount = -1; // Default se non ci sono salvataggi precedenti
-    	try {
-			String sqlCountRows = "SELECT COUNT(*) AS result FROM "+NomeTabella;
-			Statement stmt = conn.createStatement();
-			ResultSet resultSet = stmt.executeQuery(sqlCountRows);
-			if(resultSet.next())
-				rowCount = resultSet.getInt("result");
-		} catch (SQLException e) {
-        	System.out.println(e.getMessage());
-		}
-    	return rowCount;
-    }
 }
