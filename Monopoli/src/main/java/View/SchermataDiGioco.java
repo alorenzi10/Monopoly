@@ -13,9 +13,6 @@ public class SchermataDiGioco extends JFrame {
 	private static final long serialVersionUID = 1L; 
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 */
 	public SchermataDiGioco() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); // Massimizza la finestra

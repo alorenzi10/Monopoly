@@ -12,7 +12,7 @@ public class Player {
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> proprieta;
-    private final int TENTATIVI_MASSIMI_PRIGIONE=3;
+    private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> cards;
     
@@ -122,4 +122,6 @@ public class Player {
 		}
 		return tentativiTerminati;
 	}
+	
+	
 }

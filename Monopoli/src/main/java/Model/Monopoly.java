@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.*;
-
 import View.*;
 
 public class Monopoly {
@@ -11,7 +10,7 @@ public class Monopoly {
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
     public int numero_giocatori; 
     private ArrayList<Player> players = new ArrayList<Player>();
-    private Player giCorrente; // Turno del giocatore nella arraylist
+    private Player giCorrente; // Giocatore del turno corrente
     private Dadi dice = new Dadi();
     private Tabellone tabellone = new Tabellone(dice);
     private MazzoProbabilita mazzoProbabilita = new MazzoProbabilita();
@@ -56,22 +55,26 @@ public class Monopoly {
 		nDadiDoppi = 0;
 		do {
 			switch(print.getComando()) {
-			case print.COMANDO_TIRA_DADI:
-				tiraDadi();		break;
-			case print.COMANDO_SCAMBI:
-			}
-			
-			//input da pulsanti
-			//Proprieta
-			//Scambi
-			tiraDadi();
-			setFineTurno();
-			
+			case MonopolyGUI.COMANDO_TIRA_DADI: tiraDadi();						break;
+			case MonopolyGUI.COMANDO_SCAMBI: scambi();							break;
+			case MonopolyGUI.COMANDO_GESTIONE_PROPRIETA: gestioneProprieta();	break;
+			case MonopolyGUI.COMANDO_BANCAROTTA: setBancarotta();				break;
+			case MonopolyGUI.COMANDO_FINE_TURNO: setFineTurno();				break;
+			}		
 		}while(!fineTurno);
 	}
 	
-	private void tiraDadi() {
-		if(tiroDadiFatto!=true) {
+	public void gestioneProprieta() {
+		switch (print.getComando()) {
+		case MonopolyGUI.COMANDO_COSTRUSCI: tiraDadi();			break;
+		case MonopolyGUI.COMANDO_DEMOLISCI: scambi();			break;
+		case MonopolyGUI.COMANDO_IPOTECA: gestioneProprieta();	break;
+		case MonopolyGUI.COMANDO_DISIPOTECA: setBancarotta();	break;
+		}
+	}
+
+	public void tiraDadi() {
+		if(!tiroDadiFatto) {
 			if(giCorrente.getWallet() >= 0) {
 				dice.roll();
 				print.stampa("Dado 1: " + dice.getDado1());
@@ -92,24 +95,24 @@ public class Monopoly {
 				else {
 					if (dice.isDouble()) {
 						giCorrente.liberaDaPrigione();
-						print.stampa(giCorrente.getName() + " è uscito dalla prigione");
+						print.stampa(giCorrente.getName() + " è uscito dalla prigione.");
 					}
 					else {
 						giCorrente.fallitoTentativo();
 						if (giCorrente.tentativiTerminati() == true) {
 							giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 							giCorrente.liberaDaPrigione();
-							print.stampa(giCorrente.getName() + " è uscito dalla prigione pagando 50€");
+							print.stampa(giCorrente.getName() + " è uscito dalla prigione pagando 50€.");
 						}
 					}
 					giCorrente.muovi(dice.getTotal());
 					tiroDadiFatto = true;
 				}
 			}
-		}
+		} else {print.stampa("Hai già tirato! Scegli un'altra azione.");}
 	}
 	
-	private void setFineTurno() {
+	public void setFineTurno() {
 		if (tiroDadiFatto) {
 			if (giCorrente.getWallet() > 0) {
 				fineTurno = true;
@@ -117,17 +120,28 @@ public class Monopoly {
 		}
 	}
 	
-	
-	
+	public void scambi() {
+		
+	}
+		
+	public void setBancarotta(){
+		Player giocTemp = players.get(players.indexOf(giCorrente)+1); // giocTemp è il giocatore successivo a quello corrente
+		players.remove(giCorrente);
+		giCorrente = giocTemp;
+		// Controllo eventuale vittoria
+		if(players.size() == 1) {
+			gameOver = true;
+		}
+	}
 	
 	public void controlloPassaggioVia() {
 		if (giCorrente.passaggioVia()) {
 			giCorrente.doTransaction(MONEY_VIA);
-			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€" );
+			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
 		}
 	}
 	
-	private void arrivoCasella() {
+	public void arrivoCasella() {
 		Casella casella = tabellone.getSquare(giCorrente.getLocation());
 		if (casella instanceof Imprevisti) {
 			Carta carta = mazzoImprevisti.get();
@@ -140,10 +154,10 @@ public class Monopoly {
 		} else if (casella instanceof Tassa) {
 			int totale = ((Tassa) casella).getTotale();
 			giCorrente.doTransaction(totale);
-			print.stampa("Paga: " + ((Tassa) casella).getTotale() + "€. Saldo: " + giCorrente.getWallet() + "€");
+			print.stampa("Paga: " + ((Tassa) casella).getTotale() + "€. Saldo: " + giCorrente.getWallet() + "€.");
 		} else if (casella instanceof VaiInPrigione) {
 			giCorrente.vaiInPrigione();	
-			print.stampa(giCorrente.getName() + "va in prigione");
+			print.stampa(giCorrente.getName() + " va in prigione.");
 		} else if (casella instanceof Proprieta) {
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){
 				int totale = ((Proprieta) casella).getAffito();
@@ -160,7 +174,6 @@ public class Monopoly {
 				compraProprieta();
 			}
 		}
-		
 	}
 	
 	
@@ -213,6 +226,46 @@ public class Monopoly {
 		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€" );
 	}
 	
+	private void ipoteca() {
+		Proprieta prop;
+		if(prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
+			if ((prop instanceof Cantiere) && !((Cantiere) prop).haCase() || (prop instanceof Stazione) || (prop instanceof Societa)){
+				if (prop.isIpotecata() == false) {
+					prop.setIpotecata();
+					giCorrente.doTransaction(prop.getPrezzoIpoteca());
+				}
+			}
+		}
+	}
+
+	private void costruisci() {
+		Proprieta prop; //ricevuta da input
+		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
+			if (prop instanceof Cantiere) {
+				Cantiere cant = (Cantiere) prop;
+				if (giCorrente.possessoreGruppo(cant)) {
+					
+						//Da ragionare il controllo del numero di case
+				}
+			}
+		}
+	}
+	
+	private void disipoteca() {
+		Proprieta prop;
+		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
+			if ((prop instanceof Cantiere) && !((Cantiere) prop).haCase() || (prop instanceof Stazione) || (prop instanceof Societa)) {
+				if (prop.isIpotecata() && giCorrente.getWallet()>=prop.getCostoDisipoteca()) {
+					giCorrente.doTransaction(-prop.getCostoDisipoteca());					
+				}
+			}
+		}
+	}
+
+	private void demolisci() {
+		//stessa cosa, il controllo del numero di case
+	}
+
 	public boolean isGameOver() {
 		return gameOver;
 	}

@@ -3,22 +3,27 @@ package View;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MonopolyGUI extends JPanel {
+public class MonopolyGUI extends JLayeredPane {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,14 +33,18 @@ public class MonopolyGUI extends JPanel {
 	
 	public static final int COMANDO_TIRA_DADI = 0;
 	public static final int COMANDO_SCAMBI = 1;
-	public static final int COMANDO_PROPRIETA = 2;
+	public static final int COMANDO_GESTIONE_PROPRIETA = 2;
 	public static final int COMANDO_BANCAROTTA = 3;
 	public static final int COMANDO_FINE_TURNO = 4;
+	public static final int COMANDO_COSTRUSCI = 5;
+	public static final int COMANDO_DEMOLISCI = 6;
+	public static final int COMANDO_IPOTECA = 7;
+	public static final int COMANDO_DISIPOTECA = 8;
 	
 	private int comando;
 	
 	public MonopolyGUI() {
-		
+				
 		caselle = new JPanel[40];
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
@@ -569,7 +578,8 @@ public class MonopolyGUI extends JPanel {
 		JButton btnProprieta = new JButton("Proprietà");
 		btnProprieta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_PROPRIETA;
+				mostraGestioneProprieta();
+				comando = COMANDO_GESTIONE_PROPRIETA;
 			}
 		});
 		btnProprieta.setBounds(10, 228, 200, 60);
@@ -614,55 +624,141 @@ public class MonopolyGUI extends JPanel {
 		creaPedine();
 	
 	}
-
-		public void creaPedine() {
-			
-			String [] pedineSelezionate = NuovaPartita.getPedineScelte();
-			int num = NuovaPartita.getNumGiocatori();
-			pedine = new JLabel[num];
-			
-			for(int i=0; i<num; i++) {
-				pedine[i] = new JLabel();
-				
-				switch (pedineSelezionate[i]) {
-				case "Cane":
-					pedine[i].setIcon(new ImageIcon("./icons/cane.png"));		break;
-				case "Cappello":	
-					pedine[i].setIcon(new ImageIcon("./icons/cappello.png")); 	break;
-				case "Cariola":	
-					pedine[i].setIcon(new ImageIcon("./icons/cariola.png"));	break;
-				case "Nave":	
-					pedine[i].setIcon(new ImageIcon("./icons/nave.png"));		break;
-				case "Ditale":
-					pedine[i].setIcon(new ImageIcon("./icons/ditale.png"));		break;
-				case "Ferro":	
-					pedine[i].setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));	break;
-				case "Macchina":	
-					pedine[i].setIcon(new ImageIcon("./icons/macchina.png"));	break;
-				case "Stivale":	
-					pedine[i].setIcon(new ImageIcon("./icons/stivale.png"));	break;
-				}
-			}
-			for(int i=0; i<num; i++) {
-					pedine[i].setBounds(7, 20, 45, 50);
-					caselle[0].add(pedine[i]);
-					caselle[0].setComponentZOrder(pedine[i], 0);
-			}
-		}	
+	
+	public void mostraGestioneProprieta() {
 		
+		JPanel panel_sfondo = new JPanel();
+		panel_sfondo.setBounds(0, 0, 1540, 845);
+		panel_sfondo.setOpaque(false);
+		panel_sfondo.setLayout(null);
+		add(panel_sfondo, 1);
+		
+		JPanel panel = new JPanel() {
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+        		ImageIcon icon = new ImageIcon("./icons/sfondo2.png"); //carica l'immagine di sfondo
+        		Image image = icon.getImage();
+        		int panelWidth = getWidth();
+        		int imageWidth = image.getWidth(this);
+                int imageHeight = image.getHeight(this);
+                int newHeight = (imageHeight * panelWidth) / imageWidth;
+                g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
+			}
+		};
+		panel.setLayout(null);
+		panel.setBounds(850, 82, 680, 680);
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		panel.setBorder(blackline);
+		panel_sfondo.add(panel);
+
+		JButton btnAnnulla = new JButton("Annulla");
+		btnAnnulla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				remove(panel_sfondo);
+				revalidate();
+				repaint();
+			}
+		});
+
+		btnAnnulla.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnAnnulla.setBounds(10, 627, 145, 43);
+		panel.add(btnAnnulla);
+
+		JLabel lblGestisciLeProprieta = new JLabel("Gestisci le tue proprietà");
+		lblGestisciLeProprieta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGestisciLeProprieta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblGestisciLeProprieta.setBounds(207, 10, 266, 31);
+		panel.add(lblGestisciLeProprieta);
+
+		JButton btnCostruisci = new JButton("Costruisci");
+		btnCostruisci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_COSTRUSCI;
+			}
+		});
+		btnCostruisci.setBounds(67, 177, 203, 82);
+		btnCostruisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panel.add(btnCostruisci);
+
+		JButton btnIpoteca = new JButton("Ipoteca");
+		btnIpoteca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_IPOTECA;
+			}
+		});
+		btnIpoteca.setBounds(356, 177, 203, 82);
+		btnIpoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panel.add(btnIpoteca);
+
+		JButton btnDemolisci = new JButton("Demolisci");
+		btnDemolisci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_DEMOLISCI;
+			}
+		});
+		btnDemolisci.setBounds(67, 367, 203, 82);
+		btnDemolisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panel.add(btnDemolisci);
+
+		JButton btnDisipoteca = new JButton("Disipoteca");
+		btnDisipoteca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comando = COMANDO_DISIPOTECA;
+			}
+		});
+		btnDisipoteca.setBounds(356, 367, 203, 82);
+		btnDisipoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panel.add(btnDisipoteca);
+		
+	}
+
+	public void creaPedine() {
+
+		String [] pedineSelezionate = NuovaPartita.getPedineScelte();
+		int num = NuovaPartita.getNumGiocatori();
+		pedine = new JLabel[num];
+
+		for(int i=0; i<num; i++) {
+			pedine[i] = new JLabel();
+
+			switch (pedineSelezionate[i]) {
+			case "Cane":
+				pedine[i].setIcon(new ImageIcon("./icons/cane.png"));		break;
+			case "Cappello":	
+				pedine[i].setIcon(new ImageIcon("./icons/cappello.png")); 	break;
+			case "Cariola":	
+				pedine[i].setIcon(new ImageIcon("./icons/cariola.png"));	break;
+			case "Nave":	
+				pedine[i].setIcon(new ImageIcon("./icons/nave.png"));		break;
+			case "Ditale":
+				pedine[i].setIcon(new ImageIcon("./icons/ditale.png"));		break;
+			case "Ferro":	
+				pedine[i].setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));	break;
+			case "Macchina":	
+				pedine[i].setIcon(new ImageIcon("./icons/macchina.png"));	break;
+			case "Stivale":	
+				pedine[i].setIcon(new ImageIcon("./icons/stivale.png"));	break;
+			}
+		}
+		for(int i=0; i<num; i++) {
+			pedine[i].setBounds(7, 20, 45, 50);
+			caselle[0].add(pedine[i]);
+			caselle[0].setComponentZOrder(pedine[i], 0);
+		}
+	}	
 		
 	public void muoviPedina(int partenza, int arrivo, int pedina) {
 		
 		//controlla che il vettore non sia nullo per evitare l'eccezione
 		if(pedine[pedina]!=null) {
-		caselle[partenza].remove(pedine[pedina]); //rimuove il componente
-		caselle[arrivo].add(pedine[pedina]); //aggiunge il componente al pannello di arrivo
-		caselle[arrivo].setComponentZOrder(pedine[pedina], 0); 
+			caselle[partenza].remove(pedine[pedina]); //rimuove il componente
+			caselle[arrivo].add(pedine[pedina]); //aggiunge il componente al pannello di arrivo
+			caselle[arrivo].setComponentZOrder(pedine[pedina], 0); 
 		}
 		
 		repaint();
-	
-		
 	}
 	
 	public int getComando() {
