@@ -52,4 +52,16 @@ public class Cantiere extends Proprieta {
 		return gruppoColore;
 	}
 
+	public boolean puoCostruire(int i) {
+		return false;
+	}
+
+	public boolean haCase() {
+		boolean b = false;
+		if(numCostruzioni > 0) {
+			b = true;
+		}
+		return b;
+	}
+
 }

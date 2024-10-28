@@ -6,16 +6,16 @@ public class Proprieta extends Casella {
     private boolean isOwned;
     private int costo;
     private Player possessore;
-    private boolean mortgaged;
-    private int mortgageValue;
+    private boolean ipotecata;
+    private int prezzoIpoteca;
 
-    public Proprieta(String name, int costo, int mortgageValue) {
+    public Proprieta(String name, int costo, int prezzoIpoteca) {
     	super(name);
     	this.costo = costo;
     	isOwned = false;
     	possessore = null;
-    	mortgaged = false;
-    	this.mortgageValue = mortgageValue;
+    	ipotecata = false;
+    	this.prezzoIpoteca = prezzoIpoteca;
     }
 
 	public boolean posseduta() {
@@ -32,6 +32,22 @@ public class Proprieta extends Casella {
 
 	public int getCosto() {
 		return costo;
+	}
+
+	public boolean isIpotecata() {
+		return ipotecata;
+	}
+
+	public void setIpotecata() {
+		ipotecata = true;
+	}
+
+	public int getPrezzoIpoteca() {
+		return prezzoIpoteca;
+	}
+
+	public int getCostoDisipoteca() {
+		return (int) (prezzoIpoteca*VALORE_DISIPOTECA);
 	}
 
 }
