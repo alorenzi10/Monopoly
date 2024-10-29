@@ -49,7 +49,7 @@ public class Monopoly {
 	}
 	
 	
-	public void strutturaTurno() {
+	public void strutturaTurno() {//al momento non riceve i valori, bisogna usare i listener
 		fineTurno = false;
 		tiroDadiFatto = false;
 		nDadiDoppi = 0;
@@ -125,13 +125,17 @@ public class Monopoly {
 	}
 		
 	public void setBancarotta(){
-		Player giocTemp = players.get(players.indexOf(giCorrente)+1); // giocTemp è il giocatore successivo a quello corrente
-		players.remove(giCorrente);
-		giCorrente = giocTemp;
-		// Controllo eventuale vittoria
-		if(players.size() == 1) {
-			gameOver = true;
-		}
+		// Chiedo al giocatore se è sicuro
+		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
+		if(print.getDecisioneBancarotta()) {
+			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
+			players.remove(giCorrente);
+			giCorrente = giocTemp;
+			// Controllo eventuale vittoria
+			if(players.size() == 1) {
+				gameOver = true;
+			}
+		} else return;
 	}
 	
 	public void controlloPassaggioVia() {
@@ -175,9 +179,7 @@ public class Monopoly {
 			}
 		}
 	}
-	
-	
-	
+
 	private void azioneCarta(Carta carta) {
 		switch (carta.getAction()) {
 		case Mazzo.AZIONE_VAI_AVANTI:
@@ -223,7 +225,7 @@ public class Monopoly {
 	private void compraProprieta() {
 		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
 		giCorrente.doTransaction(-proprieta.getCosto());
-		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€" );
+		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€." );
 	}
 	
 	private void ipoteca() {

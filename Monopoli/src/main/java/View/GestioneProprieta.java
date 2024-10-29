@@ -31,6 +31,46 @@ public class GestioneProprieta extends JPanel {
 		add(panel_sfondo);
 		panel_sfondo.setLayout(null);
 		
+		
+		
+		
+		
+		
+		JPanel panel_conferma_bancarotta = new JPanel();
+		panel_conferma_bancarotta.setBounds(469, 248, 601, 348);
+		panel_sfondo.add(panel_conferma_bancarotta);
+		panel_conferma_bancarotta.setLayout(null);
+		
+		JLabel lblConfermaBancarotta = new JLabel("Confermi di voler dichiarare bancarotta?");
+		lblConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
+		panel_conferma_bancarotta.add(lblConfermaBancarotta);
+		
+		JButton btnConfermaBancarotta = new JButton("Confermo");
+		btnConfermaBancarotta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnConfermaBancarotta.setBounds(47, 234, 230, 82);
+		panel_conferma_bancarotta.add(btnConfermaBancarotta);
+		
+		JButton btnNoBancarotta = new JButton("No, torna al gioco");
+		btnNoBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNoBancarotta.setBounds(324, 236, 230, 82);
+		panel_conferma_bancarotta.add(btnNoBancarotta);
+		
+		JLabel lblIconaBancarotta = new JLabel("");
+		lblIconaBancarotta.setBounds(250, 102, 100, 100);
+		panel_conferma_bancarotta.add(lblIconaBancarotta);
+		
+		
+		
+		
+		
+		
+		
 		JPanel panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 			}
@@ -51,22 +91,22 @@ public class GestioneProprieta extends JPanel {
 		panel.add(lblGestisciLeProprieta);
 		
 		JButton btnCostruisci = new JButton("Costruisci");
-		btnCostruisci.setBounds(67, 177, 203, 82);
+		btnCostruisci.setBounds(91, 172, 203, 82);
 		panel.add(btnCostruisci);
 		btnCostruisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		JButton btnIpoteca = new JButton("Ipoteca");
-		btnIpoteca.setBounds(356, 177, 203, 82);
+		btnIpoteca.setBounds(385, 172, 203, 82);
 		panel.add(btnIpoteca);
 		btnIpoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		JButton btnDemolisci = new JButton("Demolisci");
-		btnDemolisci.setBounds(67, 367, 203, 82);
+		btnDemolisci.setBounds(91, 426, 203, 82);
 		panel.add(btnDemolisci);
 		btnDemolisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		JButton btnDisipoteca = new JButton("Disipoteca");
-		btnDisipoteca.setBounds(356, 367, 203, 82);
+		btnDisipoteca.setBounds(385, 426, 203, 82);
 		panel.add(btnDisipoteca);
 		btnDisipoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		try {
