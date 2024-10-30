@@ -21,7 +21,7 @@ public class CaricaPartita extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static JPanel setUp;
 	private static JTable table;
-	private JButton btn_indietro;
+	private JButton btnIndietro;
 	static JScrollPane scrollPane;
 
 	/**
@@ -44,15 +44,15 @@ public class CaricaPartita extends JPanel {
         setUp.setLayout(null);
         add(setUp);
         
-        btn_indietro = new JButton("Indietro");
-        btn_indietro.addActionListener(new ActionListener() {
+        btnIndietro = new JButton("Indietro");
+        btnIndietro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		vaiIndietro();
         	}
         });
-        btn_indietro.setBounds(10, 415, 152, 60);
-        btn_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        setUp.add(btn_indietro);
+        btnIndietro.setBounds(10, 415, 152, 60);
+        btnIndietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        setUp.add(btnIndietro);
         
 		// Panel con barra di scorrimento
         scrollPane = new JScrollPane();

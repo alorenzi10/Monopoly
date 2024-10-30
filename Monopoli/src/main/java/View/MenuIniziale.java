@@ -6,10 +6,12 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-
+/**
+ * Classe per mostrare il menu iniziale.
+ * Vegnono mostrati i bottoni nuova partita, carica partita ed esci
+ */
 public class MenuIniziale extends JPanel {
 
     private static final long serialVersionUID = 1L;

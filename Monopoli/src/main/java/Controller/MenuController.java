@@ -8,11 +8,15 @@ import View.CaricaPartita;
 import View.MenuIniziale;
 import View.NuovaPartita;
 import View.SchermataDiGioco;
+/**
+ * Classe per controllare il menu iniziale.
+ * L'utente decidera tra nuova partita, carica partita ed esci
+ */
 
 public class MenuController {
 	
-	private static SchermataDiGioco frame;
-	private static MenuIniziale menuIniziale;
+	private static SchermataDiGioco frame; //Per gestire il JFrame
+	private static MenuIniziale menuIniziale; //JPannel inserito nel JFrame per la visualizazione del menu iniziale 
 	
 	public MenuController(SchermataDiGioco frame) {
 		
@@ -22,15 +26,14 @@ public class MenuController {
 		frame.add(menuIniziale);  
 		frame.setVisible(true);
 		
+		//Listener dei vari bottoni per la scelta dal menu
 		menuIniziale.addNuovaPartitaListener(new NuovaPartitaListener());
-		menuIniziale.addCaricaPartitaListener(new CaricaPartitaListener()); //da risolvere
+		menuIniziale.addCaricaPartitaListener(new CaricaPartitaListener()); //da fare
 		menuIniziale.addEsciListener(new EsciListener());
 	}
 	
-	public static void RitoroMenu() {
-		frame.add(menuIniziale);
-		frame.revalidate();
-        frame.repaint();
+	public static MenuIniziale getMenuIniziale() {
+		return menuIniziale;
 	}
 	
 	private class NuovaPartitaListener implements ActionListener{
@@ -40,7 +43,7 @@ public class MenuController {
 		}
     }
 	
-	private class CaricaPartitaListener implements ActionListener{
+	private class CaricaPartitaListener implements ActionListener{ //da fare
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -59,11 +62,11 @@ public class MenuController {
     }
 	
     public void creaNuovaPartita() { 
-    	frame.remove(menuIniziale);
+    	menuIniziale.setVisible(false);
     	new NuovaPartitaController(new NuovaPartita(), frame);
     }
     
-    public void caricaPartita() throws SQLException{
+    public void caricaPartita() throws SQLException{  //da fare
     	
     	frame.remove(menuIniziale);
     	
