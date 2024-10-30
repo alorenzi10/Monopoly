@@ -33,30 +33,18 @@ public class MenuIniziale extends JPanel {
         btnNuovaPartita.setBounds(590, 435, 360, 80);
         btnNuovaPartita.setBackground(new Color(240, 240, 240));
         btnNuovaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        btnNuovaPartita.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         add(btnNuovaPartita);
         
         btnCaricaPartita = new JButton("Carica partita");
         btnCaricaPartita.setBounds(590, 545, 360, 80);
         btnCaricaPartita.setBackground(new Color(240, 240, 240));
         btnCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        btnCaricaPartita.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         add(btnCaricaPartita);
         
         btnEsci = new JButton("Esci");
         btnEsci.setBounds(590, 655, 360, 80);
         btnEsci.setBackground(new Color(240, 240, 240));
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
-        btnEsci.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
         add(btnEsci);
     }
     
