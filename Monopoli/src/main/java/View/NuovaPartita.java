@@ -19,15 +19,16 @@ import javax.swing.JTextField;
 import Model.Player;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class NuovaPartita extends JPanel {
 
 	 private static final long serialVersionUID = 1L;
 	 private JPanel setUp;  // Panel interno per i vari step del processo
-	  public static int numGiocatori;  // Variabile per memorizzare il numero di giocatori
+	 public static int numGiocatori;  // Variabile per memorizzare il numero di giocatori
 	 private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
-	 String[] nomiGiocatori;
+	 private static String[] nomiGiocatori;
 	 private ArrayList<Player> giocatori = new ArrayList<>();
 	 private MonopolyGUI monopolyGUI = new MonopolyGUI();
      int indice = 0;
@@ -411,6 +412,10 @@ public class NuovaPartita extends JPanel {
 
 	public static int getNumGiocatori() {
 		return numGiocatori;
+	}
+
+	public static String getNomiGiocatori(int i) {
+		return nomiGiocatori[i];
 	}
     
  

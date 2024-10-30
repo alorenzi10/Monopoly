@@ -569,6 +569,7 @@ public class MonopolyGUI extends JLayeredPane {
 		btnScambi = new JButton("Scambi");
 		btnScambi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mostraScambi();//da rivedere
 				comando = COMANDO_SCAMBI;
 			}
 		});
@@ -585,7 +586,7 @@ public class MonopolyGUI extends JLayeredPane {
 		btnProprieta = new JButton("Proprietà");
 		btnProprieta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostraGestioneProprieta();
+				mostraGestioneProprieta();//da rivedere
 				comando = COMANDO_GESTIONE_PROPRIETA;
 			}
 		});
@@ -602,7 +603,7 @@ public class MonopolyGUI extends JLayeredPane {
 		btnDichiaraBancarotta = new JButton("Bancarotta");
 		btnDichiaraBancarotta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_BANCAROTTA;
+				//comando = COMANDO_BANCAROTTA; spostato nella fz dopo l'eventuale conferma
 				confermaBancarotta();
 			}
 		});
@@ -647,7 +648,6 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 	
 	// Chiedo conferma al giocatore se vuole davvero andare in bancarotta
-	
 	public boolean getDecisioneBancarotta() {
 		return decisioneBancarotta;
 	}
@@ -681,6 +681,7 @@ public class MonopolyGUI extends JLayeredPane {
 				remove(panel_sfondo);
 				revalidate();
 				repaint();
+				comando = COMANDO_BANCAROTTA;
 			}
 		});
 		btnConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -802,6 +803,77 @@ public class MonopolyGUI extends JLayeredPane {
 		
 	}
 
+	public void mostraScambi() {
+		
+		buttonsState(false);
+		
+		JPanel panel_sfondo = new JPanel();
+		panel_sfondo.setBounds(0, 0, 1540, 845);
+		panel_sfondo.setOpaque(false);
+		panel_sfondo.setLayout(null);
+		add(panel_sfondo, 1);
+		
+		JPanel panel_gestione_scambi = new JPanel() {
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+        		ImageIcon icon = new ImageIcon("./icons/sfondo2.png"); //carica l'immagine di sfondo
+        		Image image = icon.getImage();
+        		int panelWidth = getWidth();
+        		int imageWidth = image.getWidth(this);
+                int imageHeight = image.getHeight(this);
+                int newHeight = (imageHeight * panelWidth) / imageWidth;
+                g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
+			}
+		};
+		panel_gestione_scambi.setLayout(null);
+		panel_gestione_scambi.setBounds(850, 82, 680, 680);
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		panel_gestione_scambi.setBorder(blackline);
+		panel_sfondo.add(panel_gestione_scambi);
+
+		for (int i = 0; i < NuovaPartita.numGiocatori; i++) {// listener
+			/*if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().nome)
+				i++;*/
+            JButton btnNomeGiocatore = new JButton(NuovaPartita.getNomiGiocatori(i));
+            btnNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            btnNomeGiocatore.setBounds(212, 204 + (i * 75), 256, 60);
+            panel_gestione_scambi.add(btnNomeGiocatore);
+            
+        }
+
+		JLabel lblScambiGiocatori = new JLabel("Scambi tra giocatori");
+		lblScambiGiocatori.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScambiGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblScambiGiocatori.setBounds(212, 32, 256, 43);
+		panel_gestione_scambi.add(lblScambiGiocatori);
+		
+		JLabel lblScegliGiocatore = new JLabel("Scegli un giocatore con cui contrattare:");
+		lblScegliGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScegliGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblScegliGiocatore.setBounds(10, 111, 460, 31);
+		panel_gestione_scambi.add(lblScegliGiocatore);
+		
+		JButton btnFine = new JButton("Fine");
+		btnFine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonsState(true);
+				remove(panel_sfondo);
+				revalidate();
+				repaint();
+			}
+		});
+		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnFine.setBounds(10, 627, 140, 43);
+		panel_gestione_scambi.add(btnFine);
+		
+		JButton btnNewButton = new JButton("Alessandro");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton.setBounds(212, 280, 256, 59);
+		panel_gestione_scambi.add(btnNewButton);
+	}
+	
 	public void creaPedine() {
 
 		String [] pedineSelezionate = NuovaPartita.getPedineScelte();
