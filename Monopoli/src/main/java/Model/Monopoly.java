@@ -66,10 +66,10 @@ public class Monopoly {
 	
 	public void gestioneProprieta() {
 		switch (print.getComando()) {
-		case MonopolyGUI.COMANDO_COSTRUSCI: tiraDadi();			break;
-		case MonopolyGUI.COMANDO_DEMOLISCI: scambi();			break;
-		case MonopolyGUI.COMANDO_IPOTECA: gestioneProprieta();	break;
-		case MonopolyGUI.COMANDO_DISIPOTECA: setBancarotta();	break;
+		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();			break;
+		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();			break;
+		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
+		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
 		}
 	}
 
@@ -228,26 +228,80 @@ public class Monopoly {
 		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€." );
 	}
 	
-	private void ipoteca() {
-		Proprieta prop;
-		if(prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
-			if ((prop instanceof Cantiere) && !((Cantiere) prop).haCase() || (prop instanceof Stazione) || (prop instanceof Societa)){
-				if (prop.isIpotecata() == false) {
-					prop.setIpotecata();
-					giCorrente.doTransaction(prop.getPrezzoIpoteca());
-				}
-			}
-		}
-	}
-
 	private void costruisci() {
 		Proprieta prop; //ricevuta da input
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if (prop instanceof Cantiere) {
 				Cantiere cant = (Cantiere) prop;
 				if (giCorrente.possessoreGruppo(cant)) {
-					
-						//Da ragionare il controllo del numero di case
+					if (!cant.isIpotecata()) {
+						GruppoColore gc = cant.getGruppoColore();
+						int min = Integer.MAX_VALUE;
+						int max = Integer.MIN_VALUE;
+						
+						for (Cantiere c: gc.getMembri()) {
+							if (c.isIpotecata()) {
+	                            print.stampa("Non puoi costruire: una proprietà del gruppo è ipotecata.");
+	                            return;
+	                        }
+							int nCase = c.getNumCase();
+							min = Math.min(min, nCase);
+							max = Math.max(max, nCase);
+						}
+						if(cant.getNumCostruzioni() == min || min == max) {
+							if(cant.getNumCostruzioni() != 5) {
+								if(giCorrente.getWallet() >= cant.getCostoCasa()) {
+									cant.costruisci();
+									giCorrente.doTransaction(-cant.getCostoCasa());
+								} else {print.stampa("Non hai abbastanza soldi per costruire.");}
+							} else {print.stampa("Hai già l'albergo su questa proprietà.");}
+						} else {print.stampa("Non puoi costruire, la differenza tra le case non può essere maggiore di uno.");}
+					}else {print.stampa("Non puoi costruire, la proprietà è ipotecata.");}
+				}else {print.stampa("Non possiedi tutto il gruppo.");}
+			}else {print.stampa("Non puoi costruire su questa proprietà.");}
+		}else {print.stampa("Non puoi costruire su questa proprietà perchè non la possiedi.");}
+	}
+	
+	private void demolisci() {
+		Proprieta prop; //ricevuta da input
+		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
+			if (prop instanceof Cantiere) {
+				Cantiere cant = (Cantiere) prop;
+				GruppoColore gc = cant.getGruppoColore();
+				int min = Integer.MAX_VALUE;
+				int max = Integer.MIN_VALUE;
+				
+				for (Cantiere c: gc.getMembri()) {
+					int nCase = c.getNumCase();
+					min = Math.min(min, nCase);
+					max = Math.max(max, nCase);
+				}
+				if (cant.getNumCostruzioni() == max || max==min) {
+					if (cant.getNumCostruzioni()>0) {
+						cant.demolisci();
+						giCorrente.doTransaction(cant.getCostoCasa()/2);
+					}else {print.stampa("Non hai case su questa proprietà");}
+				}else {print.stampa("Distruzione non valida, la differenza tra le case non può essere maggiore di uno.");}
+			}else {print.stampa("Non puoi costruire su questa proprietà.");}
+		}else {print.stampa("Non puoi demolire se una proprietà che non possiedi");}
+	}
+	
+	private void ipoteca() {
+		Proprieta prop;
+		int valoreCase=0;
+		if(prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
+			if ((prop instanceof Cantiere) || (prop instanceof Stazione) || (prop instanceof Societa)){
+				if (prop.isIpotecata() == false) {
+					if (((Cantiere) prop).haCase()) {
+						Cantiere cant = (Cantiere) prop;
+		                GruppoColore gc = cant.getGruppoColore();
+		                for (Cantiere c : gc.getMembri()) {
+		                	if (c.haCase()) {
+		                            valoreCase += c.getNumCase() * c.getCostoCasa()/2;
+		                	}
+		                }
+					}
+					giCorrente.doTransaction(valoreCase+prop.getPrezzoIpoteca());
 				}
 			}
 		}
@@ -264,12 +318,11 @@ public class Monopoly {
 		}
 	}
 
-	private void demolisci() {
-		//stessa cosa, il controllo del numero di case
-	}
 
 	public boolean isGameOver() {
 		return gameOver;
 	}
+	
+	public Player getGiCorrente() {
 }
   

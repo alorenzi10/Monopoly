@@ -5,14 +5,14 @@ public class Cantiere extends Proprieta {
     private int[] tabellaAffitti;
     private GruppoColore gruppoColore;
     private int numCostruzioni;
-    private int buildPrice;
+    private int costoCasa;
     private final int MAX_NUM_UNITS = 5;
  
-    public Cantiere(String name, int price, int mortgageValue, int[] tabellaAffitti, GruppoColore colourGroup, int buildPrice) {
+    public Cantiere(String name, int price, int mortgageValue, int[] tabellaAffitti, GruppoColore colourGroup, int costoCasa) {
 		super(name, price, mortgageValue);
 		this.tabellaAffitti = tabellaAffitti;
 		this.gruppoColore = colourGroup;
-		this.buildPrice = buildPrice;
+		this.costoCasa = costoCasa;
 		this.numCostruzioni = 0;
 		colourGroup.addMember(this);
 	}
@@ -52,16 +52,28 @@ public class Cantiere extends Proprieta {
 		return gruppoColore;
 	}
 
-	public boolean puoCostruire(int i) {
-		return false;
-	}
-
 	public boolean haCase() {
 		boolean b = false;
 		if(numCostruzioni > 0) {
 			b = true;
 		}
 		return b;
+	}
+
+	public int getNumCostruzioni() {
+		return numCostruzioni;
+	}
+
+	public int getCostoCasa() {
+		return costoCasa;
+	}
+
+	public void costruisci() {
+		numCostruzioni++;
+	}
+
+	public void demolisci() {
+		numCostruzioni--;
 	}
 
 }
