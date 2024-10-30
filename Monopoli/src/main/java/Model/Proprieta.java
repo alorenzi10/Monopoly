@@ -50,4 +50,9 @@ public class Proprieta extends Casella {
 		return (int) (prezzoIpoteca*VALORE_DISIPOTECA);
 	}
 
+	public void setProprietario(Player player) {
+		possessore = player;
+		isOwned = true;
+	}
+
 }

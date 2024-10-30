@@ -40,10 +40,21 @@ public class MonopolyGUI extends JLayeredPane {
 	public static final int COMANDO_GESTIONE_PROPRIETA = 2;
 	public static final int COMANDO_BANCAROTTA = 3;
 	public static final int COMANDO_FINE_TURNO = 4;
+	
 	public static final int COMANDO_COSTRUSCI = 5;
 	public static final int COMANDO_DEMOLISCI = 6;
 	public static final int COMANDO_IPOTECA = 7;
 	public static final int COMANDO_DISIPOTECA = 8;
+	
+	public static final int COMANDO_ASTA = 9;
+	public static final int COMANDO_COMPRA = 10;
+	
+	public static final int COMANDO_RILANCIA_1 = 11;
+	public static final int COMANDO_RILANCIA_10 = 12;
+	public static final int COMANDO_RILANCIA_50 = 13;
+	public static final int COMANDO_RINUNCIA = 14;
+
+	
 	
 	private int comando;
 	
@@ -834,7 +845,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.add(panel_gestione_scambi);
 
 		for (int i = 0; i < NuovaPartita.numGiocatori; i++) {// listener
-			/*if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().nome)
+			/*if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().getName())
 				i++;*/
             JButton btnNomeGiocatore = new JButton(NuovaPartita.getNomiGiocatori(i));
             btnNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -38,10 +38,13 @@ public class Monopoly {
     	daiSoldiIniziali();
     	do {
     		strutturaTurno();
+    		if (!isGameOver()) {
+    			setProssimoGiocatore();
+    		}
     	}while(!isGameOver());
+    	
     }
 
-	
 	public void daiSoldiIniziali() {
 		for (int i=0; i<numero_giocatori; i++) {
 			players.get(i).doTransaction(MONEY_START); 
@@ -55,19 +58,21 @@ public class Monopoly {
 		nDadiDoppi = 0;
 		do {
 			switch(print.getComando()) {
-			case MonopolyGUI.COMANDO_TIRA_DADI: tiraDadi();						break;
-			case MonopolyGUI.COMANDO_SCAMBI: scambi();							break;
+			case MonopolyGUI.COMANDO_TIRA_DADI: tiraDadi();		break;
+			case MonopolyGUI.COMANDO_SCAMBI: scambi();		break;
 			case MonopolyGUI.COMANDO_GESTIONE_PROPRIETA: gestioneProprieta();	break;
-			case MonopolyGUI.COMANDO_BANCAROTTA: setBancarotta();				break;
-			case MonopolyGUI.COMANDO_FINE_TURNO: setFineTurno();				break;
+			case MonopolyGUI.COMANDO_BANCAROTTA: setBancarotta();	break;
+			//comando paga quando sei in prigione
+			//comando usa carta uscita gratis di prigione quando sei in prigione
+			case MonopolyGUI.COMANDO_FINE_TURNO: setFineTurno();	break;
 			}		
 		}while(!fineTurno);
 	}
 	
 	public void gestioneProprieta() {
 		switch (print.getComando()) {
-		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();			break;
-		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();			break;
+		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();	break;
+		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();	break;
 		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
 		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
 		}
@@ -134,6 +139,7 @@ public class Monopoly {
 			// Controllo eventuale vittoria
 			if(players.size() == 1) {
 				gameOver = true;
+				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
 		} else return;
 	}
@@ -170,12 +176,12 @@ public class Monopoly {
 				possessore.doTransaction(totale);
 			} else if (giCorrente.getWallet()<((Proprieta) casella).getCosto()){
 				strutturaAsta();
-			}
-			else {
-				//scelta tra comprare o mettere all'asta
-				//far vedere la 
-				strutturaAsta();
-				compraProprieta();
+			}else {
+				if (print.getComando() == MonopolyGUI.COMANDO_ASTA) {
+					strutturaAsta();
+				}else if (print.getComando() == MonopolyGUI.COMANDO_COMPRA) {
+					compraProprieta();
+				}
 			}
 		}
 	}
@@ -211,20 +217,66 @@ public class Monopoly {
 			print.stampa("Ricevi: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
 		case Mazzo.REGALI:
-			/*for (Player altriGiocatori : players.getAltriGiocatori(giCorrente)) {
-				//da fare
-			}*/
+			for (Player p : players) {
+				if(p.getName() != giCorrente.getName()) {
+					p.doTransaction(-carta.getQtaSoldi());
+					print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
+				}
+			}
+			giCorrente.doTransaction(carta.getQtaSoldi()*(players.size()-1));
 			break;
 		}
 	}
 	
 	private void strutturaAsta() {
-		//da fare		
+		int offerta_corrente = 0;
+		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
+		ArrayList<Player> playersAsta = players;
+		do {
+			for (Player p : playersAsta) {
+				boolean fineTurnoAsta = false;
+				do {
+					switch(print.getComando()) {
+					case MonopolyGUI.COMANDO_RILANCIA_1:
+						if(p.getWallet() < offerta_corrente+1) {
+							print.stampa("Non hai abbastanza soldi, rinuncia all'asta.");
+						} else {
+							offerta_corrente+=1;
+							fineTurnoAsta = true;
+						}		
+						break;
+					case MonopolyGUI.COMANDO_RILANCIA_10:
+						if(p.getWallet() < offerta_corrente+10) {
+							print.stampa("Non hai abbastanza soldi, fai un'offerta minore o rinuncia.");
+						} else {
+							offerta_corrente+=10;
+							fineTurnoAsta = true;
+							}		
+						break;
+					case MonopolyGUI.COMANDO_RILANCIA_50: 
+						if(p.getWallet() < offerta_corrente+50) {
+							print.stampa("Non hai abbastanza soldi, fai un'offerta minore o rinuncia.");
+						} else {
+							offerta_corrente+=50;
+							fineTurnoAsta = true;
+							}		
+						break;
+					case MonopolyGUI.COMANDO_RINUNCIA:		
+						playersAsta.remove(p);
+						fineTurnoAsta = true;
+						break;
+					}
+				} while (!fineTurnoAsta);
+			}
+		}while(playersAsta.size() > 1);
+		playersAsta.get(0).doTransaction(-offerta_corrente);
+		playersAsta.get(0).aggiungiProprieta(proprieta);
 	}
-	
+
 	private void compraProprieta() {
 		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
 		giCorrente.doTransaction(-proprieta.getCosto());
+		giCorrente.aggiungiProprieta(proprieta);
 		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€." );
 	}
 	
@@ -318,11 +370,16 @@ public class Monopoly {
 		}
 	}
 
+	private void setProssimoGiocatore() {
+		giCorrente = players.get(players.indexOf(giCorrente) + 1);
+	}
 
 	public boolean isGameOver() {
 		return gameOver;
 	}
 	
 	public Player getGiCorrente() {
+		return giCorrente;
+	}
 }
   

@@ -11,7 +11,7 @@ public class Player {
     private boolean tiri;
     private int location;
     private boolean passatoVia;
-    private ArrayList<Proprieta> proprieta;
+    private ArrayList<Proprieta> listaProprieta;
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> cards;
@@ -74,7 +74,7 @@ public class Player {
 
 	public int getNumCasePossedute() {
 		int numCase = 0;
-		for (Proprieta p : proprieta) {
+		for (Proprieta p : listaProprieta) {
 			if (p instanceof Cantiere) {
 				numCase += ((Cantiere) p).getNumCase();
 			}
@@ -84,7 +84,7 @@ public class Player {
 	
 	public int getNumAlberghiPosseduti() {
 		int numAlberghi = 0;
-		for (Proprieta prop : proprieta) {
+		for (Proprieta prop : listaProprieta) {
 			if (prop instanceof Cantiere) {
 				numAlberghi += ((Cantiere) prop).getNumCase();
 			}
@@ -121,6 +121,11 @@ public class Player {
 			tentativiTerminati = true;
 		}
 		return tentativiTerminati;
+	}
+
+	public void aggiungiProprieta(Proprieta proprieta) {
+		proprieta.setProprietario(this);
+		listaProprieta.add(proprieta);
 	}
 	
 	
