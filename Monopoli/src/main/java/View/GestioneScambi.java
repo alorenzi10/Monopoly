@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -55,7 +56,7 @@ public class GestioneScambi extends JFrame {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		add(panel_sfondo, 1);
+		getContentPane().add(panel_sfondo, 1);
 		
 		JPanel panel_gestione_scambi = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -72,11 +73,10 @@ public class GestioneScambi extends JFrame {
 			}
 		};
 		panel_gestione_scambi.setLayout(null);
-		panel_gestione_scambi.setBounds(850, 82, 680, 680);
-		Border blackline = BorderFactory.createLineBorder(Color.black);
-		panel_gestione_scambi.setBorder(blackline);
+		panel_gestione_scambi.setBounds(125, 125, 520, 520);
+		panel_gestione_scambi.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		panel_sfondo.add(panel_gestione_scambi);
-
+		
 		for (int i = 0; i < NuovaPartita.numGiocatori; i++) {// listener
 			if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().nome)
 				i++;
@@ -91,13 +91,13 @@ public class GestioneScambi extends JFrame {
 		JLabel lblScambiGiocatori = new JLabel("Scambi tra giocatori");
 		lblScambiGiocatori.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScambiGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblScambiGiocatori.setBounds(212, 32, 256, 43);
+		lblScambiGiocatori.setBounds(132, 32, 256, 43);
 		panel_gestione_scambi.add(lblScambiGiocatori);
 		
 		JLabel lblScegliGiocatore = new JLabel("Scegli un giocatore con cui contrattare:");
 		lblScegliGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScegliGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblScegliGiocatore.setBounds(10, 111, 460, 31);
+		lblScegliGiocatore.setBounds(25, 111, 470, 31);
 		panel_gestione_scambi.add(lblScegliGiocatore);
 		
 		JButton btnFine = new JButton("Fine");
@@ -110,12 +110,12 @@ public class GestioneScambi extends JFrame {
 			}
 		});
 		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnFine.setBounds(10, 627, 140, 43);
+		btnFine.setBounds(10, 467, 140, 43);
 		panel_gestione_scambi.add(btnFine);
 		
 		JButton btnNewButton = new JButton("Alessandro");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(212, 280, 256, 59);
+		btnNewButton.setBounds(171, 204, 180, 40);
 		panel_gestione_scambi.add(btnNewButton);
 
 	}
