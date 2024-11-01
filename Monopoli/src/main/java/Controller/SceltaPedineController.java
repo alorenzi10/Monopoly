@@ -3,6 +3,7 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import View.MonopolyGUI;
 import View.SceltaPedine;
 import View.SchermataDiGioco;
 
@@ -10,15 +11,16 @@ public class SceltaPedineController {
 	
 	private SceltaPedine sceltaPedineView;
 	private SchermataDiGioco frame;
-	private int numGiocatori;
+	
+	private static int numGiocatori;
 	private int indice;
-	public  String[] pedineScelte;
+	public static String[] pedineScelte;
 	
 	public SceltaPedineController(int giocatori, SchermataDiGioco frame) {
 		// TODO Auto-generated constructor stub
 		indice=0;
 		this.frame=frame;
-		this.numGiocatori=giocatori;
+		SceltaPedineController.numGiocatori=giocatori;
 		pedineScelte = new String[numGiocatori];
 		sceltaPedineView= new SceltaPedine(numGiocatori);
 		
@@ -34,6 +36,7 @@ public class SceltaPedineController {
         sceltaPedineView.addBtnMacchina(new BtnMacchina());
         sceltaPedineView.addBtnNave(new BtnNave());
         sceltaPedineView.addBtnStivale(new BtnStivale());
+        
 	}
 	
 	private class BtnCane implements ActionListener{
@@ -45,8 +48,6 @@ public class SceltaPedineController {
     		aggiornaTurno();
 		}
     }
-	
-	
 	private class BtnCappello implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -113,6 +114,7 @@ public class SceltaPedineController {
 
 	 // Funzione per aggiornare il turno di scelta
     public void aggiornaTurno() {
+
     	indice++;  // Passa al giocatore successivo
         if (indice < numGiocatori) {
             // Aggiorna la label per il turno del prossimo giocatore
@@ -121,7 +123,24 @@ public class SceltaPedineController {
         } 
         else {
         	sceltaPedineView.setVisible(false);
-            //creaTabellone();
+            creaTabellone();
         }
+    }
+    
+    protected void creaTabellone() {
+    	
+        MonopolyGUI monopolyGUI = new MonopolyGUI();
+        monopolyGUI.setBounds(0, 0,  1920, 1080);  // Imposta le dimensioni di MonopolyGUI
+        frame.add(monopolyGUI);
+        frame.revalidate();
+        frame.repaint();      
+	}
+    
+    public static String[] getPedineScelte() {
+    	return pedineScelte;
+    }
+    
+    public static String[] getNumGiocatori() {
+    	return pedineScelte;
     }
 }

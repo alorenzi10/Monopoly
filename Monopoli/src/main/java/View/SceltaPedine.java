@@ -16,13 +16,12 @@ import javax.swing.JPanel;
 import Controller.NomiGiocatoriController;
 
 public class SceltaPedine extends JPanel  {
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel setUp;
-	private JButton btnConferma;
 	public JButton btnCane;
 	public JButton btnCappello;
 	public JButton btnCariola;
@@ -32,11 +31,10 @@ public class SceltaPedine extends JPanel  {
 	public JButton btnMacchina;
 	public JButton btnStivale;
 	private JLabel lblTurnoGiocatore;
+	
 	private int indice = 0; //Le lasciamo nella view per semplificare l'implementazioni
 	private int numGiocatori;
 	private String[] nomiGiocatori;
-    
-	
     
 	public SceltaPedine(int giocatori) {
 		
@@ -58,15 +56,6 @@ public class SceltaPedine extends JPanel  {
         lblSceltaPedine.setFont(new Font("Tahoma", Font.PLAIN, 30));
         lblSceltaPedine.setBounds(415, 30, 408, 50);
         setUp.add(lblSceltaPedine);
-        
-        btnConferma = new JButton("Conferma");
-        btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        btnConferma.setBounds(950, 550, 200, 60);
-        btnConferma.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	creaTabellone();
-           	}
-        });
         
         lblTurnoGiocatore = new JLabel(nomiGiocatori[indice] + " scegli la pedina");
         lblTurnoGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -166,18 +155,5 @@ public class SceltaPedine extends JPanel  {
    	
     	btnStivale.addActionListener(listener);
    }
-    
-    
-    
-    
-    protected void creaTabellone() {
-    	removeAll();
-    	setLayout(null);
-        MonopolyGUI monopolyGUI = new MonopolyGUI();
-        monopolyGUI.setBounds(0, 0, getWidth(), getHeight());  // Imposta le dimensioni di MonopolyGUI
-        add(monopolyGUI);
-        revalidate();
-        repaint();      
-	}
 
 }
