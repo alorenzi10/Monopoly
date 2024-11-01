@@ -2,7 +2,7 @@ package Model;
 
 public class MazzoImprevisti extends Mazzo {
 	
-    private final int IMPREVISTI = 0;
+    public static final int IMPREVISTI = 0;
 
     MazzoImprevisti(){
     	//Ho inserito solo i testi, dobbiamo riflettere sui parametri

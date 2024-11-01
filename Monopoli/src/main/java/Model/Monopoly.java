@@ -62,20 +62,11 @@ public class Monopoly {
 			case MonopolyGUI.COMANDO_SCAMBI: scambi();		break;
 			case MonopolyGUI.COMANDO_GESTIONE_PROPRIETA: gestioneProprieta();	break;
 			case MonopolyGUI.COMANDO_BANCAROTTA: setBancarotta();	break;
-			//comando paga quando sei in prigione
-			//comando usa carta uscita gratis di prigione quando sei in prigione
+			case MonopolyGUI.COMANDO_USCITA_GRATIS: uscitaGratis();	break;
+			case MonopolyGUI.COMANDO_USCITA_PAGANDO: pagaUscitaPrigione();	break;
 			case MonopolyGUI.COMANDO_FINE_TURNO: setFineTurno();	break;
 			}		
 		}while(!fineTurno);
-	}
-	
-	public void gestioneProprieta() {
-		switch (print.getComando()) {
-		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();	break;
-		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();	break;
-		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
-		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
-		}
 	}
 
 	public void tiraDadi() {
@@ -117,18 +108,19 @@ public class Monopoly {
 		} else {print.stampa("Hai già tirato! Scegli un'altra azione.");}
 	}
 	
-	public void setFineTurno() {
-		if (tiroDadiFatto) {
-			if (giCorrente.getWallet() > 0) {
-				fineTurno = true;
-			}
-		}
-	}
-	
 	public void scambi() {
 		
 	}
-		
+	
+	public void gestioneProprieta() {
+		switch (print.getComando()) {
+		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();	break;
+		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();	break;
+		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
+		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
+		}
+	}
+	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
 		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
@@ -142,6 +134,39 @@ public class Monopoly {
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
 		} else return;
+	}
+	
+	private void uscitaGratis() {
+		if (giCorrente.eInPrigione()) {
+			if (giCorrente.haUscitaGratis()) {
+				Carta c = giCorrente.getCarta();
+				if (c.getTipo() == MazzoImprevisti.IMPREVISTI) {
+					mazzoImprevisti.add(c);
+				}
+				else {
+					mazzoProbabilita.add(c);
+				}
+				giCorrente.liberaDaPrigione();
+			} else {print.stampa("Non hai carte uscite gratis di prigione!");}
+		} else {print.stampa("Il giocatatore non è i prigione");}
+	}
+	
+	private void pagaUscitaPrigione() {
+		if (giCorrente.eInPrigione()) {
+			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
+				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
+				giCorrente.liberaDaPrigione();
+				print.stampa("Il giocaotre " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
+			} else {print.stampa("Non hai abbastanza soldi!");}
+		} else {print.stampa("Il giocatatore non è i prigione");}
+	}
+	
+	public void setFineTurno() {
+		if (tiroDadiFatto) {
+			if (giCorrente.getWallet() > 0) {
+				fineTurno = true;
+			}
+		}
 	}
 	
 	public void controlloPassaggioVia() {

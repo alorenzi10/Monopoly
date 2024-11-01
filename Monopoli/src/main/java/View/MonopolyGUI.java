@@ -41,20 +41,23 @@ public class MonopolyGUI extends JLayeredPane {
 	public static final int COMANDO_SCAMBI = 1;
 	public static final int COMANDO_GESTIONE_PROPRIETA = 2;
 	public static final int COMANDO_BANCAROTTA = 3;
-	public static final int COMANDO_FINE_TURNO = 4;
+	public static final int COMANDO_USCITA_GRATIS = 4;
+	public static final int COMANDO_USCITA_PAGANDO = 5;
+	public static final int COMANDO_FINE_TURNO = 6;
 	
-	public static final int COMANDO_COSTRUSCI = 5;
-	public static final int COMANDO_DEMOLISCI = 6;
-	public static final int COMANDO_IPOTECA = 7;
-	public static final int COMANDO_DISIPOTECA = 8;
+	public static final int COMANDO_COSTRUSCI = 7;
+	public static final int COMANDO_DEMOLISCI = 8;
+	public static final int COMANDO_IPOTECA = 9;
+	public static final int COMANDO_DISIPOTECA = 10;
 	
-	public static final int COMANDO_ASTA = 9;
-	public static final int COMANDO_COMPRA = 10;
+	public static final int COMANDO_ASTA = 11;
+	public static final int COMANDO_COMPRA = 12;
 	
-	public static final int COMANDO_RILANCIA_1 = 11;
-	public static final int COMANDO_RILANCIA_10 = 12;
-	public static final int COMANDO_RILANCIA_50 = 13;
-	public static final int COMANDO_RINUNCIA = 14;
+	public static final int COMANDO_RILANCIA_1 = 13;
+	public static final int COMANDO_RILANCIA_10 = 14;
+	public static final int COMANDO_RILANCIA_50 = 15;
+	public static final int COMANDO_RINUNCIA = 16;
+
 	
 	private int comando;
 	

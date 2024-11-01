@@ -14,7 +14,7 @@ public class Player {
     private ArrayList<Proprieta> listaProprieta;
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
-    private ArrayList<Carta> cards;
+    private ArrayList<Carta> carte;
     
     public Player(String name) {
     	this.name = name;
@@ -69,7 +69,7 @@ public class Player {
 	}
 
 	public void addCarta(Carta carta) {
-		cards.add(carta);
+		carte.add(carta);
 	}
 
 	public int getNumCasePossedute() {
@@ -126,6 +126,20 @@ public class Player {
 	public void aggiungiProprieta(Proprieta proprieta) {
 		proprieta.setProprietario(this);
 		listaProprieta.add(proprieta);
+	}
+
+	public boolean haUscitaGratis() {
+		boolean haCarta = false;
+		if (carte.size()>0) {
+			haCarta = carte.get(0).getAction() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
+		}
+		return haCarta;
+	}
+
+	public Carta getCarta() {
+		Carta carta = carte.get(0);
+		carte.remove(0);
+		return carta;
 	}
 	
 	
