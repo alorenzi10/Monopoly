@@ -129,7 +129,7 @@ public class SceltaPedineController {
     
     protected void creaTabellone() {
     	
-        MonopolyGUI monopolyGUI = new MonopolyGUI();
+        MonopolyGUI monopolyGUI = new MonopolyGUI(frame);
         monopolyGUI.setBounds(0, 0,  1920, 1080);  // Imposta le dimensioni di MonopolyGUI
         frame.add(monopolyGUI);
         frame.revalidate();
@@ -140,7 +140,7 @@ public class SceltaPedineController {
     	return pedineScelte;
     }
     
-    public static String[] getNumGiocatori() {
-    	return pedineScelte;
+    public static int getNumGiocatori() {
+    	return numGiocatori;
     }
 }

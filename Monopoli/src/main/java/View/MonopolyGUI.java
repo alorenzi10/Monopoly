@@ -10,6 +10,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
+
+import Controller.NomiGiocatoriController;
+import Controller.SceltaPedineController;
+
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +31,7 @@ import java.awt.GridLayout;
 public class MonopolyGUI extends JLayeredPane {
 
 	private static final long serialVersionUID = 1L;
+	private SchermataDiGioco frame;
 	
 	private JTextArea consoleTextArea;
 	private JPanel[] caselle;
@@ -61,18 +66,18 @@ public class MonopolyGUI extends JLayeredPane {
 	
 	private int comando;
 	
-	public MonopolyGUI() {
+	public MonopolyGUI(SchermataDiGioco frame) {
 				
+		this.frame=frame;
 		caselle = new JPanel[40];
-		setBounds(0, 0, 1540, 845);
-		setLayout(null);
-		
+		frame.setBounds(0, 0, 1540, 845);
+		frame.setLayout(null);
 		
 		JPanel casella0 = new JPanel();
 		casella0.setLayout(null);
 		casella0.setBounds(30, 30, 90, 90);
 		casella0.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK));
-		add(casella0);
+		frame.add(casella0);
 		
 		JLabel via_png = new JLabel();
 		via_png.setIcon(new ImageIcon("./icons/VIA!!.png"));
@@ -84,7 +89,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella1.setLayout(null);
 		casella1.setBounds(120, 30, 60, 90);
 		casella1.setBorder(new MatteBorder(2, 0, 2, 0, Color.BLACK));
-		add(casella1);
+		frame.add(casella1);
 		
 		JLabel vicolo_corto = new JLabel();
 		vicolo_corto.setIcon(new ImageIcon("./icons/vicolo_corto.png"));
@@ -97,7 +102,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella2.setLayout(null);
 		casella2.setBounds(180, 30, 60, 90);
 		casella2.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK));
-		add(casella2);
+		frame.add(casella2);
 		
 		
 		JLabel probabilita1 = new JLabel("");
@@ -110,7 +115,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella3.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella3.setBounds(240, 30, 60, 90);
 		casella3.setLayout(null);
-		add(casella3);
+		frame.add(casella3);
 		
 		JLabel vicolo_stretto = new JLabel("");
 		vicolo_stretto.setIcon(new ImageIcon("./icons/vicolo_stretto.png"));
@@ -122,7 +127,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella4.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella4.setBounds(300, 30, 60, 90);
 		casella4.setLayout(null);
-		add(casella4);
+		frame.add(casella4);
 		
 		JLabel tassa_patrimoniale = new JLabel("");
 		tassa_patrimoniale.setIcon(new ImageIcon("./icons/tassa_patrimoniale.png"));
@@ -134,7 +139,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella5.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella5.setBounds(360, 30, 60, 90);
 		casella5.setLayout(null);
-		add(casella5);
+		frame.add(casella5);
 		
 		JLabel stazione_nord = new JLabel("");
 		stazione_nord.setIcon(new ImageIcon("./icons/Stazione_nord.png"));
@@ -146,7 +151,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella6.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella6.setBounds(420, 30, 60, 90);
 		casella6.setLayout(null);
-		add(casella6);
+		frame.add(casella6);
 		
 		JLabel bastioni_gran_sasso = new JLabel("");
 		bastioni_gran_sasso.setIcon(new ImageIcon("./icons/Bastioni_Gran_Sasso.png"));
@@ -158,7 +163,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella7.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella7.setBounds(480, 30, 60, 90);
 		casella7.setLayout(null);
-		add(casella7);
+		frame.add(casella7);
 		
 		JLabel imprevisti1 = new JLabel("");
 		imprevisti1.setIcon(new ImageIcon("./icons/imprevisti1-2.png"));
@@ -170,7 +175,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella8.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella8.setBounds(540, 30, 60, 90);
 		casella8.setLayout(null);
-		add(casella8);
+		frame.add(casella8);
 		
 		JLabel viale_monterosa = new JLabel("");
 		viale_monterosa.setIcon(new ImageIcon("./icons/Viale_Monterosa.png"));
@@ -182,7 +187,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella9.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella9.setBounds(600, 30, 60, 90);
 		casella9.setLayout(null);
-		add(casella9);
+		frame.add(casella9);
 		
 		JLabel viale_vesuvio = new JLabel("");
 		viale_vesuvio.setIcon(new ImageIcon("./icons/viale_vesuvio.png"));
@@ -194,7 +199,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella10.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK)); 
 		casella10.setBounds(660, 30, 90, 90);
 		casella10.setLayout(null);
-		add(casella10);
+		frame.add(casella10);
 		
 		JLabel transito = new JLabel("");
 		transito.setIcon(new ImageIcon("./icons/transito.png"));
@@ -206,7 +211,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella11.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella11.setBounds(660, 120, 90, 60);
 		casella11.setLayout(null);
-		add(casella11);
+		frame.add(casella11);
 		
 		JLabel via_accademia = new JLabel("");
 		via_accademia.setIcon(new ImageIcon("./icons/via_accademia.png"));
@@ -218,7 +223,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella12.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella12.setBounds(660, 180, 90, 60);
 		casella12.setLayout(null);
-		add(casella12);
+		frame.add(casella12);
 		
 		JLabel societa_elettrica = new JLabel("");
 		societa_elettrica.setIcon(new ImageIcon("./icons/societa_elettrica.png"));
@@ -230,7 +235,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella13.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella13.setBounds(660, 240, 90, 60);
 		casella13.setLayout(null);
-		add(casella13);
+		frame.add(casella13);
 		
 		JLabel corso_ateneo = new JLabel("");
 		corso_ateneo.setIcon(new ImageIcon("./icons/corso_ateneo.png"));
@@ -242,7 +247,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella14.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella14.setBounds(660, 300, 90, 60);
 		casella14.setLayout(null);
-		add(casella14);
+		frame.add(casella14);
 		
 		JLabel piazza_universita = new JLabel("");
 		piazza_universita.setIcon(new ImageIcon("./icons/piazza_universita.png"));
@@ -254,7 +259,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella15.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella15.setBounds(660, 360, 90, 60);
 		casella15.setLayout(null);
-		add(casella15);
+		frame.add(casella15);
 		
 		JLabel stazione_est = new JLabel("");
 		stazione_est.setIcon(new ImageIcon("./icons/stazione_est.png"));
@@ -266,7 +271,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella16.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella16.setBounds(660, 420, 90, 60);
 		casella16.setLayout(null);
-		add(casella16);
+		frame.add(casella16);
 		
 		JLabel via_verdi = new JLabel("");
 		via_verdi.setIcon(new ImageIcon("./icons/via_verdi.png"));
@@ -278,7 +283,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella17.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella17.setBounds(660, 480, 90, 60);
 		casella17.setLayout(null);
-		add(casella17);
+		frame.add(casella17);
 		
 		JLabel probabilita2 = new JLabel("");
 		probabilita2.setIcon(new ImageIcon("./icons/Probabilita2.png"));
@@ -290,7 +295,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella18.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella18.setBounds(660, 540, 90, 60);
 		casella18.setLayout(null);
-		add(casella18);
+		frame.add(casella18);
 		
 		JLabel corso_raffaello = new JLabel("");
 		corso_raffaello.setIcon(new ImageIcon("./icons/corso_raffaello.png"));
@@ -302,7 +307,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella19.setBorder(new MatteBorder(0, 2, 0, 2, Color.BLACK)); 
 		casella19.setBounds(660, 600, 90, 60);
 		casella19.setLayout(null);
-		add(casella19);
+		frame.add(casella19);
 		
 		JLabel piazza_dante = new JLabel("");
 		piazza_dante.setIcon(new ImageIcon("./icons/piazza_dante.png"));
@@ -314,7 +319,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella20.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK)); 
 		casella20.setBounds(660, 660, 90, 90);
 		casella20.setLayout(null);
-		add(casella20);
+		frame.add(casella20);
 		
 		JLabel parcheggio_gratuito = new JLabel("");
 		parcheggio_gratuito.setIcon(new ImageIcon("./icons/parcheggio_gratuito.png"));
@@ -326,7 +331,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella21.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella21.setBounds(600, 660, 60, 90);
 		casella21.setLayout(null);
-		add(casella21);
+		frame.add(casella21);
 		
 		JLabel via_marco_polo = new JLabel("");
 		via_marco_polo.setIcon(new ImageIcon("./icons/via_marco_polo.png"));
@@ -338,7 +343,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella22.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella22.setBounds(540, 660, 60, 90);
 		casella22.setLayout(null);
-		add(casella22);
+		frame.add(casella22);
 		
 		JLabel imprevisti2 = new JLabel("");
 		imprevisti2.setIcon(new ImageIcon("./icons/imprevisti1-2.png"));
@@ -350,7 +355,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella23.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella23.setBounds(480, 660, 60, 90);
 		casella23.setLayout(null);
-		add(casella23);
+		frame.add(casella23);
 		
 		JLabel corso_magellano = new JLabel("");
 		corso_magellano.setIcon(new ImageIcon("./icons/corso_magellano.png"));
@@ -362,7 +367,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella24.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella24.setBounds(420, 660, 60, 90);
 		casella24.setLayout(null);
-		add(casella24);
+		frame.add(casella24);
 		
 		JLabel largo_colombo = new JLabel("");
 		largo_colombo.setIcon(new ImageIcon("./icons/largo _colombo.png"));
@@ -374,7 +379,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella25.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella25.setBounds(360, 660, 60, 90);
 		casella25.setLayout(null);
-		add(casella25);
+		frame.add(casella25);
 		
 		JLabel stazione_sud = new JLabel("");
 		stazione_sud.setIcon(new ImageIcon("./icons/stazione_sud.png"));
@@ -386,7 +391,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella26.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella26.setBounds(300, 660, 60, 90);
 		casella26.setLayout(null);
-		add(casella26);
+		frame.add(casella26);
 		
 		JLabel viale_costantino = new JLabel("");
 		viale_costantino.setIcon(new ImageIcon("./icons/viale_costantino.png"));
@@ -398,7 +403,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella27.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella27.setBounds(240, 660, 60, 90);
 		casella27.setLayout(null);
-		add(casella27);
+		frame.add(casella27);
 		
 		JLabel viale_traiano = new JLabel("");
 		viale_traiano.setIcon(new ImageIcon("./icons/viale_traiano.png"));
@@ -410,7 +415,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella28.setBorder(new MatteBorder(2, 2, 2, 0, Color.BLACK)); 
 		casella28.setBounds(180, 660, 60, 90);
 		casella28.setLayout(null);
-		add(casella28);
+		frame.add(casella28);
 		
 		JLabel societa_acqua_potabile = new JLabel("");
 		societa_acqua_potabile.setIcon(new ImageIcon("./icons/societa_acqua_potabile.png"));
@@ -422,7 +427,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella29.setBorder(new MatteBorder(2, 0, 2, 0, Color.BLACK)); 
 		casella29.setBounds(120, 660, 60, 90);
 		casella29.setLayout(null);
-		add(casella29);
+		frame.add(casella29);
 		
 		JLabel piazza_giulio_cesare = new JLabel("");
 		piazza_giulio_cesare.setIcon(new ImageIcon("./icons/piazza_giulio_cesare.png"));
@@ -434,7 +439,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella30.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK)); 
 		casella30.setBounds(30, 660, 90, 90);
 		casella30.setLayout(null);
-		add(casella30);
+		frame.add(casella30);
 		
 		JLabel vai_in_prigione = new JLabel("");
 		vai_in_prigione.setIcon(new ImageIcon("./icons/vai_in_prigione.png"));
@@ -446,7 +451,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella31.setBorder(new MatteBorder(0, 2, 0, 2, Color.BLACK)); 
 		casella31.setBounds(30, 600, 90, 60);
 		casella31.setLayout(null);
-		add(casella31);
+		frame.add(casella31);
 		
 		JLabel via_roma = new JLabel("");
 		via_roma.setIcon(new ImageIcon("./icons/via_roma.png"));
@@ -458,7 +463,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella32.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella32.setBounds(30, 540, 90, 60);
 		casella32.setLayout(null);
-		add(casella32);
+		frame.add(casella32);
 		
 		JLabel corso_impero = new JLabel("");
 		corso_impero.setIcon(new ImageIcon("./icons/corso_impero.png"));
@@ -470,7 +475,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella33.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella33.setBounds(30, 480, 90, 60);
 		casella33.setLayout(null);
-		add(casella33);
+		frame.add(casella33);
 		
 		JLabel probabilita3 = new JLabel("");
 		probabilita3.setIcon(new ImageIcon("./icons/probabilita3.png"));
@@ -482,7 +487,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella34.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella34.setBounds(30, 420, 90, 60);
 		casella34.setLayout(null);
-		add(casella34);
+		frame.add(casella34);
 		
 		JLabel largo_augusto = new JLabel("");
 		largo_augusto.setIcon(new ImageIcon("./icons/largo_augusto.png"));
@@ -494,7 +499,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella35.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella35.setBounds(30, 360, 90, 60);
 		casella35.setLayout(null);
-		add(casella35);
+		frame.add(casella35);
 		
 		JLabel stazione_ovest = new JLabel("");
 		stazione_ovest.setIcon(new ImageIcon("./icons/stazione_ovest.png"));
@@ -506,7 +511,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella36.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella36.setBounds(30, 300, 90, 60);
 		casella36.setLayout(null);
-		add(casella36);
+		frame.add(casella36);
 		
 		JLabel imprevisti3 = new JLabel("");
 		imprevisti3.setIcon(new ImageIcon("./icons/imprevisti3.png"));
@@ -518,7 +523,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella37.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella37.setBounds(30, 240, 90, 60);
 		casella37.setLayout(null);
-		add(casella37);
+		frame.add(casella37);
 		
 		JLabel viale_dei_giardini = new JLabel("");
 		viale_dei_giardini.setIcon(new ImageIcon("./icons/viale_dei_giardini.png"));
@@ -530,7 +535,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella38.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella38.setBounds(30, 180, 90, 60);
 		casella38.setLayout(null);
-		add(casella38);
+		frame.add(casella38);
 		
 		JLabel tassa_di_lusso = new JLabel("");
 		tassa_di_lusso.setIcon(new ImageIcon("./icons/tassa_di_lusso.png"));
@@ -542,7 +547,7 @@ public class MonopolyGUI extends JLayeredPane {
 		casella39.setBorder(new MatteBorder(0, 2, 2, 2, Color.BLACK)); 
 		casella39.setBounds(30, 120, 90, 60);
 		casella39.setLayout(null);
-		add(casella39);
+		frame.add(casella39);
 		
 		JLabel parco_della_vittoria = new JLabel("");
 		parco_della_vittoria.setIcon(new ImageIcon("./icons/parco_della_vittoria.png"));
@@ -556,12 +561,12 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
 		scrollPane.setBounds(760, 540, 770, 210);
-		add(scrollPane);
+		frame.add(scrollPane);
 		
 		panel_scelte_turno = new JPanel();
 		panel_scelte_turno.setBounds(130, 130, 520, 520);
 		panel_scelte_turno.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
-		add(panel_scelte_turno);
+		frame.add(panel_scelte_turno);
 		panel_scelte_turno.setLayout(null);
 		
 		// Bottone tiro dadi
@@ -681,11 +686,14 @@ public class MonopolyGUI extends JLayeredPane {
 		JPanel panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
 		panel_info_giocatori.setBounds(760, 30, 770, 500);
-		add(panel_info_giocatori);
 		
+		frame.add(panel_info_giocatori); //prova
+		int numGiocatori=SceltaPedineController.getNumGiocatori();  //prova
+		
+		String [] nomiGiocatori=NomiGiocatoriController.getNomiGiocatori();
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
-		for(int i = 0; i<NuovaPartita.numGiocatori; i++) {
-			JLabel lblInfoGiocatori = new JLabel(NuovaPartita.getNomiGiocatori(i));
+		for(int i = 0; i<numGiocatori; i++) {
+			JLabel lblInfoGiocatori = new JLabel(nomiGiocatori[i]);
 			lblInfoGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblInfoGiocatori.setBounds(184, 34, 131, 25);
 			panel_info_giocatori.add(lblInfoGiocatori);
@@ -717,7 +725,8 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		add(panel_sfondo, 1);
+		frame.add(panel_sfondo);
+		frame.setComponentZOrder(panel_sfondo, 0);	
 		
 		JPanel panel_conferma_bancarotta = new JPanel();
 		panel_conferma_bancarotta.setBounds(469, 248, 601, 348);
@@ -735,9 +744,9 @@ public class MonopolyGUI extends JLayeredPane {
 			public void actionPerformed(ActionEvent e) {
 				decisioneBancarotta = true;
 				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
+				frame.remove(panel_sfondo);
+				frame.revalidate();
+				frame.repaint();
 				comando = COMANDO_BANCAROTTA;
 			}
 		});
@@ -750,9 +759,9 @@ public class MonopolyGUI extends JLayeredPane {
 			public void actionPerformed(ActionEvent e) {
 				decisioneBancarotta = false;
 				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
+				frame.remove(panel_sfondo);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		btnNoBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -777,7 +786,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		add(panel_sfondo, 1);
+		frame.add(panel_sfondo, 1);
 		
 		JPanel panel_gestione_proprieta = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -802,9 +811,9 @@ public class MonopolyGUI extends JLayeredPane {
 		btnFine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
+				frame.remove(panel_sfondo);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -867,7 +876,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		add(panel_sfondo, 1);
+		frame.add(panel_sfondo, 1);
 		
 		JPanel panel_gestione_scambi = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -887,11 +896,12 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_gestione_scambi.setBounds(130, 130, 525, 525);
 		panel_gestione_scambi.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		panel_sfondo.add(panel_gestione_scambi);
-
-		for (int i = 0; i < NuovaPartita.numGiocatori; i++) {// listener
+		int numGiocatori=SceltaPedineController.getNumGiocatori();
+		String[] nomiGiocatori=NomiGiocatoriController.getNomiGiocatori();
+		for (int i = 0; i < numGiocatori; i++) {// listener
 			/*if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().getName())
 				i++;*/
-            JButton btnNomeGiocatore = new JButton(NuovaPartita.getNomiGiocatori(i));
+            JButton btnNomeGiocatore = new JButton(nomiGiocatori[i]);
             btnNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
             btnNomeGiocatore.setBounds(170, 152 + (i * 48), 180, 40);
             panel_gestione_scambi.add(btnNomeGiocatore);
@@ -914,9 +924,9 @@ public class MonopolyGUI extends JLayeredPane {
 		btnFine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
+				frame.remove(panel_sfondo);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -926,8 +936,8 @@ public class MonopolyGUI extends JLayeredPane {
 	
 	public void creaPedine() {
 
-		String [] pedineSelezionate = NuovaPartita.getPedineScelte();
-		int num = NuovaPartita.getNumGiocatori();
+		String [] pedineSelezionate = SceltaPedineController.getPedineScelte();
+		int num = SceltaPedineController.getNumGiocatori();
 		pedine = new JLabel[num];
 
 		for(int i=0; i<num; i++) {
@@ -968,7 +978,7 @@ public class MonopolyGUI extends JLayeredPane {
 			caselle[arrivo].setComponentZOrder(pedine[pedina], 0); 
 		}
 		
-		repaint();
+		frame.repaint();
 	}
 	
 	public int getComando() {
