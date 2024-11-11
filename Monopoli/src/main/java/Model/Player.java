@@ -146,4 +146,8 @@ public class Player {
 		return listaProprieta;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
 }

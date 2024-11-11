@@ -582,12 +582,6 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone scambi
 		btnScambi = new JButton("Scambi");
-		btnScambi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mostraScambi();//da rivedere
-				comando = COMANDO_SCAMBI;
-			}
-		});
 		btnScambi.setBounds(280, 36, 200, 60);
 		btnScambi.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		try {
@@ -599,12 +593,6 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone visualizza proprietà
 		btnProprieta = new JButton("Proprietà");
-		btnProprieta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mostraGestioneProprieta();//da rivedere
-				comando = COMANDO_GESTIONE_PROPRIETA;
-			}
-		});
 		btnProprieta.setBounds(40, 162, 200, 60);
 		btnProprieta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		try {
@@ -627,11 +615,6 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone fine turno
 		btnFineTurno = new JButton("Fine del turno");
-		btnFineTurno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_FINE_TURNO;
-			}
-		});
 		btnFineTurno.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnFineTurno.setBounds(160, 437, 200, 60);
 		try {
@@ -670,14 +653,23 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 	
 	public void addBtnTiraDadi(ActionListener listener) {
-    	
 		btnTiraDadi.addActionListener(listener);
     }
 	
 	public void addBtnDichiaraBancarotta(ActionListener listener) {
-    	
 		btnDichiaraBancarotta.addActionListener(listener);
     }
+	
+	public void addBtnScambi(ActionListener listener) {
+			btnScambi.addActionListener(listener);
+    }
+	public void addbtnProprieta(ActionListener listener) {
+		btnProprieta.addActionListener(listener);
+    }
+	public void addbtnFineTurno(ActionListener listener) {
+		btnFineTurno.addActionListener(listener);
+	}
+
 
 	
 	public void mostraInfoGiocatori() {

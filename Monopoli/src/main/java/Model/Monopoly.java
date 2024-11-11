@@ -9,64 +9,48 @@ public class Monopoly {
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
     public int numero_giocatori; 
-    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> players;
     private Player giCorrente; // Giocatore del turno corrente
-    private Dadi dice = new Dadi();
-    private Tabellone tabellone = new Tabellone(dice);
-    private MazzoProbabilita mazzoProbabilita = new MazzoProbabilita();
-    private MazzoImprevisti mazzoImprevisti = new MazzoImprevisti();
-    private boolean gameOver = false;
+    private Dadi dice;
+    private Tabellone tabellone;
+    private MazzoProbabilita mazzoProbabilita;
+    private MazzoImprevisti mazzoImprevisti;
+    private boolean gameOver;
     private boolean fineTurno;
     private boolean tiroDadiFatto;
     private int nDadiDoppi;
-   // private MonopolyGUI print = new MonopolyGUI();
-    
-    
-    
+    private MonopolyGUI print;
+
     // Crea nuova partita
-    public Monopoly(int numero_giocatori, String[] nomi){
+    public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
     	
+    	this.print=monopolyGUI;
     	this.numero_giocatori = numero_giocatori;
+    	players = new ArrayList<Player>();
+    	
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
     	}
+    	Random random = new Random();
+    	giCorrente=players.get(random.nextInt(numero_giocatori));
+    	print.stampa("tocca a "+giCorrente.getName());
+    	dice = new Dadi();
+    	//tabellone = new Tabellone(dice);
+    	//mazzoProbabilita = new MazzoProbabilita();
+    	//mazzoImprevisti = new MazzoImprevisti();
+    	gameOver = false;
     }
     
     // Struttura generale del gioco
     public void gioca() {
-    	daiSoldiIniziali();
-    	do {
-    		strutturaTurno();
-    		if (!isGameOver()) {
-    			setProssimoGiocatore();
-    		}
-    	}while(!isGameOver());
     	
     }
-
-	public void daiSoldiIniziali() {
-		for (int i=0; i<numero_giocatori; i++) {
-			players.get(i).doTransaction(MONEY_START); 
-		}
-	}
-	
-	
-	public void strutturaTurno() {//al momento non riceve i valori, bisogna usare i listener
+		
+	public void inizioTurno() {
 		fineTurno = false;
 		tiroDadiFatto = false;
 		nDadiDoppi = 0;
-		do {
-			switch(print.getComando()) {
-			case MonopolyGUI.COMANDO_TIRA_DADI: tiraDadi();		break;
-			case MonopolyGUI.COMANDO_SCAMBI: scambi();		break;
-			case MonopolyGUI.COMANDO_GESTIONE_PROPRIETA: gestioneProprieta();	break;
-			case MonopolyGUI.COMANDO_BANCAROTTA: setBancarotta();	break;
-			case MonopolyGUI.COMANDO_USCITA_GRATIS: uscitaGratis();	break;
-			case MonopolyGUI.COMANDO_USCITA_PAGANDO: pagaUscitaPrigione();	break;
-			case MonopolyGUI.COMANDO_FINE_TURNO: setFineTurno();	break;
-			}		
-		}while(!fineTurno);
 	}
 
 	public void tiraDadi() {
@@ -77,20 +61,21 @@ public class Monopoly {
 				print.stampa("Dado 2: " + dice.getDado2());
 				if(giCorrente.eInPrigione() == false) {
 					giCorrente.muovi(dice.getTotal());
-					controlloPassaggioVia();
-					arrivoCasella();
+					//controlloPassaggioVia();
+					//arrivoCasella();
 					if (dice.isDouble() == true) {
 						nDadiDoppi++;
 						if(nDadiDoppi == 3) {
-							giCorrente.vaiInPrigione();
+							//giCorrente.vaiInPrigione();
 							tiroDadiFatto = true;
+							
 						}
 					}
 					else {tiroDadiFatto = true;}
 				}
 				else {
 					if (dice.isDouble()) {
-						giCorrente.liberaDaPrigione();
+						//giCorrente.liberaDaPrigione();
 						print.stampa(giCorrente.getName() + " è uscito dalla prigione.");
 					}
 					else {
@@ -109,7 +94,7 @@ public class Monopoly {
 	}
 	
 	// da sistemare
-	public void scambia(Player offerente, Proprieta proprietaOfferta, Player ricevente, int denaro) {
+	public void scambia(Proprieta proprietaOfferta, Player ricevente, int denaro) {
         // Controlla se il ricevente ha abbastanza denaro per pagare l'offerente
         if (ricevente.getWallet() < denaro) {
             print.stampa("Saldo insufficiente per completare lo scambio.");
@@ -117,23 +102,23 @@ public class Monopoly {
         }
         
         // Effettua lo scambio
-        offerente.doTransaction(denaro);
+        giCorrente.doTransaction(denaro);
         ricevente.doTransaction(-denaro);
         
         // Trasferisci la proprietà
-        offerente.getListaProprieta().remove(proprietaOfferta);
+        giCorrente.getListaProprieta().remove(proprietaOfferta);
         ricevente.aggiungiProprieta(proprietaOfferta);
         proprietaOfferta.setProprietario(ricevente);
 	}
 	
-	public void gestioneProprieta() {
+	/*public void gestioneProprieta() {
 		switch (print.getComando()) {
 		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();	break;
 		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();	break;
 		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
 		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
 		}
-	}
+	}*/
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
@@ -181,12 +166,14 @@ public class Monopoly {
 				fineTurno = true;
 			}
 		}
+		setProssimoGiocatore();
+		print.stampa("tocca a "+giCorrente.getName());
 	}
 	
 	public void controlloPassaggioVia() {
 		if (giCorrente.passaggioVia()) {
 			giCorrente.doTransaction(MONEY_VIA);
-			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
+			//print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
 		}
 	}
 	
@@ -319,7 +306,7 @@ public class Monopoly {
 		print.stampa(giCorrente.getName() + " ha acquistato una proprietà pagando: " + proprieta.getCosto() + "€." );
 	}
 	
-	private void costruisci() {
+	/*private void costruisci() {
 		Proprieta prop; //ricevuta da input
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if (prop instanceof Cantiere) {
@@ -407,10 +394,16 @@ public class Monopoly {
 				}
 			}
 		}
-	}
+	 */
 
 	private void setProssimoGiocatore() {
-		giCorrente = players.get(players.indexOf(giCorrente) + 1);
+		inizioTurno();
+		if(players.indexOf(giCorrente) + 1<numero_giocatori) {
+			giCorrente = players.get(players.indexOf(giCorrente) + 1);
+		}
+		else {
+			giCorrente = players.get(0);
+		}
 	}
 
 	public boolean isGameOver() {

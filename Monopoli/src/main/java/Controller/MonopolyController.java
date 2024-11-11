@@ -17,7 +17,7 @@ public class MonopolyController {
 		
 		MonopolyController.frame = frame;
 		monopolyGUI= new MonopolyGUI(frame);
-		//monopoly=new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori());
+		monopoly=new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0,  1920, 1080); 
 		
 		frame.add(monopolyGUI);
@@ -26,20 +26,45 @@ public class MonopolyController {
         
         monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
         monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
+        monopolyGUI.addBtnScambi(new BtnScambi());
+        monopolyGUI.addbtnProprieta(new BtnProprieta());
+        monopolyGUI.addbtnFineTurno(new BtnFineTurno());
         
-		
+       monopoly.inizioTurno();		
 	}
 	
 	private class BtnTiraDadi implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				
+				int arrivo, partenza;
+				partenza=monopoly.getGiCorrente().getLocation();
+				monopoly.tiraDadi();
+				arrivo=monopoly.getGiCorrente().getLocation();
+				monopolyGUI.muoviPedina(partenza, arrivo, monopoly.getGiCorrente().getId() );
 			}
 	}
 	private class BtnDichiaraBancarotta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-					monopolyGUI.confermaBancarotta();
+				monopolyGUI.confermaBancarotta();
+			}
+	}
+	private class BtnProprieta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				monopolyGUI.mostraGestioneProprieta();//da rivedere
+			}
+	}
+	private class BtnScambi implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				monopolyGUI.mostraScambi();
+			}
+	}
+	private class BtnFineTurno implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				monopoly.setFineTurno();
 			}
 	}
 }

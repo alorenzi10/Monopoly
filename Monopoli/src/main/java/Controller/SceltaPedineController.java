@@ -123,15 +123,9 @@ public class SceltaPedineController {
         } 
         else {
         	sceltaPedineView.setVisible(false);
-            creaTabellone();
+        	new MonopolyController(frame);
         }
     }
-    
-    protected void creaTabellone() {
-
-    	new MonopolyController(frame);
-
-	}
     
     public static String[] getPedineScelte() {
     	return pedineScelte;
