@@ -36,15 +36,11 @@ public class Monopoly {
     	giCorrente=players.get(random.nextInt(numero_giocatori));
     	print.stampa("tocca a "+giCorrente.getName());
     	dice = new Dadi();
-    	//tabellone = new Tabellone(dice);
+    	//tabellone = new Tabellone();
     	//mazzoProbabilita = new MazzoProbabilita();
     	//mazzoImprevisti = new MazzoImprevisti();
     	gameOver = false;
-    }
-    
-    // Struttura generale del gioco
-    public void gioca() {
-    	
+    	inizioTurno();
     }
 		
 	public void inizioTurno() {
@@ -62,7 +58,7 @@ public class Monopoly {
 				if(giCorrente.eInPrigione() == false) {
 					giCorrente.muovi(dice.getTotal());
 					//controlloPassaggioVia();
-					//arrivoCasella();
+					arrivoCasella();
 					if (dice.isDouble() == true) {
 						nDadiDoppi++;
 						if(nDadiDoppi == 3) {
@@ -111,15 +107,6 @@ public class Monopoly {
         proprietaOfferta.setProprietario(ricevente);
 	}
 	
-	/*public void gestioneProprieta() {
-		switch (print.getComando()) {
-		case MonopolyGUI.COMANDO_COSTRUSCI: costruisci();	break;
-		case MonopolyGUI.COMANDO_DEMOLISCI: demolisci();	break;
-		case MonopolyGUI.COMANDO_IPOTECA: ipoteca();	break;
-		case MonopolyGUI.COMANDO_DISIPOTECA: disipoteca();	break;
-		}
-	}*/
-	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
 		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
@@ -127,6 +114,7 @@ public class Monopoly {
 			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
 			players.remove(giCorrente);
 			giCorrente = giocTemp;
+			inizioTurno();
 			// Controllo eventuale vittoria
 			if(players.size() == 1) {
 				gameOver = true;
@@ -179,6 +167,7 @@ public class Monopoly {
 	
 	public void arrivoCasella() {
 		Casella casella = tabellone.getSquare(giCorrente.getLocation());
+		
 		if (casella instanceof Imprevisti) {
 			Carta carta = mazzoImprevisti.get();
 			print.stampa(carta.getMessaggio());
@@ -194,15 +183,21 @@ public class Monopoly {
 		} else if (casella instanceof VaiInPrigione) {
 			giCorrente.vaiInPrigione();	
 			print.stampa(giCorrente.getName() + " va in prigione.");
-		} else if (casella instanceof Proprieta) {
+		} 
+		else if (casella instanceof Proprieta) {
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){
-				int totale = ((Proprieta) casella).getAffito();
+				int totale = ((Proprieta) casella).getAffito(); //da fare moltiplicatore x gruppo
 				Player possessore = ((Proprieta) casella).getPossessore();
-				giCorrente.doTransaction(-totale);
+				giCorrente.doTransaction(-totale); //da controllare se il P.corrente ha i soldi
 				possessore.doTransaction(totale);
-			} else if (giCorrente.getWallet()<((Proprieta) casella).getCosto()){
-				strutturaAsta();
-			}else {
+ 			} 
+			else if (((Proprieta) casella).posseduta()==false && giCorrente.getWallet()<((Proprieta) casella).getCosto()){ 
+				strutturaAsta(); 
+			}
+			else if(((Proprieta) casella).posseduta() && ((Proprieta) casella).getPossessore().equals(giCorrente)){
+				 return;
+			}
+			else {
 				if (print.getComando() == MonopolyGUI.COMANDO_ASTA) {
 					strutturaAsta();
 				}else if (print.getComando() == MonopolyGUI.COMANDO_COMPRA) {

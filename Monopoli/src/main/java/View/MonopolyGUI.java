@@ -42,30 +42,6 @@ public class MonopolyGUI extends JLayeredPane {
 	
 	private boolean decisioneBancarotta;
 	
-	public static final int COMANDO_TIRA_DADI = 0;
-	public static final int COMANDO_SCAMBI = 1;
-	public static final int COMANDO_GESTIONE_PROPRIETA = 2;
-	public static final int COMANDO_BANCAROTTA = 3;
-	public static final int COMANDO_USCITA_GRATIS = 4;
-	public static final int COMANDO_USCITA_PAGANDO = 5;
-	public static final int COMANDO_FINE_TURNO = 6;
-	
-	public static final int COMANDO_COSTRUSCI = 7;
-	public static final int COMANDO_DEMOLISCI = 8;
-	public static final int COMANDO_IPOTECA = 9;
-	public static final int COMANDO_DISIPOTECA = 10;
-	
-	public static final int COMANDO_ASTA = 11;
-	public static final int COMANDO_COMPRA = 12;
-	
-	public static final int COMANDO_RILANCIA_1 = 13;
-	public static final int COMANDO_RILANCIA_10 = 14;
-	public static final int COMANDO_RILANCIA_50 = 15;
-	public static final int COMANDO_RINUNCIA = 16;
-
-	
-	private int comando;
-	
 	public MonopolyGUI(SchermataDiGioco frame) {
 				
 		this.frame=frame;
@@ -738,7 +714,6 @@ public class MonopolyGUI extends JLayeredPane {
 				remove(panel_sfondo);
 				revalidate();
 				repaint();
-				comando = COMANDO_BANCAROTTA;
 			}
 		});
 		btnConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -794,7 +769,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		};
 		panel_gestione_proprieta.setLayout(null);
-		panel_gestione_proprieta.setBounds(130, 130, 525, 525);
+		panel_gestione_proprieta.setBounds(130, 130, 520, 520);
 		panel_gestione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		panel_sfondo.add(panel_gestione_proprieta);
 
@@ -820,7 +795,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JButton btnCostruisci = new JButton("Costruisci");
 		btnCostruisci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_COSTRUSCI;
+				
 			}
 		});
 		btnCostruisci.setBounds(39, 120, 203, 82);
@@ -830,7 +805,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JButton btnIpoteca = new JButton("Ipoteca");
 		btnIpoteca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_IPOTECA;
+				
 			}
 		});
 		btnIpoteca.setBounds(281, 120, 203, 82);
@@ -840,7 +815,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JButton btnDemolisci = new JButton("Demolisci");
 		btnDemolisci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_DEMOLISCI;
+		
 			}
 		});
 		btnDemolisci.setBounds(39, 322, 203, 82);
@@ -850,7 +825,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JButton btnDisipoteca = new JButton("Disipoteca");
 		btnDisipoteca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_DISIPOTECA;
+		
 			}
 		});
 		btnDisipoteca.setBounds(281, 322, 203, 82);
@@ -1054,10 +1029,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		frame.repaint();
 	}
-	
-	public int getComando() {
-		return comando;
-	}
+
 	
 	public void stampa(String text) {
 		consoleTextArea.append(">> " + text + "\n");

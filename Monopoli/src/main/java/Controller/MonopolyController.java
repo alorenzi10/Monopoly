@@ -29,8 +29,6 @@ public class MonopolyController {
         monopolyGUI.addBtnScambi(new BtnScambi());
         monopolyGUI.addbtnProprieta(new BtnProprieta());
         monopolyGUI.addbtnFineTurno(new BtnFineTurno());
-        
-       monopoly.inizioTurno();		
 	}
 	
 	private class BtnTiraDadi implements ActionListener{

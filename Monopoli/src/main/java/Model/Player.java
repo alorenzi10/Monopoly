@@ -135,12 +135,6 @@ public class Player {
 		}
 		return haCarta;
 	}
-
-	public Carta getCarta() {
-		Carta carta = carte.get(0);
-		carte.remove(0);
-		return carta;
-	}
 	
 	public ArrayList<Proprieta> getListaProprieta() {
 		return listaProprieta;
@@ -148,6 +142,12 @@ public class Player {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public Carta getCarta() {
+		Carta carta = carte.get(0);
+		carte.remove(0);
+		return carta;
 	}
 	
 }
