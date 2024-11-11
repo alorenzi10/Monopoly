@@ -571,11 +571,6 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone tiro dadi
 		btnTiraDadi = new JButton("Tira i dadi");
-		btnTiraDadi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				comando = COMANDO_TIRA_DADI;
-			}
-		});
 		btnTiraDadi.setBounds(40, 36, 200, 60);
 		btnTiraDadi.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		try {
@@ -621,12 +616,6 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone dichiara bancarotta
 		btnDichiaraBancarotta = new JButton("Bancarotta");
-		btnDichiaraBancarotta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//comando = COMANDO_BANCAROTTA; spostato nella fz dopo l'eventuale conferma
-				confermaBancarotta();
-			}
-		});
 		btnDichiaraBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnDichiaraBancarotta.setBounds(280, 162, 200, 60);
 		try {
@@ -679,6 +668,16 @@ public class MonopolyGUI extends JLayeredPane {
 		creaPedine();
 	
 	}
+	
+	public void addBtnTiraDadi(ActionListener listener) {
+    	
+		btnTiraDadi.addActionListener(listener);
+    }
+	
+	public void addBtnDichiaraBancarotta(ActionListener listener) {
+    	
+		btnDichiaraBancarotta.addActionListener(listener);
+    }
 
 	
 	public void mostraInfoGiocatori() {
@@ -997,7 +996,7 @@ public class MonopolyGUI extends JLayeredPane {
 		btnAccettaOfferta.setBounds(73, 124, 106, 36);
 		btnAccettaOfferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				accettaOfferta();
+				//accettaOfferta();
 			}
 		});
 		panel_denaro_offerta.add(btnAccettaOfferta);

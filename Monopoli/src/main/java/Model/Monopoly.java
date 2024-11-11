@@ -19,7 +19,7 @@ public class Monopoly {
     private boolean fineTurno;
     private boolean tiroDadiFatto;
     private int nDadiDoppi;
-    private MonopolyGUI print = new MonopolyGUI();
+   // private MonopolyGUI print = new MonopolyGUI();
     
     
     
