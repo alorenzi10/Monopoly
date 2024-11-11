@@ -15,25 +15,31 @@ public class Player {
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
-    
-    public Player(String name) {
-    	this.name = name;
-    }
-    
+  
     public Player(int id, String name, int wallet, boolean isInJail, int location) {
     	this.id = id;
     	this.name = name;
     	this.wallet = wallet;
     	this.inPrigione = false;
     	this.location = 0;
+    	this.listaProprieta=new ArrayList<>();
     }
     
     public int getWallet() {
     	return wallet;
     }
     
+    public boolean controlloFondi(int totale) {
+    	if(wallet>=totale) {
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
     public void doTransaction(int totale) {
-    	wallet += totale;
+    	wallet += totale; //da aggiungere controllo se bastano i soldi
     }
     
     public int getLocation() {
@@ -113,6 +119,10 @@ public class Player {
 
 	public void fallitoTentativo() {
 		tentativiUscitaPrigione++;
+	}
+	
+	public int getTentativi() {
+		return tentativiUscitaPrigione;
 	}
 
 	public boolean tentativiTerminati() {

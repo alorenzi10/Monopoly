@@ -9,6 +9,7 @@ public class GruppoColore {
 
     public GruppoColore(String name) {
     	this.name = name;
+    	this.cantieri= new ArrayList<>();
     }
     
     public void addMember(Cantiere cantiere) {

@@ -11,17 +11,28 @@ public class Tabellone {
 	public static final int POS_STAZIONE_NORD = 5;
 	public static final int POS_CORSO_ATENEO = 13;
     
-    private Casella[] squares = new Casella[NUM_SQUARES];
-    private GruppoColore marrone = new GruppoColore("marrone");
-    private GruppoColore azzurro = new GruppoColore("azzurro");
-    private GruppoColore viola = new GruppoColore("viola");
-    private GruppoColore arancio = new GruppoColore("arancio");
-    private GruppoColore rosso = new GruppoColore("rosso");
-    private GruppoColore giallo = new GruppoColore("giallo");
-    private GruppoColore verde = new GruppoColore("verde");
-    private GruppoColore blu = new GruppoColore("blu");
+    private Casella[] squares;
+    private GruppoColore marrone;
+    private GruppoColore azzurro;
+    private GruppoColore viola;
+    private GruppoColore arancio;
+    private GruppoColore rosso;
+    private GruppoColore giallo;
+    private GruppoColore verde;
+    private GruppoColore blu;
 
     public Tabellone() {
+    	
+    	squares = new Casella[NUM_SQUARES];
+        marrone = new GruppoColore("marrone");
+        azzurro = new GruppoColore("azzurro");
+        viola = new GruppoColore("viola");
+        arancio = new GruppoColore("arancio");
+        rosso = new GruppoColore("rosso");
+        giallo = new GruppoColore("giallo");
+        verde = new GruppoColore("verde");
+        blu = new GruppoColore("blu");
+
     	squares[0] = new Casella("Via");
     	
     	//Cantiere (name, price, mortgageValue, rentTable, GruppoColore, buildPrice)

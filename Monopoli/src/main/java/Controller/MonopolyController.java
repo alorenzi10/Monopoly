@@ -25,10 +25,17 @@ public class MonopolyController {
         frame.repaint();
         
         monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
+        
         monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
+        monopolyGUI.addbtnConfermaBancarotta(new BtnBancarotta());
+        monopolyGUI.addbtnNoBancarotta(new BtnNoBancarotta());
+        
         monopolyGUI.addBtnScambi(new BtnScambi());
         monopolyGUI.addbtnProprieta(new BtnProprieta());
         monopolyGUI.addbtnFineTurno(new BtnFineTurno());
+        
+        monopolyGUI.addbtnAcquista(new BtnAcquista());
+        monopolyGUI.addbtnAsta(new BtnAsta());
 	}
 	
 	private class BtnTiraDadi implements ActionListener{
@@ -65,4 +72,39 @@ public class MonopolyController {
 				monopoly.setFineTurno();
 			}
 	}
+	private class BtnAcquista implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				monopolyGUI.rimuoviAcquistoAsta();
+				monopoly.compraProprieta();
+				
+			}
+	}
+	private class BtnAsta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				monopolyGUI.rimuoviAcquistoAsta();
+				
+			}
+	}
+	
+	private class BtnBancarotta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				monopolyGUI.rimuoviAcquistoAsta();
+	
+			}
+	}
+	
+	private class BtnNoBancarotta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				monopolyGUI.rimuoviAcquistoAsta();
+				
+			}
+	}
+	
 }

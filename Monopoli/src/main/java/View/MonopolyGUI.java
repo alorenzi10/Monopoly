@@ -38,8 +38,9 @@ public class MonopolyGUI extends JLayeredPane {
 	private JPanel[] caselle;
 	private JLabel[] pedine;
 	
-	JPanel panel_scelte_turno;
-	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno;
+	public JPanel panel_scelte_turno;
+	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
+	private JButton btnConfermaBancarotta, btnNoBancarotta ;
 	
 	private boolean decisioneBancarotta;
 	
@@ -623,8 +624,12 @@ public class MonopolyGUI extends JLayeredPane {
 		btnPagaCauzione.setEnabled(false);
 		panel_azioni_prigione.add(btnPagaCauzione);
 		
+		btnAcquista = new JButton("Acquisto");
+		btnAsta = new JButton("Asta");
+		btnConfermaBancarotta = new JButton("Confermo");
+		btnNoBancarotta = new JButton("No, torna al gioco");
+		
 		mostraInfoGiocatori();
-
 		creaPedine();
 	
 	}
@@ -646,7 +651,20 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addbtnFineTurno(ActionListener listener) {
 		btnFineTurno.addActionListener(listener);
 	}
+	public void addbtnAcquista(ActionListener listener) {
+		btnAcquista.addActionListener(listener);
+	}
+	public void addbtnAsta(ActionListener listener) {
+		btnAsta.addActionListener(listener);
+	}
 	
+	public void addbtnConfermaBancarotta(ActionListener listener) {
+		btnConfermaBancarotta.addActionListener(listener);
+	}
+	public void addbtnNoBancarotta(ActionListener listener) {
+		btnNoBancarotta.addActionListener(listener);
+	}
+
 	public void mostraInfoGiocatori() {
 		
 		JPanel panel_info_giocatori = new JPanel();
@@ -711,7 +729,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		buttonsState(false);
 		
-		JPanel panel_sfondo = new JPanel();
+		panel_sfondo = new JPanel();
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
@@ -729,30 +747,12 @@ public class MonopolyGUI extends JLayeredPane {
 		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
 		panel_conferma_bancarotta.add(lblConfermaBancarotta);
 		
-		JButton btnConfermaBancarotta = new JButton("Confermo");
-		btnConfermaBancarotta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				decisioneBancarotta = true;
-				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
-			}
-		});
+		
 		btnConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		btnConfermaBancarotta.setBounds(47, 234, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
 		
-		JButton btnNoBancarotta = new JButton("No, torna al gioco");
-		btnNoBancarotta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				decisioneBancarotta = false;
-				buttonsState(true);
-				remove(panel_sfondo);
-				revalidate();
-				repaint();
-			}
-		});
+		
 		btnNoBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		btnNoBancarotta.setBounds(324, 236, 230, 82);
 		panel_conferma_bancarotta.add(btnNoBancarotta);
@@ -1053,6 +1053,48 @@ public class MonopolyGUI extends JLayeredPane {
 		frame.repaint();
 	}
 
+	public void atterragioSuProprietaVuota() {
+
+		buttonsState(false);
+		
+		panel_sfondo = new JPanel();
+		panel_sfondo.setBounds(0, 0, 1540, 845);
+		panel_sfondo.setOpaque(false);
+		panel_sfondo.setLayout(null);
+		add(panel_sfondo, 1);
+		setComponentZOrder(panel_sfondo, 0);	
+		
+		JPanel panel_conferma_bancarotta = new JPanel();
+		panel_conferma_bancarotta.setBounds(469, 248, 601, 348);
+		panel_sfondo.add(panel_conferma_bancarotta);
+		panel_conferma_bancarotta.setLayout(null);
+		
+		JLabel lblConfermaBancarotta = new JLabel("Cosa vuoi fare con la proprietà?");
+		lblConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
+		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
+		panel_conferma_bancarotta.add(lblConfermaBancarotta);
+		
+		
+		btnAcquista.setFont(new Font("Acquista", Font.PLAIN, 30));
+		btnAcquista.setBounds(47, 234, 230, 82);
+		panel_conferma_bancarotta.add(btnAcquista);
+		
+		
+		btnAsta.setFont(new Font("Metti all'asta", Font.PLAIN, 25));
+		btnAsta.setBounds(324, 236, 230, 82);
+		panel_conferma_bancarotta.add(btnAsta);
+		
+		
+	}
+	
+	//rimuove anche popup bancarotta
+	public void rimuoviAcquistoAsta() {
+		buttonsState(true);
+		remove(panel_sfondo);
+		revalidate();
+		repaint();
+	}
 	
 	public void stampa(String text) {
 		consoleTextArea.append(">> " + text + "\n");
