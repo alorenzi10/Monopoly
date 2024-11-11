@@ -3,6 +3,7 @@ package View;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -533,22 +534,22 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		consoleTextArea = new JTextArea();
 		consoleTextArea.setEditable(false);
-		consoleTextArea.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		consoleTextArea.setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 25));
 		
 		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
-		scrollPane.setBounds(760, 540, 770, 210);
+		scrollPane.setBounds(760, 490, 770, 260);
 		add(scrollPane);
 		
 		panel_scelte_turno = new JPanel();
 		panel_scelte_turno.setBounds(130, 130, 520, 520);
 		panel_scelte_turno.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
-		frame.add(panel_scelte_turno);
+		frame.getContentPane().add(panel_scelte_turno);
 		panel_scelte_turno.setLayout(null);
 		
 		// Bottone tiro dadi
 		btnTiraDadi = new JButton("Tira i dadi");
 		btnTiraDadi.setBounds(40, 36, 200, 60);
-		btnTiraDadi.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnTiraDadi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		try {
 			btnTiraDadi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/dice.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		} catch (IOException e) {
@@ -559,7 +560,7 @@ public class MonopolyGUI extends JLayeredPane {
 		// Bottone scambi
 		btnScambi = new JButton("Scambi");
 		btnScambi.setBounds(280, 36, 200, 60);
-		btnScambi.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnScambi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		try {
 			btnScambi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/exchange.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		} catch (IOException e) {
@@ -570,7 +571,7 @@ public class MonopolyGUI extends JLayeredPane {
 		// Bottone visualizza proprietà
 		btnProprieta = new JButton("Proprietà");
 		btnProprieta.setBounds(40, 162, 200, 60);
-		btnProprieta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		try {
 			btnProprieta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/properties.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		} catch (IOException e) {
@@ -580,7 +581,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone dichiara bancarotta
 		btnDichiaraBancarotta = new JButton("Bancarotta");
-		btnDichiaraBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnDichiaraBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnDichiaraBancarotta.setBounds(280, 162, 200, 60);
 		try {
 			btnDichiaraBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
@@ -591,7 +592,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		// Bottone fine turno
 		btnFineTurno = new JButton("Fine del turno");
-		btnFineTurno.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnFineTurno.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnFineTurno.setBounds(160, 437, 200, 60);
 		try {
 			btnFineTurno.setIcon(new ImageIcon(ImageIO.read(new File("./icons/stop.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
@@ -606,18 +607,18 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_azioni_prigione.setLayout(null);
 		
 		JLabel lblAzioniPrigione = new JLabel("Azioni prigione");
-		lblAzioniPrigione.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAzioniPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		lblAzioniPrigione.setBounds(184, 34, 131, 25);
 		panel_azioni_prigione.add(lblAzioniPrigione);
 		
 		JButton btnUsaCartaEsciDiPrigione = new JButton("Esci gratis di prigione");
-		btnUsaCartaEsciDiPrigione.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnUsaCartaEsciDiPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnUsaCartaEsciDiPrigione.setBounds(18, 85, 223, 60);
 		btnUsaCartaEsciDiPrigione.setEnabled(false);
 		panel_azioni_prigione.add(btnUsaCartaEsciDiPrigione);
 		
 		JButton btnPagaCauzione = new JButton("Paga cauzione (50€)");
-		btnPagaCauzione.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnPagaCauzione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnPagaCauzione.setBounds(259, 85, 223, 60);
 		btnPagaCauzione.setEnabled(false);
 		panel_azioni_prigione.add(btnPagaCauzione);
@@ -637,7 +638,7 @@ public class MonopolyGUI extends JLayeredPane {
     }
 	
 	public void addBtnScambi(ActionListener listener) {
-			btnScambi.addActionListener(listener);
+		btnScambi.addActionListener(listener);
     }
 	public void addbtnProprieta(ActionListener listener) {
 		btnProprieta.addActionListener(listener);
@@ -645,25 +646,47 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addbtnFineTurno(ActionListener listener) {
 		btnFineTurno.addActionListener(listener);
 	}
-
-
 	
 	public void mostraInfoGiocatori() {
 		
 		JPanel panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
-		panel_info_giocatori.setBounds(760, 30, 770, 500);
+		panel_info_giocatori.setBounds(760, 10, 770, 470);
 		
 		add(panel_info_giocatori); //prova
-		int numGiocatori=SceltaPedineController.getNumGiocatori();  //prova
+		int numGiocatori = SceltaPedineController.getNumGiocatori();  //prova
 		
-		String [] nomiGiocatori=NomiGiocatoriController.getNomiGiocatori();
+		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
-		for(int i = 0; i<numGiocatori; i++) {
-			JLabel lblInfoGiocatori = new JLabel(nomiGiocatori[i]);
-			lblInfoGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblInfoGiocatori.setBounds(184, 34, 131, 25);
-			panel_info_giocatori.add(lblInfoGiocatori);
+		
+		for (int i = 0; i < numGiocatori; i++) {
+			
+		    JPanel panelGiocatore = new JPanel();
+		    panelGiocatore.setLayout(new BoxLayout(panelGiocatore, BoxLayout.Y_AXIS));
+
+		    // Nome del giocatore
+		    JLabel lblNomeGiocatore = new JLabel(nomiGiocatori[i]);
+		    lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		    lblNomeGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		    panelGiocatore.add(lblNomeGiocatore);
+
+		    // Saldo del giocatore
+		    JLabel lblSaldoGiocatore = new JLabel("Saldo: ");
+		    lblSaldoGiocatore.setFont(new Font("Arial", Font.PLAIN, 16));
+		    lblSaldoGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		    panelGiocatore.add(lblSaldoGiocatore);
+
+		    // Immagine della pedina
+		    JLabel lblPedinaGiocatore = new JLabel(new ImageIcon("path/to/pedina" + i + ".png"));
+		    lblPedinaGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		    panelGiocatore.add(lblPedinaGiocatore);
+
+		    // Bottone "Mostra Proprietà"
+		    JButton btnMostraProprieta = new JButton("Mostra Proprietà");
+		    btnMostraProprieta.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		    panelGiocatore.add(btnMostraProprieta);
+
+		    panel_info_giocatori.add(panelGiocatore);
 		}
 	}
 	
@@ -701,7 +724,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_conferma_bancarotta.setLayout(null);
 		
 		JLabel lblConfermaBancarotta = new JLabel("Confermi di voler dichiarare bancarotta?");
-		lblConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
 		panel_conferma_bancarotta.add(lblConfermaBancarotta);
@@ -716,7 +739,7 @@ public class MonopolyGUI extends JLayeredPane {
 				repaint();
 			}
 		});
-		btnConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		btnConfermaBancarotta.setBounds(47, 234, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
 		
@@ -730,7 +753,7 @@ public class MonopolyGUI extends JLayeredPane {
 				repaint();
 			}
 		});
-		btnNoBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNoBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		btnNoBancarotta.setBounds(324, 236, 230, 82);
 		panel_conferma_bancarotta.add(btnNoBancarotta);
 		
@@ -752,7 +775,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		frame.add(panel_sfondo, 1);
+		frame.getContentPane().add(panel_sfondo, 1);
 		
 		JPanel panel_gestione_proprieta = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -782,13 +805,13 @@ public class MonopolyGUI extends JLayeredPane {
 				frame.repaint();
 			}
 		});
-		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnFine.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btnFine.setBounds(10, 472, 140, 43);
 		panel_gestione_proprieta.add(btnFine);
 
 		JLabel lblGestisciLeProprieta = new JLabel("Gestisci le tue proprietà");
 		lblGestisciLeProprieta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGestisciLeProprieta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblGestisciLeProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblGestisciLeProprieta.setBounds(129, 27, 266, 31);
 		panel_gestione_proprieta.add(lblGestisciLeProprieta);
 
@@ -799,7 +822,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		});
 		btnCostruisci.setBounds(39, 120, 203, 82);
-		btnCostruisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnCostruisci.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnCostruisci);
 
 		JButton btnIpoteca = new JButton("Ipoteca");
@@ -809,7 +832,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		});
 		btnIpoteca.setBounds(281, 120, 203, 82);
-		btnIpoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnIpoteca.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnIpoteca);
 
 		JButton btnDemolisci = new JButton("Demolisci");
@@ -819,7 +842,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		});
 		btnDemolisci.setBounds(39, 322, 203, 82);
-		btnDemolisci.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnDemolisci.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnDemolisci);
 
 		JButton btnDisipoteca = new JButton("Disipoteca");
@@ -829,7 +852,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		});
 		btnDisipoteca.setBounds(281, 322, 203, 82);
-		btnDisipoteca.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnDisipoteca.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnDisipoteca);
 		
 	}
@@ -842,7 +865,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setBounds(0, 0, 1540, 845);
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
-		frame.add(panel_sfondo, 1);
+		frame.getContentPane().add(panel_sfondo, 1);
 		
 		JPanel panel_gestione_scambi = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -868,7 +891,7 @@ public class MonopolyGUI extends JLayeredPane {
 		/*	if(nomiGiocatori(i) == Monopoly.getGiCorrente().getName())
 				i++;*/
             JButton btnNomeGiocatore = new JButton(nomiGiocatori[i]);
-            btnNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            btnNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
             btnNomeGiocatore.setBounds(170, 152 + (i * 48), 180, 40);
             btnNomeGiocatore.addActionListener(new ActionListener() {
     			public void actionPerformed(ActionEvent e) {
@@ -880,13 +903,13 @@ public class MonopolyGUI extends JLayeredPane {
 
 		JLabel lblScambiGiocatori = new JLabel("Scambi tra giocatori");
 		lblScambiGiocatori.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScambiGiocatori.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblScambiGiocatori.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblScambiGiocatori.setBounds(132, 32, 256, 43);
 		panel_gestione_scambi.add(lblScambiGiocatori);
 		
 		JLabel lblScegliGiocatore = new JLabel("Scegli un giocatore con cui contrattare:");
 		lblScegliGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScegliGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblScegliGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblScegliGiocatore.setBounds(25, 111, 470, 31);
 		panel_gestione_scambi.add(lblScegliGiocatore);
 		
@@ -899,7 +922,7 @@ public class MonopolyGUI extends JLayeredPane {
 				frame.repaint();
 			}
 		});
-		btnFine.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnFine.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btnFine.setBounds(10, 467, 140, 43);
 		panel_gestione_scambi.add(btnFine);	
 	}
@@ -910,18 +933,18 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		JLabel lblContrattazione = new JLabel("Contrattazione");
 		lblContrattazione.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContrattazione.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblContrattazione.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblContrattazione.setBounds(132, 32, 256, 43);
 		panel_gestione_scambi.add(lblContrattazione);
 		
 		JLabel lblOfferta = new JLabel("Offro:");
 		lblOfferta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOfferta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblOfferta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblOfferta.setBounds(25, 111, 470, 31);
 		panel_gestione_scambi.add(lblOfferta);
 		
 		JButton btnAnnulla = new JButton("Annulla");
-		btnAnnulla.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnAnnulla.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btnAnnulla.setBounds(10, 467, 140, 43);
 		btnAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -944,7 +967,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		JLabel lblPerDenaro = new JLabel("In cambio di:");
 		lblPerDenaro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPerDenaro.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblPerDenaro.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblPerDenaro.setBounds(61, 10, 377, 50);
 		panel_denaro_offerta.add(lblPerDenaro);
 		
@@ -954,12 +977,12 @@ public class MonopolyGUI extends JLayeredPane {
 		txtDigitareLaQuantit.setColumns(10);
 
 		JLabel lbl€ = new JLabel("€");
-		lbl€.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lbl€.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lbl€.setBounds(366, 70, 21, 25);
 		panel_denaro_offerta.add(lbl€);
 
 		JButton btnAccettaOfferta = new JButton("Accetta");
-		btnAccettaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnAccettaOfferta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnAccettaOfferta.setBounds(73, 124, 106, 36);
 		btnAccettaOfferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -969,7 +992,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_denaro_offerta.add(btnAccettaOfferta);
 
 		JButton btnRifiutaOfferta = new JButton("Rifiuta");
-		btnRifiutaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnRifiutaOfferta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnRifiutaOfferta.setBounds(304, 124, 106, 36);
 		btnRifiutaOfferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
