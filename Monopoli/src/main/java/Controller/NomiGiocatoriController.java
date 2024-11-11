@@ -18,9 +18,9 @@ public class NomiGiocatoriController {
 	
 	public NomiGiocatoriController(int giocatori, SchermataDiGioco frame) {
 		
-		this.frame=frame;
-		this.numGiocatori=giocatori;
-		nomiGiocatoriView= new NomiGiocatori(giocatori);
+		this.frame = frame;
+		this.numGiocatori = giocatori;
+		nomiGiocatoriView = new NomiGiocatori(giocatori);
 		
 		frame.add(nomiGiocatoriView);
 		frame.revalidate();
@@ -72,5 +72,9 @@ public class NomiGiocatoriController {
 
 	public static String[] getNomiGiocatori() {
 		return nomiGiocatori;
+	}
+	
+	public static String getNomiGiocatori(int i) {
+		return nomiGiocatori[i];
 	}
 }

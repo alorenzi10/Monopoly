@@ -108,8 +108,22 @@ public class Monopoly {
 		} else {print.stampa("Hai già tirato! Scegli un'altra azione.");}
 	}
 	
-	public void scambi() {
-		
+	// da sistemare
+	public void scambia(Player offerente, Proprieta proprietaOfferta, Player ricevente, int denaro) {
+        // Controlla se il ricevente ha abbastanza denaro per pagare l'offerente
+        if (ricevente.getWallet() < denaro) {
+            print.stampa("Saldo insufficiente per completare lo scambio.");
+            return;
+        }
+        
+        // Effettua lo scambio
+        offerente.doTransaction(denaro);
+        ricevente.doTransaction(-denaro);
+        
+        // Trasferisci la proprietà
+        offerente.getListaProprieta().remove(proprietaOfferta);
+        ricevente.aggiungiProprieta(proprietaOfferta);
+        proprietaOfferta.setProprietario(ricevente);
 	}
 	
 	public void gestioneProprieta() {

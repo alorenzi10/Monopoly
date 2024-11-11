@@ -142,5 +142,8 @@ public class Player {
 		return carta;
 	}
 	
+	public ArrayList<Proprieta> getListaProprieta() {
+		return listaProprieta;
+	}
 	
 }
