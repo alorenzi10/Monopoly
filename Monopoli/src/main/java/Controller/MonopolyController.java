@@ -54,7 +54,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 				monopolyGUI.confermaBancarotta();
-				//temporaneo
+				////////////temporaneo
 				monopoly.stampaDati();
 				}
 	}

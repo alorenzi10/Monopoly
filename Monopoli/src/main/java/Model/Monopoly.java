@@ -33,7 +33,8 @@ public class Monopoly {
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
-			
+    		
+    		
     	}
     	Random random = new Random();
     	giCorrente=players.get(random.nextInt(numero_giocatori));
@@ -176,7 +177,7 @@ public class Monopoly {
 			print.stampa("Il giocatatore non è i prigione");}
 	}
 	
-	public void setFineTurno() {
+	public void setFineTurno() { //da rivedere
 		if (tiroDadiFatto) {
 			if (giCorrente.getWallet() > 0) {
 				fineTurno = true;
@@ -471,13 +472,14 @@ public class Monopoly {
 	 */
 
 	private void setProssimoGiocatore() {
-		inizioTurno();
+		
 		if(players.indexOf(giCorrente) + 1<numero_giocatori) {
 			giCorrente = players.get(players.indexOf(giCorrente) + 1);
 		}
 		else {
 			giCorrente = players.get(0);
 		}
+		inizioTurno();
 	}
 
 	public boolean isGameOver() {
