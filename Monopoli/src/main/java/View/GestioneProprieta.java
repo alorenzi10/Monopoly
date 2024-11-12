@@ -37,14 +37,14 @@ public class GestioneProprieta extends JPanel {
 		
 		
 		JPanel panel_conferma_bancarotta = new JPanel();
-		panel_conferma_bancarotta.setBounds(716, 246, 601, 348);
+		panel_conferma_bancarotta.setBounds(716, 125, 525, 525);
 		panel_sfondo.add(panel_conferma_bancarotta);
 		panel_conferma_bancarotta.setLayout(null);
 		
 		JLabel lblConfermaBancarotta = new JLabel("Confermi di voler dichiarare bancarotta?");
 		lblConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
+		lblConfermaBancarotta.setBounds(27, 22, 471, 53);
 		panel_conferma_bancarotta.add(lblConfermaBancarotta);
 		
 		JButton btnConfermaBancarotta = new JButton("Confermo");
@@ -53,16 +53,16 @@ public class GestioneProprieta extends JPanel {
 			}
 		});
 		btnConfermaBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnConfermaBancarotta.setBounds(47, 234, 230, 82);
+		btnConfermaBancarotta.setBounds(21, 232, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
 		
 		JButton btnNoBancarotta = new JButton("No, torna al gioco");
 		btnNoBancarotta.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNoBancarotta.setBounds(324, 236, 230, 82);
+		btnNoBancarotta.setBounds(272, 234, 230, 82);
 		panel_conferma_bancarotta.add(btnNoBancarotta);
 		
 		JLabel lblIconaBancarotta = new JLabel("");
-		lblIconaBancarotta.setBounds(250, 102, 100, 100);
+		lblIconaBancarotta.setBounds(212, 102, 100, 100);
 		panel_conferma_bancarotta.add(lblIconaBancarotta);
 		
 		

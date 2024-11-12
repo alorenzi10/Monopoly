@@ -750,28 +750,29 @@ public class MonopolyGUI extends JLayeredPane {
 		//frame.setComponentZOrder(panel_sfondo, 0);	
 		
 		JPanel panel_conferma_bancarotta = new JPanel();
-		panel_conferma_bancarotta.setBounds(469, 248, 601, 348);
+		panel_conferma_bancarotta.setBounds(130, 130, 520, 520);
+		panel_conferma_bancarotta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
 		panel_sfondo.add(panel_conferma_bancarotta);
 		panel_conferma_bancarotta.setLayout(null);
 		
 		JLabel lblConfermaBancarotta = new JLabel("Confermi di voler dichiarare bancarotta?");
 		lblConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
+		lblConfermaBancarotta.setBounds(27, 22, 471, 53);
 		panel_conferma_bancarotta.add(lblConfermaBancarotta);
 		
 		
 		btnConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		btnConfermaBancarotta.setBounds(47, 234, 230, 82);
+		btnConfermaBancarotta.setBounds(21, 232, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
 		
 		
 		btnNoBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
-		btnNoBancarotta.setBounds(324, 236, 230, 82);
+		btnNoBancarotta.setBounds(272, 232, 230, 82);
 		panel_conferma_bancarotta.add(btnNoBancarotta);
 		
 		JLabel lblIconaBancarotta = new JLabel("");
-		lblIconaBancarotta.setBounds(250, 102, 100, 100);
+		lblIconaBancarotta.setBounds(212, 102, 100, 100);
 		try {
 			lblIconaBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 		} catch (IOException e) {
@@ -819,7 +820,7 @@ public class MonopolyGUI extends JLayeredPane {
 			}
 		});
 		btnFine.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-		btnFine.setBounds(10, 472, 140, 43);
+		btnFine.setBounds(10, 467, 140, 43);
 		panel_gestione_proprieta.add(btnFine);
 
 		JLabel lblGestisciLeProprieta = new JLabel("Gestisci le tue proprietà");
@@ -1077,24 +1078,25 @@ public class MonopolyGUI extends JLayeredPane {
 		setComponentZOrder(panel_sfondo, 1);	
 		
 		JPanel panel_decisione_proprieta = new JPanel();
-		panel_decisione_proprieta.setBounds(469, 248, 601, 348);
+		panel_decisione_proprieta.setBounds(130, 130, 520, 520);
+		panel_decisione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
 		panel_sfondo.add(panel_decisione_proprieta);
 		panel_decisione_proprieta.setLayout(null);
 		
 		JLabel lblDecisioneProprieta = new JLabel("Cosa vuoi fare con la proprietà?");
-		lblDecisioneProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		lblDecisioneProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblDecisioneProprieta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDecisioneProprieta.setBounds(65, 22, 471, 53);
+		lblDecisioneProprieta.setBounds(25, 22, 471, 53);
 		panel_decisione_proprieta.add(lblDecisioneProprieta);
 		
 		
 		btnAcquista.setFont(new Font("Acquista", Font.PLAIN, 30));
-		btnAcquista.setBounds(47, 234, 230, 82);
+		btnAcquista.setBounds(21, 232, 230, 82);
 		panel_decisione_proprieta.add(btnAcquista);
 		
 		
-		btnAsta.setFont(new Font("Metti all'asta", Font.PLAIN, 25));
-		btnAsta.setBounds(324, 236, 230, 82);
+		btnAsta.setFont(new Font("Metti all'asta", Font.PLAIN, 30));
+		btnAsta.setBounds(272, 232, 230, 82);
 		panel_decisione_proprieta.add(btnAsta);
 		
 		
