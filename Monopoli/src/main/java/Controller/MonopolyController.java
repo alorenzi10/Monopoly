@@ -54,7 +54,9 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 				monopolyGUI.confermaBancarotta();
-			}
+				////////////temporaneo
+				monopoly.stampaDati();
+				}
 	}
 	private class BtnProprieta implements ActionListener{
 		@Override
@@ -113,7 +115,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-				monopoly.getGiCorrente().liberaDaPrigione();
+				monopoly.uscitaGratis();
 				monopolyGUI.attivaUscitaConCarta(false);
 
 			}
