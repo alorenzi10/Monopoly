@@ -31,7 +31,7 @@ public class Monopoly {
     	players = new ArrayList<Player>();
     	
     	for(int i=0; i<numero_giocatori; i++) {
-    		Player newPlayer = new Player(i, nomi[i], MONEY_START, true, 10);
+    		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
 			
     	}
@@ -40,13 +40,13 @@ public class Monopoly {
     	print.stampa("tocca a "+giCorrente.getName());
     	dice = new Dadi();
     	tabellone = new Tabellone();
-    	//mazzoProbabilita = new MazzoProbabilita();
-    	//mazzoImprevisti = new MazzoImprevisti();
+    	mazzoProbabilita = new MazzoProbabilita();
+    	mazzoImprevisti = new MazzoImprevisti();
     	gameOver = false;
     	inizioTurno();
     }
 		
-	public void inizioTurno() { //metti getInPrigione()
+	public void inizioTurno() { 
 		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
 			print.attivaUscitaConCarta(true);
 		}
@@ -149,16 +149,16 @@ public class Monopoly {
 		} else return;
 	}
 	
-	private void uscitaGratis() {
+	public void uscitaGratis() {
 		if (giCorrente.getInPrigione()) {
 			if (giCorrente.haUscitaGratis()) {
-				Carta c = giCorrente.getCarta();
-				if (c.getTipo() == MazzoImprevisti.IMPREVISTI) {
+				Carta c = giCorrente.getCarta(); //che carta?
+				/*if (c.getTipo() == MazzoImprevisti.IMPREVISTI) { //rimuoverei e una volta finito il mazzo lo ricreiamo
 					mazzoImprevisti.add(c);
 				}
 				else {
 					mazzoProbabilita.add(c);
-				}
+				} */
 				giCorrente.liberaDaPrigione();
 			} else {print.stampa("Non hai carte uscite gratis di prigione!");}
 		} else {print.stampa("Il giocatatore non è i prigione");}
@@ -170,8 +170,10 @@ public class Monopoly {
 				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 				giCorrente.liberaDaPrigione();
 				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
-			} else {print.stampa("Non hai abbastanza soldi!");}
-		} else {print.stampa("Il giocatatore non è i prigione");}
+			} else {
+				print.stampa("Non hai abbastanza soldi!");}
+		} else {
+			print.stampa("Il giocatatore non è i prigione");}
 	}
 	
 	public void setFineTurno() {
@@ -294,6 +296,25 @@ public class Monopoly {
 			}
 			giCorrente.doTransaction(carta.getQtaSoldi()*(players.size()-1));
 			break;
+		}
+	}
+	
+	public void stampaDati() {
+		for(Player p: players) {
+			print.stampa(p.getId()+" "+p.getName()+ ", saldo="+p.getWallet()+ "posizione="+p.getLocation());
+			if(p.getInPrigione()) {
+				print.stampa("è in galera");
+			}
+			else {
+				print.stampa("non è in galera");
+			}
+			if(p.haUscitaGratis()) {
+				print.stampa("ha carta uscia di prigione");
+			}
+			ArrayList<Proprieta> proprieta=p.getListaProprieta();
+			for(Proprieta prop: proprieta) {
+				print.stampa(prop.getNome()+ " ");
+			}
 		}
 	}
 	

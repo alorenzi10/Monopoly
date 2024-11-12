@@ -20,7 +20,7 @@ public class Player {
     	this.name = name;
     	this.wallet = wallet;
     	this.inPrigione = false;
-    	this.location = 0;
+    	this.location = 10;
     	this.listaProprieta=new ArrayList<>();
     }
     		
@@ -99,7 +99,7 @@ public class Player {
 	
 	public boolean haUscitaGratis() {
 		boolean haCarta = false;
-		if (carte.size()>0) {
+		if (carte!=null &&carte.size()>0) {
 			haCarta = carte.get(0).getAction() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
 		}
 		return haCarta;
