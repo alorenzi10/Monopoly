@@ -41,6 +41,7 @@ public class MonopolyGUI extends JLayeredPane {
 	public JPanel panel_scelte_turno;
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta ;
+	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
 	
 	private boolean decisioneBancarotta;
 	
@@ -612,13 +613,13 @@ public class MonopolyGUI extends JLayeredPane {
 		lblAzioniPrigione.setBounds(184, 34, 131, 25);
 		panel_azioni_prigione.add(lblAzioniPrigione);
 		
-		JButton btnUsaCartaEsciDiPrigione = new JButton("Esci gratis di prigione");
+		btnUsaCartaEsciDiPrigione = new JButton("Esci gratis di prigione");
 		btnUsaCartaEsciDiPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnUsaCartaEsciDiPrigione.setBounds(18, 85, 223, 60);
 		btnUsaCartaEsciDiPrigione.setEnabled(false);
 		panel_azioni_prigione.add(btnUsaCartaEsciDiPrigione);
 		
-		JButton btnPagaCauzione = new JButton("Paga cauzione (50€)");
+		btnPagaCauzione = new JButton("Paga cauzione (50€)");
 		btnPagaCauzione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
 		btnPagaCauzione.setBounds(259, 85, 223, 60);
 		btnPagaCauzione.setEnabled(false);
@@ -637,11 +638,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
     }
-	
 	public void addBtnDichiaraBancarotta(ActionListener listener) {
 		btnDichiaraBancarotta.addActionListener(listener);
     }
-	
 	public void addBtnScambi(ActionListener listener) {
 		btnScambi.addActionListener(listener);
     }
@@ -657,12 +656,19 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addbtnAsta(ActionListener listener) {
 		btnAsta.addActionListener(listener);
 	}
-	
 	public void addbtnConfermaBancarotta(ActionListener listener) {
 		btnConfermaBancarotta.addActionListener(listener);
 	}
 	public void addbtnNoBancarotta(ActionListener listener) {
 		btnNoBancarotta.addActionListener(listener);
+	}
+
+	public void addbtnUsaCartaEsciDiPrigione(ActionListener listener){
+		btnUsaCartaEsciDiPrigione.addActionListener(listener);
+	}
+
+	public void addbtnPagaCauzione(ActionListener listener){
+		btnPagaCauzione.addActionListener(listener);
 	}
 
 	public void mostraInfoGiocatori() {
@@ -707,7 +713,14 @@ public class MonopolyGUI extends JLayeredPane {
 		    panel_info_giocatori.add(panelGiocatore);
 		}
 	}
-	
+
+	public void attivaUscitaConCarta(boolean decisione){
+		btnUsaCartaEsciDiPrigione.setEnabled(decisione);
+	}
+	public void attivaUscitaConCauzione(boolean decisione){
+		btnPagaCauzione.setEnabled(decisione);
+	}
+
 	// In base alla condition i bottoni saranno attivi o meno
 	public void buttonsState(boolean condition) {
 		
@@ -1005,7 +1018,6 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_gestione_scambi.revalidate();
 	}
 	
-
 	public void creaPedine() {
 
 		String [] pedineSelezionate = SceltaPedineController.getPedineScelte();
@@ -1053,7 +1065,7 @@ public class MonopolyGUI extends JLayeredPane {
 		frame.repaint();
 	}
 
-	public void atterragioSuProprietaVuota() {
+	public void atterraggioSuProprietaVuota() {
 
 		buttonsState(false);
 		
@@ -1062,28 +1074,28 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.setOpaque(false);
 		panel_sfondo.setLayout(null);
 		add(panel_sfondo, 1);
-		setComponentZOrder(panel_sfondo, 0);	
+		setComponentZOrder(panel_sfondo, 1);	
 		
-		JPanel panel_conferma_bancarotta = new JPanel();
-		panel_conferma_bancarotta.setBounds(469, 248, 601, 348);
-		panel_sfondo.add(panel_conferma_bancarotta);
-		panel_conferma_bancarotta.setLayout(null);
+		JPanel panel_decisione_proprieta = new JPanel();
+		panel_decisione_proprieta.setBounds(469, 248, 601, 348);
+		panel_sfondo.add(panel_decisione_proprieta);
+		panel_decisione_proprieta.setLayout(null);
 		
-		JLabel lblConfermaBancarotta = new JLabel("Cosa vuoi fare con la proprietà?");
-		lblConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
-		lblConfermaBancarotta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfermaBancarotta.setBounds(65, 22, 471, 53);
-		panel_conferma_bancarotta.add(lblConfermaBancarotta);
+		JLabel lblDecisioneProprieta = new JLabel("Cosa vuoi fare con la proprietà?");
+		lblDecisioneProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		lblDecisioneProprieta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDecisioneProprieta.setBounds(65, 22, 471, 53);
+		panel_decisione_proprieta.add(lblDecisioneProprieta);
 		
 		
 		btnAcquista.setFont(new Font("Acquista", Font.PLAIN, 30));
 		btnAcquista.setBounds(47, 234, 230, 82);
-		panel_conferma_bancarotta.add(btnAcquista);
+		panel_decisione_proprieta.add(btnAcquista);
 		
 		
 		btnAsta.setFont(new Font("Metti all'asta", Font.PLAIN, 25));
 		btnAsta.setBounds(324, 236, 230, 82);
-		panel_conferma_bancarotta.add(btnAsta);
+		panel_decisione_proprieta.add(btnAsta);
 		
 		
 	}

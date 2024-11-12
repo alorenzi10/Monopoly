@@ -44,10 +44,10 @@ public class Tabellone {
 		squares[4] = new Tassa("Tassa patrimoniale",200);
 		//Stazione(name, price, mortgageValue, rentTable)
 		squares[5] = new Stazione("Stazione nord", 200, 100, new int[] {25,50,100,200});
-		squares[6] = new Cantiere("Bastoni Gran Sasso", 100, 50, new int[] {6,30,90,270,400,550}, azzurro, 50);
+		squares[6] = new Cantiere("Bastioni Gran Sasso", 100, 50, new int[] {6,30,90,270,400,550}, azzurro, 50);
 		//Assegna name=Imprevisti con super
 		squares[7] = new Imprevisti();
-		squares[8] = new Cantiere("Viale Monteosa", 100, 50, new int[] {6,30,90,270,400,550}, azzurro, 50);
+		squares[8] = new Cantiere("Viale Monterosa", 100, 50, new int[] {6,30,90,270,400,550}, azzurro, 50);
 		squares[9] = new Cantiere("Viale Vesuvio", 120, 60, new int[] {8,40,100,300,450,600}, azzurro, 50);
 		squares[10] = new Casella("Prigione");
 		squares[11] = new Cantiere("Via Accademia", 140, 70, new int[] {10,50,150,450,625,750}, viola, 100);
@@ -78,7 +78,7 @@ public class Tabellone {
 		squares[35] = new Stazione("Stazione ovest", 200, 100, new int[] {25,50,100,200});
 		squares[36] = new Imprevisti();
 		squares[37] = new Cantiere("Viale dei giardini", 350, 175, new int[] {35,175,500,1100,1300,1500}, blu, 200);
-		squares[38] = new Tassa("Tassa di lusso",100);
+		squares[38] = new Tassa("Tassa di lusso", 100);
 		squares[39] = new Cantiere("Parco della vittoria", 400, 200, new int[] {50,200,600,1400,1700,2000}, blu, 200);
 		
     }

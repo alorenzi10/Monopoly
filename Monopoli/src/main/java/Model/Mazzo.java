@@ -31,6 +31,6 @@ public class Mazzo {
 
     public Carta put(Carta card) {
     	cards.add(card);
-		return card;
+		  return card;
     }
 }

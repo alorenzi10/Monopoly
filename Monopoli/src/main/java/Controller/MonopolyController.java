@@ -36,6 +36,8 @@ public class MonopolyController {
         
         monopolyGUI.addbtnAcquista(new BtnAcquista());
         monopolyGUI.addbtnAsta(new BtnAsta());
+		monopolyGUI.addbtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
+		monopolyGUI.addbtnPagaCauzione(new BtnPagaCauzione());
 	}
 	
 	private class BtnTiraDadi implements ActionListener{
@@ -104,6 +106,26 @@ public class MonopolyController {
 			
 				monopolyGUI.rimuoviAcquistoAsta();
 				
+			}
+	}
+
+	private class BtnUsaCartaEsciDiPrigione implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				monopoly.getGiCorrente().liberaDaPrigione();
+				monopolyGUI.attivaUscitaConCarta(false);
+
+			}
+	}
+	private class BtnPagaCauzione implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+				
+				monopoly.pagaUscitaPrigione();
+				monopolyGUI.attivaUscitaConCauzione(false);
+
 			}
 	}
 	
