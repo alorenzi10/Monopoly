@@ -8,7 +8,6 @@ public class Player {
     private String name;
     private int wallet;
     private boolean inPrigione;
-    private boolean tiri;
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
@@ -24,11 +23,7 @@ public class Player {
     	this.location = 0;
     	this.listaProprieta=new ArrayList<>();
     }
-    
-    public int getWallet() {
-    	return wallet;
-    }
-    
+    		
     public boolean controlloFondi(int totale) {
     	if(wallet>=totale) {
     		return true;
@@ -40,10 +35,6 @@ public class Player {
     
     public void doTransaction(int totale) {
     	wallet += totale; //da aggiungere controllo se bastano i soldi
-    }
-    
-    public int getLocation() {
-    	return location;
     }
     
     public void muovi(int spostamento) {
@@ -60,44 +51,19 @@ public class Player {
     	}
     }
 
-	public String getName() {
-		return name;
-	}
-
 	public boolean passaggioVia() {
 		return passatoVia;
-	}
-
-	public void vaiInPrigione() {
-		location = Tabellone.POS_PRIGIONE;
-		inPrigione = true;
-		tentativiUscitaPrigione = 0;
 	}
 
 	public void addCarta(Carta carta) {
 		carte.add(carta);
 	}
-
-	public int getNumCasePossedute() {
-		int numCase = 0;
-		for (Proprieta p : listaProprieta) {
-			if (p instanceof Cantiere) {
-				numCase += ((Cantiere) p).getNumCase();
-			}
-		}
-		return numCase;
+	
+	public void aggiungiProprieta(Proprieta proprieta) {
+		proprieta.setProprietario(this);
+		listaProprieta.add(proprieta);
 	}
 	
-	public int getNumAlberghiPosseduti() {
-		int numAlberghi = 0;
-		for (Proprieta prop : listaProprieta) {
-			if (prop instanceof Cantiere) {
-				numAlberghi += ((Cantiere) prop).getNumCase();
-			}
-		}
-		return numAlberghi;
-	}
-
 	public boolean possessoreGruppo(Cantiere cantiere) {
 		boolean haTutteProprieta = true;
 		GruppoColore gc = cantiere.getGruppoColore();
@@ -109,22 +75,10 @@ public class Player {
 		return haTutteProprieta;
 	}
 
-	public boolean eInPrigione() {
-		return inPrigione;
-	}
-
-	public void liberaDaPrigione() {
-		inPrigione = false;
-	}
-
 	public void fallitoTentativo() {
 		tentativiUscitaPrigione++;
 	}
 	
-	public int getTentativi() {
-		return tentativiUscitaPrigione;
-	}
-
 	public boolean tentativiTerminati() {
 		boolean tentativiTerminati = false;
 		if(tentativiUscitaPrigione >= TENTATIVI_MASSIMI_PRIGIONE) {
@@ -132,12 +86,17 @@ public class Player {
 		}
 		return tentativiTerminati;
 	}
-
-	public void aggiungiProprieta(Proprieta proprieta) {
-		proprieta.setProprietario(this);
-		listaProprieta.add(proprieta);
+	
+	public void vaiInPrigione() {
+		location = Tabellone.POS_PRIGIONE;
+		inPrigione = true;
+		tentativiUscitaPrigione = 0;
 	}
 
+	public void liberaDaPrigione() {
+		inPrigione = false;
+	}
+	
 	public boolean haUscitaGratis() {
 		boolean haCarta = false;
 		if (carte.size()>0) {
@@ -146,18 +105,57 @@ public class Player {
 		return haCarta;
 	}
 	
-	public ArrayList<Proprieta> getListaProprieta() {
-		return listaProprieta;
-	}
-	
 	public int getId() {
 		return id;
 	}
 	
+    public int getWallet() {
+    	return wallet;
+    }
+    
+    public int getLocation() {
+    	return location;
+    }
+    
+    public String getName() {
+		return name;
+	}
+
+	public boolean getInPrigione() {
+		return inPrigione;
+	}
+	public int getTentativi() {
+		return tentativiUscitaPrigione;
+	}
+
 	public Carta getCarta() {
 		Carta carta = carte.get(0);
 		carte.remove(0);
 		return carta;
 	}
 	
+	public ArrayList<Proprieta> getListaProprieta() {
+		return listaProprieta;
+	}
+
+    public int getNumCasePossedute() {
+		int numCase = 0;
+		for (Proprieta p : listaProprieta) {
+			if (p instanceof Cantiere) {
+				numCase += ((Cantiere) p).getNumCase();
+			}
+		}
+		return numCase;
+	}
+    
+	public int getNumAlberghiPosseduti() {
+		int numAlberghi = 0;
+		for (Proprieta prop : listaProprieta) {
+			if (prop instanceof Cantiere) {
+				numAlberghi += ((Cantiere) prop).getNumCase();
+			}
+		}
+		return numAlberghi;
+	}
+
 }

@@ -47,13 +47,13 @@ public class Monopoly {
     }
 		
 	public void inizioTurno() { //metti getInPrigione()
-		if(giCorrente.eInPrigione() && giCorrente.haUscitaGratis()){
+		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
 			print.attivaUscitaConCarta(true);
 		}
 		else{
 			print.attivaUscitaConCarta(false);
 		}
-		if(giCorrente.eInPrigione()){
+		if(giCorrente.getInPrigione()){
 			print.attivaUscitaConCauzione(true);
 		}
 		else{
@@ -70,7 +70,7 @@ public class Monopoly {
 				dice.roll();
 				print.stampa("Dado 1: " + dice.getDado1());
 				print.stampa("Dado 2: " + dice.getDado2());
-				if(giCorrente.eInPrigione() == false) {
+				if(giCorrente.getInPrigione() == false) {
 					giCorrente.muovi(dice.getTotal());
 					controlloPassaggioVia();
 					arrivoCasella();
@@ -150,7 +150,7 @@ public class Monopoly {
 	}
 	
 	private void uscitaGratis() {
-		if (giCorrente.eInPrigione()) {
+		if (giCorrente.getInPrigione()) {
 			if (giCorrente.haUscitaGratis()) {
 				Carta c = giCorrente.getCarta();
 				if (c.getTipo() == MazzoImprevisti.IMPREVISTI) {
@@ -165,11 +165,11 @@ public class Monopoly {
 	}
 	
 	public void pagaUscitaPrigione() {
-		if (giCorrente.eInPrigione()) {
+		if (giCorrente.getInPrigione()) {
 			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
 				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 				giCorrente.liberaDaPrigione();
-				print.stampa("Il giocaotre " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
+				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
 			} else {print.stampa("Non hai abbastanza soldi!");}
 		} else {print.stampa("Il giocatatore non è i prigione");}
 	}
