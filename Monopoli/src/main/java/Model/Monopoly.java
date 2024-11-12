@@ -57,7 +57,7 @@ public class Monopoly {
 				dice.roll();
 				print.stampa("Dado 1: " + dice.getDado1());
 				print.stampa("Dado 2: " + dice.getDado2());
-				if(giCorrente.eInPrigione() == false) {
+				if(giCorrente.getInPrigione() == false) {
 					giCorrente.muovi(dice.getTotal());
 					controlloPassaggioVia();
 					arrivoCasella();
@@ -137,7 +137,7 @@ public class Monopoly {
 	}
 	
 	private void uscitaGratis() {
-		if (giCorrente.eInPrigione()) {
+		if (giCorrente.getInPrigione()) {
 			if (giCorrente.haUscitaGratis()) {
 				Carta c = giCorrente.getCarta();
 				if (c.getTipo() == MazzoImprevisti.IMPREVISTI) {
@@ -152,7 +152,7 @@ public class Monopoly {
 	}
 	
 	private void pagaUscitaPrigione() {
-		if (giCorrente.eInPrigione()) {
+		if (giCorrente.getInPrigione()) {
 			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
 				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 				giCorrente.liberaDaPrigione();
