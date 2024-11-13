@@ -7,4 +7,8 @@ public class Casella {
     public Casella(String name) {
 		this.name = name;
     }
+    
+    public String getNome() {
+    	return name;
+    }
 }

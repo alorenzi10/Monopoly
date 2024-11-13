@@ -5,10 +5,10 @@ public class Societa extends Proprieta {
     private int[] rentTable;
     private Dadi dice;
 
-    public Societa(String name, int price, int mortgageValue, int[] rentTable, Dadi dice) {
+    public Societa(String name, int price, int mortgageValue, int[] rentTable) {
     	super(name, price, mortgageValue);
 		this.rentTable = rentTable;
-		this.dice = dice;
     }
+    
 
 }

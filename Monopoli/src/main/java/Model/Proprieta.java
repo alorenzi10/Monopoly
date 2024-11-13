@@ -26,7 +26,7 @@ public class Proprieta extends Casella {
 		return possessore;
 	}
 
-	public int getAffito() {
+	public int getAffito() { //da sistemare
 		return 0;
 	}
 

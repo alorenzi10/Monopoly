@@ -123,18 +123,9 @@ public class SceltaPedineController {
         } 
         else {
         	sceltaPedineView.setVisible(false);
-            creaTabellone();
+        	new MonopolyController(frame);
         }
     }
-    
-    protected void creaTabellone() {
-    	
-        MonopolyGUI monopolyGUI = new MonopolyGUI(frame);
-        monopolyGUI.setBounds(0, 0,  1920, 1080);  // Imposta le dimensioni di MonopolyGUI
-        frame.add(monopolyGUI);
-        frame.revalidate();
-        frame.repaint();      
-	}
     
     public static String[] getPedineScelte() {
     	return pedineScelte;
