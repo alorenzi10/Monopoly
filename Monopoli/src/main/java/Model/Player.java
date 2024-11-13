@@ -34,11 +34,11 @@ public class Player {
     	}
     }
     
-    public void doTransaction(int totale) {
+    public void doTransaction(int totale) {//Bisognerebbe integrare dentro transaction il controllo dei fondi
     	wallet += totale; //da aggiungere controllo se bastano i soldi
     }
     
-    public void muovi(int spostamento) {
+    public void muovi(int spostamento) { 
     	location += spostamento;
     	if (location >= Tabellone.NUM_SQUARES) {
     		location -= 40;

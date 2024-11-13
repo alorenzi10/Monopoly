@@ -1,6 +1,6 @@
 package Model;
 
-public class MazzoProbabilita extends Mazzo {
+public class MazzoProbabilita extends Mazzo { // Da controllare e ultimare azione paga case 13/11/2024
 	
     private final int PROBABILITA = 1;
 
@@ -10,7 +10,7 @@ public class MazzoProbabilita extends Mazzo {
     	cards.add(new Carta(PROBABILITA, "Andate avanti fino al via e ritirate 200€.", AZIONE_VAI_AVANTI, 0, Tabellone.POS_VIA));
 
     	// Tasse, parcelle
-    	cards.add(new Carta(PROBABILITA, "Pagate per contributi di miglioria stradale. 40€ per ogni casa e 115€ per ogni albergo che possedete.", AZIONE_PAGA_CASE, new int[] {40, 115}));
+    	cards.add(new Carta(PROBABILITA, "Pagate per contributi di miglioria stradale. 40€ per ogni casa e 115€ per ogni albergo che possedete.", AZIONE_PAGA_CASE, new int[] {40, 115})); //da fare
     	cards.add(new Carta(PROBABILITA, "Pagate la retta ospedaliera di 100€.", AZIONE_PAGA, 100));
     	cards.add(new Carta(PROBABILITA, "Ricevete la parcella del dottore: pagate 50€.", AZIONE_PAGA, 50));
     	cards.add(new Carta(PROBABILITA, "Pagate le rette scolastiche dei vostri figli: versate 50€.", AZIONE_PAGA, 50));
@@ -30,5 +30,6 @@ public class MazzoProbabilita extends Mazzo {
     	cards.add(new Carta(PROBABILITA, "Andate in prigione direttamente e senza passare dal via!", AZIONE_VAI_IN_CARCERE));
     	cards.add(new Carta(PROBABILITA, "Uscite gratis di prigione, se ci siete potete conservare questa carta fino al momento di servirvene, oppure venderla.", AZIONE_ESCI_DAL_CARCERE));
 
+		shuffle();
     }
 }

@@ -72,7 +72,8 @@ public class Monopoly {
 				print.stampa("Dado 1: " + dice.getDado1());
 				print.stampa("Dado 2: " + dice.getDado2());
 				if(giCorrente.getInPrigione() == false) {
-					giCorrente.muovi(dice.getTotal());
+					//giCorrente.muovi(dice.getTotal());
+					giCorrente.muovi(2);
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
@@ -198,10 +199,18 @@ public class Monopoly {
 		Casella casella = tabellone.getSquare(giCorrente.getLocation());
 		
 		if (casella instanceof Imprevisti) {
+			if(( mazzoImprevisti).isEmpty()){
+				print.stampa("Carte Imprevisti esaurite, rimescolo" );
+	    		mazzoImprevisti=new MazzoImprevisti();
+	    	}
 			Carta carta = mazzoImprevisti.get();
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
 		} else if (casella instanceof Probabilita) {
+			if(mazzoProbabilita.isEmpty() ){
+				print.stampa("Carte Probabilità esaurite, rimescolo" );
+	    		mazzoProbabilita=new MazzoProbabilita();
+	    	}
 			Carta carta = mazzoProbabilita.get();
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
@@ -257,24 +266,42 @@ public class Monopoly {
 	}
 
 	private void azioneCarta(Carta carta) {
+		int partenza, pos;
+		
 		switch (carta.getAction()) {
 		case Mazzo.AZIONE_VAI_AVANTI:
-			giCorrente.muovi(carta.getDestination());
-			controlloPassaggioVia();
+			int diff;
+			int destinazione=carta.getDestination();
+			partenza=giCorrente.getLocation();
+			if(giCorrente.getLocation()<destinazione) {
+				diff=destinazione-giCorrente.getLocation();
+				giCorrente.muovi(diff);
+			}
+			else {
+				diff=40-giCorrente.getLocation();
+				diff=diff+destinazione;
+				giCorrente.muovi(diff);
+				controlloPassaggioVia();
+			}
 			arrivoCasella();
 			break;
+			
 		case Mazzo.AZIONE_VAI_INDIETRO:
+			partenza=giCorrente.getLocation();
 			giCorrente.muovi(carta.getDestination());
+			pos=giCorrente.getLocation();
+			print.muoviPedina(partenza, pos, giCorrente.getId());
 			arrivoCasella();
 			break;
-		case Mazzo.AZIONE_VAI_IN_CARCERE: //fatto
+			
+		case Mazzo.AZIONE_VAI_IN_CARCERE: 
 			giCorrente.vaiInPrigione();
 			tiroDadiFatto = true;
 			break;
 		case Mazzo.AZIONE_ESCI_DAL_CARCERE: //da aggiungere opzione di usare la carta per uscire
 			giCorrente.addCarta(carta);
 			break;
-		case Mazzo.AZIONE_PAGA_CASE:
+		case Mazzo.AZIONE_PAGA_CASE: //DA FARE
 			int totale = giCorrente.getNumCasePossedute()*carta.getCostoCase() + giCorrente.getNumAlberghiPosseduti()*carta.getCostoAlberghi();
 			giCorrente.doTransaction(-totale);
 			break;
@@ -282,21 +309,92 @@ public class Monopoly {
 			giCorrente.doTransaction(-carta.getQtaSoldi());
 			print.stampa("Paga: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
-		case Mazzo.AZIONE_RICEVI: //fatto
+		case Mazzo.AZIONE_RICEVI: 
 			giCorrente.doTransaction(carta.getQtaSoldi());
 			print.stampa("Ricevi: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
-		case Mazzo.REGALI:  //da aggiungere bancarotta, fatto.
-			for (Player p : players) {
-				if(p.getName() != giCorrente.getName()) {
-					if(p.controlloFondi(carta.getQtaSoldi())){
-					p.doTransaction(carta.getQtaSoldi());
-					print.stampa(p.getName() + " ha regalato 50€ a " + giCorrente.getName() + ".");
+		case Mazzo.REGALI:  
+			
+			if(carta.getTipo()==0) {
+				for (Player p : players) {
+					if(p.getName() != giCorrente.getName()) {
+						if(p.controlloFondi(carta.getQtaSoldi())){
+							p.doTransaction(carta.getQtaSoldi());
+						print.stampa(giCorrente.getName() + " ha regalato 50€ a " + p.getName() + ".");
+						}
 					}
 				}
+				giCorrente.doTransaction(-carta.getQtaSoldi()*(players.size()-1));
+			}else {
+				for (Player p : players) {
+					if(p.getName() != giCorrente.getName()) {
+						if(p.controlloFondi(-carta.getQtaSoldi())){
+							p.doTransaction(-carta.getQtaSoldi());
+						print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
+						}
+					}
+				}
+				giCorrente.doTransaction(carta.getQtaSoldi()*(players.size()-1));
 			}
-			giCorrente.doTransaction(-carta.getQtaSoldi()*(players.size()-1));
+			
 			break;
+			
+		case Mazzo.AZIONE_SOCIETA_VICINA:
+			partenza=giCorrente.getLocation();
+			if(giCorrente.getLocation()==7) {
+				giCorrente.muovi(5);
+			}
+			else if(giCorrente.getLocation()==36) {
+				giCorrente.muovi(15);
+			}
+			else if(giCorrente.getLocation()==22) {
+				giCorrente.muovi(6);
+			}
+			pos=giCorrente.getLocation();
+			
+			print.muoviPedina(partenza, pos, giCorrente.getId() );
+
+			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
+				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
+					dice.roll();
+					print.stampa("Dado 1: " + dice.getDado1()); //lancio dei dadi per calcolare il coeffx10
+					print.stampa("Dado 2: " + dice.getDado2());
+					print.stampa("Devi pagare "+ dice.getTotal()+"0 volte il totale dovuto");
+					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*dice.getTotal()*-10);
+					((Proprieta) tabellone.getSquare(pos)).getPossessore()
+					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*dice.getTotal()*10);
+				}
+			}else {
+				print.atterraggioSuProprietaVuota();
+			}
+			break;
+			
+			case Mazzo.AZIONE_FERROVIA_VICINA:
+			partenza=giCorrente.getLocation();
+			if(giCorrente.getLocation()==7) {
+				giCorrente.muovi(8);
+			}
+			else if(giCorrente.getLocation()==36) {
+				giCorrente.muovi(9);
+			}
+			else if(giCorrente.getLocation()==22) {
+				giCorrente.muovi(3);
+			}
+			pos=giCorrente.getLocation();
+			print.muoviPedina(partenza, pos, giCorrente.getId() );
+			
+			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
+				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
+			
+					print.stampa("Devi pagare il doppio del totale dovuto");
+					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*-2);
+					((Proprieta) tabellone.getSquare(pos)).getPossessore()
+					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*2);
+				}
+			}else {
+				print.atterraggioSuProprietaVuota();
+			}
+			
 		}
 	}
 	
