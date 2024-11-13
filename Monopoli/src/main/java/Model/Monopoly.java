@@ -290,12 +290,12 @@ public class Monopoly {
 			for (Player p : players) {
 				if(p.getName() != giCorrente.getName()) {
 					if(p.controlloFondi(carta.getQtaSoldi())){
-					p.doTransaction(-carta.getQtaSoldi());
-					print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
+					p.doTransaction(carta.getQtaSoldi());
+					print.stampa(p.getName() + " ha regalato 50€ a " + giCorrente.getName() + ".");
 					}
 				}
 			}
-			giCorrente.doTransaction(carta.getQtaSoldi()*(players.size()-1));
+			giCorrente.doTransaction(-carta.getQtaSoldi()*(players.size()-1));
 			break;
 		}
 	}
