@@ -214,7 +214,7 @@ public class Monopoly {
 
 
 		else if (casella instanceof Proprieta) {
-			print.stampa("Il giocatore: " + giCorrente.getName() + " è atterrato su una proprietà " + 
+			print.stampa(giCorrente.getName() + " è atterrato sulla proprietà " + 
 					tabellone.getSquare(giCorrente.getLocation()).getNome());
 
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){
@@ -302,7 +302,7 @@ public class Monopoly {
 	
 	public void stampaDati() {
 		for(Player p: players) {
-			print.stampa(p.getId()+" "+p.getName()+ ", saldo="+p.getWallet()+ "posizione="+p.getLocation());
+			print.stampa("id=" + p.getId() +", nome=" +p.getName() + ", saldo=" + p.getWallet() + ", posizione=" + p.getLocation());
 			if(p.getInPrigione()) {
 				print.stampa("è in galera");
 			}
@@ -310,7 +310,7 @@ public class Monopoly {
 				print.stampa("non è in galera");
 			}
 			if(p.haUscitaGratis()) {
-				print.stampa("ha carta uscia di prigione");
+				print.stampa("ha carta uscita di prigione");
 			}
 			ArrayList<Proprieta> proprieta=p.getListaProprieta();
 			for(Proprieta prop: proprieta) {

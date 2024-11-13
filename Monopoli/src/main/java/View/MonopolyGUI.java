@@ -41,7 +41,7 @@ public class MonopolyGUI extends JLayeredPane {
 	public JPanel panel_scelte_turno;
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta ;
-	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
+	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione, btnMostraProprieta;
 	
 	private boolean decisioneBancarotta;
 	
@@ -644,32 +644,34 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnScambi(ActionListener listener) {
 		btnScambi.addActionListener(listener);
     }
-	public void addbtnProprieta(ActionListener listener) {
+	public void addBtnProprieta(ActionListener listener) {
 		btnProprieta.addActionListener(listener);
     }
-	public void addbtnFineTurno(ActionListener listener) {
+	public void addBtnFineTurno(ActionListener listener) {
 		btnFineTurno.addActionListener(listener);
 	}
-	public void addbtnAcquista(ActionListener listener) {
+	public void addBtnAcquista(ActionListener listener) {
 		btnAcquista.addActionListener(listener);
 	}
-	public void addbtnAsta(ActionListener listener) {
+	public void addBtnAsta(ActionListener listener) {
 		btnAsta.addActionListener(listener);
 	}
-	public void addbtnConfermaBancarotta(ActionListener listener) {
+	public void addBtnConfermaBancarotta(ActionListener listener) {
 		btnConfermaBancarotta.addActionListener(listener);
 	}
-	public void addbtnNoBancarotta(ActionListener listener) {
+	public void addBtnNoBancarotta(ActionListener listener) {
 		btnNoBancarotta.addActionListener(listener);
 	}
-
-	public void addbtnUsaCartaEsciDiPrigione(ActionListener listener){
+	public void addBtnUsaCartaEsciDiPrigione(ActionListener listener){
 		btnUsaCartaEsciDiPrigione.addActionListener(listener);
 	}
-
-	public void addbtnPagaCauzione(ActionListener listener){
+	public void addBtnPagaCauzione(ActionListener listener){
 		btnPagaCauzione.addActionListener(listener);
 	}
+	public void addBtnMostraProprietaGiocatore(ActionListener listener) {
+		btnMostraProprieta.addActionListener(listener);
+    }
+
 
 	public void mostraInfoGiocatori() {
 		
@@ -706,9 +708,11 @@ public class MonopolyGUI extends JLayeredPane {
 		    panelGiocatore.add(lblPedinaGiocatore);
 
 		    // Bottone "Mostra Proprietà"
-		    JButton btnMostraProprieta = new JButton("Mostra Proprietà");
+		    btnMostraProprieta = new JButton("Mostra Proprietà");
 		    btnMostraProprieta.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		    panelGiocatore.add(btnMostraProprieta);
+		    
+		    
 
 		    panel_info_giocatori.add(panelGiocatore);
 		}
