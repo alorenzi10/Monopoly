@@ -39,6 +39,13 @@ public class MonopolyController {
 		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
 		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
 		monopolyGUI.addBtnMostraProprietaGiocatore(new BtnMostraProprieta());
+		
+		monopolyGUI.addBtn1(new Btn1());
+		monopolyGUI.addBtn5(new Btn5());
+		monopolyGUI.addBtn10(new Btn10());
+		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
+		monopolyGUI.addBtnRitirati(new BtnRitirati());
+		
 	}
 	
 	private class BtnTiraDadi implements ActionListener{
@@ -92,8 +99,9 @@ public class MonopolyController {
 	private class BtnAsta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
 			monopolyGUI.rimuoviAcquistoAsta();
+			monopoly.IniziaAsta();
+			
 		}
 	}
 
@@ -137,5 +145,63 @@ public class MonopolyController {
 			//monopolyGUI.mostraProprieta();
 		}
 	}
+	private class Btn1 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!monopoly.asta.aggiornaOfferta(1)) { //si potrebbe fare un metodo per queste azioni
+				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
+			}
+			else {
+				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
+			}
+		}
+	}
+	
+	private class Btn5 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!monopoly.asta.aggiornaOfferta(5)) {
+				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
+			}
+			else {
+				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
+			}
+		}
+	}
+	
+	private class Btn10 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!monopoly.asta.aggiornaOfferta(10)) {
+				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
+			}
+			else {
+				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
+			}
+		}
+	}
+	
+	private class BtnConfermaOfferta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopoly.asta.prossimoGiocatore();
+			monopolyGUI.aggiornaTurno(monopoly.asta.getName());
+		}
+	}
+	
+	private class BtnRitirati implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopoly.asta.ritirati();
+			if(monopoly.asta.ControlloFineAsta()) {
+				monopolyGUI.rimuoviAcquistoAsta();
+				monopoly.asta.fineAsta();
+			}
+			else {
+				monopolyGUI.aggiornaTurno(monopoly.asta.getName());
+			}
+		}
+	}
+	
 	
 }

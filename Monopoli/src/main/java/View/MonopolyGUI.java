@@ -42,6 +42,8 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta ;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione, btnMostraProprieta;
+	private JButton btn1, btn5, btn10, btnConfermaOfferta, btnRitirati; //asta
+	private JLabel turno, offerta;
 	
 	private boolean decisioneBancarotta;
 	
@@ -671,6 +673,21 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnMostraProprietaGiocatore(ActionListener listener) {
 		btnMostraProprieta.addActionListener(listener);
     }
+	public void addBtn1(ActionListener listener) {
+		btn1.addActionListener(listener);
+    }
+	public void addBtn5(ActionListener listener) {
+		btn5.addActionListener(listener);
+    }
+	public void addBtn10(ActionListener listener) {
+		btn10.addActionListener(listener);
+    }
+	public void addBtnConfermaOfferta(ActionListener listener) {
+		btnConfermaOfferta.addActionListener(listener);
+    }
+	public void addBtnRitirati(ActionListener listener) {
+		btnRitirati.addActionListener(listener);
+    }
 
 
 	public void mostraInfoGiocatori() {
@@ -712,6 +729,11 @@ public class MonopolyGUI extends JLayeredPane {
 		    btnMostraProprieta.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		    panelGiocatore.add(btnMostraProprieta);
 		    
+		    btn1=new JButton("+1");
+		    btn5=new JButton("+5");
+		    btn10=new JButton("+10");
+		    btnConfermaOfferta=new JButton("Conferma Offerta");
+		    btnRitirati=new JButton("Ritirati");
 		    
 
 		    panel_info_giocatori.add(panelGiocatore);
@@ -1105,6 +1127,71 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		
 	}
+	
+	public void asta(int giCorrente) { //forse da mettere da un altra parte
+		
+		buttonsState(false);
+		panel_sfondo = new JPanel();
+		panel_sfondo.setBounds(0, 0, 1540, 845);
+		panel_sfondo.setOpaque(false);
+		panel_sfondo.setLayout(null);
+		add(panel_sfondo, 1);
+		setComponentZOrder(panel_sfondo, 1);	
+		
+		JPanel panel_asta = new JPanel();
+		panel_asta.setBounds(130, 130, 520, 520);
+		panel_asta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
+		panel_sfondo.add(panel_asta);
+		panel_asta.setLayout(null);
+		
+		JLabel asta = new JLabel("ASTA");
+		asta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
+		asta.setHorizontalAlignment(SwingConstants.CENTER);
+		asta.setBounds(25, 22, 471, 53);
+		panel_asta.add(asta);
+		
+		offerta = new JLabel("Offerta attuale è: 10");
+		offerta.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		offerta.setHorizontalAlignment(SwingConstants.CENTER);
+		offerta.setBounds(25, 160 , 232, 53);
+		panel_asta.add(offerta);
+		
+		turno = new JLabel(NomiGiocatoriController.getNomiGiocatori(giCorrente) + " fai la prima offerta");
+		turno.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		turno.setHorizontalAlignment(SwingConstants.CENTER);
+		turno.setBounds(25, 100 , 232, 53);
+		panel_asta.add(turno);
+		
+		btn1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn1.setBounds(21, 232, 100, 100);
+		panel_asta.add(btn1);
+		
+		btn5.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn5.setBounds(130, 232, 100, 100);
+		panel_asta.add(btn5);
+		
+		btn10.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn10.setBounds(240, 232, 100, 100);
+		panel_asta.add(btn10);
+		
+		btnConfermaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnConfermaOfferta.setBounds(21, 400, 230, 82);
+		panel_asta.add(btnConfermaOfferta);
+		
+		btnRitirati.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnRitirati.setBounds(272, 400, 230, 82);
+		panel_asta.add(btnRitirati);
+	
+	}	
+	
+	public void aggiornaOfferta(int offertaAggiornata) {
+		offerta.setText("Offerta attuale è: "+offertaAggiornata);
+	}
+	
+	public void aggiornaTurno(String nome) {
+		turno.setText(nome+ " tocca a te partecipare all'asta");
+	}
+	
 	
 	//rimuove anche popup bancarotta
 	public void rimuoviAcquistoAsta() {

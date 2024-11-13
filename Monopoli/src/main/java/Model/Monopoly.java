@@ -22,6 +22,7 @@ public class Monopoly {
     private boolean tiroDadiFatto;
     private int nDadiDoppi;
     private MonopolyGUI print;
+    public Asta asta;
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
@@ -72,8 +73,8 @@ public class Monopoly {
 				print.stampa("Dado 1: " + dice.getDado1());
 				print.stampa("Dado 2: " + dice.getDado2());
 				if(giCorrente.getInPrigione() == false) {
-					//giCorrente.muovi(dice.getTotal());
-					giCorrente.muovi(2);
+					
+					giCorrente.muovi(dice.getTotal());
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
@@ -346,6 +347,7 @@ public class Monopoly {
 			}
 			else if(giCorrente.getLocation()==36) {
 				giCorrente.muovi(15);
+				
 			}
 			else if(giCorrente.getLocation()==22) {
 				giCorrente.muovi(6);
@@ -353,6 +355,7 @@ public class Monopoly {
 			pos=giCorrente.getLocation();
 			
 			print.muoviPedina(partenza, pos, giCorrente.getId() );
+			controlloPassaggioVia();
 
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
 				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
@@ -382,6 +385,7 @@ public class Monopoly {
 			}
 			pos=giCorrente.getLocation();
 			print.muoviPedina(partenza, pos, giCorrente.getId() );
+			controlloPassaggioVia();
 			
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
 				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
@@ -417,50 +421,10 @@ public class Monopoly {
 		}
 	}
 	
-	/*private void strutturaAsta() {
-		int offerta_corrente = 0;
-		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
-		ArrayList<Player> playersAsta = players;
-		do {
-			for (Player p : playersAsta) {
-				boolean fineTurnoAsta = false;
-				do {
-					switch(print.getComando()) {
-					case MonopolyGUI.COMANDO_RILANCIA_1:
-						if(p.getWallet() < offerta_corrente+1) {
-							print.stampa("Non hai abbastanza soldi, rinuncia all'asta.");
-						} else {
-							offerta_corrente+=1;
-							fineTurnoAsta = true;
-						}		
-						break;
-					case MonopolyGUI.COMANDO_RILANCIA_10:
-						if(p.getWallet() < offerta_corrente+10) {
-							print.stampa("Non hai abbastanza soldi, fai un'offerta minore o rinuncia.");
-						} else {
-							offerta_corrente+=10;
-							fineTurnoAsta = true;
-							}		
-						break;
-					case MonopolyGUI.COMANDO_RILANCIA_50: 
-						if(p.getWallet() < offerta_corrente+50) {
-							print.stampa("Non hai abbastanza soldi, fai un'offerta minore o rinuncia.");
-						} else {
-							offerta_corrente+=50;
-							fineTurnoAsta = true;
-							}		
-						break;
-					case MonopolyGUI.COMANDO_RINUNCIA:		
-						playersAsta.remove(p);
-						fineTurnoAsta = true;
-						break;
-					}
-				} while (!fineTurnoAsta);
-			}
-		}while(playersAsta.size() > 1);
-		playersAsta.get(0).doTransaction(-offerta_corrente);
-		playersAsta.get(0).aggiungiProprieta(proprieta);
-	}*/
+	public void IniziaAsta() {
+		asta=new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
+		asta.inizio();
+	}
 
 	public void compraProprieta() {
 		
@@ -586,6 +550,9 @@ public class Monopoly {
 	
 	public Player getGiCorrente() {
 		return giCorrente;
+	}
+	public int getNumGiCorrente() {
+		return giCorrente.getId();
 	}
 }
   
