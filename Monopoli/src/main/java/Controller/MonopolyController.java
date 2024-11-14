@@ -2,8 +2,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import Model.Monopoly;
+import Model.Player;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
@@ -12,6 +14,8 @@ public class MonopolyController {
 	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
+	private String[] nomiGiocatori;
+	private ArrayList<Player> players;
 	
 	public MonopolyController(SchermataDiGioco frame) {
 		
@@ -221,10 +225,20 @@ public class MonopolyController {
 		}
 	}
 	
+	public int getNumGiocatori() {
+		return monopoly.getPlayers().size();
+	}
+	
+	public String[] getNomiGiocatori() {
+		for (int i=0; i < getNumGiocatori(); i++)
+			nomiGiocatori[i] = monopoly.getPlayers().get(i).getName();
+		return nomiGiocatori;
+	}
+	
 	private class BtnMostraProprietaGiocatori implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.mostraInfoGiocatori(monopoly.getPlayers().size());
+			monopolyGUI.mostraProprietaGiocatori(getNumGiocatori(), getNomiGiocatori());
 		}
 	}
 	
