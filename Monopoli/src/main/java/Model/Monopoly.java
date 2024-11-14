@@ -443,8 +443,8 @@ public class Monopoly {
 		 
 	}
 	
-	/*private void costruisci() {
-		Proprieta prop; //ricevuta da input
+	private void costruisci(Proprieta prop) {
+		//Proprieta prop; //ricevuta da input
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if (prop instanceof Cantiere) {
 				Cantiere cant = (Cantiere) prop;
@@ -465,10 +465,13 @@ public class Monopoly {
 						}
 						if(cant.getNumCostruzioni() == min || min == max) {
 							if(cant.getNumCostruzioni() != 5) {
+								
 								if(giCorrente.getWallet() >= cant.getCostoCasa()) {
 									cant.costruisci();
 									giCorrente.doTransaction(-cant.getCostoCasa());
-								} else {print.stampa("Non hai abbastanza soldi per costruire.");}
+								} 
+								else {print.stampa("Non hai abbastanza soldi per costruire.");}
+								
 							} else {print.stampa("Hai già l'albergo su questa proprietà.");}
 						} else {print.stampa("Non puoi costruire, la differenza tra le case non può essere maggiore di uno.");}
 					}else {print.stampa("Non puoi costruire, la proprietà è ipotecata.");}
@@ -476,7 +479,7 @@ public class Monopoly {
 			}else {print.stampa("Non puoi costruire su questa proprietà.");}
 		}else {print.stampa("Non puoi costruire su questa proprietà perchè non la possiedi.");}
 	}
-	
+	/*
 	private void demolisci() {
 		Proprieta prop; //ricevuta da input
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
