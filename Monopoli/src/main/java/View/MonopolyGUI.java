@@ -572,7 +572,7 @@ public class MonopolyGUI extends JLayeredPane {
 		}
 		panel_scelte_turno.add(btnScambi);
 		
-		// Bottone visualizza proprietà
+		// Bottone proprietà
 		btnProprieta = new JButton("Proprietà");
 		btnProprieta.setBounds(40, 162, 200, 60);
 		btnProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
@@ -677,7 +677,7 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnPagaCauzione(ActionListener listener){
 		btnPagaCauzione.addActionListener(listener);
 	}
-	public void addBtnMostraProprietaGiocatore(ActionListener listener) {
+	public void addBtnMostraProprietaGiocatori(ActionListener listener) {
 		btnMostraProprieta.addActionListener(listener);
     }
 	public void addBtn1(ActionListener listener) {
@@ -696,17 +696,17 @@ public class MonopolyGUI extends JLayeredPane {
 		btnRitirati.addActionListener(listener);
     }
 
-
+	
 	public void mostraInfoGiocatori() {
 		
 		JPanel panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
 		panel_info_giocatori.setBounds(760, 82, 770, 398);
+		add(panel_info_giocatori);
 		
-		add(panel_info_giocatori); //prova
-		int numGiocatori = SceltaPedineController.getNumGiocatori();  //prova
-		
+		int numGiocatori = SceltaPedineController.getNumGiocatori();
 		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
+		
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
 		
 		btnMostraProprieta = new JButton("Mostra le proprietà dei giocatori");
@@ -738,6 +738,29 @@ public class MonopolyGUI extends JLayeredPane {
 
 		    panel_info_giocatori.add(panelGiocatore);
 		}
+	}
+	
+	public void mostraProprietaGiocatori() {
+		
+		int numGiocatori = SceltaPedineController.getNumGiocatori();
+		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
+
+		
+		JPanel panel_proprieta_giocatori = new JPanel();
+		panel_proprieta_giocatori.setBounds(160, 212, 1600, 656);
+		add(panel_proprieta_giocatori);
+		panel_proprieta_giocatori.setLayout(null);
+		
+		JButton btnChiudi = new JButton("X");
+		btnChiudi.setFont(new Font("Monopoly Inline", Font.PLAIN, 50));
+		btnChiudi.setBounds(1525, 10, 65, 65);
+		panel_proprieta_giocatori.add(btnChiudi);
+		
+		JPanel panel_proprieta = new JPanel();
+		panel_proprieta.setBounds(10, 10, 1505, 636);
+		panel_proprieta_giocatori.add(panel_proprieta);
+		panel_proprieta.setLayout(new GridLayout(2, 3, 0, 0));
+
 	}
 
 	public void attivaUscitaConCarta(boolean decisione){
@@ -897,7 +920,7 @@ public class MonopolyGUI extends JLayeredPane {
 		
 	}
 
-	public void mostraScambi() {
+	public void mostraScambi(int giCorrente) {
 		
 		buttonsState(false);
 		
@@ -928,8 +951,8 @@ public class MonopolyGUI extends JLayeredPane {
 		int numGiocatori = SceltaPedineController.getNumGiocatori();
 		String[] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
 		for (int i = 0; i < numGiocatori; i++) {// listener
-		/*	if(nomiGiocatori(i) == Monopoly.getGiCorrente().getName())
-				i++;*/
+			if(nomiGiocatori[i] == NomiGiocatoriController.getNomiGiocatori(giCorrente))
+				i++;
             JButton btnNomeGiocatore = new JButton(nomiGiocatori[i]);
             btnNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
             btnNomeGiocatore.setBounds(170, 152 + (i * 48), 180, 40);
