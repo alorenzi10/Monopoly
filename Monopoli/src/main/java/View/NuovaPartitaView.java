@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  * Classe per mostrare la scelta del numero di giocatori tramite bottoni da 2 a 6
  * e la possibilità di tornare indietro al menu iniziale
  */
-public class NuovaPartita extends JPanel {
+public class NuovaPartitaView extends JPanel {
 
 	 private static final long serialVersionUID = 1L;
 	 public JPanel setUp;  // Panel interno per i vari step del processo
@@ -23,7 +23,7 @@ public class NuovaPartita extends JPanel {
      private JButton btnEsci;
      private JButton btnIndietro;
 
-    public NuovaPartita() {
+    public NuovaPartitaView() {
     	
     	setOpaque(false);
     	setBounds(0, 0, 1920, 1080);
@@ -96,7 +96,6 @@ public class NuovaPartita extends JPanel {
 	public JButton getBtnIndietro() {
 		return btnIndietro;
 	}
-
 
 	public void addBtn2(ActionListener listener) {
     	

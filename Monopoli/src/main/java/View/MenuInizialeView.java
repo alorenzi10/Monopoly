@@ -12,14 +12,14 @@ import java.awt.Color;
  * Classe per mostrare il menu iniziale.
  * Vegnono mostrati i bottoni nuova partita, carica partita ed esci
  */
-public class MenuIniziale extends JPanel {
+public class MenuInizialeView extends JPanel {
 
     private static final long serialVersionUID = 1L;
 	private JButton btnNuovaPartita;
 	private JButton btnCaricaPartita;
 	private JButton btnEsci;
 	
-    public MenuIniziale() {
+    public MenuInizialeView() {
     	
     	setOpaque(false);
         setBounds(0, 0, 1920, 1080);

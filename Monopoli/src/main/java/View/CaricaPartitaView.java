@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-public class CaricaPartita extends JPanel {
+public class CaricaPartitaView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static JPanel setUp;
@@ -28,7 +28,7 @@ public class CaricaPartita extends JPanel {
 	 * Launch the application.
 	 */
 	
-	public CaricaPartita() throws SQLException {
+	public CaricaPartitaView() throws SQLException {
 		
 		setOpaque(false);
 		setBounds(0, 0, 1540, 845);	
@@ -68,7 +68,7 @@ public class CaricaPartita extends JPanel {
     public void vaiIndietro() {
     	
     	removeAll();
-        MenuIniziale menuIniziale = new MenuIniziale();
+        MenuInizialeView menuIniziale = new MenuInizialeView();
 		menuIniziale.setBounds(0, 0, 1920, 1080);
 		add(menuIniziale);
 		revalidate();

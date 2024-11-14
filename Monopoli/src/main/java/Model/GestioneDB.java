@@ -7,7 +7,7 @@ import java.util.Scanner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import View.CaricaPartita;
+import View.CaricaPartitaView;
 
 public class GestioneDB {
 	
@@ -119,7 +119,7 @@ public class GestioneDB {
             }
             
             if(!hasData) {
-            	CaricaPartita.mostraLabel();
+            	CaricaPartitaView.mostraLabel();
         }
         
         table.setModel(model);

@@ -3,7 +3,7 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import View.NuovaPartita;
+import View.NuovaPartitaView;
 import View.SchermataDiGioco;
 /**
  * Classe per controllare la scelta del numero di giocatori nella partita.
@@ -13,9 +13,9 @@ import View.SchermataDiGioco;
 public class NuovaPartitaController {
 	
 	private SchermataDiGioco frame;
-	private static NuovaPartita nuovaPartita;
+	private static NuovaPartitaView nuovaPartita;
 	
-	public NuovaPartitaController(NuovaPartita nuovaPartita, SchermataDiGioco frame) {
+	public NuovaPartitaController(NuovaPartitaView nuovaPartita, SchermataDiGioco frame) {
 		
 		NuovaPartitaController.nuovaPartita = nuovaPartita;
 		this.frame = frame;
@@ -88,7 +88,7 @@ public class NuovaPartitaController {
 		}
     }
 	
-	public static NuovaPartita getNuovaPartita() {
+	public static NuovaPartitaView getNuovaPartita() {
 		
 		return nuovaPartita;
 		

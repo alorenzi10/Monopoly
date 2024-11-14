@@ -181,12 +181,12 @@ public class Monopoly {
 	
 	public void setFineTurno() { //da rivedere
 		if (tiroDadiFatto) {
-			if (giCorrente.getWallet() > 0) {
-				fineTurno = true;
-			}
+			setProssimoGiocatore();
+			print.stampa("tocca a " + giCorrente.getName());
 		}
-		setProssimoGiocatore();
-		print.stampa("tocca a "+giCorrente.getName());
+		else{
+			print.stampa(giCorrente.getName()+ " devi ancora tirare");
+		}
 	}
 	
 	public void controlloPassaggioVia() {
@@ -218,7 +218,7 @@ public class Monopoly {
 			
 		} else if (casella instanceof Tassa) {
 			int totale = ((Tassa) casella).getTotale();
-			giCorrente.doTransaction(totale);
+			giCorrente.doTransaction(-totale);
 			print.stampa("Paga: " + ((Tassa) casella).getTotale() + "€. Saldo: " + giCorrente.getWallet() + "€.");
 		} 
 
@@ -422,8 +422,9 @@ public class Monopoly {
 	}
 	
 	public void IniziaAsta() {
+		//passaggio dei dati utili per l'asta
 		asta=new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
-		asta.inizio();
+		asta.inizio(); 
 	}
 
 	public void compraProprieta() {

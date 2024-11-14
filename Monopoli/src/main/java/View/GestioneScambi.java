@@ -82,10 +82,10 @@ public class GestioneScambi extends JFrame {
 		panel_gestione_scambi.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		panel_sfondo.add(panel_gestione_scambi);
 		
-		for (int i = 0; i < NuovaPartita.numGiocatori; i++) {// listener
-			if(NuovaPartita.getNomiGiocatori(i) == Monopoly.getGiCorrente().nome)
+		for (int i = 0; i < NuovaPartitaView.numGiocatori; i++) {// listener
+			if(NuovaPartitaView.getNomiGiocatori(i) == Monopoly.getGiCorrente().nome)
 				i++;
-            JButton btnNomeGiocatore = new JButton(NuovaPartita.getNomiGiocatori(i));
+            JButton btnNomeGiocatore = new JButton(NuovaPartitaView.getNomiGiocatori(i));
             btnNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
             btnNomeGiocatore.setBounds(212, 204 + (i * 75), 256, 60);
             panel_gestione_scambi.add(btnNomeGiocatore);
