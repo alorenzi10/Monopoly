@@ -562,5 +562,9 @@ public class Monopoly {
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
+	
+	public Tabellone getTabellone() {
+		return tabellone;
+	}
 }
   

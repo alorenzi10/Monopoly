@@ -49,10 +49,6 @@ public class MonopolyController {
 		monopolyGUI.addBtn10(new Btn10());
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
-		
-		monopolyGUI.addBtnCostruisci(new BtnCostruisci());
-		monopolyGUI.addBtnMarrone(new BtnMarrone());
-		
 	}
 	
 	private class BtnTiraDadi implements ActionListener{
@@ -78,7 +74,8 @@ public class MonopolyController {
 	private class BtnProprieta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.mostraGestioneProprieta();//da rivedere
+			monopolyGUI.buttonsState(false);
+			new GestioneProprietaController(frame, monopolyGUI, monopoly.getTabellone());
 		}
 	}
 
@@ -125,21 +122,6 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 
 			monopolyGUI.rimuoviAcquistoAsta();
-		}
-	}
-	
-	private class BtnCostruisci implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			monopolyGUI.scelteCostruzione();
-		}
-	}
-	private class BtnMarrone implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			
 		}
 	}
 
