@@ -554,5 +554,9 @@ public class Monopoly {
 	public int getNumGiCorrente() {
 		return giCorrente.getId();
 	}
+	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
 }
   

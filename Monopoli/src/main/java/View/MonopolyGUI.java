@@ -39,11 +39,11 @@ public class MonopolyGUI extends JLayeredPane {
 	private JLabel[] pedine;
 	
 	public JPanel panel_scelte_turno;
-	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
+	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta, btnMostraProprieta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta ;
-	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione, btnMostraProprieta;
+	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
 	private JButton btn1, btn5, btn10, btnConfermaOfferta, btnRitirati; //asta
-	private JLabel turno, offerta;
+	private JLabel lblTurno, lblOfferta;
 	
 	private boolean decisioneBancarotta;
 	
@@ -632,6 +632,13 @@ public class MonopolyGUI extends JLayeredPane {
 		btnConfermaBancarotta = new JButton("Confermo");
 		btnNoBancarotta = new JButton("No, torna al gioco");
 		
+		// Per asta
+		btn1=new JButton("+1");
+	    btn5=new JButton("+5");
+	    btn10=new JButton("+10");
+	    btnConfermaOfferta=new JButton("Conferma Offerta");
+	    btnRitirati=new JButton("Ritirati");
+		
 		mostraInfoGiocatori();
 		creaPedine();
 	
@@ -694,13 +701,18 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		JPanel panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
-		panel_info_giocatori.setBounds(760, 10, 770, 470);
+		panel_info_giocatori.setBounds(760, 82, 770, 398);
 		
 		add(panel_info_giocatori); //prova
 		int numGiocatori = SceltaPedineController.getNumGiocatori();  //prova
 		
 		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
+		
+		btnMostraProprieta = new JButton("Mostra le proprietà dei giocatori");
+		btnMostraProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
+		btnMostraProprieta.setBounds(974, 30, 342, 42);
+		add(btnMostraProprieta);
 		
 		for (int i = 0; i < numGiocatori; i++) {
 			
@@ -723,18 +735,6 @@ public class MonopolyGUI extends JLayeredPane {
 		    JLabel lblPedinaGiocatore = new JLabel(new ImageIcon("path/to/pedina" + i + ".png"));
 		    lblPedinaGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		    panelGiocatore.add(lblPedinaGiocatore);
-
-		    // Bottone "Mostra Proprietà"
-		    btnMostraProprieta = new JButton("Mostra Proprietà");
-		    btnMostraProprieta.setAlignmentX(JButton.CENTER_ALIGNMENT);
-		    panelGiocatore.add(btnMostraProprieta);
-		    
-		    btn1=new JButton("+1");
-		    btn5=new JButton("+5");
-		    btn10=new JButton("+10");
-		    btnConfermaOfferta=new JButton("Conferma Offerta");
-		    btnRitirati=new JButton("Ritirati");
-		    
 
 		    panel_info_giocatori.add(panelGiocatore);
 		}
@@ -1144,23 +1144,23 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_sfondo.add(panel_asta);
 		panel_asta.setLayout(null);
 		
-		JLabel asta = new JLabel("ASTA");
-		asta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
-		asta.setHorizontalAlignment(SwingConstants.CENTER);
-		asta.setBounds(25, 22, 471, 53);
-		panel_asta.add(asta);
+		JLabel lblAsta = new JLabel("Asta");
+		lblAsta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		lblAsta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAsta.setBounds(25, 22, 471, 53);
+		panel_asta.add(lblAsta);
 		
-		offerta = new JLabel("Offerta attuale è: 10");
-		offerta.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		offerta.setHorizontalAlignment(SwingConstants.CENTER);
-		offerta.setBounds(25, 160 , 232, 53);
-		panel_asta.add(offerta);
+		lblOfferta = new JLabel("Offerta attuale è: 10");
+		lblOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblOfferta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOfferta.setBounds(25, 160 , 232, 53);
+		panel_asta.add(lblOfferta);
 		
-		turno = new JLabel(NomiGiocatoriController.getNomiGiocatori(giCorrente) + " fai la prima offerta");
-		turno.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		turno.setHorizontalAlignment(SwingConstants.CENTER);
-		turno.setBounds(25, 100 , 232, 53);
-		panel_asta.add(turno);
+		lblTurno = new JLabel(NomiGiocatoriController.getNomiGiocatori(giCorrente) + " fai la prima offerta");
+		lblTurno.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTurno.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTurno.setBounds(25, 100 , 232, 53);
+		panel_asta.add(lblTurno);
 		
 		btn1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btn1.setBounds(21, 232, 100, 100);
@@ -1185,11 +1185,11 @@ public class MonopolyGUI extends JLayeredPane {
 	}	
 	
 	public void aggiornaOfferta(int offertaAggiornata) {
-		offerta.setText("Offerta attuale è: "+offertaAggiornata);
+		lblOfferta.setText("Offerta attuale è: "+offertaAggiornata);
 	}
 	
 	public void aggiornaTurno(String nome) {
-		turno.setText(nome+ " tocca a te partecipare all'asta");
+		lblTurno.setText(nome+ " tocca a te partecipare all'asta");
 	}
 	
 	

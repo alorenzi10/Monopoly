@@ -38,7 +38,7 @@ public class MonopolyController {
         monopolyGUI.addBtnAsta(new BtnAsta());
 		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
 		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
-		monopolyGUI.addBtnMostraProprietaGiocatore(new BtnMostraProprieta());
+		monopolyGUI.addBtnMostraProprietaGiocatori(new BtnMostraProprieta());
 		
 		monopolyGUI.addBtn1(new Btn1());
 		monopolyGUI.addBtn5(new Btn5());
@@ -203,5 +203,11 @@ public class MonopolyController {
 		}
 	}
 	
+	private class BtnMostraProprietaGiocatori implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopolyGUI.mostraInfoGiocatori(monopoly.getPlayers().size());
+		}
+	}
 	
 }
