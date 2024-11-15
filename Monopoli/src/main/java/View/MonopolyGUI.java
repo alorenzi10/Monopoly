@@ -16,6 +16,7 @@ import Controller.SceltaPedineController;
 import javax.swing.JButton;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -45,7 +46,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public JButton btnRitirati; //asta
 	private JLabel lblTurno, lblOfferta;
 
-	private JPanel panel_gestione_proprieta;
+	private JLabel[] lblSaldoGiocatori, lblProprietaGiocatori;
+	
+	private JPanel panel_gestione_proprieta, panel_info_giocatori;
 	private JButton btnCostruisci; //proprietà
 	private JButton btnBlu, btnVerde, btnGiallo, btnRosso, btnArancio, btnViola, btnAzzurro, btnMarrone;
 
@@ -705,7 +708,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 	public void mostraInfoGiocatori() {
 
-		JPanel panel_info_giocatori = new JPanel();
+		panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
 		panel_info_giocatori.setBounds(760, 82, 770, 398);
 		add(panel_info_giocatori);
@@ -715,11 +718,14 @@ public class MonopolyGUI extends JLayeredPane {
 
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
 
+		//Bottone
 		btnMostraProprieta = new JButton("Mostra le proprietà dei giocatori");
 		btnMostraProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		btnMostraProprieta.setBounds(974, 30, 342, 42);
 		add(btnMostraProprieta);
 
+		lblSaldoGiocatori = new JLabel[numGiocatori];
+		lblProprietaGiocatori = new JLabel[numGiocatori];
 		for (int i = 0; i < numGiocatori; i++) {
 
 			JPanel panelGiocatore = new JPanel();
@@ -732,11 +738,17 @@ public class MonopolyGUI extends JLayeredPane {
 			panelGiocatore.add(lblNomeGiocatore);
 
 			// Saldo del giocatore
-			JLabel lblSaldoGiocatore = new JLabel("Saldo: ");
-			lblSaldoGiocatore.setFont(new Font("Arial", Font.PLAIN, 16));
-			lblSaldoGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-			panelGiocatore.add(lblSaldoGiocatore);
+			lblSaldoGiocatori[i] = new JLabel("Saldo: 1500€");
+			lblSaldoGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
+			lblSaldoGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
+			panelGiocatore.add(lblSaldoGiocatori[i]);
 
+			// Label per l'elenco delle proprietà
+			lblProprietaGiocatori[i] = new JLabel("Proprietà:");
+			lblProprietaGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
+			lblProprietaGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
+			panelGiocatore.add(lblProprietaGiocatori[i]);
+			
 			// Immagine della pedina
 			JLabel lblPedinaGiocatore = new JLabel(new ImageIcon("path/to/pedina" + i + ".png"));
 			lblPedinaGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -745,8 +757,23 @@ public class MonopolyGUI extends JLayeredPane {
 			panel_info_giocatori.add(panelGiocatore);
 		}
 	}
+	
+	public void aggiornaVisSaldoGiocatori(int[] valoriSaldo) {
+		int numGiocatori = SceltaPedineController.getNumGiocatori();
+		for(int i = 0; i<numGiocatori; i++)
+			lblSaldoGiocatori[i].setText("Saldo: " + valoriSaldo[i] + "€") ;
+			
+	}
 
-	public void mostraProprietaGiocatori() {
+	public void aggiornaVisProprietaGiocatori(ArrayList<ArrayList<String>> elencoProp) {
+		int numGiocatori = SceltaPedineController.getNumGiocatori();
+		for(int i = 0; i<numGiocatori; i++) {
+			String elenco = String.join(", ", elencoProp.get(i));
+			lblProprietaGiocatori[i].setText("Proprietà: " + elenco.toString() + "\n");
+		}
+	}
+	
+	/*public void mostraProprietaGiocatori() {
 
 		int numGiocatori = SceltaPedineController.getNumGiocatori();
 		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
@@ -767,7 +794,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_proprieta_giocatori.add(panel_proprieta);
 		panel_proprieta.setLayout(new GridLayout(2, 3, 0, 0));
 
-	}
+	}*/
 
 	public void attivaUscitaConCarta(boolean decisione){
 		btnUsaCartaEsciDiPrigione.setEnabled(decisione);

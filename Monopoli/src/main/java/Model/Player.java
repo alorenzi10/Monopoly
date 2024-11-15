@@ -26,7 +26,7 @@ public class Player {
     }
     		
     public boolean controlloFondi(int totale) {
-    	if(wallet>=totale) {
+    	if(wallet >= totale) {
     		return true;
     	}
     	else{
@@ -34,7 +34,7 @@ public class Player {
     	}
     }
     
-    public void doTransaction(int totale) {//Bisognerebbe integrare dentro transaction il controllo dei fondi
+    public void doTransaction(int totale) { // Bisognerebbe integrare dentro transaction il controllo dei fondi
     	wallet += totale; //da aggiungere controllo se bastano i soldi
     }
     
@@ -137,6 +137,18 @@ public class Player {
 	
 	public ArrayList<Proprieta> getListaProprieta() {
 		return listaProprieta;
+	}
+	
+	public String toStringListaProprieta() {
+		StringBuilder str = new StringBuilder();
+	    for (Proprieta prop : getListaProprieta()) {
+	        str.append(prop.getNome()).append(", ");
+	    }
+	    // Rimuove l'ultima virgola e spazio, se necessario
+	    if (str.length() > 0) {
+	        str.setLength(str.length() - 2);
+	    }
+	    return str.toString();
 	}
 
     public int getNumCasePossedute() {
