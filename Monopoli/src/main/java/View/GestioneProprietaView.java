@@ -143,7 +143,7 @@ public class GestioneProprietaView extends JPanel {
 			panel_gestione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 			panel_sfondo.add(panel_gestione_proprieta);
 		
-		JLabel lblGestisciLeProprieta = new JLabel("Gestisci le tue proprietà");
+		JLabel lblGestisciLeProprieta = new JLabel("Costruisci sulle tue proprietà");
 		lblGestisciLeProprieta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGestisciLeProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblGestisciLeProprieta.setBounds(129, 27, 266, 31);
@@ -183,7 +183,69 @@ public class GestioneProprietaView extends JPanel {
 		panel_gestione_proprieta.revalidate();
 	}
 	
-	public void Colore(String colore) {
+	public void Demolisci() {
+		panel_sfondo.remove(panel_gestione_proprieta);
+		
+		panel_gestione_proprieta = new JPanel() {
+			private static final long serialVersionUID = 1L;
+			protected void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					ImageIcon icon = new ImageIcon("./icons/sfondo2.png"); //carica l'immagine di sfondo
+					Image image = icon.getImage();
+					int panelWidth = getWidth();
+					int imageWidth = image.getWidth(this);
+					int imageHeight = image.getHeight(this);
+					int newHeight = (imageHeight * panelWidth) / imageWidth;
+					g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
+				}
+			};
+			panel_gestione_proprieta.setLayout(null);
+			panel_gestione_proprieta.setBounds(130, 130, 520, 520);
+			panel_gestione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
+			panel_sfondo.add(panel_gestione_proprieta);
+		
+		JLabel lblGestisciLeProprieta = new JLabel("Demolisci dalle tue proprietà");
+		lblGestisciLeProprieta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGestisciLeProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
+		lblGestisciLeProprieta.setBounds(129, 27, 266, 31);
+		panel_gestione_proprieta.add(lblGestisciLeProprieta);
+		btnBlu.setBounds(39, 120, 100, 100);
+		btnBlu.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnBlu);
+		btnVerde.setBounds(140, 120, 100, 100);
+		btnVerde.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnVerde);
+		btnGiallo.setBounds(240, 120, 100, 100);
+		btnGiallo.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnGiallo);
+		btnRosso.setBounds(340, 120, 100, 100);
+		btnRosso.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnRosso);
+		
+		btnArancio.setBounds(39, 322, 100, 100);
+		btnArancio.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnArancio);
+		btnViola.setBounds(140, 322,  100, 100);
+		btnViola.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnViola);
+		btnAzzurro.setBounds(240, 322, 100, 100);
+		btnAzzurro.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnAzzurro);
+		btnMarrone.setBounds(340, 322,  100, 100);
+		btnMarrone.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		panel_gestione_proprieta.add(btnMarrone);
+		
+		
+		btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		btnIndietro.setBounds(10, 467, 140, 43);
+		panel_gestione_proprieta.add(btnIndietro);
+		
+		panel_gestione_proprieta.repaint();
+		panel_gestione_proprieta.revalidate();
+
+	}
+	
+	public void Colore(String colore, boolean demolisci) {
 		
 		contatoreBottone=0;
 		panel_sfondo.remove(panel_gestione_proprieta);
@@ -194,24 +256,48 @@ public class GestioneProprietaView extends JPanel {
 		panel_gestione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		panel_sfondo.add(panel_gestione_proprieta);
 		
-		JLabel lblGestisciLeProprieta = new JLabel("Costruisci sul "+colore);
+		JLabel lblGestisciLeProprieta;
+		if(demolisci) {
+			lblGestisciLeProprieta = new JLabel("Demolisci sul "+colore);
+		}else {
+			lblGestisciLeProprieta = new JLabel("Costruisci sul "+colore);
+		}
 		lblGestisciLeProprieta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGestisciLeProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblGestisciLeProprieta.setBounds(129, 27, 266, 31);
 		panel_gestione_proprieta.add(lblGestisciLeProprieta);
+		int costo=0;
+		if(colore=="marrone" || colore=="azzurro") {
+			costo=50;
+		}
+		if(colore=="viola" || colore=="arancione") {
+			costo=100;
+		}
+		if(colore=="rosso" || colore=="giallo") {
+			costo=150;
+		}
+		if(colore=="verde" || colore=="blu") {
+			costo=200;
+		}
+		
+		JLabel lblCosto = new JLabel("Il costo di una casa è di: "+costo);
+		lblCosto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCosto.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		lblCosto.setBounds(129, 50, 266, 31);
+		panel_gestione_proprieta.add(lblCosto);
 		
 		
-		btn1.setBounds(10, 50 , 200, 100);
+		btn1.setBounds(120, 100 , 200, 100);
 		btn1.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btn1.setVisible(false);
 		panel_gestione_proprieta.add(btn1);
 		
-		btn2.setBounds(10, 160, 200, 100);
+		btn2.setBounds(120, 220, 200, 100);
 		btn2.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btn2.setVisible(false);
 		panel_gestione_proprieta.add(btn2);
 		
-		btn3.setBounds(10, 270, 200, 100);
+		btn3.setBounds(120, 340, 200, 100);
 		btn3.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		btn3.setVisible(false);
 		panel_gestione_proprieta.add(btn3);
@@ -245,6 +331,9 @@ public class GestioneProprietaView extends JPanel {
 	
 	public void addBtnCostruisci(ActionListener listener) {
 		btnCostruisci.addActionListener(listener);
+	}
+	public void addBtnDemolisci(ActionListener listener) {
+		btnDemolisci.addActionListener(listener);
 	}
 	public void addBtnMarrone(ActionListener listener) {
 		btnMarrone.addActionListener(listener);
@@ -281,6 +370,18 @@ public class GestioneProprietaView extends JPanel {
 	
 	public void addBtnFine(ActionListener listener) {
 		btnFine.addActionListener(listener);
+	}
+	
+	public void addBtn1(ActionListener listener) {
+		btn1.addActionListener(listener);
+	}
+	
+	public void addBtn2(ActionListener listener) {
+		btn2.addActionListener(listener);
+	}
+	
+	public void addBtn3(ActionListener listener) {
+		btn3.addActionListener(listener);
 	}
 	
 	

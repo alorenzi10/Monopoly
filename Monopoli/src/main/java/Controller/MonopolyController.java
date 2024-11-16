@@ -74,7 +74,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.buttonsState(false);
-			new GestioneProprietaController(frame, monopolyGUI, monopoly.getTabellone());
+			new GestioneProprietaController(frame, monopolyGUI, monopoly);
 		}
 	}
 
@@ -212,6 +212,7 @@ public class MonopolyController {
 			nomiGiocatori[i] = monopoly.getPlayers().get(i).getName();
 		return nomiGiocatori;
 	}
+	
 
 	private class BtnMostraProprietaGiocatori implements ActionListener{
 		@Override

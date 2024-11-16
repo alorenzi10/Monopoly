@@ -73,7 +73,8 @@ public class Monopoly {
 				print.stampa("Dado 2: " + dice.getDado2());
 				if(giCorrente.getInPrigione() == false) {
 					
-					giCorrente.muovi(dice.getTotal());
+					// giCorrente.muovi(dice.getTotal());
+					giCorrente.muovi(1);
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
@@ -84,7 +85,8 @@ public class Monopoly {
 							
 						}
 					}
-					else {tiroDadiFatto = true;}
+					else { //tiroDadiFatto = true; 
+					}
 				}
 				else {
 					if (dice.isDouble()) {
@@ -164,7 +166,7 @@ public class Monopoly {
 				} */
 				giCorrente.liberaDaPrigione();
 			} else {print.stampa("Non hai carte uscite gratis di prigione!");}
-		} else {print.stampa("Il giocatatore non è i prigione");}
+		}
 	}
 	
 	public void pagaUscitaPrigione() {
@@ -175,8 +177,7 @@ public class Monopoly {
 				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
 			} else {
 				print.stampa("Non hai abbastanza soldi!");}
-		} else {
-			print.stampa("Il giocatatore non è i prigione");}
+		} 
 	}
 	
 	public void setFineTurno() { //da rivedere
@@ -449,12 +450,15 @@ public class Monopoly {
 		 
 	}
 	
-	private void costruisci(Proprieta prop) {
-		//Proprieta prop; //ricevuta da input
+	public void costruisci(Proprieta prop) {
+		
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if (prop instanceof Cantiere) {
 				Cantiere cant = (Cantiere) prop;
 				if (giCorrente.possessoreGruppo(cant)) {
+					
+					print.stampa("Sei possessore del marrone");
+					
 					if (!cant.isIpotecata()) {
 						GruppoColore gc = cant.getGruppoColore();
 						int min = Integer.MAX_VALUE;
@@ -465,29 +469,52 @@ public class Monopoly {
 	                            print.stampa("Non puoi costruire: una proprietà del gruppo è ipotecata.");
 	                            return;
 	                        }
-							int nCase = c.getNumCase();
-							min = Math.min(min, nCase);
-							max = Math.max(max, nCase);
+							int nCost = c.getNumCostruzioni();
+							min = Math.min(min, nCost);
+							max = Math.max(max, nCost);
+							
 						}
-						if(cant.getNumCostruzioni() == min || min == max) {
-							if(cant.getNumCostruzioni() != 5) {
+						
+						if(cant.getNumCostruzioni() < 5) {
+							
+							if(cant.getNumCostruzioni() == min || min==max){
 								
 								if(giCorrente.getWallet() >= cant.getCostoCasa()) {
+									
+									print.stampa("Costruito su "+cant.getNome());
 									cant.costruisci();
+									
 									giCorrente.doTransaction(-cant.getCostoCasa());
+									int num, id;
+									num=cant.getNumCostruzioni();
+									id=cant.getId();
+									
+									if(cant.getNumCostruzioni()<5) {
+										print.case12.mostraCasa((id*4)-4+num-1);
+									}
+									else {
+										
+										for(int i=0; i<4; i++ ){
+											print.case12.rimuoviCasa((id*4)-4+i);
+										}
+										print.case12.mostraAlbergho(id-1);
+									}
+									
+									
 								} 
 								else {print.stampa("Non hai abbastanza soldi per costruire.");}
 								
-							} else {print.stampa("Hai già l'albergo su questa proprietà.");}
-						} else {print.stampa("Non puoi costruire, la differenza tra le case non può essere maggiore di uno.");}
+							} else {print.stampa("Non puoi costruire, la differenza tra le case non può essere maggiore di uno.");}
+							
+						} else {print.stampa("Hai già l'albergo su questa proprietà.");}
 					}else {print.stampa("Non puoi costruire, la proprietà è ipotecata.");}
 				}else {print.stampa("Non possiedi tutto il gruppo.");}
 			}else {print.stampa("Non puoi costruire su questa proprietà.");}
 		}else {print.stampa("Non puoi costruire su questa proprietà perchè non la possiedi.");}
 	}
-	/*
-	private void demolisci() {
-		Proprieta prop; //ricevuta da input
+	
+	public void demolisci(Proprieta prop) {
+		
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if (prop instanceof Cantiere) {
 				Cantiere cant = (Cantiere) prop;
@@ -496,21 +523,40 @@ public class Monopoly {
 				int max = Integer.MIN_VALUE;
 				
 				for (Cantiere c: gc.getMembri()) {
-					int nCase = c.getNumCase();
-					min = Math.min(min, nCase);
-					max = Math.max(max, nCase);
+					int nCost = c.getNumCostruzioni();
+					min = Math.min(min, nCost);
+					max = Math.max(max, nCost);
 				}
-				if (cant.getNumCostruzioni() == max || max==min) {
-					if (cant.getNumCostruzioni()>0) {
+				if (cant.getNumCostruzioni()>0) {
+					if (cant.getNumCostruzioni() == max || max==min){
+						
+						int num, id;
+						num=cant.getNumCostruzioni();
+						id=cant.getId();
+						
 						cant.demolisci();
 						giCorrente.doTransaction(cant.getCostoCasa()/2);
-					}else {print.stampa("Non hai case su questa proprietà");}
-				}else {print.stampa("Distruzione non valida, la differenza tra le case non può essere maggiore di uno.");}
+						if(cant.getNumCostruzioni()==4) {
+						
+							print.case12.rimuoviAlbergho(id-1);
+							
+							for(int i=0; i<4; i++ ){
+								print.case12.mostraCasa((id*4)-4+i);
+							}
+						}
+						else {
+							
+							print.case12.rimuoviCasa((id*4)-1-(4-num));
+					
+						}
+						
+					}else {print.stampa("Distruzione non valida, la differenza tra le case non può essere maggiore di uno.");}
+				}else {print.stampa("Non hai case su questa proprietà");}
 			}else {print.stampa("Non puoi costruire su questa proprietà.");}
 		}else {print.stampa("Non puoi demolire se una proprietà che non possiedi");}
 	}
 	
-	private void ipoteca() {
+	/*private void ipoteca() {
 		Proprieta prop;
 		int valoreCase=0;
 		if(prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
@@ -539,8 +585,8 @@ public class Monopoly {
 					giCorrente.doTransaction(-prop.getCostoDisipoteca());					
 				}
 			}
-		}
-	 */
+		} */
+	 
 
 	private void setProssimoGiocatore() {
 		

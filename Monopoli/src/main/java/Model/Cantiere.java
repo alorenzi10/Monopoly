@@ -7,9 +7,11 @@ public class Cantiere extends Proprieta {
 	private int numCostruzioni;
 	private int costoCasa;
 	private final int MAX_NUM_UNITS = 5;
+	private final int id;
 
-	public Cantiere(String name, int price, int mortgageValue, int[] tabellaAffitti, GruppoColore colourGroup, int costoCasa) {
+	public Cantiere(String name,int id, int price, int mortgageValue, int[] tabellaAffitti, GruppoColore colourGroup, int costoCasa) {
 		super(name, price, mortgageValue);
+		this.id=id;
 		this.tabellaAffitti = tabellaAffitti;
 		this.gruppoColore = colourGroup;
 		this.costoCasa = costoCasa;
@@ -62,6 +64,10 @@ public class Cantiere extends Proprieta {
 
 	public int getNumCostruzioni() {
 		return numCostruzioni;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public int getCostoCasa() {

@@ -53,7 +53,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btnBlu, btnVerde, btnGiallo, btnRosso, btnArancio, btnViola, btnAzzurro, btnMarrone;
 
 	private boolean decisioneBancarotta;
-	private CaseAlberghiView case12;
+	public CaseAlberghiView case12;
 
 	public MonopolyGUI(SchermataDiGioco frame) {
 
