@@ -73,7 +73,7 @@ public class MonopolyGUI extends JLayeredPane {
 			JLabel prova=case12.getCasa(i);
 			add(prova);
 		}
-		
+
 		JPanel casella0 = new JPanel();
 		casella0.setLayout(null);
 		casella0.setBounds(30, 30, 90, 90);

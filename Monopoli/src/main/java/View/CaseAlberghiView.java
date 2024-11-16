@@ -43,11 +43,11 @@ public class CaseAlberghiView extends JPanel {
 			if(z==4) {posCasa=602; posAlbergo=posCasa+20;}
 			
 			alberghi[contatoreAlberghi].setBounds(posAlbergo, 102, 20, 13);
-			//alberghi[z].setVisible(false);
+			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
 				case1[contatoreCase].setBounds(posCasa+14*i, 102, 12, 12);
-				//case1[contatore].setVisible(false);
+				case1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -62,11 +62,11 @@ public class CaseAlberghiView extends JPanel {
 			if(z==5) {posCasa=600; posAlbergo=posCasa+20;}
 			
 			alberghi[contatoreAlberghi].setBounds(665, posAlbergo, 13, 20);
-			//alberghi[z].setVisible(false);
+			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
 				case1[contatoreCase].setBounds(665, posCasa+14*i, 12, 12);
-				//case1[contatore].setVisible(false);
+				case1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -81,11 +81,11 @@ public class CaseAlberghiView extends JPanel {
 			if(z==5) {posCasa=168; posAlbergo=posCasa-20;}
 			
 			alberghi[contatoreAlberghi].setBounds(posAlbergo, 665, 20, 13);
-			//alberghi[z].setVisible(false);
+			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
 				case1[contatoreCase].setBounds(posCasa-i*14, 665, 12, 12);
-				//case1[contatore].setVisible(false);
+				case1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -99,11 +99,11 @@ public class CaseAlberghiView extends JPanel {
 			if(z==4) {posCasa=166; posAlbergo=posCasa-20;}
 
 			alberghi[contatoreAlberghi].setBounds(104, posAlbergo, 13, 20);
-			//alberghi[z].setVisible(false);
+			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
 				case1[contatoreCase].setBounds(104, posCasa-i*14, 12, 12);
-				//case1[contatore].setVisible(false);
+				case1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
