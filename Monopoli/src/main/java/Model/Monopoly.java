@@ -229,7 +229,7 @@ public class Monopoly {
 
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){
 
-				int totale = ((Proprieta) casella).getAffito(); //da fare moltiplicatore x gruppo
+				int totale = ((Proprieta) casella).getAffitto(); //da fare moltiplicatore x gruppo
 				Player possessore = ((Proprieta) casella).getPossessore();
 				print.stampa("Dai "+totale+" a "+ possessore.getName() );
 
@@ -363,9 +363,9 @@ public class Monopoly {
 					print.stampa("Dado 1: " + dice.getDado1()); //lancio dei dadi per calcolare il coeffx10
 					print.stampa("Dado 2: " + dice.getDado2());
 					print.stampa("Devi pagare "+ dice.getTotal()+"0 volte il totale dovuto");
-					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*dice.getTotal()*-10);
+					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*dice.getTotal()*-10);
 					((Proprieta) tabellone.getSquare(pos)).getPossessore()
-					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*dice.getTotal()*10);
+					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*dice.getTotal()*10);
 				}
 			}else {
 				print.atterraggioSuProprietaVuota();
@@ -391,9 +391,9 @@ public class Monopoly {
 				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
 			
 					print.stampa("Devi pagare il doppio del totale dovuto");
-					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*-2);
+					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*-2);
 					((Proprieta) tabellone.getSquare(pos)).getPossessore()
-					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffito()*2);
+					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*2);
 				}
 			}else {
 				print.atterraggioSuProprietaVuota();
