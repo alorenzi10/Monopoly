@@ -81,6 +81,31 @@ public class Tabellone {
 		squares[38] = new Tassa("Tassa di lusso", 100);
 		squares[39] = new Cantiere("Parco della vittoria", 400, 200, new int[] {50,200,600,1400,1700,2000}, blu, 200);
 		
+		}
+    
+    public GruppoColore getMarrone() {
+    	return marrone;
+    }
+    public GruppoColore getAzzurro() {
+    	return azzurro;
+    }
+    public GruppoColore getViola() {
+    	return viola;
+    }
+    public GruppoColore getArancione() {
+    	return arancio;
+    }
+    public GruppoColore getRosso() {
+    	return rosso;
+    }
+    public GruppoColore getGiallo() {
+    	return giallo;
+    }
+    public GruppoColore getVerde() {
+    	return verde;
+    }
+    public GruppoColore getBlu() {
+    	return blu;
     }
 
 	public Casella getSquare(int i) {

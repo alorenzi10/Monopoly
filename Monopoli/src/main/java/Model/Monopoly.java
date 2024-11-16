@@ -2,7 +2,6 @@ package Model;
 
 import java.util.*;
 
-import Controller.MonopolyController;
 import View.*;
 
 public class Monopoly {
@@ -405,7 +404,7 @@ public class Monopoly {
 	
 	public void stampaDati() {
 		for(Player p: players) {
-			print.stampa("id=" + p.getId() +", nome=" +p.getName() + ", saldo=" + p.getWallet() + ", posizione=" + p.getLocation());
+			print.stampa("id=" + p.getId() + ", nome=" +p.getName() + ", saldo=" + p.getWallet() + ", posizione=" + p.getLocation());
 			if(p.getInPrigione()) {
 				print.stampa("è in galera");
 			}
@@ -415,16 +414,21 @@ public class Monopoly {
 			if(p.haUscitaGratis()) {
 				print.stampa("ha carta uscita di prigione");
 			}
-			ArrayList<Proprieta> proprieta=p.getListaProprieta();
+			ArrayList<Proprieta> proprieta = p.getListaProprieta();
 			for(Proprieta prop: proprieta) {
 				print.stampa(prop.getNome()+ " ");
 			}
 		}
 	}
 	
+	public void aggiornaVisualizzazioneSaldo() {
+		//monopolyGUI.
+	}
+	
+	
 	public void IniziaAsta() {
 		//passaggio dei dati utili per l'asta
-		asta=new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
+		asta = new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
 		asta.inizio(); 
 	}
 
@@ -438,7 +442,7 @@ public class Monopoly {
 				" pagando: " + proprieta.getCosto() + "€." );
 		}
 		else {
-			print.stampa(giCorrente.getName() + " hai fondi insufficenti, "+tabellone.getSquare(giCorrente.getLocation()).getNome()+
+			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
 			
 		}
@@ -562,6 +566,10 @@ public class Monopoly {
 	
 	public ArrayList<Player> getPlayers(){
 		return players;
+	}
+	
+	public Tabellone getTabellone() {
+		return tabellone;
 	}
 }
   

@@ -1,60 +1,55 @@
 package Controller;
 
+import Model.Monopoly;
+import Model.Player;
+import Model.Proprieta;
+import View.MonopolyGUI;
+import View.SchermataDiGioco;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import Model.Monopoly;
-import Model.Player;
-import View.MonopolyGUI;
-import View.SchermataDiGioco;
-
 public class MonopolyController {
-	
+
 	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
 	private String[] nomiGiocatori;
-	private ArrayList<Player> players;
-	
 	public MonopolyController(SchermataDiGioco frame) {
-		
+
 		MonopolyController.frame = frame;
-		monopolyGUI= new MonopolyGUI(frame);
-		monopoly=new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
+		monopolyGUI = new MonopolyGUI(frame);
+		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0,  1920, 1080); 
-		
+
 		frame.add(monopolyGUI);
 		frame.revalidate();
-        frame.repaint();
-        
-        monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
-        
-        monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
-        monopolyGUI.addBtnConfermaBancarotta(new BtnBancarotta());
-        monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
-        
-        monopolyGUI.addBtnScambi(new BtnScambi());
-        monopolyGUI.addBtnProprieta(new BtnProprieta());
-        monopolyGUI.addBtnFineTurno(new BtnFineTurno());
-        
-        monopolyGUI.addBtnAcquista(new BtnAcquista());
-        monopolyGUI.addBtnAsta(new BtnAsta());
+		frame.repaint();
+
+		monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
+
+		monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
+		monopolyGUI.addBtnConfermaBancarotta(new BtnBancarotta());
+		monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
+
+		monopolyGUI.addBtnScambi(new BtnScambi());
+		monopolyGUI.addBtnProprieta(new BtnProprieta());
+		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
+
+		monopolyGUI.addBtnAcquista(new BtnAcquista());
+		monopolyGUI.addBtnAsta(new BtnAsta());
 		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
 		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
-		monopolyGUI.addBtnMostraProprietaGiocatori(new BtnMostraProprieta());
-		
+		monopolyGUI.addBtnMostraProprietaGiocatori(new BtnMostraProprietaGiocatori());
+
 		monopolyGUI.addBtn1(new Btn1());
 		monopolyGUI.addBtn5(new Btn5());
 		monopolyGUI.addBtn10(new Btn10());
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
-		
-		monopolyGUI.addBtnCostruisci(new BtnCostruisci());
-		monopolyGUI.addBtnMarrone(new BtnMarrone());
-		
 	}
-	
+
 	private class BtnTiraDadi implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -78,7 +73,8 @@ public class MonopolyController {
 	private class BtnProprieta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.mostraGestioneProprieta();//da rivedere
+			monopolyGUI.buttonsState(false);
+			new GestioneProprietaController(frame, monopolyGUI, monopoly.getTabellone());
 		}
 	}
 
@@ -108,7 +104,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.rimuoviAcquistoAsta();
 			monopoly.IniziaAsta();
-			
+
 		}
 	}
 
@@ -125,21 +121,6 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 
 			monopolyGUI.rimuoviAcquistoAsta();
-		}
-	}
-	
-	private class BtnCostruisci implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			monopolyGUI.scelteCostruzione();
-		}
-	}
-	private class BtnMarrone implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			
 		}
 	}
 
@@ -160,13 +141,6 @@ public class MonopolyController {
 		}
 	}
 
-	private class BtnMostraProprieta implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			//monopolyGUI.mostraProprieta();
-		}
-	}
 	private class Btn1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -179,7 +153,7 @@ public class MonopolyController {
 			}
 		}
 	}
-	
+
 	private class Btn5 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -192,7 +166,7 @@ public class MonopolyController {
 			}
 		}
 	}
-	
+
 	private class Btn10 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -205,7 +179,7 @@ public class MonopolyController {
 			}
 		}
 	}
-	
+
 	private class BtnConfermaOfferta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -214,7 +188,7 @@ public class MonopolyController {
 			monopolyGUI.aggiornaTurno(monopoly.asta.getName());
 		}
 	}
-	
+
 	private class BtnRitirati implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -228,22 +202,35 @@ public class MonopolyController {
 			}
 		}
 	}
-	
+
 	public int getNumGiocatori() {
 		return monopoly.getPlayers().size();
 	}
-	
+
 	public String[] getNomiGiocatori() {
-		for (int i=0; i < getNumGiocatori(); i++)
+		for (int i = 0; i < getNumGiocatori(); i++)
 			nomiGiocatori[i] = monopoly.getPlayers().get(i).getName();
 		return nomiGiocatori;
 	}
-	
+
 	private class BtnMostraProprietaGiocatori implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//monopolyGUI.mostraProprietaGiocatori(getNumGiocatori(), getNomiGiocatori());
+			int[] valoriSaldo = new int[getNumGiocatori()];
+			for(int i = 0; i < getNumGiocatori(); i++) 
+				valoriSaldo[i] = monopoly.getPlayers().get(i).getWallet();
+			monopolyGUI.aggiornaVisSaldoGiocatori(valoriSaldo); // Aggiorna la visualizzazione del saldo dei giocatori
+
+			ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
+			for(Player player: monopoly.getPlayers()) {
+				ArrayList<String> proprietaGiocatore = new ArrayList<>();
+				for (Proprieta prop: player.getListaProprieta())
+					proprietaGiocatore.add(prop.getNome());
+				elencoProp.add(proprietaGiocatore);
+
+			}
+			monopolyGUI.aggiornaVisProprietaGiocatori(elencoProp); // Aggiorna la visualizzazione delle proprietà dei giocatori
 		}
 	}
-	
+
 }
