@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Model.Monopoly;
 import Model.Player;
+import View.CaseAlberghiView;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
@@ -16,6 +17,7 @@ public class MonopolyController {
 	private Monopoly monopoly;
 	private String[] nomiGiocatori;
 	private ArrayList<Player> players;
+
 	
 	public MonopolyController(SchermataDiGioco frame) {
 		
@@ -24,6 +26,9 @@ public class MonopolyController {
 		monopoly=new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0,  1920, 1080); 
 		
+		
+		
+
 		frame.add(monopolyGUI);
 		frame.revalidate();
         frame.repaint();

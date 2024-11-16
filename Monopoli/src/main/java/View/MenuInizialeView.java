@@ -3,6 +3,8 @@ package View;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -48,6 +50,7 @@ public class MenuInizialeView extends JPanel {
         btnEsci.setBackground(new Color(240, 240, 240));
         btnEsci.setFont(new Font("Tahoma", Font.PLAIN, 39));
         add(btnEsci);
+        
     }
     
     public void addNuovaPartitaListener(ActionListener listener) {

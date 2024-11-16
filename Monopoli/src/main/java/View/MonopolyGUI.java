@@ -50,6 +50,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btnBlu, btnVerde, btnGiallo, btnRosso, btnArancio, btnViola, btnAzzurro, btnMarrone;
 
 	private boolean decisioneBancarotta;
+	private CaseAlberghiView case12;
 
 	public MonopolyGUI(SchermataDiGioco frame) {
 
@@ -57,13 +58,25 @@ public class MonopolyGUI extends JLayeredPane {
 		caselle = new JPanel[40];
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
-
+		
+		case12=new CaseAlberghiView();
+		
+		for(int i=0; i<22; i++) {
+			JLabel prova=case12.getAlbergo(i);
+			add(prova);
+		}
+		
+		for(int i=0; i<88; i++) {
+			JLabel prova=case12.getCasa(i);
+			add(prova);
+		}
+		
 		JPanel casella0 = new JPanel();
 		casella0.setLayout(null);
 		casella0.setBounds(30, 30, 90, 90);
 		casella0.setBorder(new MatteBorder(2, 2, 2, 2, Color.BLACK));
 		add(casella0);
-
+		
 		JLabel via_png = new JLabel();
 		via_png.setIcon(new ImageIcon("./icons/VIA!!.png"));
 		via_png.setBounds(2, 2, 86, 86);
@@ -642,7 +655,9 @@ public class MonopolyGUI extends JLayeredPane {
 		btn10=new JButton("+10");
 		btnConfermaOfferta=new JButton("Conferma Offerta");
 		btnRitirati=new JButton("Ritirati");
-
+		
+		
+		
 		mostraInfoGiocatori();
 		creaPedine();
 
