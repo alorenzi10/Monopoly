@@ -7,5 +7,10 @@ public class Stazione extends Proprieta {
     	super(name, price, mortgageValue);
 		this.rentTable = rentTable;
     }
+    
+    public int getAffitto() {
+		return rentTable[super.getPossessore().getNumStazioniPossedute()-1];
+    	
+    }
 
 }

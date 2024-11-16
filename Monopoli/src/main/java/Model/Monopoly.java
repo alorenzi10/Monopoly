@@ -40,7 +40,7 @@ public class Monopoly {
     	giCorrente=players.get(random.nextInt(numero_giocatori));
     	print.stampa("tocca a "+giCorrente.getName());
     	dice = new Dadi();
-    	tabellone = new Tabellone();
+    	tabellone = new Tabellone(dice);
     	mazzoProbabilita = new MazzoProbabilita();
     	mazzoImprevisti = new MazzoImprevisti();
     	gameOver = false;
@@ -248,7 +248,7 @@ public class Monopoly {
 			else if(((Proprieta) casella).posseduta()==false) {
 				print.stampa(tabellone.getSquare(giCorrente.getLocation()).getNome()+ " non ha nessun proprietario" );
 				if(giCorrente.getWallet()<((Proprieta) casella).getCosto()) {
-					//vai diretto all'asta
+					iniziaAsta();
 				}else {
 					print.atterraggioSuProprietaVuota(); //decide lui se asta o compra
 				}
@@ -426,7 +426,7 @@ public class Monopoly {
 	}
 	
 	
-	public void IniziaAsta() {
+	public void iniziaAsta() {
 		//passaggio dei dati utili per l'asta
 		asta = new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
 		asta.inizio(); 
@@ -444,6 +444,8 @@ public class Monopoly {
 		else {
 			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
+			iniziaAsta();
+			
 			
 		}
 		 

@@ -21,7 +21,7 @@ public class Tabellone {
     private GruppoColore verde;
     private GruppoColore blu;
 
-    public Tabellone() {
+    public Tabellone(Dadi dice) {
     	
     	squares = new Casella[NUM_SQUARES];
         marrone = new GruppoColore("marrone");
@@ -52,7 +52,7 @@ public class Tabellone {
 		squares[10] = new Casella("Prigione");
 		squares[11] = new Cantiere("Via Accademia", 140, 70, new int[] {10,50,150,450,625,750}, viola, 100);
 		//Società(name, price, mortgageValue, rentTable, dado)
-		squares[12] = new Societa("Società elettrica", 150, 75, new int[] {4,10} );
+		squares[12] = new Societa("Società elettrica", 150, 75, new int[] {4,10}, dice );
 		squares[13] = new Cantiere("Corso ateneo",  140, 70, new int[] {10,50,150,450,625,750}, viola, 100);
 		squares[14] = new Cantiere("Piazza università", 160, 80, new int[] {12,60,180,500,700,900}, viola, 100);
 		squares[15] = new Stazione("Stazione est", 200, 100, new int[] {25,50,100,200});
@@ -68,7 +68,7 @@ public class Tabellone {
 		squares[25] = new Stazione("Stazione sud", 200, 100, new int[] {25,50,100,200});
 		squares[26] = new Cantiere("Viale Costantino", 260, 150, new int[] {22,110,330,800,975,1150}, giallo, 150);
 		squares[27] = new Cantiere("Viale Traiano", 260, 150, new int[] {22,110,330,800,975,1150}, giallo, 150);
-		squares[28] = new Societa("Società acqua potabile", 150, 75, new int[] {4,10});
+		squares[28] = new Societa("Società acqua potabile", 150, 75, new int[] {4,10}, dice);
 		squares[29] = new Cantiere("Piazza Giulio Cesare", 280, 150, new int[] {22,120,360,850,1025,1200}, giallo, 150);
 		squares[30] = new VaiInPrigione();
 		squares[31] = new Cantiere("Via Roma", 300, 200, new int[] {26,130,390,900,1100,1275}, verde, 200);

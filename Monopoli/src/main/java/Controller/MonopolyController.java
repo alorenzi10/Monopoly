@@ -103,7 +103,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.rimuoviAcquistoAsta();
-			monopoly.IniziaAsta();
+			monopoly.iniziaAsta();
 
 		}
 	}
