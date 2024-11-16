@@ -97,6 +97,7 @@ public class Monopoly {
 					}
 					else {
 						giCorrente.fallitoTentativo();
+						tiroDadiFatto = true;
 						print.stampa(giCorrente.getName() + " tentativo fallito, ne hai fatti: "+ giCorrente.getTentativi());
 						
 						if (giCorrente.tentativiTerminati() == true) {
@@ -104,7 +105,7 @@ public class Monopoly {
 							giCorrente.doTransaction(-CAUZIONE_PRIGIONE); //controllo su fondi giocatore
 							giCorrente.liberaDaPrigione();
 							giCorrente.muovi(dice.getTotal());
-							tiroDadiFatto = true;
+							
 							arrivoCasella();
 							
 						}
