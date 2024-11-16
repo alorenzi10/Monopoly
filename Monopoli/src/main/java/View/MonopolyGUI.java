@@ -48,6 +48,8 @@ public class MonopolyGUI extends JLayeredPane {
 
 	private JLabel[] lblSaldoGiocatori, lblProprietaGiocatori;
 	
+	private JTextArea[] txtPropGiocatori;
+	
 	private JPanel panel_gestione_proprieta, panel_info_giocatori;
 	private JButton btnCostruisci; //proprietà
 	private JButton btnBlu, btnVerde, btnGiallo, btnRosso, btnArancio, btnViola, btnAzzurro, btnMarrone;
@@ -734,13 +736,15 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
 
 		//Bottone
-		btnMostraProprieta = new JButton("Mostra le proprietà dei giocatori");
+		btnMostraProprieta = new JButton("Aggiorna le info dei giocatori");
 		btnMostraProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		btnMostraProprieta.setBounds(974, 30, 342, 42);
 		add(btnMostraProprieta);
 
 		lblSaldoGiocatori = new JLabel[numGiocatori];
-		lblProprietaGiocatori = new JLabel[numGiocatori];
+		//lblProprietaGiocatori = new JLabel[numGiocatori];
+		txtPropGiocatori = new JTextArea[numGiocatori];
+		
 		for (int i = 0; i < numGiocatori; i++) {
 
 			JPanel panelGiocatore = new JPanel();
@@ -758,11 +762,20 @@ public class MonopolyGUI extends JLayeredPane {
 			lblSaldoGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblSaldoGiocatori[i]);
 
-			// Label per l'elenco delle proprietà
+			/*// Label per l'elenco delle proprietà
 			lblProprietaGiocatori[i] = new JLabel("Proprietà:");
 			lblProprietaGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
 			lblProprietaGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
-			panelGiocatore.add(lblProprietaGiocatori[i]);
+			panelGiocatore.add(lblProprietaGiocatori[i]);*/
+			
+			//textArea per l'elenco delle proprietà dei giocatori
+			txtPropGiocatori[i] = new JTextArea();
+			txtPropGiocatori[i].setEditable(false);
+			txtPropGiocatori[i].setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 18));
+
+			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori[i]);
+			panelGiocatore.add(scrollProp);
+			
 			
 			// Immagine della pedina
 			JLabel lblPedinaGiocatore = new JLabel(new ImageIcon("path/to/pedina" + i + ".png"));
@@ -783,8 +796,8 @@ public class MonopolyGUI extends JLayeredPane {
 	public void aggiornaVisProprietaGiocatori(ArrayList<ArrayList<String>> elencoProp) {
 		int numGiocatori = SceltaPedineController.getNumGiocatori();
 		for(int i = 0; i<numGiocatori; i++) {
-			String elenco = String.join(", ", elencoProp.get(i));
-			lblProprietaGiocatori[i].setText("Proprietà: " + elenco.toString() + "\n");
+			String elenco = String.join( "\n", elencoProp.get(i));
+			txtPropGiocatori[i].setText(elenco);
 		}
 	}
 	
