@@ -15,7 +15,7 @@ public class MazzoImprevisti extends Mazzo { // Da controllare e ultimare azione
     	cards.add(new Carta(IMPREVISTI, "Andate fino a Parco della Vittoria: Se passate dal “Via!” ritirate 200€.", AZIONE_VAI_AVANTI, 0, Tabellone.POS_PARCO_DELLA_VITTORIA));
     	cards.add(new Carta(IMPREVISTI, "Andate alla Stazione Nord; Se passate dal “Via!” ritirate 200€.", AZIONE_VAI_AVANTI, 0, Tabellone.POS_STAZIONE_NORD));
     	cards.add(new Carta(IMPREVISTI, "Andate sino a Corso Ateneo; Se passate dal “Via!” ritirate 200€.", AZIONE_VAI_AVANTI, 0, Tabellone.POS_CORSO_ATENEO)); 
-    	cards.add(new Carta(IMPREVISTI, "Fate 3 passi indietro (con tanti auguri!).", AZIONE_VAI_INDIETRO, 0, -3));
+    	cards.add(new Carta(IMPREVISTI, "Fate 3 passi indietro (con tanti auguri!).", AZIONE_VAI_INDIETRO, 0, -3)); 
     	
 		// Tasse
 		cards.add(new Carta(IMPREVISTI, "Multa per eccesso di velocità: pagate 15€.", AZIONE_PAGA, 15));
@@ -30,6 +30,6 @@ public class MazzoImprevisti extends Mazzo { // Da controllare e ultimare azione
 		cards.add(new Carta(IMPREVISTI, "Andate in prigione direttamente e senza passare dal “Via!”." , AZIONE_VAI_IN_CARCERE));
 		cards.add(new Carta(IMPREVISTI, "Uscite gratis di prigione, se ci siete. Potete conservare questa carta fino al momento di servirvene, oppure venderla.", AZIONE_ESCI_DAL_CARCERE));
 
-		shuffle();
+		//shuffle();
     }
 }
