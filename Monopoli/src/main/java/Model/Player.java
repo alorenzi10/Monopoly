@@ -171,4 +171,25 @@ public class Player {
 		return numAlberghi;
 	}
 
+
+	public int getNumStazioniPossedute() {
+		int nStazioni = 0;
+		for (Proprieta p : listaProprieta) {
+			if (p instanceof Stazione) {
+				nStazioni++;
+			}
+		}
+		return nStazioni;
+	}
+	
+	public int getNumSocietaPossedute () {
+		int nSocieta = 0;
+		for (Proprieta p : listaProprieta) {
+			if (p instanceof Societa) {
+				nSocieta++;
+			}
+		}
+		return nSocieta;
+	}
+
 }

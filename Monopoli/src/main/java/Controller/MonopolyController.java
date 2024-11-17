@@ -1,21 +1,17 @@
 package Controller;
 
 import Model.Monopoly;
-import Model.Player;
-import Model.Proprieta;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class MonopolyController {
 
 	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
-	private String[] nomiGiocatori;
 	public MonopolyController(SchermataDiGioco frame) {
 
 		MonopolyController.frame = frame;
@@ -46,6 +42,7 @@ public class MonopolyController {
 		monopolyGUI.addBtn1(new Btn1());
 		monopolyGUI.addBtn5(new Btn5());
 		monopolyGUI.addBtn10(new Btn10());
+		monopolyGUI.addBtn50(new Btn50());
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
 	}
@@ -82,6 +79,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//monopolyGUI.mostraScambi();
+			monopoly.aggiornaVisualizzazioneInfo();
 		}
 	}
 
@@ -97,14 +95,15 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.rimuoviAcquistoAsta();
 			monopoly.compraProprieta();
+			monopoly.aggiornaVisualizzazioneInfo();
 		}
 	}
+	
 	private class BtnAsta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.rimuoviAcquistoAsta();
-			monopoly.IniziaAsta();
-
+			monopoly.iniziaAsta();
 		}
 	}
 
@@ -113,6 +112,9 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 
 			monopolyGUI.rimuoviAcquistoAsta();
+		
+			
+			monopoly.aggiornaVisualizzazioneInfo();
 		}
 	}
 
@@ -179,6 +181,19 @@ public class MonopolyController {
 			}
 		}
 	}
+	
+	private class Btn50 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!monopoly.asta.aggiornaOfferta(50)) {
+				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
+			}
+			else {
+				monopolyGUI.btnRitirati.setVisible(false);
+				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
+			}
+		}
+	}
 
 	private class BtnConfermaOfferta implements ActionListener{
 		@Override
@@ -212,25 +227,11 @@ public class MonopolyController {
 			nomiGiocatori[i] = monopoly.getPlayers().get(i).getName();
 		return nomiGiocatori;
 	}
-	
 
 	private class BtnMostraProprietaGiocatori implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int[] valoriSaldo = new int[getNumGiocatori()];
-			for(int i = 0; i < getNumGiocatori(); i++) 
-				valoriSaldo[i] = monopoly.getPlayers().get(i).getWallet();
-			monopolyGUI.aggiornaVisSaldoGiocatori(valoriSaldo); // Aggiorna la visualizzazione del saldo dei giocatori
 
-			ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
-			for(Player player: monopoly.getPlayers()) {
-				ArrayList<String> proprietaGiocatore = new ArrayList<>();
-				for (Proprieta prop: player.getListaProprieta())
-					proprietaGiocatore.add(prop.getNome());
-				elencoProp.add(proprietaGiocatore);
-
-			}
-			monopolyGUI.aggiornaVisProprietaGiocatori(elencoProp); // Aggiorna la visualizzazione delle proprietà dei giocatori
 		}
 	}
 

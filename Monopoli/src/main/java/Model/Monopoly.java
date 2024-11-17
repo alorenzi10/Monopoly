@@ -40,7 +40,7 @@ public class Monopoly {
     	giCorrente=players.get(random.nextInt(numero_giocatori));
     	print.stampa("tocca a "+giCorrente.getName());
     	dice = new Dadi();
-    	tabellone = new Tabellone();
+    	tabellone = new Tabellone(dice);
     	mazzoProbabilita = new MazzoProbabilita();
     	mazzoImprevisti = new MazzoImprevisti();
     	gameOver = false;
@@ -135,6 +135,8 @@ public class Monopoly {
         giCorrente.getListaProprieta().remove(proprietaOfferta);
         ricevente.aggiungiProprieta(proprietaOfferta);
         proprietaOfferta.setProprietario(ricevente);
+        
+        aggiornaVisualizzazioneInfo();
 	}
 	
 	public void setBancarotta(){
@@ -150,7 +152,7 @@ public class Monopoly {
 				gameOver = true;
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
-		} else return;
+		} else aggiornaVisualizzazioneInfo();
 	}
 	
 	public void uscitaGratis() {
@@ -176,7 +178,10 @@ public class Monopoly {
 				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
 			} else {
 				print.stampa("Non hai abbastanza soldi!");}
-		} 
+		     } 
+		} else {
+			print.stampa("Il giocatore non è in prigione");}
+		aggiornaVisualizzazioneInfo();
 	}
 	
 	public void setFineTurno() { //da rivedere
@@ -198,30 +203,31 @@ public class Monopoly {
 	
 	public void arrivoCasella() {
 		Casella casella = tabellone.getSquare(giCorrente.getLocation());
-		
+
 		if (casella instanceof Imprevisti) {
 			if(( mazzoImprevisti).isEmpty()){
 				print.stampa("Carte Imprevisti esaurite, rimescolo" );
-	    		mazzoImprevisti=new MazzoImprevisti();
-	    	}
+				mazzoImprevisti = new MazzoImprevisti();
+			}
 			Carta carta = mazzoImprevisti.get();
+			print.stampa("Imprevisto");
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
 		} else if (casella instanceof Probabilita) {
 			if(mazzoProbabilita.isEmpty() ){
 				print.stampa("Carte Probabilità esaurite, rimescolo" );
-	    		mazzoProbabilita=new MazzoProbabilita();
-	    	}
+				mazzoProbabilita = new MazzoProbabilita();
+			}
 			Carta carta = mazzoProbabilita.get();
+			print.stampa("Probabilità");
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
-			
+
 		} else if (casella instanceof Tassa) {
 			int totale = ((Tassa) casella).getTotale();
 			giCorrente.doTransaction(-totale);
-			print.stampa("Paga: " + ((Tassa) casella).getTotale() + "€. Saldo: " + giCorrente.getWallet() + "€.");
+			print.stampa("Paga la tassa patrimoniale: " + ((Tassa) casella).getTotale() + "€. Saldo: " + giCorrente.getWallet() + "€.");
 		} 
-
 
 		else if (casella instanceof Proprieta) {
 			print.stampa(giCorrente.getName() + " è atterrato sulla proprietà " + 
@@ -231,7 +237,7 @@ public class Monopoly {
 
 				int totale = ((Proprieta) casella).getAffitto(); //da fare moltiplicatore x gruppo
 				Player possessore = ((Proprieta) casella).getPossessore();
-				print.stampa("Dai "+totale+" a "+ possessore.getName() );
+				print.stampa("Dai " + totale + " a " + possessore.getName() );
 
 				if(giCorrente.controlloFondi(totale)) {
 					giCorrente.doTransaction(-totale);
@@ -245,10 +251,10 @@ public class Monopoly {
 				print.stampa("Il giocatore: " + giCorrente.getName() + " è atterrato sulla sua proprietà" );
 				return;
 			}
-			else if(((Proprieta) casella).posseduta()==false) {
-				print.stampa(tabellone.getSquare(giCorrente.getLocation()).getNome()+ " non ha nessun proprietario" );
+			else if(((Proprieta) casella).posseduta() == false) {
+				print.stampa(tabellone.getSquare(giCorrente.getLocation()).getNome() + " non ha nessun proprietario" );
 				if(giCorrente.getWallet()<((Proprieta) casella).getCosto()) {
-					//vai diretto all'asta
+					iniziaAsta();
 				}else {
 					print.atterraggioSuProprietaVuota(); //decide lui se asta o compra
 				}
@@ -257,18 +263,19 @@ public class Monopoly {
 		else if (casella instanceof VaiInPrigione) {
 
 			int arrivo, partenza;
-			partenza=giCorrente.getLocation();
+			partenza = giCorrente.getLocation();
 			giCorrente.vaiInPrigione();	
 			print.stampa(giCorrente.getName() + " va in prigione.");
-			arrivo=giCorrente.getLocation();
+			arrivo = giCorrente.getLocation();
 			print.muoviPedina(partenza, arrivo, giCorrente.getId());
 
 		} 
+		aggiornaVisualizzazioneInfo();
 	}
 
 	private void azioneCarta(Carta carta) {
 		int partenza, pos;
-		
+
 		switch (carta.getAction()) {
 		case Mazzo.AZIONE_VAI_AVANTI:
 			int diff;
@@ -286,7 +293,7 @@ public class Monopoly {
 			}
 			arrivoCasella();
 			break;
-			
+
 		case Mazzo.AZIONE_VAI_INDIETRO:
 			partenza=giCorrente.getLocation();
 			giCorrente.muovi(carta.getDestination());
@@ -294,7 +301,7 @@ public class Monopoly {
 			print.muoviPedina(partenza, pos, giCorrente.getId());
 			arrivoCasella();
 			break;
-			
+
 		case Mazzo.AZIONE_VAI_IN_CARCERE: 
 			giCorrente.vaiInPrigione();
 			tiroDadiFatto = true;
@@ -315,13 +322,13 @@ public class Monopoly {
 			print.stampa("Ricevi: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
 		case Mazzo.REGALI:  
-			
+
 			if(carta.getTipo()==0) {
 				for (Player p : players) {
 					if(p.getName() != giCorrente.getName()) {
 						if(p.controlloFondi(carta.getQtaSoldi())){
 							p.doTransaction(carta.getQtaSoldi());
-						print.stampa(giCorrente.getName() + " ha regalato 50€ a " + p.getName() + ".");
+							print.stampa(giCorrente.getName() + " ha regalato 50€ a " + p.getName() + ".");
 						}
 					}
 				}
@@ -331,15 +338,15 @@ public class Monopoly {
 					if(p.getName() != giCorrente.getName()) {
 						if(p.controlloFondi(-carta.getQtaSoldi())){
 							p.doTransaction(-carta.getQtaSoldi());
-						print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
+							print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
 						}
 					}
 				}
 				giCorrente.doTransaction(carta.getQtaSoldi()*(players.size()-1));
 			}
-			
+
 			break;
-			
+
 		case Mazzo.AZIONE_SOCIETA_VICINA:
 			partenza=giCorrente.getLocation();
 			if(giCorrente.getLocation()==7) {
@@ -347,13 +354,13 @@ public class Monopoly {
 			}
 			else if(giCorrente.getLocation()==36) {
 				giCorrente.muovi(15);
-				
+
 			}
 			else if(giCorrente.getLocation()==22) {
 				giCorrente.muovi(6);
 			}
 			pos=giCorrente.getLocation();
-			
+
 			print.muoviPedina(partenza, pos, giCorrente.getId() );
 			controlloPassaggioVia();
 
@@ -371,8 +378,8 @@ public class Monopoly {
 				print.atterraggioSuProprietaVuota();
 			}
 			break;
-			
-			case Mazzo.AZIONE_FERROVIA_VICINA:
+
+		case Mazzo.AZIONE_FERROVIA_VICINA:
 			partenza=giCorrente.getLocation();
 			if(giCorrente.getLocation()==7) {
 				giCorrente.muovi(8);
@@ -386,10 +393,10 @@ public class Monopoly {
 			pos=giCorrente.getLocation();
 			print.muoviPedina(partenza, pos, giCorrente.getId() );
 			controlloPassaggioVia();
-			
+
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
 				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
-			
+
 					print.stampa("Devi pagare il doppio del totale dovuto");
 					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*-2);
 					((Proprieta) tabellone.getSquare(pos)).getPossessore()
@@ -398,8 +405,10 @@ public class Monopoly {
 			}else {
 				print.atterraggioSuProprietaVuota();
 			}
-			
+
 		}
+
+		aggiornaVisualizzazioneInfo();
 	}
 	
 	public void stampaDati() {
@@ -421,12 +430,25 @@ public class Monopoly {
 		}
 	}
 	
-	public void aggiornaVisualizzazioneSaldo() {
-		//monopolyGUI.
+	public void aggiornaVisualizzazioneInfo() {
+		//Aggiornamento nel pannello delle info dei giocatori (saldo)
+		int[] valoriSaldo = new int[getNumGiocatori()];
+		for(int i = 0; i < getNumGiocatori(); i++) 
+			valoriSaldo[i] = getPlayers().get(i).getWallet();
+		print.aggiornaVisSaldoGiocatori(valoriSaldo); // Aggiorna la visualizzazione del saldo dei giocatori
+		
+		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
+		ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
+		for(Player player: getPlayers()) {
+			ArrayList<String> proprietaGiocatore = new ArrayList<>();
+			for (Proprieta prop: player.getListaProprieta())
+				proprietaGiocatore.add(prop.getNome());
+			elencoProp.add(proprietaGiocatore);
+		}
+		print.aggiornaVisProprietaGiocatori(elencoProp); // Aggiorna la visualizzazione delle proprietà dei giocatori
 	}
 	
-	
-	public void IniziaAsta() {
+	public void iniziaAsta() {
 		//passaggio dei dati utili per l'asta
 		asta = new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
 		asta.inizio(); 
@@ -444,7 +466,7 @@ public class Monopoly {
 		else {
 			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
-			
+			iniziaAsta();
 		}
 		 
 	}
@@ -613,6 +635,10 @@ public class Monopoly {
 		return players;
 	}
 	
+	public int getNumGiocatori() {
+		return getPlayers().size();
+	}
+
 	public Tabellone getTabellone() {
 		return tabellone;
 	}

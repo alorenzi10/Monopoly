@@ -22,13 +22,13 @@ public class MazzoImprevisti extends Mazzo { // Da controllare e ultimare azione
 		cards.add(new Carta(IMPREVISTI, "Eseguite lavori di manutenzione su tutti i vostri edifici: pagate 25€ per ogni casa e 100€ per ogni albergo che possedete.", AZIONE_PAGA_CASE, new int[] {25, 100})); //DA FARE
 		
 		// Pagamenti
-		cards.add(new Carta(IMPREVISTI, "Siete stati promossi alla presidenza del consiglio di amministrazione: pagate M50 ad ogni giocatore.", REGALI, 50));
+		cards.add(new Carta(IMPREVISTI, "Siete stati promossi alla presidenza del consiglio di amministrazione: pagate 50€ ad ogni giocatore.", REGALI, 50));
 		cards.add(new Carta(IMPREVISTI, "Maturano le vostre cedole dei vostri fondi immobiliari: incassate 150€.", AZIONE_RICEVI, 150));
 		cards.add(new Carta(IMPREVISTI, "La banca vi paga un dividendo di 50€.", AZIONE_RICEVI, 50));
 
 		// Prigione
 		cards.add(new Carta(IMPREVISTI, "Andate in prigione direttamente e senza passare dal “Via!”." , AZIONE_VAI_IN_CARCERE));
-		cards.add(new Carta(IMPREVISTI, "Uscite gratis di prigione. Se ci siete. Potete conservare questa carta fino al momento di servirvene, oppure venderla.", AZIONE_ESCI_DAL_CARCERE));
+		cards.add(new Carta(IMPREVISTI, "Uscite gratis di prigione, se ci siete. Potete conservare questa carta fino al momento di servirvene, oppure venderla.", AZIONE_ESCI_DAL_CARCERE));
 
 		//shuffle();
     }
