@@ -177,10 +177,11 @@ public class Monopoly {
 				giCorrente.liberaDaPrigione();
 				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
 			} else {
-				print.stampa("Non hai abbastanza soldi!");}
-		     } 
+				print.stampa("Non hai abbastanza soldi!");
+				}
 		} else {
-			print.stampa("Il giocatore non è in prigione");}
+			print.stampa("Il giocatore non è in prigione");
+			}
 		aggiornaVisualizzazioneInfo();
 	}
 	

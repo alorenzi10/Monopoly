@@ -218,16 +218,6 @@ public class MonopolyController {
 		}
 	}
 
-	public int getNumGiocatori() {
-		return monopoly.getPlayers().size();
-	}
-
-	public String[] getNomiGiocatori() {
-		for (int i = 0; i < getNumGiocatori(); i++)
-			nomiGiocatori[i] = monopoly.getPlayers().get(i).getName();
-		return nomiGiocatori;
-	}
-
 	private class BtnMostraProprietaGiocatori implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
