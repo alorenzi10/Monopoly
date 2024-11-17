@@ -3,6 +3,7 @@ package View;
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -14,6 +15,8 @@ import Controller.NomiGiocatoriController;
 import Controller.SceltaPedineController;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,17 +39,18 @@ public class MonopolyGUI extends JLayeredPane {
 	private JTextArea consoleTextArea;
 	private JPanel[] caselle;
 	private JLabel[] pedine;
+	private JPanel[] panel_prop_pedina;
 
 	private JPanel panel_sfondo;
 	public JPanel panel_scelte_turno;
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta, btnMostraProprieta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta ;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
-	private JButton btn1, btn5, btn10, btnConfermaOfferta;
+	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta;
 	public JButton btnRitirati; //asta
 	private JLabel lblTurno, lblOfferta;
 
-	private JLabel[] lblSaldoGiocatori, lblProprietaGiocatori;
+	private JLabel[] lblSaldoGiocatori;
 	
 	private JTextArea[] txtPropGiocatori;
 	
@@ -655,16 +659,16 @@ public class MonopolyGUI extends JLayeredPane {
 		btnNoBancarotta = new JButton("No, torna al gioco");
 
 		// Per asta
-		btn1=new JButton("+1");
-		btn5=new JButton("+5");
-		btn10=new JButton("+10");
-		btnConfermaOfferta=new JButton("Conferma Offerta");
-		btnRitirati=new JButton("Ritirati");
+		btn1 = new JButton("+1");
+		btn5 = new JButton("+5");
+		btn10 = new JButton("+10");
+		btn50 = new JButton("+50");
+		btnConfermaOfferta = new JButton("Conferma Offerta");
+		btnRitirati = new JButton("Ritirati");
 		
-		
-		
-		mostraInfoGiocatori();
 		creaPedine();
+		mostraInfoGiocatori();
+		
 
 	}
 
@@ -714,6 +718,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtn10(ActionListener listener) {
 		btn10.addActionListener(listener);
 	}
+	public void addBtn50(ActionListener listener) {
+		btn50.addActionListener(listener);
+	}
 	public void addBtnConfermaOfferta(ActionListener listener) {
 		btnConfermaOfferta.addActionListener(listener);
 	}
@@ -721,7 +728,6 @@ public class MonopolyGUI extends JLayeredPane {
 		btnRitirati.addActionListener(listener);
 	}
 	
-
 
 	public void mostraInfoGiocatori() {
 
@@ -741,14 +747,15 @@ public class MonopolyGUI extends JLayeredPane {
 		btnMostraProprieta.setBounds(974, 30, 342, 42);
 		add(btnMostraProprieta);
 
+		panel_prop_pedina = new JPanel[numGiocatori];
 		lblSaldoGiocatori = new JLabel[numGiocatori];
-		//lblProprietaGiocatori = new JLabel[numGiocatori];
 		txtPropGiocatori = new JTextArea[numGiocatori];
 		
 		for (int i = 0; i < numGiocatori; i++) {
 
 			JPanel panelGiocatore = new JPanel();
 			panelGiocatore.setLayout(new BoxLayout(panelGiocatore, BoxLayout.Y_AXIS));
+			panelGiocatore.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 
 			// Nome del giocatore
 			JLabel lblNomeGiocatore = new JLabel(nomiGiocatori[i]);
@@ -761,26 +768,24 @@ public class MonopolyGUI extends JLayeredPane {
 			lblSaldoGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
 			lblSaldoGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblSaldoGiocatori[i]);
-
-			/*// Label per l'elenco delle proprietà
-			lblProprietaGiocatori[i] = new JLabel("Proprietà:");
-			lblProprietaGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
-			lblProprietaGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
-			panelGiocatore.add(lblProprietaGiocatori[i]);*/
+			
+			// Panel per la suddivisione dello spazio tra la lista delle proprietà e l'immagine della pedina
+			panel_prop_pedina[i] = new JPanel();
+			panel_prop_pedina[i].setLayout(new BoxLayout(panel_prop_pedina[i], BoxLayout.X_AXIS));
 			
 			//textArea per l'elenco delle proprietà dei giocatori
 			txtPropGiocatori[i] = new JTextArea();
 			txtPropGiocatori[i].setEditable(false);
 			txtPropGiocatori[i].setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 18));
 
+			// Pannello scorrevole per l'elenco delle proprietà
 			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori[i]);
-			panelGiocatore.add(scrollProp);
+			panel_prop_pedina[i].add(scrollProp);
 			
-			
-			// Immagine della pedina
-			JLabel lblPedinaGiocatore = new JLabel(new ImageIcon("path/to/pedina" + i + ".png"));
-			lblPedinaGiocatore.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-			panelGiocatore.add(lblPedinaGiocatore);
+			// Label per visualizzare la propria pedina
+			JLabel immaginePedina = new JLabel(pedine[i].getIcon());// Creo una copia di pedine[i] per l'icona
+			panel_prop_pedina[i].add(immaginePedina);
+			panelGiocatore.add(panel_prop_pedina[i]);
 
 			panel_info_giocatori.add(panelGiocatore);
 		}
@@ -800,29 +805,6 @@ public class MonopolyGUI extends JLayeredPane {
 			txtPropGiocatori[i].setText(elenco);
 		}
 	}
-	
-	/*public void mostraProprietaGiocatori() {
-
-		int numGiocatori = SceltaPedineController.getNumGiocatori();
-		String [] nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
-
-
-		JPanel panel_proprieta_giocatori = new JPanel();
-		panel_proprieta_giocatori.setBounds(160, 212, 1600, 656);
-		add(panel_proprieta_giocatori);
-		panel_proprieta_giocatori.setLayout(null);
-
-		JButton btnChiudi = new JButton("X");
-		btnChiudi.setFont(new Font("Monopoly Inline", Font.PLAIN, 50));
-		btnChiudi.setBounds(1525, 10, 65, 65);
-		panel_proprieta_giocatori.add(btnChiudi);
-
-		JPanel panel_proprieta = new JPanel();
-		panel_proprieta.setBounds(10, 10, 1505, 636);
-		panel_proprieta_giocatori.add(panel_proprieta);
-		panel_proprieta.setLayout(new GridLayout(2, 3, 0, 0));
-
-	}*/
 
 	public void attivaUscitaConCarta(boolean decisione){
 		btnUsaCartaEsciDiPrigione.setEnabled(decisione);
@@ -1139,7 +1121,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_asta.setLayout(null);
 
 		JLabel lblAsta = new JLabel("Asta");
-		lblAsta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		lblAsta.setFont(new Font("Monopoly Inline", Font.PLAIN, 40));
 		lblAsta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAsta.setBounds(25, 22, 471, 53);
 		panel_asta.add(lblAsta);
@@ -1153,7 +1135,7 @@ public class MonopolyGUI extends JLayeredPane {
 		lblTurno = new JLabel(NomiGiocatoriController.getNomiGiocatori(giCorrente) + " fai la prima offerta");
 		lblTurno.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTurno.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTurno.setBounds(25, 100 , 232, 53);
+		lblTurno.setBounds(25, 100, 250, 53);
 		panel_asta.add(lblTurno);
 
 		btn1.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -1167,6 +1149,10 @@ public class MonopolyGUI extends JLayeredPane {
 		btn10.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btn10.setBounds(240, 232, 100, 100);
 		panel_asta.add(btn10);
+		
+		btn50.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn50.setBounds(350, 232, 100, 100);
+		panel_asta.add(btn50);
 
 		btnConfermaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnConfermaOfferta.setBounds(21, 400, 230, 82);
