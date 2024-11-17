@@ -73,8 +73,7 @@ public class Monopoly {
 				print.stampa("Dado 2: " + dice.getDado2());
 				if(giCorrente.getInPrigione() == false) {
 					
-					// giCorrente.muovi(dice.getTotal());
-					giCorrente.muovi(1);
+					giCorrente.muovi(dice.getTotal());
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
@@ -85,7 +84,7 @@ public class Monopoly {
 							
 						}
 					}
-					else { //tiroDadiFatto = true; 
+					else { tiroDadiFatto = true; 
 					}
 				}
 				else {
