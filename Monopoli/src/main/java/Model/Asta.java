@@ -87,6 +87,7 @@ public class Asta {
 		monopolyGUI.stampa(giCorrente.getName() + " ha acquistato " + proprieta.getNome()+
 				" pagando: " + offerta_corrente + "€." );
 		monopolyGUI.stampa(nome + " tocca ancora a te" );
+
 	}
 	
 	public String getName() {

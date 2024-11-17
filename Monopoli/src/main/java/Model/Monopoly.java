@@ -117,6 +117,7 @@ public class Monopoly {
 		else {
 			print.stampa("Hai già tirato! Scegli un'altra azione.");
 			}
+		aggiornaVisualizzazioneInfo();
 	}
 	
 	// da sistemare
@@ -200,6 +201,7 @@ public class Monopoly {
 			giCorrente.doTransaction(MONEY_VIA);
 			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
 		}
+		
 	}
 	
 	public void arrivoCasella() {
@@ -412,7 +414,7 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	public void stampaDati() {
+	/*public void stampaDati() {
 		for(Player p: players) {
 			print.stampa("id=" + p.getId() + ", nome=" +p.getName() + ", saldo=" + p.getWallet() + ", posizione=" + p.getLocation());
 			if(p.getInPrigione()) {
@@ -429,7 +431,7 @@ public class Monopoly {
 				print.stampa(prop.getNome()+ " ");
 			}
 		}
-	}
+	}*/
 	
 	public void aggiornaVisualizzazioneInfo() {
 		//Aggiornamento nel pannello delle info dei giocatori (saldo)
@@ -521,7 +523,7 @@ public class Monopoly {
 										}
 										print.case12.mostraAlbergho(id-1);
 									}
-									
+									aggiornaVisualizzazioneInfo();
 									
 								} 
 								else {print.stampa("Non hai abbastanza soldi per costruire.");}
@@ -533,6 +535,7 @@ public class Monopoly {
 				}else {print.stampa("Non possiedi tutto il gruppo.");}
 			}else {print.stampa("Non puoi costruire su questa proprietà.");}
 		}else {print.stampa("Non puoi costruire su questa proprietà perchè non la possiedi.");}
+		
 	}
 	
 	public void demolisci(Proprieta prop) {
@@ -571,7 +574,7 @@ public class Monopoly {
 							print.case12.rimuoviCasa((id*4)-1-(4-num));
 					
 						}
-						
+						aggiornaVisualizzazioneInfo();
 					}else {print.stampa("Distruzione non valida, la differenza tra le case non può essere maggiore di uno.");}
 				}else {print.stampa("Non hai case su questa proprietà");}
 			}else {print.stampa("Non puoi costruire su questa proprietà.");}

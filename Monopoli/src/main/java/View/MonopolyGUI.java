@@ -68,6 +68,7 @@ public class MonopolyGUI extends JLayeredPane {
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
 		
+		
 		case12=new CaseAlberghiView();
 		
 		for(int i=0; i<22; i++) {

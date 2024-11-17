@@ -165,7 +165,7 @@ public class Player {
 		int numAlberghi = 0;
 		for (Proprieta prop : listaProprieta) {
 			if (prop instanceof Cantiere) {
-				numAlberghi += ((Cantiere) prop).getNumCase();
+				numAlberghi += ((Cantiere) prop).getNumAlberghi();
 			}
 		}
 		return numAlberghi;

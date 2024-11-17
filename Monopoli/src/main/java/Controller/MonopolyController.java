@@ -7,6 +7,8 @@ import View.SchermataDiGioco;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JScrollPane;
+
 public class MonopolyController {
 
 	private static SchermataDiGioco frame; //Per gestire il JFrame
@@ -18,7 +20,6 @@ public class MonopolyController {
 		monopolyGUI = new MonopolyGUI(frame);
 		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0,  1920, 1080); 
-
 		frame.add(monopolyGUI);
 		frame.revalidate();
 		frame.repaint();
@@ -63,7 +64,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.confermaBancarotta();
 			////////////temporaneo
-			monopoly.stampaDati();
+			//monopoly.stampaDati();
 		}
 	}
 
@@ -211,6 +212,7 @@ public class MonopolyController {
 			if(monopoly.asta.controlloFineAsta()) {
 				monopolyGUI.rimuoviAcquistoAsta();
 				monopoly.asta.fineAsta();
+				monopoly.aggiornaVisualizzazioneInfo();
 			}
 			else {
 				monopolyGUI.aggiornaTurno(monopoly.asta.getName());
