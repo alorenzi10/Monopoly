@@ -2,6 +2,8 @@ package Model;
 
 import java.util.*;
 
+import javax.print.attribute.standard.PrinterMakeAndModel;
+
 import View.*;
 
 public class Monopoly {
@@ -445,7 +447,12 @@ public class Monopoly {
 		for(Player player: getPlayers()) {
 			ArrayList<String> proprietaGiocatore = new ArrayList<>();
 			for (Proprieta prop: player.getListaProprieta())
-				proprietaGiocatore.add(prop.getNome());
+				if(prop.isIpotecata()) {
+					proprietaGiocatore.add(prop.getNome()+ " (ipotecata)");
+				}
+				else {
+					proprietaGiocatore.add(prop.getNome());
+				}
 			elencoProp.add(proprietaGiocatore);
 		}
 		print.aggiornaVisProprietaGiocatori(elencoProp); // Aggiorna la visualizzazione delle proprietà dei giocatori
@@ -481,7 +488,6 @@ public class Monopoly {
 				Cantiere cant = (Cantiere) prop;
 				if (giCorrente.possessoreGruppo(cant)) {
 					
-					print.stampa("Sei possessore del marrone");
 					
 					if (!cant.isIpotecata()) {
 						GruppoColore gc = cant.getGruppoColore();
@@ -581,36 +587,48 @@ public class Monopoly {
 		}else {print.stampa("Non puoi demolire se una proprietà che non possiedi");}
 	}
 	
-	/*private void ipoteca() {
-		Proprieta prop;
-		int valoreCase=0;
+	public void ipoteca(Proprieta prop) {
+	
 		if(prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
 			if ((prop instanceof Cantiere) || (prop instanceof Stazione) || (prop instanceof Societa)){
 				if (prop.isIpotecata() == false) {
-					if (((Cantiere) prop).haCase()) {
+					if (prop instanceof Cantiere) {
+						if(!((Cantiere) prop).haCase()) {
 						Cantiere cant = (Cantiere) prop;
 		                GruppoColore gc = cant.getGruppoColore();
+		                
 		                for (Cantiere c : gc.getMembri()) {
 		                	if (c.haCase()) {
-		                            valoreCase += c.getNumCase() * c.getCostoCasa()/2;
-		                	}
+		                		print.stampa("Non puoi ipotecare se ci sono edifici sulla proprietà");
+		                            return;
+		                	}	
 		                }
-					}
-					giCorrente.doTransaction(valoreCase+prop.getPrezzoIpoteca());
-				}
+		              
+					} else {
+						print.stampa("Non puoi ipotecare se ci sono edifici sulla proprietà");
+						return;
+						}}
+					giCorrente.doTransaction(prop.getPrezzoIpoteca());
+					prop.setIpotecata(true);	
+					print.stampa(prop.getNome()+" ipotecata ");
+				}else{ print.stampa("La proprietà è gia ipotecata");}
 			}
-		}
+	}else { print.stampa("Non puoi ipotecare proprietà altrui o non possedute"); }
+		aggiornaVisualizzazioneInfo();
 	}
 	
-	private void disipoteca() {
-		Proprieta prop;
+	public void disipoteca(Proprieta prop) {
+		
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
-			if ((prop instanceof Cantiere) && !((Cantiere) prop).haCase() || (prop instanceof Stazione) || (prop instanceof Societa)) {
 				if (prop.isIpotecata() && giCorrente.getWallet()>=prop.getCostoDisipoteca()) {
-					giCorrente.doTransaction(-prop.getCostoDisipoteca());					
+					prop.setIpotecata(false);
+					giCorrente.doTransaction(-prop.getCostoDisipoteca());		
+					 print.stampa(prop.getNome()+" disipotecata ");
 				}
-			}
-		} */
+			
+		} else { print.stampa("Non puoi disipotecare proprietà altrui o non possedute"); }
+		aggiornaVisualizzazioneInfo();
+	}
 	 
 
 	private void setProssimoGiocatore() {

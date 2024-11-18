@@ -13,4 +13,7 @@ public class Stazione extends Proprieta {
     	
     }
 
+    public String getNome() {
+    	return super.getNome();
+    }
 }

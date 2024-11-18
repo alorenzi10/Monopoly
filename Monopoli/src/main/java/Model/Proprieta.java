@@ -38,8 +38,8 @@ public class Proprieta extends Casella {
 		return ipotecata;
 	}
 
-	public void setIpotecata() {
-		ipotecata = true;
+	public void setIpotecata(boolean condizione) {
+		ipotecata = condizione;
 	}
 
 	public int getPrezzoIpoteca() {

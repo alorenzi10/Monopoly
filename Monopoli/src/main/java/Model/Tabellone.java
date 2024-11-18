@@ -113,6 +113,23 @@ public class Tabellone {
     public GruppoColore getBlu() {
     	return blu;
     }
+    
+    public Stazione[] getStazioni() {
+    	Stazione[] prova=new Stazione[4];
+    	prova[0]=(Stazione) getSquare(5);
+    	prova[1]=(Stazione) getSquare(15);
+    	prova[2]=(Stazione) getSquare(25);
+    	prova[3]=(Stazione) getSquare(35);
+    	
+    	return prova;
+    }
+    
+    public Societa[] getSocieta() {
+    	Societa[] prova=new Societa[2];
+    	prova[0]=(Societa) getSquare(12);
+    	prova[1]=(Societa) getSquare(28);
+    	return prova;
+    }
 
 	public Casella getSquare(int i) {
 		return squares[i];

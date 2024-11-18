@@ -73,6 +73,9 @@ public class Cantiere extends Proprieta {
 	public int getCostoCasa() {
 		return costoCasa;
 	}
+	public int getMortgage() {
+		return getPrezzoIpoteca();
+	}
 
 	public void costruisci() {
 		numCostruzioni++;
