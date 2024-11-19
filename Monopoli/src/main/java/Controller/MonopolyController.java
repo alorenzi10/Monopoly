@@ -94,7 +94,7 @@ public class MonopolyController {
 			monopolyGUI.contrattazioneScambi();
 	
 			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), 1);
-			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(monopolyGUI.getRicevente()).getListaPropString(), 2);
+			//monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(monopolyGUI.getRicevente()).getListaPropString(), 2);
 		}
 	}
 	
@@ -170,6 +170,8 @@ public class MonopolyController {
 
 			monopoly.uscitaGratis();
 			monopolyGUI.attivaUscitaConCarta(false);
+			monopolyGUI.attivaUscitaConCauzione(false);
+			
 		}
 	}
 	private class BtnPagaCauzione implements ActionListener{
