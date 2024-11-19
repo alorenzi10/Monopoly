@@ -11,6 +11,7 @@ public class Player {
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
+    private ArrayList<String> listaPropString;
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
@@ -23,6 +24,7 @@ public class Player {
     	this.location = 0;
     	this.listaProprieta=new ArrayList<>();
     	this.carte=new ArrayList<>();
+    	this.listaPropString = new ArrayList<>();
     }
     		
     public boolean controlloFondi(int totale) {
@@ -151,6 +153,13 @@ public class Player {
 	    return str.toString();
 	}
 
+	public ArrayList<String> getListaPropString(){
+		
+		for (Proprieta prop : getListaProprieta()) 
+	        listaPropString.add(prop.getNome());
+	    return listaPropString;
+	}
+	
     public int getNumCasePossedute() {
 		int numCase = 0;
 		for (Proprieta p : listaProprieta) {
@@ -170,7 +179,6 @@ public class Player {
 		}
 		return numAlberghi;
 	}
-
 
 	public int getNumStazioniPossedute() {
 		int nStazioni = 0;
