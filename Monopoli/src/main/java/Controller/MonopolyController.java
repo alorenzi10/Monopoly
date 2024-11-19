@@ -92,9 +92,8 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {	
 			monopolyGUI.getPanelGestioneScambi().removeAll();
 			monopolyGUI.contrattazioneScambi();
-	
-			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), 1);
-			//monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(monopolyGUI.getRicevente()).getListaPropString(), 2);
+			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente());
+			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(monopolyGUI.getRicevente()).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente());
 		}
 	}
 	

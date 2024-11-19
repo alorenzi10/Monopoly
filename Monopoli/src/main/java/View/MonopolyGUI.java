@@ -55,7 +55,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
 	
-	private JPanel panelElencoPropRicevente, panelElencoPropGiCorrente;
+	private JPanel panel_proprieta_offerta, panel_proprieta_offerta_1;
 
 	// Per scambi
 	private String giocatoreRicevente;
@@ -697,14 +697,6 @@ public class MonopolyGUI extends JLayeredPane {
 		return panel_sfondo;
 	}
 	
-	public JPanel getPanelElencoPropRicevente() {
-		return panelElencoPropRicevente;
-	}
-
-	public JPanel getPanelElencoPropGiCorrente() {
-		return panelElencoPropGiCorrente;
-	}
-	
 	public JScrollPane getScrollPaneElencoPropRicevente() {
 		return scrollPaneElencoPropRicevente;
 	}
@@ -1116,26 +1108,17 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 	
 	// Per gli scambi
-	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, int i) {
+	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello) {
 		JPanel panelInterno = new JPanel();
-		panelInterno.setLayout(null);
 		for(String s: proprietaPossedute) {
 			btnNomeProp = new JButton(s);
 			btnNomeProp.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 			btnNomeProp.setBounds(40, 10 + (proprietaPossedute.indexOf(s) * 48), 250, 40);
 			panelInterno.add(btnNomeProp);
 		}
-		if(i==1){
-		scrollPaneElencoPropGiCorrente.setViewportView(panelInterno);
-		//pannello.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneElencoPropGiCorrente.revalidate();
-		scrollPaneElencoPropGiCorrente.repaint();
-		}
-		else if(i==2){
-			scrollPaneElencoPropRicevente.setViewportView(panelInterno);
-			scrollPaneElencoPropRicevente.revalidate();
-			scrollPaneElencoPropRicevente.repaint();
-		}
+		pannello.setViewportView(panelInterno);
+		pannello.revalidate();
+		pannello.repaint();
 	}
 
 	public void creaPedine() {

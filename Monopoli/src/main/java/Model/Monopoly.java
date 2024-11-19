@@ -650,9 +650,11 @@ public class Monopoly {
 	}
 	
 	public Player getCorrispondenzaPlayer(String nome) {
-		for(Player p: getPlayers())
-			if(p.getName().equals(nome))
-				return p;				
+		for(Player p: getPlayers()){
+			if(p.getName().equals(nome)){
+				return p;
+			}
+		}
 		return null;
 	}
 	
