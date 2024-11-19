@@ -62,7 +62,7 @@ public class MonopolyGUI extends JLayeredPane {
 	
 	private JLabel[] lblSaldoGiocatori;
 	
-	private JButton[] btnNomeGiocatoreScambi;
+	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste;
 	
 	private JTextArea[] txtPropGiocatori;
 	
@@ -681,6 +681,16 @@ public class MonopolyGUI extends JLayeredPane {
 		btnAnnullaScambi = new JButton("Annulla");
 		btnAccettaOfferta = new JButton("Accetta");
 		
+		btnProprietaRichieste= new JButton[40];
+				for(int x=0; x<40;  x++){
+					btnProprietaRichieste[x]=new JButton();
+				}
+				
+		btnProprietaOfferte= new JButton[40];
+		for(int x=0; x<40;  x++){
+					btnProprietaOfferte[x]=new JButton();
+				}
+		
 		btnNomeGiocatoreScambi = new JButton[SceltaPedineController.getNumGiocatori() - 1];
 		for(int x=0; x<(SceltaPedineController.getNumGiocatori() - 1);  x++){
 			btnNomeGiocatoreScambi[x]=new JButton();
@@ -767,13 +777,25 @@ public class MonopolyGUI extends JLayeredPane {
 		for(JButton button: btnNomeGiocatoreScambi)
 			button.addActionListener(listener);
 	}
+	public void addBtnProprietaRichieste(ActionListener listener) {
+		for(JButton button: btnProprietaRichieste)
+			button.addActionListener(listener);
+	}
+	
+	public void addBtnProprietaOfferte(ActionListener listener) {
+		for(JButton button: btnProprietaOfferte)
+			button.addActionListener(listener);
+	}
 
 	
-	public int getDenaroOfferto() {
-		return Integer.parseInt(textFieldDenaroOfferto.getText());
+	public String getDenaroOfferto() { 
+		return textFieldDenaroOfferto.getText();
 	}
-	public int getDenaroRicevuto() {
-		return Integer.parseInt(textFieldDenaroRicevuto.getText());
+	public String getDenaroRicevuto() {
+
+		return textFieldDenaroRicevuto.getText();
+		
+	
 	}
 	public JPanel getPanelGestioneScambi() {
 		return panel_gestione_scambi;
@@ -963,6 +985,7 @@ public class MonopolyGUI extends JLayeredPane {
 			btnNomeGiocatoreScambi[i].setText(s);
 			btnNomeGiocatoreScambi[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 			btnNomeGiocatoreScambi[i].setBounds(170, 160 + (acquirenti.indexOf(s) * 48), 180, 40);
+			btnNomeGiocatoreScambi[i].setActionCommand(s);
 				
 					/*giocatoreRicevente = btnNomeGiocatoreScambi[i].getText();
 					panel_gestione_scambi.removeAll();
@@ -1014,7 +1037,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_chiusura_affare.add(lblContrattazione);
 		
 		JLabel lblOfferta = new JLabel("Offro:");
-		lblOfferta.setBounds(148, 89, 65, 31);
+		lblOfferta.setBounds(148, 89, 100, 31);
 		lblOfferta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOfferta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panel_chiusura_affare.add(lblOfferta);
@@ -1057,7 +1080,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JLabel lblInCambioDi = new JLabel("In cambio di:");
 		lblInCambioDi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInCambioDi.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblInCambioDi.setBounds(470, 89, 145, 31);
+		lblInCambioDi.setBounds(450, 89, 170, 31);
 		panel_chiusura_affare.add(lblInCambioDi);
 		
 		btnAnnullaScambi.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -1105,24 +1128,63 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		panel_chiusura_affare.repaint();
 		panel_chiusura_affare.revalidate();
+		
+		
 	}
 	
 	// Per gli scambi
-	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello) {
+	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello, boolean offerta) {
+		
 		JPanel panelInterno = new JPanel();
 		panelInterno.setLayout(null);
 		int y = 10; 
+		int i=0;
 		//panelInterno.setBounds(13, 60, 320, 288);
 		for(String s: proprietaPossedute) {
-			btnNomeProp = new JButton(s);
-			btnNomeProp.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-			btnNomeProp.setBounds(40, y, 250, 40); // Posizionamento del bottone
-	        panelInterno.add(btnNomeProp);
+			if(i<proprietaPossedute.size()) {
+			if(offerta) {
+				btnProprietaOfferte[i].setText(s);
+				btnProprietaOfferte[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+				btnProprietaOfferte[i].setBounds(40, y, 250, 40);
+				btnProprietaOfferte[i].setActionCommand(s);
+				panelInterno.add(btnProprietaOfferte[i]);
+			}else {
+				
+				btnProprietaRichieste[i].setText(s);
+				btnProprietaRichieste[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+				btnProprietaRichieste[i].setBounds(40, y, 250, 40);
+				btnProprietaRichieste[i].setActionCommand(s);
+				panelInterno.add(btnProprietaRichieste[i]);
+			}
 	        y += 48;
-		}panelInterno.setPreferredSize(new java.awt.Dimension(300, y + 10));
+	        i++;
+			}
+		}
+		
+		panelInterno.setPreferredSize(new java.awt.Dimension(300, y + 10));
 		pannello.setViewportView(panelInterno);
 		pannello.revalidate();
 		pannello.repaint();
+	}
+	
+	public JButton getBottonePropOfferte(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnProprietaOfferte[i].getActionCommand().equals(command)){
+				return btnProprietaOfferte[i];
+			}
+		}
+		return null;
+		
+	}
+	
+	public JButton getBottonePropRichieste(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnProprietaRichieste[i].getActionCommand().equals(command)){
+				return btnProprietaRichieste[i];
+			}
+		}
+		return null;
+		
 	}
 
 	public void creaPedine() {

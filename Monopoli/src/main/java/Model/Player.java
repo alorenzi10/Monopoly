@@ -67,6 +67,10 @@ public class Player {
 		listaProprieta.add(proprieta);
 	}
 	
+	public void rimuoviProprieta(Proprieta proprieta) {
+		listaProprieta.remove(proprieta);
+	}
+	
 	public boolean possessoreGruppo(Cantiere cantiere) {
 		boolean haTutteProprieta = true;
 		GruppoColore gc = cantiere.getGruppoColore();

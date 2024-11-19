@@ -74,6 +74,7 @@ public class Monopoly {
 				if(giCorrente.getInPrigione() == false) {
 					
 					giCorrente.muovi(dice.getTotal());
+					//giCorrente.muovi(1);
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
