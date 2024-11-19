@@ -1110,12 +1110,16 @@ public class MonopolyGUI extends JLayeredPane {
 	// Per gli scambi
 	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello) {
 		JPanel panelInterno = new JPanel();
+		panelInterno.setLayout(null);
+		int y = 10; 
+		//panelInterno.setBounds(13, 60, 320, 288);
 		for(String s: proprietaPossedute) {
 			btnNomeProp = new JButton(s);
 			btnNomeProp.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-			btnNomeProp.setBounds(40, 10 + (proprietaPossedute.indexOf(s) * 48), 250, 40);
-			panelInterno.add(btnNomeProp);
-		}
+			btnNomeProp.setBounds(40, y, 250, 40); // Posizionamento del bottone
+	        panelInterno.add(btnNomeProp);
+	        y += 48;
+		}panelInterno.setPreferredSize(new java.awt.Dimension(300, y + 10));
 		pannello.setViewportView(panelInterno);
 		pannello.revalidate();
 		pannello.repaint();
