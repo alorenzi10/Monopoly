@@ -40,7 +40,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 	private JPanel[] caselle;
 	private JLabel[] pedine;
-	private JPanel[] panel_prop_pedina;
+	private ArrayList<JPanel> panel_prop_pedina;
 	
 	private JTextField textFieldDenaroOfferto;
 	private JTextField textFieldDenaroRicevuto;
@@ -58,11 +58,12 @@ public class MonopolyGUI extends JLayeredPane {
 	// Per scambi
 	private String giocatoreRicevente;
 	
-	private JLabel[] lblSaldoGiocatori;
+	private ArrayList<JLabel> lblSaldoGiocatori;
 	
 	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste;
 	
-	private JTextArea[] txtPropGiocatori;
+	private ArrayList<JTextArea> txtPropGiocatori;
+	private ArrayList<JLabel> immaginiPedine;
 	
 	private JPanel panel_info_giocatori;
 
@@ -791,29 +792,36 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 	public String getDenaroRicevuto() {
 
-		return textFieldDenaroRicevuto.getText();
-		
-	
+		return textFieldDenaroRicevuto.getText();	
 	}
 	public JPanel getPanelGestioneScambi() {
 		return panel_gestione_scambi;
 	}
 	
 	public void mostraInfoGiocatori(ArrayList<String> giocatori) {
+		
+		if (panel_info_giocatori != null) {
+			remove(panel_info_giocatori);
+			panel_info_giocatori.removeAll();
+			panel_info_giocatori.revalidate();
+			panel_info_giocatori.repaint();
+		}
 
 		panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
 		panel_info_giocatori.setBounds(760, 82, 770, 398);
 		add(panel_info_giocatori);
 
-		int numGiocatori = giocatori.size();
-
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
 
-		panel_prop_pedina = new JPanel[numGiocatori];
-		lblSaldoGiocatori = new JLabel[numGiocatori];
-		txtPropGiocatori = new JTextArea[numGiocatori];
-
+		panel_prop_pedina = new ArrayList<>();
+		lblSaldoGiocatori = new ArrayList<>();
+		txtPropGiocatori = new ArrayList<>();
+		immaginiPedine = new ArrayList<>();
+		
+		for(int i = 0; i<giocatori.size(); i++) 
+			immaginiPedine.add(pedine[i]);
+		
 		for (String s: giocatori) {
 
 			JPanel panelGiocatore = new JPanel();
@@ -828,46 +836,48 @@ public class MonopolyGUI extends JLayeredPane {
 
 			int i = giocatori.indexOf(s);
 			// Saldo del giocatore
-			lblSaldoGiocatori[i] = new JLabel("Saldo: 1500€");
-			lblSaldoGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
-			lblSaldoGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
-			panelGiocatore.add(lblSaldoGiocatori[i]);
+			lblSaldoGiocatori.add(new JLabel("Saldo: 1500€"));
+			lblSaldoGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 16));
+			lblSaldoGiocatori.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
+			panelGiocatore.add(lblSaldoGiocatori.get(i));
 
 			// Panel per la suddivisione dello spazio tra la lista delle proprietà e l'immagine della pedina
-			panel_prop_pedina[i] = new JPanel();
-			panel_prop_pedina[i].setLayout(new BoxLayout(panel_prop_pedina[i], BoxLayout.X_AXIS));
-			panel_prop_pedina[i].setMaximumSize(new Dimension(250, 200));
+			panel_prop_pedina.add(new JPanel());
+			panel_prop_pedina.get(i).setLayout(new BoxLayout(panel_prop_pedina.get(i), BoxLayout.X_AXIS));
+			panel_prop_pedina.get(i).setMaximumSize(new Dimension(250, 200));
 
 			//textArea per l'elenco delle proprietà dei giocatori
-			txtPropGiocatori[i] = new JTextArea();
-			txtPropGiocatori[i].setEditable(false);
-			txtPropGiocatori[i].setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 18));
+			txtPropGiocatori.add(new JTextArea());
+			txtPropGiocatori.get(i).setEditable(false);
+			txtPropGiocatori.get(i).setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 18));
 
 			// Pannello scorrevole per l'elenco delle proprietà
-			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori[i]);
-			panel_prop_pedina[i].add(scrollProp);
+			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori.get(i));
+			panel_prop_pedina.get(i).add(scrollProp);
 
 			// Label per visualizzare la propria pedina
-			JLabel immaginePedina = new JLabel(pedine[i].getIcon());// Creo una copia di pedine[i] per l'icona
-			panel_prop_pedina[i].add(immaginePedina);
-			panelGiocatore.add(panel_prop_pedina[i]);
+			JLabel immaginePedina = new JLabel(immaginiPedine.get(i).getIcon());// Creo una copia di pedine[i] per l'icona
+			panel_prop_pedina.get(i).add(immaginePedina);
+			panelGiocatore.add(panel_prop_pedina.get(i));
 
 			panel_info_giocatori.add(panelGiocatore);
+			panel_info_giocatori.revalidate();
+			panel_info_giocatori.repaint();
 		}
 	}
 
-	public void aggiornaVisSaldoGiocatori(int[] valoriSaldo, ArrayList<String> giocatori) {
+	public void aggiornaVisSaldoGiocatori(ArrayList<Integer> valoriSaldo, ArrayList<String> giocatori) {
 		for(String s: giocatori) {
 			int i = giocatori.indexOf(s);
-			lblSaldoGiocatori[i].setText("Saldo: " + valoriSaldo[i] + "€") ;
+			lblSaldoGiocatori.get(i).setText("Saldo: " + valoriSaldo.get(i) + "€") ;
 		}
 	}
 
 	public void aggiornaVisProprietaGiocatori(ArrayList<ArrayList<String>> elencoProp, ArrayList<String> giocatori) {
 		for(String s: giocatori) {
 			int i = giocatori.indexOf(s);
-			String elenco = String.join( "\n", elencoProp.get(i));
-			txtPropGiocatori[i].setText(elenco);
+			String elenco = String.join("\n", elencoProp.get(i));
+			txtPropGiocatori.get(i).setText(elenco);
 		}
 	}
 
@@ -1218,6 +1228,11 @@ public class MonopolyGUI extends JLayeredPane {
 			caselle[0].setComponentZOrder(pedine[i], 0);
 		}
 	}	
+	
+	public void rimuoviPedina(int posPedina, int pedina) {
+		caselle[posPedina].remove(pedine[pedina]);
+		frame.repaint();
+	}
 
 	public void muoviPedina(int partenza, int arrivo, int pedina) {
 

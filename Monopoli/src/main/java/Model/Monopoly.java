@@ -146,13 +146,13 @@ public class Monopoly {
 		if(print.getDecisioneBancarotta()) {
 
 			// Gestione proprietà del giocatore in bancarotta
-			for(Proprieta p: giCorrente.getListaProprieta())
+			for(Proprieta p: giCorrente.getListaProprieta()) {
 				p.setProprietario(null);
+				p.setPosseduta(false);
+			}
+			giCorrente.getListaProprieta().clear();
 
 			// Set prossimo giocatore			
-			/*int nextIndex = (players.indexOf(giCorrente)) % players.size(); // Indice del giocatore successivo a quello corrente
-			players.remove(giCorrente);
-			giCorrente = players.get(nextIndex);*/
 			Player giTemp = giCorrente;
 			if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
 				
@@ -171,8 +171,6 @@ public class Monopoly {
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
 		}
-		for(Player p : players)
-			print.stampa(p.getName());
 		aggiornaVisualizzazioneInfo();
 	}
 	
@@ -426,30 +424,11 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	/*public void stampaDati() {
-		for(Player p: players) {
-			print.stampa("id=" + p.getId() + ", nome=" +p.getName() + ", saldo=" + p.getWallet() + ", posizione=" + p.getLocation());
-			if(p.getInPrigione()) {
-				print.stampa("è in galera");
-			}
-			else {
-				print.stampa("non è in galera");
-			}
-			if(p.haUscitaGratis()) {
-				print.stampa("ha carta uscita di prigione");
-			}
-			ArrayList<Proprieta> proprieta = p.getListaProprieta();
-			for(Proprieta prop: proprieta) {
-				print.stampa(prop.getNome()+ " ");
-			}
-		}
-	}*/
-	
 	public void aggiornaVisualizzazioneInfo() {
 		//Aggiornamento nel pannello delle info dei giocatori (saldo)
-		int[] valoriSaldo = new int[getNumGiocatori()];
-		for(int i = 0; i < getNumGiocatori(); i++) 
-			valoriSaldo[i] = players.get(i).getWallet();
+		ArrayList<Integer> valoriSaldo = new ArrayList<>();
+		for(Player p: players) 
+			valoriSaldo.add(p.getWallet());
 		print.aggiornaVisSaldoGiocatori(valoriSaldo, getGiocatoriString()); // Aggiorna la visualizzazione del saldo dei giocatori
 		
 		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
@@ -639,7 +618,6 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	 
-
 	private void setProssimoGiocatore() {
 		
 		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {

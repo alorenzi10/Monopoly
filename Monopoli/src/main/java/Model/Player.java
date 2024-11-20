@@ -23,7 +23,6 @@ public class Player {
     	this.location = 0;
     	this.listaProprieta=new ArrayList<>();
     	this.carte=new ArrayList<>();
-    	//this.listaPropString = new ArrayList<>();
     }
     		
     public boolean controlloFondi(int totale) {

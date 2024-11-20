@@ -243,9 +243,9 @@ public class MonopolyController {
 			monopolyGUI.setDecisioneBancarotta();
 			monopolyGUI.rimuoviAcquistoAsta();
 			monopolyGUI.stampa("Sei andato in bancarotta");
+			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getGiCorrente().getId());
 			monopoly.setBancarotta();
-			//monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
-			monopoly.aggiornaVisualizzazioneInfo();
+			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}

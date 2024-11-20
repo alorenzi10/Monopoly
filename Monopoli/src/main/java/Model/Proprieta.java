@@ -21,6 +21,10 @@ public class Proprieta extends Casella {
 	public boolean posseduta() {
 		return isOwned;
 	}
+	
+	public void setPosseduta(boolean state) {
+		isOwned = state;
+	}
 
 	public Player getPossessore() {
 		return possessore;
