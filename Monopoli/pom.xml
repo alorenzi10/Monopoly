@@ -43,8 +43,9 @@
     <dependency>
       <groupId>org.xerial</groupId>
       <artifactId>sqlite-jdbc</artifactId>
-      <version>3.43.2.2</version>
+      <version>3.47.0.0</version>
     </dependency>
+    
   </dependencies>
 
   <build>

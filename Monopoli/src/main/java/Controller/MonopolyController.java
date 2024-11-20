@@ -39,6 +39,9 @@ public class MonopolyController {
 		monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
 		monopolyGUI.addBtnProprieta(new BtnProprieta());
 		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
+		
+		monopolyGUI.addBtnSalva(new BtnSalva());
+		monopolyGUI.addBtnEsci(new BtnEsci());
 
 		monopolyGUI.addBtnAcquista(new BtnAcquista());
 		monopolyGUI.addBtnAsta(new BtnAsta());
@@ -216,6 +219,24 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopoly.setFineTurno();
+		}
+	}
+	
+	private class BtnSalva implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	
+	private class BtnEsci implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			frame.remove(monopolyGUI.getPanelScelteTurno());
+			frame.remove(monopolyGUI);
+			new MenuController(frame);
+			
 		}
 	}
 
