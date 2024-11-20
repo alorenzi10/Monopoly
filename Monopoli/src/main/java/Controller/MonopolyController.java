@@ -1,19 +1,21 @@
 package Controller;
 
-import Model.Monopoly;
-import View.MonopolyGUI;
-import View.SchermataDiGioco;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JScrollPane;
+import Model.Monopoly;
+import Model.Proprieta;
+import View.MonopolyGUI;
+import View.SchermataDiGioco;
 
 public class MonopolyController {
 
 	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
+	String index;
+	String[] offerte, richieste;
+	int contaOfferte, contaRichieste;
 	public MonopolyController(SchermataDiGioco frame) {
 
 		MonopolyController.frame = frame;
@@ -21,6 +23,7 @@ public class MonopolyController {
 		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0,  1920, 1080); 
 		frame.add(monopolyGUI);
+		monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 		frame.revalidate();
 		frame.repaint();
 
@@ -31,6 +34,9 @@ public class MonopolyController {
 		monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
 
 		monopolyGUI.addBtnScambi(new BtnScambi());
+		monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
+		monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
+		monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
 		monopolyGUI.addBtnProprieta(new BtnProprieta());
 		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
 
@@ -38,8 +44,11 @@ public class MonopolyController {
 		monopolyGUI.addBtnAsta(new BtnAsta());
 		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
 		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
-		monopolyGUI.addBtnMostraProprietaGiocatori(new BtnMostraProprietaGiocatori());
-
+		
+		monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
+		
+		monopolyGUI.addBtnNomeGiocatoreScambi(new BtnNomeGiocatoreScambi());
+		
 		monopolyGUI.addBtn1(new Btn1());
 		monopolyGUI.addBtn5(new Btn5());
 		monopolyGUI.addBtn10(new Btn10());
@@ -52,9 +61,9 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int arrivo, partenza;
-			partenza=monopoly.getGiCorrente().getLocation();
+			partenza = monopoly.getGiCorrente().getLocation();
 			monopoly.tiraDadi();
-			arrivo=monopoly.getGiCorrente().getLocation();
+			arrivo = monopoly.getGiCorrente().getLocation();
 			monopolyGUI.muoviPedina(partenza, arrivo, monopoly.getGiCorrente().getId() );
 		}
 	}
@@ -78,9 +87,128 @@ public class MonopolyController {
 
 	private class BtnScambi implements ActionListener{
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			//monopolyGUI.mostraScambi();
+		public void actionPerformed(ActionEvent e) {	
+			monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
 			monopoly.aggiornaVisualizzazioneInfo();
+		}
+	}
+	
+	public class BtnNomeGiocatoreScambi implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+			index=(e.getActionCommand());
+			
+			monopolyGUI.getPanelGestioneScambi().removeAll();
+			monopolyGUI.contrattazioneScambi();
+			
+			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente(),true);
+			
+			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(),false);
+			
+			offerte=new String[40];
+			richieste=new String[40];
+			contaOfferte=0;
+			contaRichieste=0;
+		}
+	}
+	
+	public class BtnProprietaOfferte implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+			
+			offerte[contaOfferte]=(e.getActionCommand());
+			monopolyGUI.getBottonePropOfferte(e.getActionCommand()).setEnabled(false);
+			contaOfferte++;
+		}
+	}
+	
+	public class BtnProprietaRichieste implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+			
+			richieste[contaRichieste]=(e.getActionCommand());
+			monopolyGUI.getBottonePropRichieste(e.getActionCommand()).setEnabled(false);
+			contaRichieste++; 
+		}
+	}
+	
+	private class BtnAccettaOfferta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {	//da sposare nel model mi sa
+			// Recupero i dati dalla GUI
+			int denaroOfferto = 0;
+			try {
+				denaroOfferto = Integer.parseInt(monopolyGUI.getDenaroOfferto()); //controllo anche se negativi o fuori limite int?
+			}catch (NumberFormatException exe) {
+				
+		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro");
+		    	annullaScambio();
+		    	return;
+			}
+			
+			int denaroRicevuto = 0;
+			try {
+				denaroRicevuto = Integer.parseInt(monopolyGUI.getDenaroRicevuto());
+			}catch (NumberFormatException exe) {
+				annullaScambio();
+		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro");
+		    	return;
+			}
+			
+		    Proprieta[] propOff = new Proprieta[40];
+		    for(int i=0; i<40; i++) {
+		    	if(offerte[i]!=null) {
+		    		propOff[i] = monopoly.getCorrispondenzaProprieta(offerte[i], monopoly.getGiCorrente());
+		    		
+		    	}
+		    }
+		    
+		    Proprieta[] propRic = new Proprieta[40];
+		    for(int i=0; i<40; i++) {
+		    	if(richieste[i]!=null) {
+		    		propRic[i] = monopoly.getCorrispondenzaProprieta(richieste[i], monopoly.getCorrispondenzaPlayer(index));
+		    	}
+		    }
+
+		    if(monopoly.getGiCorrente().controlloFondi(denaroOfferto) &&  monopoly.getCorrispondenzaPlayer(index).controlloFondi(denaroRicevuto)) {
+		    	monopoly.getGiCorrente().doTransaction(-denaroOfferto);
+		    	monopoly.getGiCorrente().doTransaction(denaroRicevuto);
+		    	monopoly.getCorrispondenzaPlayer(index).doTransaction(denaroOfferto);
+		    	monopoly.getCorrispondenzaPlayer(index).doTransaction(-denaroRicevuto);
+		    	for(int i=0; i<40; i++) {
+		    		if(propRic[i]!=null) {
+		    			monopoly.getCorrispondenzaPlayer(index).rimuoviProprieta(propRic[i]);
+		    			monopoly.getGiCorrente().aggiungiProprieta(propRic[i]);
+		    		}
+		    	}
+		    	for(int i=0; i<40; i++) {
+		    		if(propOff[i]!=null) {
+		    			monopoly.getGiCorrente().rimuoviProprieta(propOff[i]);
+		    			monopoly.getCorrispondenzaPlayer(index).aggiungiProprieta(propOff[i]);
+		    		}
+		    	}
+		    	monopolyGUI.stampa("Scambio andato a buon fine");
+		    	monopoly.aggiornaVisualizzazioneInfo();
+		    	annullaScambio();
+		    }else {
+		    	monopolyGUI.stampa("Fondi insufficenti per questo scambio");
+		    	annullaScambio();
+		    	return;
+		    }
+		}
+	}
+	
+	private void annullaScambio() {
+		monopolyGUI.getPanelSfondo().remove(monopolyGUI.getPanelChiusuraAffare());
+		monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
+		frame.revalidate();
+		frame.repaint();
+	}
+	
+	private class BtnAnnullaScambi implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+			annullaScambio();
 		}
 	}
 
@@ -112,10 +240,16 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			/**/monopolyGUI.stampa("1");
+			monopolyGUI.setDecisioneBancarotta();
+			/**/monopolyGUI.stampa("2");
 			monopolyGUI.rimuoviAcquistoAsta();
-		
-			
+			/**/monopolyGUI.stampa("3");
+			monopoly.setBancarotta();		
+			/**/monopolyGUI.stampa("4");
 			monopoly.aggiornaVisualizzazioneInfo();
+			/**/monopolyGUI.stampa("sei andato in cncarotta");
+			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}
 
@@ -133,6 +267,8 @@ public class MonopolyController {
 
 			monopoly.uscitaGratis();
 			monopolyGUI.attivaUscitaConCarta(false);
+			monopolyGUI.attivaUscitaConCauzione(false);
+			
 		}
 	}
 	private class BtnPagaCauzione implements ActionListener{
@@ -220,11 +356,6 @@ public class MonopolyController {
 		}
 	}
 
-	private class BtnMostraProprietaGiocatori implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-		}
-	}
+	
 
 }

@@ -23,6 +23,7 @@ public class Player {
     	this.location = 0;
     	this.listaProprieta=new ArrayList<>();
     	this.carte=new ArrayList<>();
+    	//this.listaPropString = new ArrayList<>();
     }
     		
     public boolean controlloFondi(int totale) {
@@ -63,6 +64,10 @@ public class Player {
 	public void aggiungiProprieta(Proprieta proprieta) {
 		proprieta.setProprietario(this);
 		listaProprieta.add(proprieta);
+	}
+	
+	public void rimuoviProprieta(Proprieta proprieta) {
+		listaProprieta.remove(proprieta);
 	}
 	
 	public boolean possessoreGruppo(Cantiere cantiere) {
@@ -125,6 +130,7 @@ public class Player {
 	public boolean getInPrigione() {
 		return inPrigione;
 	}
+	
 	public int getTentativi() {
 		return tentativiUscitaPrigione;
 	}
@@ -151,6 +157,14 @@ public class Player {
 	    return str.toString();
 	}
 
+	public ArrayList<String> getListaPropString(){
+		
+	    ArrayList<String> listaPropString = new ArrayList<>();
+		for (Proprieta prop : getListaProprieta()) 
+	        listaPropString.add(prop.getNome());
+	    return listaPropString;
+	}
+	
     public int getNumCasePossedute() {
 		int numCase = 0;
 		for (Proprieta p : listaProprieta) {
@@ -170,7 +184,6 @@ public class Player {
 		}
 		return numAlberghi;
 	}
-
 
 	public int getNumStazioniPossedute() {
 		int nStazioni = 0;

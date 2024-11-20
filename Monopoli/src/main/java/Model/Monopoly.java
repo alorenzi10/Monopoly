@@ -27,20 +27,18 @@ public class Monopoly {
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
-    	
+
     	this.print = monopolyGUI;
     	this.numero_giocatori = numero_giocatori;
     	players = new ArrayList<Player>();
-    	
+
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
-    		
-    		
     	}
     	Random random = new Random();
-    	giCorrente=players.get(random.nextInt(numero_giocatori));
-    	print.stampa("tocca a "+giCorrente.getName());
+    	giCorrente = players.get(random.nextInt(numero_giocatori));
+    	print.stampa("tocca a " + giCorrente.getName());
     	dice = new Dadi();
     	tabellone = new Tabellone(dice);
     	mazzoProbabilita = new MazzoProbabilita();
@@ -48,7 +46,7 @@ public class Monopoly {
     	gameOver = false;
     	inizioTurno();
     }
-		
+
 	public void inizioTurno() { 
 		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
 			print.attivaUscitaConCarta(true);
@@ -76,6 +74,7 @@ public class Monopoly {
 				if(giCorrente.getInPrigione() == false) {
 					
 					giCorrente.muovi(dice.getTotal());
+					//giCorrente.muovi(1);
 					controlloPassaggioVia();
 					arrivoCasella();
 					if (dice.isDouble() == true) {
@@ -123,39 +122,60 @@ public class Monopoly {
 	}
 	
 	// da sistemare
-	public void scambia(Proprieta proprietaOfferta, Player ricevente, int denaro) {
-        // Controlla se il ricevente ha abbastanza denaro per pagare l'offerente
-        if (ricevente.getWallet() < denaro) {
-            print.stampa("Saldo insufficiente per completare lo scambio.");
-            return;
+	public void scambia(Player ricevente, Proprieta proprietaOfferta, Proprieta proprietaRicevuta, int denaroOfferto, int denaroRicevuto) {
+            
+        if(proprietaOfferta != null) {proprietaOfferta.setProprietario(ricevente);}
+        	
+        if(proprietaRicevuta != null) {proprietaRicevuta.setProprietario(giCorrente);}
+        
+        if(denaroOfferto > 0) {
+        	if(giCorrente.getWallet() >= denaroOfferto) {
+        		giCorrente.doTransaction(-denaroOfferto);
+        		ricevente.doTransaction(denaroOfferto);
+        	}else {print.stampa("Saldo insufficiente per completare lo scambio."); return;}
         }
         
-        // Effettua lo scambio
-        giCorrente.doTransaction(denaro);
-        ricevente.doTransaction(-denaro);
-        
-        // Trasferisci la proprietà
-        giCorrente.getListaProprieta().remove(proprietaOfferta);
-        ricevente.aggiungiProprieta(proprietaOfferta);
-        proprietaOfferta.setProprietario(ricevente);
+        if(denaroRicevuto > 0) {
+        	if(ricevente.getWallet() >= denaroRicevuto) {
+        		giCorrente.doTransaction(+denaroRicevuto);
+        		ricevente.doTransaction(-denaroRicevuto);
+        	}else {print.stampa("Saldo insufficiente per completare lo scambio."); return;}
+        }
         
         aggiornaVisualizzazioneInfo();
 	}
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
+		/**/print.stampa("bancarotta 1");
 		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
+		/**/print.stampa("bancarotta 2");
 		if(print.getDecisioneBancarotta()) {
-			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
+			/**/print.stampa("bancarotta 2.1");
+			// Gestione proprietà del giocatore in bancarotta
+			for(Proprieta p: giCorrente.getListaProprieta())
+				{p.setProprietario(null); /**/print.stampa("bancarotta 2.1.1");}
+			
 			players.remove(giCorrente);
+			if(players.indexOf(giCorrente) + 1 < players.size()) {
+				giCorrente = players.get(players.indexOf(giCorrente) + 1);
+			}else {
+					giCorrente = players.get(0);
+				}
+			
+			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
+			
 			giCorrente = giocTemp;
+			/**/print.stampa("bancarotta 2.2");
 			inizioTurno();
+			
+			/**/print.stampa("bancarotta 2.3");
 			// Controllo eventuale vittoria
 			if(players.size() == 1) {
 				gameOver = true;
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
-		} else aggiornaVisualizzazioneInfo();
+		} else {aggiornaVisualizzazioneInfo(); /**/print.stampa("bancarotta 3");}
 	}
 	
 	public void uscitaGratis() {
@@ -215,7 +235,7 @@ public class Monopoly {
 				mazzoImprevisti = new MazzoImprevisti();
 			}
 			Carta carta = mazzoImprevisti.get();
-			print.stampa("Imprevisto");
+			print.stampa("Sei atterrato su un imprevisto");
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
 		} else if (casella instanceof Probabilita) {
@@ -224,7 +244,7 @@ public class Monopoly {
 				mazzoProbabilita = new MazzoProbabilita();
 			}
 			Carta carta = mazzoProbabilita.get();
-			print.stampa("Probabilità");
+			print.stampa("Sei atterrato su una probabilità");
 			print.stampa(carta.getMessaggio());
 			azioneCarta(carta);
 
@@ -242,7 +262,7 @@ public class Monopoly {
 
 				int totale = ((Proprieta) casella).getAffitto(); //da fare moltiplicatore x gruppo
 				Player possessore = ((Proprieta) casella).getPossessore();
-				print.stampa("Dai " + totale + " a " + possessore.getName() );
+				print.stampa("Dai " + totale + "€ a " + possessore.getName() );
 
 				if(giCorrente.controlloFondi(totale)) {
 					giCorrente.doTransaction(-totale);
@@ -253,7 +273,7 @@ public class Monopoly {
 			} 
 			else if(((Proprieta) casella).posseduta() && ((Proprieta) casella).getPossessore().equals(giCorrente)){
 
-				print.stampa("Il giocatore: " + giCorrente.getName() + " è atterrato sulla sua proprietà" );
+				print.stampa("Il giocatore " + giCorrente.getName() + " è atterrato sulla sua proprietà" );
 				return;
 			}
 			else if(((Proprieta) casella).posseduta() == false) {
@@ -440,7 +460,7 @@ public class Monopoly {
 		int[] valoriSaldo = new int[getNumGiocatori()];
 		for(int i = 0; i < getNumGiocatori(); i++) 
 			valoriSaldo[i] = getPlayers().get(i).getWallet();
-		print.aggiornaVisSaldoGiocatori(valoriSaldo); // Aggiorna la visualizzazione del saldo dei giocatori
+		print.aggiornaVisSaldoGiocatori(valoriSaldo, getGiocatoriString()); // Aggiorna la visualizzazione del saldo dei giocatori
 		
 		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
 		ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
@@ -455,7 +475,7 @@ public class Monopoly {
 				}
 			elencoProp.add(proprietaGiocatore);
 		}
-		print.aggiornaVisProprietaGiocatori(elencoProp); // Aggiorna la visualizzazione delle proprietà dei giocatori
+		print.aggiornaVisProprietaGiocatori(elencoProp, getGiocatoriString()); // Aggiorna la visualizzazione delle proprietà dei giocatori
 	}
 	
 	public void iniziaAsta() {
@@ -470,7 +490,7 @@ public class Monopoly {
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
 		giCorrente.aggiungiProprieta(proprieta);
-		print.stampa(giCorrente.getName() + " ha acquistato "+ tabellone.getSquare(giCorrente.getLocation()).getNome()+
+		print.stampa(giCorrente.getName() + " ha acquistato " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 				" pagando: " + proprieta.getCosto() + "€." );
 		}
 		else {
@@ -625,7 +645,6 @@ public class Monopoly {
 					giCorrente.doTransaction(-prop.getCostoDisipoteca());		
 					 print.stampa(prop.getNome()+" disipotecata ");
 				}
-			
 		} else { print.stampa("Non puoi disipotecare proprietà altrui o non possedute"); }
 		aggiornaVisualizzazioneInfo();
 	}
@@ -633,7 +652,7 @@ public class Monopoly {
 
 	private void setProssimoGiocatore() {
 		
-		if(players.indexOf(giCorrente) + 1<numero_giocatori) {
+		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
 			giCorrente = players.get(players.indexOf(giCorrente) + 1);
 		}
 		else {
@@ -649,12 +668,41 @@ public class Monopoly {
 	public Player getGiCorrente() {
 		return giCorrente;
 	}
-	public int getNumGiCorrente() {
-		return giCorrente.getId();
+	
+	public ArrayList<String> getListaGiocatoriScambi(){
+		ArrayList<Player> acquirenti = new ArrayList<>(getPlayers());
+		acquirenti.remove(giCorrente);
+		ArrayList<String> acquirentiString = new ArrayList<>();
+		for(Player p: acquirenti)
+			acquirentiString.add(p.getName());
+		return acquirentiString;
 	}
 	
 	public ArrayList<Player> getPlayers(){
 		return players;
+	}
+	
+	public Player getCorrispondenzaPlayer(String nome) {
+		for(Player p: getPlayers()){
+			if(p.getName().equals(nome)){
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public Proprieta getCorrispondenzaProprieta(String nomeProp, Player nomeGioc) {
+		for(Proprieta p: nomeGioc.getListaProprieta())
+			if(p.getNome().equals(nomeProp))
+				return p;				
+		return null;
+	}
+	
+	public ArrayList<String> getGiocatoriString(){
+		ArrayList<String> stringheNomiGiocatori = new ArrayList<>();
+		for(Player p: getPlayers())
+			stringheNomiGiocatori.add(p.getName());
+		return stringheNomiGiocatori;
 	}
 	
 	public int getNumGiocatori() {
