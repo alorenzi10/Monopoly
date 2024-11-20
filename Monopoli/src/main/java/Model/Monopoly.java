@@ -1,9 +1,6 @@
 package Model;
 
 import java.util.*;
-
-import javax.print.attribute.standard.PrinterMakeAndModel;
-
 import View.*;
 
 public class Monopoly {
@@ -38,7 +35,6 @@ public class Monopoly {
     	}
     	Random random = new Random();
     	giCorrente = players.get(random.nextInt(numero_giocatori));
-    	print.stampa("tocca a " + giCorrente.getName());
     	dice = new Dadi();
     	tabellone = new Tabellone(dice);
     	mazzoProbabilita = new MazzoProbabilita();
@@ -63,6 +59,7 @@ public class Monopoly {
 		fineTurno = false;
 		tiroDadiFatto = false;
 		nDadiDoppi = 0;
+		print.stampa("tocca a " + giCorrente.getName());
 	}
 
 	public void tiraDadi() {
@@ -108,10 +105,8 @@ public class Monopoly {
 							giCorrente.muovi(dice.getTotal());
 							
 							arrivoCasella();
-							
 						}
 					}
-					
 				}
 			}
 		} 
@@ -137,7 +132,7 @@ public class Monopoly {
         
         if(denaroRicevuto > 0) {
         	if(ricevente.getWallet() >= denaroRicevuto) {
-        		giCorrente.doTransaction(+denaroRicevuto);
+        		giCorrente.doTransaction(denaroRicevuto);
         		ricevente.doTransaction(-denaroRicevuto);
         	}else {print.stampa("Saldo insufficiente per completare lo scambio."); return;}
         }
@@ -147,47 +142,44 @@ public class Monopoly {
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
-		/**/print.stampa("bancarotta 1");
-		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
-		/**/print.stampa("bancarotta 2");
+		print.confermaBancarotta();// Vedo che viene eseguito perche proviene dal event listener del button
 		if(print.getDecisioneBancarotta()) {
-			/**/print.stampa("bancarotta 2.1");
+
 			// Gestione proprietà del giocatore in bancarotta
 			for(Proprieta p: giCorrente.getListaProprieta())
-				{p.setProprietario(null); /**/print.stampa("bancarotta 2.1.1");}
-			
+				p.setProprietario(null);
+
+			// Set prossimo giocatore			
+			/*int nextIndex = (players.indexOf(giCorrente)) % players.size(); // Indice del giocatore successivo a quello corrente
 			players.remove(giCorrente);
-			if(players.indexOf(giCorrente) + 1 < players.size()) {
+			giCorrente = players.get(nextIndex);*/
+			Player giTemp = giCorrente;
+			if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
+				
 				giCorrente = players.get(players.indexOf(giCorrente) + 1);
-			}else {
-					giCorrente = players.get(0);
-				}
-			
-			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
-			
-			giCorrente = giocTemp;
-			/**/print.stampa("bancarotta 2.2");
+			}
+			else {
+				giCorrente = players.get(0);
+			}
+			players.remove(giTemp);
+
 			inizioTurno();
-			
-			/**/print.stampa("bancarotta 2.3");
+
 			// Controllo eventuale vittoria
 			if(players.size() == 1) {
 				gameOver = true;
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
-		} else {aggiornaVisualizzazioneInfo(); /**/print.stampa("bancarotta 3");}
+		}
+		for(Player p : players)
+			print.stampa(p.getName());
+		aggiornaVisualizzazioneInfo();
 	}
 	
 	public void uscitaGratis() {
 		if (giCorrente.getInPrigione()) {
 			if (giCorrente.haUscitaGratis()) {
-				Carta c = giCorrente.getCarta(); //che carta?
-				/*if (c.getTipo() == MazzoImprevisti.IMPREVISTI) { //rimuoverei e una volta finito il mazzo lo ricreiamo
-					mazzoImprevisti.add(c);
-				}
-				else {
-					mazzoProbabilita.add(c);
-				} */
+				giCorrente.getCarta();
 				giCorrente.liberaDaPrigione();
 			} else {print.stampa("Non hai carte uscite gratis di prigione!");}
 		}
@@ -209,10 +201,8 @@ public class Monopoly {
 	}
 	
 	public void setFineTurno() { //da rivedere
-		if (tiroDadiFatto) {
+		if (tiroDadiFatto) 
 			setProssimoGiocatore();
-			print.stampa("tocca a " + giCorrente.getName());
-		}
 		else{
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
 		}
@@ -459,12 +449,12 @@ public class Monopoly {
 		//Aggiornamento nel pannello delle info dei giocatori (saldo)
 		int[] valoriSaldo = new int[getNumGiocatori()];
 		for(int i = 0; i < getNumGiocatori(); i++) 
-			valoriSaldo[i] = getPlayers().get(i).getWallet();
+			valoriSaldo[i] = players.get(i).getWallet();
 		print.aggiornaVisSaldoGiocatori(valoriSaldo, getGiocatoriString()); // Aggiorna la visualizzazione del saldo dei giocatori
 		
 		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
 		ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
-		for(Player player: getPlayers()) {
+		for(Player player: players) {
 			ArrayList<String> proprietaGiocatore = new ArrayList<>();
 			for (Proprieta prop: player.getListaProprieta())
 				if(prop.isIpotecata()) {
@@ -700,13 +690,13 @@ public class Monopoly {
 	
 	public ArrayList<String> getGiocatoriString(){
 		ArrayList<String> stringheNomiGiocatori = new ArrayList<>();
-		for(Player p: getPlayers())
+		for(Player p: players)
 			stringheNomiGiocatori.add(p.getName());
 		return stringheNomiGiocatori;
 	}
 	
 	public int getNumGiocatori() {
-		return getPlayers().size();
+		return players.size();
 	}
 
 	public Tabellone getTabellone() {

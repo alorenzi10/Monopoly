@@ -21,7 +21,7 @@ public class MonopolyController {
 		MonopolyController.frame = frame;
 		monopolyGUI = new MonopolyGUI(frame);
 		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
-		monopolyGUI.setBounds(0, 0,  1920, 1080); 
+		monopolyGUI.setBounds(0, 0, 1920, 1080); 
 		frame.add(monopolyGUI);
 		monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 		frame.revalidate();
@@ -240,15 +240,12 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			/**/monopolyGUI.stampa("1");
 			monopolyGUI.setDecisioneBancarotta();
-			/**/monopolyGUI.stampa("2");
 			monopolyGUI.rimuoviAcquistoAsta();
-			/**/monopolyGUI.stampa("3");
-			monopoly.setBancarotta();		
-			/**/monopolyGUI.stampa("4");
+			monopolyGUI.stampa("Sei andato in bancarotta");
+			monopoly.setBancarotta();
+			//monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopoly.aggiornaVisualizzazioneInfo();
-			/**/monopolyGUI.stampa("sei andato in cncarotta");
 			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}

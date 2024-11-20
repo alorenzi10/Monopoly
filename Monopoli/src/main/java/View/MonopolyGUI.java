@@ -810,16 +810,10 @@ public class MonopolyGUI extends JLayeredPane {
 
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
 
-		/*//Bottone
-		btnMostraProprieta = new JButton("Aggiorna le info dei giocatori");
-		btnMostraProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
-		btnMostraProprieta.setBounds(974, 30, 342, 42);
-		add(btnMostraProprieta);*/
-
 		panel_prop_pedina = new JPanel[numGiocatori];
 		lblSaldoGiocatori = new JLabel[numGiocatori];
 		txtPropGiocatori = new JTextArea[numGiocatori];
-		
+
 		for (String s: giocatori) {
 
 			JPanel panelGiocatore = new JPanel();
@@ -838,12 +832,12 @@ public class MonopolyGUI extends JLayeredPane {
 			lblSaldoGiocatori[i].setFont(new Font("Arial", Font.PLAIN, 16));
 			lblSaldoGiocatori[i].setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblSaldoGiocatori[i]);
-			
+
 			// Panel per la suddivisione dello spazio tra la lista delle proprietà e l'immagine della pedina
 			panel_prop_pedina[i] = new JPanel();
 			panel_prop_pedina[i].setLayout(new BoxLayout(panel_prop_pedina[i], BoxLayout.X_AXIS));
 			panel_prop_pedina[i].setMaximumSize(new Dimension(250, 200));
-			
+
 			//textArea per l'elenco delle proprietà dei giocatori
 			txtPropGiocatori[i] = new JTextArea();
 			txtPropGiocatori[i].setEditable(false);
@@ -852,7 +846,7 @@ public class MonopolyGUI extends JLayeredPane {
 			// Pannello scorrevole per l'elenco delle proprietà
 			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori[i]);
 			panel_prop_pedina[i].add(scrollProp);
-			
+
 			// Label per visualizzare la propria pedina
 			JLabel immaginePedina = new JLabel(pedine[i].getIcon());// Creo una copia di pedine[i] per l'icona
 			panel_prop_pedina[i].add(immaginePedina);
@@ -861,7 +855,7 @@ public class MonopolyGUI extends JLayeredPane {
 			panel_info_giocatori.add(panelGiocatore);
 		}
 	}
-	
+
 	public void aggiornaVisSaldoGiocatori(int[] valoriSaldo, ArrayList<String> giocatori) {
 		for(String s: giocatori) {
 			int i = giocatori.indexOf(s);
@@ -876,6 +870,7 @@ public class MonopolyGUI extends JLayeredPane {
 			txtPropGiocatori[i].setText(elenco);
 		}
 	}
+
 
 	public void attivaUscitaConCarta(boolean decisione){
 		btnUsaCartaEsciDiPrigione.setEnabled(decisione);
