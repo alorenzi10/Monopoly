@@ -50,12 +50,10 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
-	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta, btnAnnullaScambi, /*scambi*/btnAccettaOfferta, btnNomeProp;
+	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta, btnAnnullaScambi, /*scambi*/btnAccettaOfferta;
 	public JButton btnRitirati; //asta
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
-	
-	private JPanel panel_proprieta_offerta, panel_proprieta_offerta_1;
 
 	// Per scambi
 	private String giocatoreRicevente;
@@ -902,6 +900,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public boolean getDecisioneBancarotta() {
 		return decisioneBancarotta;
 	}
+	public void setDecisioneBancarotta() {
+		decisioneBancarotta = true;
+	}
 
 	public void confermaBancarotta() {
 
@@ -1047,7 +1048,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_chiusura_affare.add(panel_proprieta_offerta);
 		panel_proprieta_offerta.setLayout(null);
 		
-		textFieldDenaroOfferto = new JTextField();
+		textFieldDenaroOfferto = new JTextField("0");
 		textFieldDenaroOfferto.setBounds(64, 446, 212, 36);
 		panel_proprieta_offerta.add(textFieldDenaroOfferto);
 		textFieldDenaroOfferto.setColumns(10);
@@ -1092,7 +1093,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_proprieta_offerta_1.setBounds(372, 130, 340, 497);
 		panel_chiusura_affare.add(panel_proprieta_offerta_1);
 		
-		textFieldDenaroRicevuto = new JTextField();
+		textFieldDenaroRicevuto = new JTextField("0");
 		textFieldDenaroRicevuto.setColumns(10);
 		textFieldDenaroRicevuto.setBounds(64, 446, 212, 36);
 		panel_proprieta_offerta_1.add(textFieldDenaroRicevuto);
@@ -1134,39 +1135,40 @@ public class MonopolyGUI extends JLayeredPane {
 	
 	// Per gli scambi
 	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello, boolean offerta) {
-		
+
 		JPanel panelInterno = new JPanel();
 		panelInterno.setLayout(null);
 		int y = 10; 
 		int i=0;
-		//panelInterno.setBounds(13, 60, 320, 288);
 		for(String s: proprietaPossedute) {
 			if(i<proprietaPossedute.size()) {
-			if(offerta) {
-				btnProprietaOfferte[i].setText(s);
-				btnProprietaOfferte[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-				btnProprietaOfferte[i].setBounds(40, y, 250, 40);
-				btnProprietaOfferte[i].setActionCommand(s);
-				panelInterno.add(btnProprietaOfferte[i]);
-			}else {
-				
-				btnProprietaRichieste[i].setText(s);
-				btnProprietaRichieste[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-				btnProprietaRichieste[i].setBounds(40, y, 250, 40);
-				btnProprietaRichieste[i].setActionCommand(s);
-				panelInterno.add(btnProprietaRichieste[i]);
-			}
-	        y += 48;
-	        i++;
+				if(offerta) {
+					btnProprietaOfferte[i].setText(s);
+					btnProprietaOfferte[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+					btnProprietaOfferte[i].setBounds(40, y, 250, 40);
+					btnProprietaOfferte[i].setEnabled(true);
+					btnProprietaOfferte[i].setActionCommand(s);
+					panelInterno.add(btnProprietaOfferte[i]);
+				}else {
+
+					btnProprietaRichieste[i].setText(s);
+					btnProprietaRichieste[i].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+					btnProprietaRichieste[i].setBounds(40, y, 250, 40);
+					btnProprietaRichieste[i].setEnabled(true);
+					btnProprietaRichieste[i].setActionCommand(s);
+					panelInterno.add(btnProprietaRichieste[i]);
+				}
+				y += 48;
+				i++;
 			}
 		}
-		
+
 		panelInterno.setPreferredSize(new java.awt.Dimension(300, y + 10));
 		pannello.setViewportView(panelInterno);
 		pannello.revalidate();
 		pannello.repaint();
 	}
-	
+
 	public JButton getBottonePropOfferte(String command) {
 		for(int i=0; i<40; i++) {
 			if(btnProprietaOfferte[i].getActionCommand().equals(command)){

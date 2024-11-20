@@ -117,7 +117,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {	
 			
 			offerte[contaOfferte]=(e.getActionCommand());
-			monopolyGUI.getBottonePropOfferte(e.getActionCommand()).setVisible(false);
+			monopolyGUI.getBottonePropOfferte(e.getActionCommand()).setEnabled(false);
 			contaOfferte++;
 		}
 	}
@@ -127,7 +127,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {	
 			
 			richieste[contaRichieste]=(e.getActionCommand());
-			monopolyGUI.getBottonePropRichieste(e.getActionCommand()).setVisible(false);
+			monopolyGUI.getBottonePropRichieste(e.getActionCommand()).setEnabled(false);
 			contaRichieste++; 
 		}
 	}
@@ -136,26 +136,26 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {	//da sposare nel model mi sa
 			// Recupero i dati dalla GUI
-			int denaroOfferto=0;
+			int denaroOfferto = 0;
 			try {
-				denaroOfferto =Integer.parseInt (monopolyGUI.getDenaroOfferto()); //controllo anche se negativi o fuori limite int?
+				denaroOfferto = Integer.parseInt(monopolyGUI.getDenaroOfferto()); //controllo anche se negativi o fuori limite int?
 			}catch (NumberFormatException exe) {
 				
-		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro ");
+		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro");
 		    	annullaScambio();
 		    	return;
 			}
 			
-			int denaroRicevuto=0;
+			int denaroRicevuto = 0;
 			try {
-				denaroRicevuto =Integer.parseInt (monopolyGUI.getDenaroRicevuto());
+				denaroRicevuto = Integer.parseInt(monopolyGUI.getDenaroRicevuto());
 			}catch (NumberFormatException exe) {
 				annullaScambio();
-		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro ");
+		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro");
 		    	return;
 			}
 			
-		    Proprieta[] propOff=new Proprieta[40];
+		    Proprieta[] propOff = new Proprieta[40];
 		    for(int i=0; i<40; i++) {
 		    	if(offerte[i]!=null) {
 		    		propOff[i] = monopoly.getCorrispondenzaProprieta(offerte[i], monopoly.getGiCorrente());
@@ -163,14 +163,13 @@ public class MonopolyController {
 		    	}
 		    }
 		    
-		    
-		    Proprieta[] propRic=new Proprieta[40];
+		    Proprieta[] propRic = new Proprieta[40];
 		    for(int i=0; i<40; i++) {
 		    	if(richieste[i]!=null) {
-		    	propRic[i] = monopoly.getCorrispondenzaProprieta(richieste[i], monopoly.getCorrispondenzaPlayer(index));
+		    		propRic[i] = monopoly.getCorrispondenzaProprieta(richieste[i], monopoly.getCorrispondenzaPlayer(index));
 		    	}
 		    }
-		    
+
 		    if(monopoly.getGiCorrente().controlloFondi(denaroOfferto) &&  monopoly.getCorrispondenzaPlayer(index).controlloFondi(denaroRicevuto)) {
 		    	monopoly.getGiCorrente().doTransaction(-denaroOfferto);
 		    	monopoly.getGiCorrente().doTransaction(denaroRicevuto);
@@ -180,16 +179,12 @@ public class MonopolyController {
 		    		if(propRic[i]!=null) {
 		    			monopoly.getCorrispondenzaPlayer(index).rimuoviProprieta(propRic[i]);
 		    			monopoly.getGiCorrente().aggiungiProprieta(propRic[i]);
-		    			
-		    			
 		    		}
 		    	}
 		    	for(int i=0; i<40; i++) {
 		    		if(propOff[i]!=null) {
 		    			monopoly.getGiCorrente().rimuoviProprieta(propOff[i]);
 		    			monopoly.getCorrispondenzaPlayer(index).aggiungiProprieta(propOff[i]);
-		    			
-		    	
 		    		}
 		    	}
 		    	monopolyGUI.stampa("Scambio andato a buon fine");
@@ -200,7 +195,6 @@ public class MonopolyController {
 		    	annullaScambio();
 		    	return;
 		    }
-			
 		}
 	}
 	
@@ -246,10 +240,16 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			/**/monopolyGUI.stampa("1");
+			monopolyGUI.setDecisioneBancarotta();
+			/**/monopolyGUI.stampa("2");
 			monopolyGUI.rimuoviAcquistoAsta();
-		
-			
+			/**/monopolyGUI.stampa("3");
+			monopoly.setBancarotta();		
+			/**/monopolyGUI.stampa("4");
 			monopoly.aggiornaVisualizzazioneInfo();
+			/**/monopolyGUI.stampa("sei andato in cncarotta");
+			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}
 

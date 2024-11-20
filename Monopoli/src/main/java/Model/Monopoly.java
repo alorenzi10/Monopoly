@@ -25,19 +25,17 @@ public class Monopoly {
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
-    	
+
     	this.print = monopolyGUI;
     	this.numero_giocatori = numero_giocatori;
     	players = new ArrayList<Player>();
-    	
+
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
-    		
-    		
     	}
     	Random random = new Random();
-    	giCorrente=players.get(random.nextInt(numero_giocatori));
+    	giCorrente = players.get(random.nextInt(numero_giocatori));
     	print.stampa("tocca a " + giCorrente.getName());
     	dice = new Dadi();
     	tabellone = new Tabellone(dice);
@@ -46,7 +44,7 @@ public class Monopoly {
     	gameOver = false;
     	inizioTurno();
     }
-		
+
 	public void inizioTurno() { 
 		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
 			print.attivaUscitaConCarta(true);
@@ -147,18 +145,35 @@ public class Monopoly {
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
+		/**/print.stampa("bancarotta 1");
 		print.confermaBancarotta();//vedo che viene eseguito perche proviene dal event listener del button
+		/**/print.stampa("bancarotta 2");
 		if(print.getDecisioneBancarotta()) {
-			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
+			/**/print.stampa("bancarotta 2.1");
+			// Gestione proprietà del giocatore in bancarotta
+			for(Proprieta p: giCorrente.getListaProprieta())
+				{p.setProprietario(null); /**/print.stampa("bancarotta 2.1.1");}
+			
 			players.remove(giCorrente);
+			if(players.indexOf(giCorrente) + 1 < players.size()) {
+				giCorrente = players.get(players.indexOf(giCorrente) + 1);
+			}else {
+					giCorrente = players.get(0);
+				}
+			
+			Player giocTemp = players.get(players.indexOf(giCorrente) + 1); // giocTemp è il giocatore successivo a quello corrente
+			
 			giCorrente = giocTemp;
+			/**/print.stampa("bancarotta 2.2");
 			inizioTurno();
+			
+			/**/print.stampa("bancarotta 2.3");
 			// Controllo eventuale vittoria
 			if(players.size() == 1) {
 				gameOver = true;
 				print.stampa(players.get(0).getName() + " ha vinto!!");
 			}
-		} else aggiornaVisualizzazioneInfo();
+		} else {aggiornaVisualizzazioneInfo(); /**/print.stampa("bancarotta 3");}
 	}
 	
 	public void uscitaGratis() {
@@ -468,7 +483,7 @@ public class Monopoly {
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
 		giCorrente.aggiungiProprieta(proprieta);
-		print.stampa(giCorrente.getName() + " ha acquistato "+ tabellone.getSquare(giCorrente.getLocation()).getNome()+
+		print.stampa(giCorrente.getName() + " ha acquistato " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 				" pagando: " + proprieta.getCosto() + "€." );
 		}
 		else {
@@ -616,11 +631,12 @@ public class Monopoly {
 				}
 			}
 		} */
+	
 	 
 
 	private void setProssimoGiocatore() {
 		
-		if(players.indexOf(giCorrente) + 1<numero_giocatori) {
+		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
 			giCorrente = players.get(players.indexOf(giCorrente) + 1);
 		}
 		else {

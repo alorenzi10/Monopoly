@@ -11,7 +11,6 @@ public class Player {
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
-    //private ArrayList<String> listaPropString;
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
@@ -131,6 +130,7 @@ public class Player {
 	public boolean getInPrigione() {
 		return inPrigione;
 	}
+	
 	public int getTentativi() {
 		return tentativiUscitaPrigione;
 	}
