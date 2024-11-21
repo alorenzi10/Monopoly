@@ -68,7 +68,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JPanel panel_info_giocatori;
 
 	private boolean decisioneBancarotta;
-	public CaseAlberghiView case12;
+	public CaseAlberghiView case12;//Per la visualizzazione di case e hotel
 
 	public MonopolyGUI(SchermataDiGioco frame) {
 
@@ -78,7 +78,7 @@ public class MonopolyGUI extends JLayeredPane {
 		setLayout(null);
 		
 		
-		case12=new CaseAlberghiView();
+		case12=new CaseAlberghiView(); 
 		
 		for(int i=0; i<22; i++) {
 			JLabel prova=case12.getAlbergo(i);
@@ -90,6 +90,137 @@ public class MonopolyGUI extends JLayeredPane {
 			add(prova);
 		}
 
+		creazioneCaselle();
+
+		consoleTextArea = new JTextArea();
+		consoleTextArea.setEditable(false);
+		consoleTextArea.setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 25));
+
+		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
+		scrollPane.setBounds(760, 490, 770, 260);
+		add(scrollPane);
+
+		panel_scelte_turno = new JPanel();
+		panel_scelte_turno.setBounds(130, 130, 520, 520);
+		panel_scelte_turno.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
+		frame.getContentPane().add(panel_scelte_turno);
+		panel_scelte_turno.setLayout(null);
+
+		// Bottone tiro dadi
+		btnTiraDadi = new JButton("Tira i dadi");
+		btnTiraDadi.setBounds(40, 36, 200, 60);
+		btnTiraDadi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		try {
+			btnTiraDadi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/dice.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel_scelte_turno.add(btnTiraDadi);
+
+		// Bottone scambi
+		btnScambi = new JButton("Scambi");
+		btnScambi.setBounds(280, 36, 200, 60);
+		btnScambi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		try {
+			btnScambi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/exchange.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel_scelte_turno.add(btnScambi);
+
+		// Bottone proprietà
+		btnProprieta = new JButton("Proprietà");
+		btnProprieta.setBounds(40, 162, 200, 60);
+		btnProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		try {
+			btnProprieta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/properties.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel_scelte_turno.add(btnProprieta);
+
+		// Bottone dichiara bancarotta
+		btnDichiaraBancarotta = new JButton("Bancarotta");
+		btnDichiaraBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		btnDichiaraBancarotta.setBounds(280, 162, 200, 60);
+		try {
+			btnDichiaraBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel_scelte_turno.add(btnDichiaraBancarotta);
+
+		// Bottone fine turno
+		btnFineTurno = new JButton("Fine del turno");
+		btnFineTurno.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		btnFineTurno.setBounds(160, 437, 200, 60);
+		try {
+			btnFineTurno.setIcon(new ImageIcon(ImageIO.read(new File("./icons/stop.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		panel_scelte_turno.add(btnFineTurno);
+
+		JPanel panel_azioni_prigione = new JPanel();
+		panel_azioni_prigione.setBounds(10, 232, 500, 184);
+		panel_scelte_turno.add(panel_azioni_prigione);
+		panel_azioni_prigione.setLayout(null);
+
+		JLabel lblAzioniPrigione = new JLabel("Azioni prigione");
+		lblAzioniPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		lblAzioniPrigione.setBounds(184, 34, 131, 25);
+		panel_azioni_prigione.add(lblAzioniPrigione);
+
+		btnUsaCartaEsciDiPrigione = new JButton("Esci gratis di prigione");
+		btnUsaCartaEsciDiPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		btnUsaCartaEsciDiPrigione.setBounds(18, 85, 223, 60);
+		btnUsaCartaEsciDiPrigione.setEnabled(false);
+		panel_azioni_prigione.add(btnUsaCartaEsciDiPrigione);
+
+		btnPagaCauzione = new JButton("Paga cauzione (50€)");
+		btnPagaCauzione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
+		btnPagaCauzione.setBounds(259, 85, 223, 60);
+		btnPagaCauzione.setEnabled(false);
+		panel_azioni_prigione.add(btnPagaCauzione);
+
+		btnAcquista = new JButton("Acquisto");
+		btnAsta = new JButton("Asta");
+		btnConfermaBancarotta = new JButton("Confermo");
+		btnNoBancarotta = new JButton("No, torna al gioco");
+
+		// Per asta
+		btn1 = new JButton("+1");
+		btn5 = new JButton("+5");
+		btn10 = new JButton("+10");
+		btn50 = new JButton("+50");
+		btnConfermaOfferta = new JButton("Conferma Offerta");
+		btnRitirati = new JButton("Ritirati");
+		
+		//per scambi
+		btnAnnullaScambi = new JButton("Annulla");
+		btnAccettaOfferta = new JButton("Accetta");
+		
+		btnProprietaRichieste= new JButton[40];
+				for(int x=0; x<40;  x++){
+					btnProprietaRichieste[x]=new JButton();
+				}
+				
+		btnProprietaOfferte= new JButton[40];
+		for(int x=0; x<40;  x++){
+					btnProprietaOfferte[x]=new JButton();
+				}
+		
+		btnNomeGiocatoreScambi = new JButton[SceltaPedineController.getNumGiocatori() - 1];
+		for(int x=0; x<(SceltaPedineController.getNumGiocatori() - 1);  x++){
+			btnNomeGiocatoreScambi[x]=new JButton();
+		}
+		
+		pedine = new ArrayList<>();
+		
+		creaPedine();
+	}
+	
+	public void creazioneCaselle() {
 		JPanel casella0 = new JPanel();
 		casella0.setLayout(null);
 		casella0.setBounds(30, 30, 90, 90);
@@ -571,133 +702,6 @@ public class MonopolyGUI extends JLayeredPane {
 		parco_della_vittoria.setBounds(2, 0, 86, 58);
 		casella39.add(parco_della_vittoria);
 		caselle[39]=casella39;
-
-		consoleTextArea = new JTextArea();
-		consoleTextArea.setEditable(false);
-		consoleTextArea.setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 25));
-
-		JScrollPane scrollPane = new JScrollPane(consoleTextArea);
-		scrollPane.setBounds(760, 490, 770, 260);
-		add(scrollPane);
-
-		panel_scelte_turno = new JPanel();
-		panel_scelte_turno.setBounds(130, 130, 520, 520);
-		panel_scelte_turno.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
-		frame.getContentPane().add(panel_scelte_turno);
-		panel_scelte_turno.setLayout(null);
-
-		// Bottone tiro dadi
-		btnTiraDadi = new JButton("Tira i dadi");
-		btnTiraDadi.setBounds(40, 36, 200, 60);
-		btnTiraDadi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		try {
-			btnTiraDadi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/dice.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		panel_scelte_turno.add(btnTiraDadi);
-
-		// Bottone scambi
-		btnScambi = new JButton("Scambi");
-		btnScambi.setBounds(280, 36, 200, 60);
-		btnScambi.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		try {
-			btnScambi.setIcon(new ImageIcon(ImageIO.read(new File("./icons/exchange.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		panel_scelte_turno.add(btnScambi);
-
-		// Bottone proprietà
-		btnProprieta = new JButton("Proprietà");
-		btnProprieta.setBounds(40, 162, 200, 60);
-		btnProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		try {
-			btnProprieta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/properties.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		panel_scelte_turno.add(btnProprieta);
-
-		// Bottone dichiara bancarotta
-		btnDichiaraBancarotta = new JButton("Bancarotta");
-		btnDichiaraBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		btnDichiaraBancarotta.setBounds(280, 162, 200, 60);
-		try {
-			btnDichiaraBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		panel_scelte_turno.add(btnDichiaraBancarotta);
-
-		// Bottone fine turno
-		btnFineTurno = new JButton("Fine del turno");
-		btnFineTurno.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		btnFineTurno.setBounds(160, 437, 200, 60);
-		try {
-			btnFineTurno.setIcon(new ImageIcon(ImageIO.read(new File("./icons/stop.png")).getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		panel_scelte_turno.add(btnFineTurno);
-
-		JPanel panel_azioni_prigione = new JPanel();
-		panel_azioni_prigione.setBounds(10, 232, 500, 184);
-		panel_scelte_turno.add(panel_azioni_prigione);
-		panel_azioni_prigione.setLayout(null);
-
-		JLabel lblAzioniPrigione = new JLabel("Azioni prigione");
-		lblAzioniPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-		lblAzioniPrigione.setBounds(184, 34, 131, 25);
-		panel_azioni_prigione.add(lblAzioniPrigione);
-
-		btnUsaCartaEsciDiPrigione = new JButton("Esci gratis di prigione");
-		btnUsaCartaEsciDiPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		btnUsaCartaEsciDiPrigione.setBounds(18, 85, 223, 60);
-		btnUsaCartaEsciDiPrigione.setEnabled(false);
-		panel_azioni_prigione.add(btnUsaCartaEsciDiPrigione);
-
-		btnPagaCauzione = new JButton("Paga cauzione (50€)");
-		btnPagaCauzione.setFont(new Font("Monopoly Inline", Font.PLAIN, 18));
-		btnPagaCauzione.setBounds(259, 85, 223, 60);
-		btnPagaCauzione.setEnabled(false);
-		panel_azioni_prigione.add(btnPagaCauzione);
-
-		btnAcquista = new JButton("Acquisto");
-		btnAsta = new JButton("Asta");
-		btnConfermaBancarotta = new JButton("Confermo");
-		btnNoBancarotta = new JButton("No, torna al gioco");
-
-		// Per asta
-		btn1 = new JButton("+1");
-		btn5 = new JButton("+5");
-		btn10 = new JButton("+10");
-		btn50 = new JButton("+50");
-		btnConfermaOfferta = new JButton("Conferma Offerta");
-		btnRitirati = new JButton("Ritirati");
-		
-		//per scambi
-		btnAnnullaScambi = new JButton("Annulla");
-		btnAccettaOfferta = new JButton("Accetta");
-		
-		btnProprietaRichieste= new JButton[40];
-				for(int x=0; x<40;  x++){
-					btnProprietaRichieste[x]=new JButton();
-				}
-				
-		btnProprietaOfferte= new JButton[40];
-		for(int x=0; x<40;  x++){
-					btnProprietaOfferte[x]=new JButton();
-				}
-		
-		btnNomeGiocatoreScambi = new JButton[SceltaPedineController.getNumGiocatori() - 1];
-		for(int x=0; x<(SceltaPedineController.getNumGiocatori() - 1);  x++){
-			btnNomeGiocatoreScambi[x]=new JButton();
-		}
-		
-		pedine = new ArrayList<>();
-		
-		creaPedine();
 	}
 
 	public JPanel getPanelChiusuraAffare() {

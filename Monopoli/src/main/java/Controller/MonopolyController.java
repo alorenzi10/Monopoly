@@ -15,8 +15,8 @@ public class MonopolyController {
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
 	private SchermataVincitoreView schermataVincitore;
-	String index;
-	String[] offerte, richieste;
+	private String index;
+	private String[] offerte, richieste;
 	int contaOfferte, contaRichieste;
 	
 	public MonopolyController(SchermataDiGioco frame) {
@@ -29,29 +29,34 @@ public class MonopolyController {
 		monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 		frame.revalidate();
 		frame.repaint();
-
+		
+		//scelte 
 		monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
-
+		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
+		monopolyGUI.addBtnProprieta(new BtnProprieta());
+		
+		//bancarotta
 		monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
 		monopolyGUI.addBtnConfermaBancarotta(new BtnBancarotta());
 		monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
-
+		
+		//scambi
 		monopolyGUI.addBtnScambi(new BtnScambi());
+		monopolyGUI.addBtnNomeGiocatoreScambi(new BtnNomeGiocatoreScambi());
 		monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
 		monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
 		monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
-		monopolyGUI.addBtnProprieta(new BtnProprieta());
-		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
-
+		monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
+		
+		//giocatore atterra su proprietà vuota
 		monopolyGUI.addBtnAcquista(new BtnAcquista());
 		monopolyGUI.addBtnAsta(new BtnAsta());
+		
+		//prigione
 		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
 		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
 		
-		monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
-		
-		monopolyGUI.addBtnNomeGiocatoreScambi(new BtnNomeGiocatoreScambi());
-		
+		//asta
 		monopolyGUI.addBtn1(new Btn1());
 		monopolyGUI.addBtn5(new Btn5());
 		monopolyGUI.addBtn10(new Btn10());
@@ -59,7 +64,8 @@ public class MonopolyController {
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
 	}
-
+	
+	//SCELTE 
 	private class BtnTiraDadi implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -70,7 +76,23 @@ public class MonopolyController {
 			monopolyGUI.muoviPedina(partenza, arrivo, monopoly.getGiCorrente().getId() );
 		}
 	}
-
+	
+	private class BtnFineTurno implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopoly.setFineTurno();
+		}
+	}
+	
+	private class BtnProprieta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopolyGUI.buttonsState(false);
+			new GestioneProprietaController(frame, monopolyGUI, monopoly);
+		}
+	}
+	
+	//BANCAROTTA
 	private class BtnDichiaraBancarotta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -79,15 +101,37 @@ public class MonopolyController {
 			//monopoly.stampaDati();
 		}
 	}
-
-	private class BtnProprieta implements ActionListener{
+	
+	private class BtnBancarotta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.buttonsState(false);
-			new GestioneProprietaController(frame, monopolyGUI, monopoly);
+
+			monopolyGUI.setDecisioneBancarotta();
+			monopolyGUI.stampa("Sei andato in bancarotta");
+			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
+			monopoly.setBancarotta();
+			
+			if(monopoly.getPlayers().size() == 1) {
+				frame.remove(monopolyGUI.getPanelScelteTurno());
+				frame.remove(monopolyGUI);
+				frame.add(new SchermataVincitoreView(monopoly.getPlayers().get(0).getName())); // Creazione schermata vincitore con nome del giocatore
+				frame.revalidate();
+		        frame.repaint();
+			}
+			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
+			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}
 
+	private class BtnNoBancarotta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+	
+	//SCAMBI
 	private class BtnScambi implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -201,12 +245,6 @@ public class MonopolyController {
 		}
 	}
 	
-	private void annullaScambio() {
-		monopolyGUI.getPanelSfondo().remove(monopolyGUI.getPanelChiusuraAffare());
-		monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
-		frame.revalidate();
-		frame.repaint();
-	}
 	
 	private class BtnAnnullaScambi implements ActionListener{
 		@Override
@@ -214,14 +252,16 @@ public class MonopolyController {
 			annullaScambio();
 		}
 	}
-
-	private class BtnFineTurno implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			monopoly.setFineTurno();
-		}
+	
+	private void annullaScambio() {
+		monopolyGUI.getPanelSfondo().remove(monopolyGUI.getPanelChiusuraAffare());
+		monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
+		frame.revalidate();
+		frame.repaint();
 	}
 
+
+	//ATTERRAGGIO SU CASELLA VUOTA
 	private class BtnAcquista implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -239,35 +279,8 @@ public class MonopolyController {
 		}
 	}
 
-	private class BtnBancarotta implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			monopolyGUI.setDecisioneBancarotta();
-			monopolyGUI.stampa("Sei andato in bancarotta");
-			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
-			monopoly.setBancarotta();
-			
-			if(monopoly.getPlayers().size() == 1) {
-				frame.remove(monopolyGUI.getPanelScelteTurno());
-				frame.remove(monopolyGUI);
-				frame.add(new SchermataVincitoreView(monopoly.getPlayers().get(0).getName())); // Creazione schermata vincitore con nome del giocatore
-				frame.revalidate();
-		        frame.repaint();
-			}
-			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
-			monopolyGUI.rimuoviAcquistoAsta();
-		}
-	}
-
-	private class BtnNoBancarotta implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			monopolyGUI.rimuoviAcquistoAsta();
-		}
-	}
-
+	
+	//PRIGIONE
 	private class BtnUsaCartaEsciDiPrigione implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -286,7 +299,8 @@ public class MonopolyController {
 			monopolyGUI.attivaUscitaConCauzione(false);
 		}
 	}
-
+	
+	///ASTA
 	private class Btn1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

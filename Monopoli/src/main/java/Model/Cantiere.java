@@ -18,6 +18,22 @@ public class Cantiere extends Proprieta {
 		this.numCostruzioni = 0;
 		colourGroup.addMember(this);
 	}
+	
+	public boolean haCase() {
+		boolean b = false;
+		if(numCostruzioni > 0) {
+			b = true;
+		}
+		return b;
+	}
+	
+	public void costruisci() {
+		numCostruzioni++;
+	}
+
+	public void demolisci() {
+		numCostruzioni--;
+	}
 
 	public int getAffitto(){
 		int affitto;
@@ -54,14 +70,6 @@ public class Cantiere extends Proprieta {
 		return gruppoColore;
 	}
 
-	public boolean haCase() {
-		boolean b = false;
-		if(numCostruzioni > 0) {
-			b = true;
-		}
-		return b;
-	}
-
 	public int getNumCostruzioni() {
 		return numCostruzioni;
 	}
@@ -77,12 +85,6 @@ public class Cantiere extends Proprieta {
 		return getPrezzoIpoteca();
 	}
 
-	public void costruisci() {
-		numCostruzioni++;
-	}
-
-	public void demolisci() {
-		numCostruzioni--;
-	}
+	
 
 }

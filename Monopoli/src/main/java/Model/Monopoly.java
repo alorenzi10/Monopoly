@@ -12,50 +12,56 @@ public class Monopoly {
     private ArrayList<Player> players;
     private Player giCorrente; // Giocatore del turno corrente
     private Dadi dice;
+    private boolean tiroDadiFatto;
+    private int nDadiDoppi;
     private Tabellone tabellone;
     private MazzoProbabilita mazzoProbabilita;
     private MazzoImprevisti mazzoImprevisti;
     private boolean gameOver;
-    private boolean fineTurno;
-    private boolean tiroDadiFatto;
-    private int nDadiDoppi;
+    private boolean fineTurno; //da rimuovere?
     private MonopolyGUI print;
     public Asta asta;
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
-
+    	
     	this.print = monopolyGUI;
     	this.numero_giocatori = numero_giocatori;
     	players = new ArrayList<Player>();
-
+    	//Inizializzazione dei giocatori
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
     		players.add(newPlayer);
     	}
+    	//scelta casuale di chi inizia a giocare
     	Random random = new Random();
     	giCorrente = players.get(random.nextInt(numero_giocatori));
+    	
     	dice = new Dadi();
     	tabellone = new Tabellone(dice);
     	mazzoProbabilita = new MazzoProbabilita();
     	mazzoImprevisti = new MazzoImprevisti();
     	gameOver = false;
+    	
     	inizioTurno();
     }
 
 	public void inizioTurno() { 
+		
 		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
-			print.attivaUscitaConCarta(true);
+			print.attivaUscitaConCarta(true); //carta per uscire dei prigione
 		}
 		else{
 			print.attivaUscitaConCarta(false);
 		}
-		if(giCorrente.getInPrigione()){
-			print.attivaUscitaConCauzione(true);
+		
+		if(giCorrente.getInPrigione()){ //se è in prigione attiva la possibilità di pagare la cauzione
+			print.attivaUscitaConCauzione(true); 
 		}
 		else{
 			print.attivaUscitaConCauzione(false);
 		}
+		
 		fineTurno = false;
 		tiroDadiFatto = false;
 		nDadiDoppi = 0;
@@ -63,30 +69,30 @@ public class Monopoly {
 	}
 
 	public void tiraDadi() {
-		if(!tiroDadiFatto) {
-			if(giCorrente.getWallet() >= 0) {
+		
+		//questo metodo viene chiamato dopo che il giocatore preme il bottone tira dadi
+		if(!tiroDadiFatto) { //controlla se ha tiri disponibili
+			if(giCorrente.getWallet() >= 0) { //il giocatore deve risolvere i suoi debiti prima di continuare
 				dice.roll();
 				print.stampa("Dado 1: " + dice.getDado1());
 				print.stampa("Dado 2: " + dice.getDado2());
-				if(giCorrente.getInPrigione() == false) {
+				if(giCorrente.getInPrigione() == false) { //controlla se il giocatore è in prigione o meno
 					
-					giCorrente.muovi(dice.getTotal());
-					//giCorrente.muovi(1);
-					controlloPassaggioVia();
+					giCorrente.muovi(dice.getTotal()); 
+					controlloPassaggioVia(); //se con il metodo muovi() il giocatore raggiunge/supera il via, viene inizializzata una variabile di giocatore a true.
 					arrivoCasella();
-					if (dice.isDouble() == true) {
+					if (dice.isDouble() == true) { //se ha fatto un dado doppio ha diritto ad un altro tiro
 						nDadiDoppi++;
-						if(nDadiDoppi == 3) {
+						if(nDadiDoppi == 3) { //fino ad un massimo di 2 dadi doppi, dopo di che viene trasferito in prigione
 							giCorrente.vaiInPrigione();
 							tiroDadiFatto = true;
-							
 						}
 					}
 					else { tiroDadiFatto = true; 
 					}
 				}
-				else {
-					if (dice.isDouble()) {
+				else {  //Se il giocatore si trova in prigione
+					if (dice.isDouble()) { //se fa dadi doppi viene liberato e mosso in base al risultato
 						giCorrente.liberaDaPrigione();
 						print.stampa(giCorrente.getName() + " è uscito dalla prigione.");
 						giCorrente.muovi(dice.getTotal());
@@ -98,9 +104,9 @@ public class Monopoly {
 						tiroDadiFatto = true;
 						print.stampa(giCorrente.getName() + " tentativo fallito, ne hai fatti: "+ giCorrente.getTentativi());
 						
-						if (giCorrente.tentativiTerminati() == true) {
+						if (giCorrente.tentativiTerminati() == true) { //se il giocatore è al terzo tentativo fallito è costretto a pagare
 							print.stampa(giCorrente.getName() + " Paga 50 di cauzione");
-							giCorrente.doTransaction(-CAUZIONE_PRIGIONE); //controllo su fondi giocatore
+							giCorrente.doTransaction(-CAUZIONE_PRIGIONE); //controllo su fondi giocatore ////DA DISCUTERE COME GESTIRE
 							giCorrente.liberaDaPrigione();
 							giCorrente.muovi(dice.getTotal());
 							
@@ -108,36 +114,13 @@ public class Monopoly {
 						}
 					}
 				}
-			}
+			}print.stampa("Sei in debito, trova i soldi o vai in bancarotta");
 		} 
 		else {
 			print.stampa("Hai già tirato! Scegli un'altra azione.");
 			}
+		
 		aggiornaVisualizzazioneInfo();
-	}
-	
-	// da sistemare
-	public void scambia(Player ricevente, Proprieta proprietaOfferta, Proprieta proprietaRicevuta, int denaroOfferto, int denaroRicevuto) {
-            
-        if(proprietaOfferta != null) {proprietaOfferta.setProprietario(ricevente);}
-        	
-        if(proprietaRicevuta != null) {proprietaRicevuta.setProprietario(giCorrente);}
-        
-        if(denaroOfferto > 0) {
-        	if(giCorrente.getWallet() >= denaroOfferto) {
-        		giCorrente.doTransaction(-denaroOfferto);
-        		ricevente.doTransaction(denaroOfferto);
-        	}else {print.stampa("Saldo insufficiente per completare lo scambio."); return;}
-        }
-        
-        if(denaroRicevuto > 0) {
-        	if(ricevente.getWallet() >= denaroRicevuto) {
-        		giCorrente.doTransaction(denaroRicevuto);
-        		ricevente.doTransaction(-denaroRicevuto);
-        	}else {print.stampa("Saldo insufficiente per completare lo scambio."); return;}
-        }
-        
-        aggiornaVisualizzazioneInfo();
 	}
 	
 	public void setBancarotta(){
@@ -179,12 +162,12 @@ public class Monopoly {
 			if (giCorrente.haUscitaGratis()) {
 				giCorrente.getCarta();
 				giCorrente.liberaDaPrigione();
-			} else {print.stampa("Non hai carte uscite gratis di prigione!");}
+			} else {print.stampa("Non hai carte uscite gratis di prigione!");} //probabilmente qua non entra mai dato che disabilitiamo il bottone
 		}
 	}
 	
 	public void pagaUscitaPrigione() {
-		if (giCorrente.getInPrigione()) {
+		if (giCorrente.getInPrigione()) { //anche questo forse inutile perché disattiviamo i bottoni quando non è in prigione
 			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
 				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 				giCorrente.liberaDaPrigione();
@@ -198,8 +181,8 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	public void setFineTurno() { //da rivedere
-		if (tiroDadiFatto) 
+	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
+		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
 			setProssimoGiocatore();
 		else{
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
@@ -207,6 +190,7 @@ public class Monopoly {
 	}
 	
 	public void controlloPassaggioVia() {
+		
 		if (giCorrente.passaggioVia()) {
 			giCorrente.doTransaction(MONEY_VIA);
 			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
@@ -246,30 +230,27 @@ public class Monopoly {
 			print.stampa(giCorrente.getName() + " è atterrato sulla proprietà " + 
 					tabellone.getSquare(giCorrente.getLocation()).getNome());
 
-			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){
+			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){ //Proprietà di un altro giocatore
 
-				int totale = ((Proprieta) casella).getAffitto(); //da fare moltiplicatore x gruppo
+				int totale = ((Proprieta) casella).getAffitto(); 
 				Player possessore = ((Proprieta) casella).getPossessore();
 				print.stampa("Dai " + totale + "€ a " + possessore.getName() );
 
-				if(giCorrente.controlloFondi(totale)) {
-					giCorrente.doTransaction(-totale);
-					possessore.doTransaction(totale);
-				}else {
-					//da gestire banca rotta o ipoteca)
-				}
+				giCorrente.doTransaction(-totale); //va bene cosi senza controllo sui fondi?
+				possessore.doTransaction(totale);
+
 			} 
-			else if(((Proprieta) casella).posseduta() && ((Proprieta) casella).getPossessore().equals(giCorrente)){
+			else if(((Proprieta) casella).posseduta() && ((Proprieta) casella).getPossessore().equals(giCorrente)){ //Proprietà del giocatore
 
 				print.stampa("Il giocatore " + giCorrente.getName() + " è atterrato sulla sua proprietà" );
 				return;
 			}
-			else if(((Proprieta) casella).posseduta() == false) {
+			else if(((Proprieta) casella).posseduta() == false) { //Proprietà non posseduta
 				print.stampa(tabellone.getSquare(giCorrente.getLocation()).getNome() + " non ha nessun proprietario" );
-				if(giCorrente.getWallet()<((Proprieta) casella).getCosto()) {
+				if(giCorrente.getWallet()<((Proprieta) casella).getCosto()) { //se il giocatore non ha i fondi sufficenti va direttamente all'asta
 					iniziaAsta();
 				}else {
-					print.atterraggioSuProprietaVuota(); //decide lui se asta o compra
+					print.atterraggioSuProprietaVuota(); //decide il giocatore se comprarla direttamente o metterla all'asta
 				}
 			}
 		}
@@ -298,7 +279,7 @@ public class Monopoly {
 				diff=destinazione-giCorrente.getLocation();
 				giCorrente.muovi(diff);
 			}
-			else {
+			else { //nel caso il giocatore sia oltre alla destinazione
 				diff=40-giCorrente.getLocation();
 				diff=diff+destinazione;
 				giCorrente.muovi(diff);
@@ -319,20 +300,18 @@ public class Monopoly {
 			giCorrente.vaiInPrigione();
 			tiroDadiFatto = true;
 			break;
-		case Mazzo.AZIONE_ESCI_DAL_CARCERE: //da aggiungere opzione di usare la carta per uscire
+		case Mazzo.AZIONE_ESCI_DAL_CARCERE:
 			giCorrente.addCarta(carta);
 			break;
-		case Mazzo.AZIONE_PAGA_CASE: //DA FARE
+		case Mazzo.AZIONE_PAGA_CASE: 
 			int totale = giCorrente.getNumCasePossedute()*carta.getCostoCase() + giCorrente.getNumAlberghiPosseduti()*carta.getCostoAlberghi();
 			giCorrente.doTransaction(-totale);
 			break;
 		case Mazzo.AZIONE_PAGA:
 			giCorrente.doTransaction(-carta.getQtaSoldi());
-			print.stampa("Paga: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
 		case Mazzo.AZIONE_RICEVI: 
 			giCorrente.doTransaction(carta.getQtaSoldi());
-			print.stampa("Ricevi: " + carta.getQtaSoldi() + "€. Saldo: " + giCorrente.getWallet() + "€");
 			break;
 		case Mazzo.REGALI:  
 
@@ -360,7 +339,7 @@ public class Monopoly {
 
 			break;
 
-		case Mazzo.AZIONE_SOCIETA_VICINA:
+		case Mazzo.AZIONE_SOCIETA_VICINA: //avviene solo sugli imprevisti e quindi le caselle di destinazione sono note
 			partenza=giCorrente.getLocation();
 			if(giCorrente.getLocation()==7) {
 				giCorrente.muovi(5);
@@ -392,7 +371,7 @@ public class Monopoly {
 			}
 			break;
 
-		case Mazzo.AZIONE_FERROVIA_VICINA:
+		case Mazzo.AZIONE_FERROVIA_VICINA: //avviene solo sugli imprevisti e quindi le caselle di destinazione sono note
 			partenza=giCorrente.getLocation();
 			if(giCorrente.getLocation()==7) {
 				giCorrente.muovi(8);
@@ -424,7 +403,7 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	public void aggiornaVisualizzazioneInfo() {
+	public void aggiornaVisualizzazioneInfo() {  //con refactoring 21/11/2024 mi sono fermato qui
 		//Aggiornamento nel pannello delle info dei giocatori (saldo)
 		ArrayList<Integer> valoriSaldo = new ArrayList<>();
 		for(Player p: players) 

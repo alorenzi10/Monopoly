@@ -7,10 +7,10 @@ public class Player {
     private int id;
     private String name;
     private int wallet;
-    private boolean inPrigione;
     private int location;
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
+    private boolean inPrigione;
     private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
@@ -56,10 +56,6 @@ public class Player {
 		return passatoVia;
 	}
 
-	public void addCarta(Carta carta) {
-		carte.add(carta);
-	}
-	
 	public void aggiungiProprieta(Proprieta proprieta) {
 		proprieta.setProprietario(this);
 		listaProprieta.add(proprieta);
@@ -102,14 +98,6 @@ public class Player {
 		inPrigione = false;
 	}
 	
-	public boolean haUscitaGratis() {
-		boolean haCarta = false;
-		if (carte.size()>0) {
-			haCarta = carte.get(0).getAction() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
-		}
-		return haCarta;
-	}
-	
 	public int getId() {
 		return id;
 	}
@@ -133,35 +121,23 @@ public class Player {
 	public int getTentativi() {
 		return tentativiUscitaPrigione;
 	}
-
+	
+	public void addCarta(Carta carta) {
+		carte.add(carta);
+	}
+	
+	public boolean haUscitaGratis() {
+		boolean haCarta = false;
+		if (carte.size()>0) {
+			haCarta = carte.get(0).getAction() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
+		}
+		return haCarta;
+	}
+	
 	public Carta getCarta() {
 		Carta carta = carte.get(0);
 		carte.remove(0);
 		return carta;
-	}
-	
-	public ArrayList<Proprieta> getListaProprieta() {
-		return listaProprieta;
-	}
-	
-	public String toStringListaProprieta() {
-		StringBuilder str = new StringBuilder();
-	    for (Proprieta prop : getListaProprieta()) {
-	        str.append(prop.getNome()).append(", ");
-	    }
-	    // Rimuove l'ultima virgola e spazio, se necessario
-	    if (str.length() > 0) {
-	        str.setLength(str.length() - 2);
-	    }
-	    return str.toString();
-	}
-
-	public ArrayList<String> getListaPropString(){
-		
-	    ArrayList<String> listaPropString = new ArrayList<>();
-		for (Proprieta prop : getListaProprieta()) 
-	        listaPropString.add(prop.getNome());
-	    return listaPropString;
 	}
 	
     public int getNumCasePossedute() {
@@ -203,5 +179,30 @@ public class Player {
 		}
 		return nSocieta;
 	}
+	
+	public ArrayList<Proprieta> getListaProprieta() {
+		return listaProprieta;
+	}
+		
+	public String toStringListaProprieta() {
+		StringBuilder str = new StringBuilder();
+	    for (Proprieta prop : getListaProprieta()) {
+	        str.append(prop.getNome()).append(", ");
+	    }
+	    // Rimuove l'ultima virgola e spazio, se necessario
+	    if (str.length() > 0) {
+	        str.setLength(str.length() - 2);
+	    }
+	    return str.toString();
+	}
+
+	public ArrayList<String> getListaPropString(){
+		
+	    ArrayList<String> listaPropString = new ArrayList<>();
+		for (Proprieta prop : getListaProprieta()) 
+	        listaPropString.add(prop.getNome());
+	    return listaPropString;
+	}
+
 
 }
