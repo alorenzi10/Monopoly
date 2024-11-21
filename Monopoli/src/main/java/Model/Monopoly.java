@@ -449,7 +449,7 @@ public class Monopoly {
 	
 	public void iniziaAsta() {
 		//passaggio dei dati utili per l'asta
-		asta = new Asta(giCorrente.getId(), players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
+		asta = new Asta(giCorrente, players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
 		asta.inizio(); 
 	}
 

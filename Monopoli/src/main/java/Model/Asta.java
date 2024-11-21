@@ -5,17 +5,15 @@ import View.MonopolyGUI;
 
 public class Asta {
 
-	private int indice;
 	private int offerta_corrente;
 	private String nome;
-
 	private Proprieta proprieta;
 	private ArrayList<Player> partecipanti;
 	private Player giCorrente;
 	private MonopolyGUI monopolyGUI;
 	
-	public Asta(int indice, ArrayList<Player> players, Proprieta proprieta, MonopolyGUI print) {
-		this.indice = indice;
+	public Asta(Player giCorrente, ArrayList<Player> players, Proprieta proprieta, MonopolyGUI print) {
+		this.giCorrente = giCorrente;
 		this.partecipanti = new ArrayList<>();
 		for(Player p: players) { //crea l'arraylist partecipanti
 			this.partecipanti.add(p);
@@ -25,13 +23,12 @@ public class Asta {
 		monopolyGUI = print; // Riferimento all'interfaccia di gioco
 		
 		offerta_corrente = 10; // L'offerta base parte da 10 secondo le regole del monopoly
-		giCorrente = partecipanti.get(indice); // L'asta inizia dal giocatore che sta facendo il turno
 		nome = giCorrente.getName();
 
 	}
 
 	public void inizio() {
-		monopolyGUI.asta(indice);
+		monopolyGUI.asta(giCorrente.getName());
 	}
 
 	public boolean aggiornaOfferta(int i) {

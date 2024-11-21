@@ -1291,7 +1291,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 	}
 	//////INIZIO METODI ASTA
-	public void asta(int giCorrente) { //forse da mettere da un altra parte
+	public void asta(String nomeCorrente) { //forse da mettere da un altra parte
 
 		buttonsState(false);
 		panel_sfondo = new JPanel();
@@ -1319,7 +1319,7 @@ public class MonopolyGUI extends JLayeredPane {
 		lblOfferta.setBounds(25, 160 , 232, 53);
 		panel_asta.add(lblOfferta);
 
-		lblTurno = new JLabel(NomiGiocatoriController.getNomiGiocatori(giCorrente) + " fai la prima offerta");
+		lblTurno = new JLabel(nomeCorrente + " fai la prima offerta");
 		lblTurno.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTurno.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTurno.setBounds(25, 100, 250, 53);
