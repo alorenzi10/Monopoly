@@ -58,6 +58,9 @@ public class MonopolyController {
 		monopolyGUI.addBtn50(new Btn50());
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
+		
+		monopolyGUI.addBtnSalva1(new BtnSalva1());
+		monopolyGUI.addBtnAnnulla(new BtnAnnulla());
 	}
 
 	private class BtnTiraDadi implements ActionListener{
@@ -225,7 +228,7 @@ public class MonopolyController {
 	private class BtnSalva implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			monopolyGUI.salva();
 		}
 	}
 	
@@ -237,6 +240,22 @@ public class MonopolyController {
 			frame.remove(monopolyGUI);
 			new MenuController(frame);
 			
+		}
+	}
+	
+	private class BtnSalva1 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String nomeSalavaggio=monopolyGUI.getNomeSalvataggio();
+			///azioni di salvataggio
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+	
+	private class BtnAnnulla implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}
 

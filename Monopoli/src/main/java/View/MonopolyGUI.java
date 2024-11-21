@@ -53,6 +53,8 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta, btnAnnullaScambi, /*scambi*/btnAccettaOfferta;
 	public JButton btnRitirati; //asta
 	private JButton btnEsci, btnSalva;
+	private JButton btnSalva1, btnAnnulla;
+	private JTextField nomeSalvataggio;
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
 
@@ -671,6 +673,10 @@ public class MonopolyGUI extends JLayeredPane {
 		btnConfermaOfferta = new JButton("Conferma Offerta");
 		btnRitirati = new JButton("Ritirati");
 		
+		btnSalva1=new JButton("Salva");
+		btnAnnulla=new JButton("Annulla");
+		nomeSalvataggio=new JTextField();
+		
 		btnEsci=new JButton("Esci");
 		btnEsci.setBounds(380, 437, 100, 60);
 		try {
@@ -808,7 +814,14 @@ public class MonopolyGUI extends JLayeredPane {
 		
 		btnEsci.addActionListener(listener);
 }
-
+	
+	public void addBtnSalva1(ActionListener listener) {
+			btnSalva1.addActionListener(listener);
+	}
+	
+	public void addBtnAnnulla(ActionListener listener) {
+			btnAnnulla.addActionListener(listener);
+	}
 	
 	public String getDenaroOfferto() { 
 		return textFieldDenaroOfferto.getText();
@@ -1371,7 +1384,7 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 	/////FINE METODI ASTA
 
-	//rimuove anche bancarotta
+	//rimuove anche bancarotta //anche salva
 	public void rimuoviAcquistoAsta() {
 		buttonsState(true);
 		remove(panel_sfondo);
@@ -1383,5 +1396,48 @@ public class MonopolyGUI extends JLayeredPane {
 		consoleTextArea.append(">> " + text + "\n");
 		consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength()); //scorre alla fine sempre
 	}
+	
+	public String getNomeSalvataggio() {
+		return nomeSalvataggio.getText();
+	}
+	public void salva() {
+		buttonsState(false);
+		
+		panel_sfondo = new JPanel();
+		panel_sfondo.setBounds(0, 0, 1540, 845);
+		panel_sfondo.setOpaque(false);
+		panel_sfondo.setLayout(null);
+		add(panel_sfondo, 1);
+		setComponentZOrder(panel_sfondo, 1);	
 
+		JPanel panel_salva = new JPanel();
+		panel_salva.setBounds(130, 130, 520, 520);
+		panel_salva.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
+		panel_sfondo.add(panel_salva);
+		panel_salva.setLayout(null);
+		
+		JLabel lblSalva = new JLabel("Salvataggio");
+		lblSalva.setFont(new Font("Monopoly Inline", Font.PLAIN, 40));
+		lblSalva.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSalva.setBounds(25, 22, 471, 53);
+		panel_salva.add(lblSalva);
+		
+		JLabel lblInfo = new JLabel("Inserisci il nome del salvataggio");
+		lblInfo.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInfo.setBounds(25, 130, 471, 53);
+		panel_salva.add(lblInfo);
+		
+		btnSalva1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnSalva1.setBounds(40, 332, 200, 100);
+		panel_salva.add(btnSalva1);
+
+		btnAnnulla.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnAnnulla.setBounds(250, 332, 200, 100);
+		panel_salva.add(btnAnnulla);
+		
+		nomeSalvataggio.setBounds(100, 200, 300, 100);
+		panel_salva.add(nomeSalvataggio);
+		
+	}
 }
