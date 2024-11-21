@@ -243,7 +243,7 @@ public class MonopolyController {
 			monopolyGUI.setDecisioneBancarotta();
 			monopolyGUI.rimuoviAcquistoAsta();
 			monopolyGUI.stampa("Sei andato in bancarotta");
-			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getGiCorrente().getId());
+			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
 			monopoly.setBancarotta();
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopolyGUI.rimuoviAcquistoAsta();

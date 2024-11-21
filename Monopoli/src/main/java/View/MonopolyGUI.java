@@ -39,7 +39,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JTextArea consoleTextArea;
 
 	private JPanel[] caselle;
-	private JLabel[] pedine;
+	private ArrayList<JLabel> pedine;
 	private ArrayList<JPanel> panel_prop_pedina;
 	
 	private JTextField textFieldDenaroOfferto;
@@ -695,6 +695,8 @@ public class MonopolyGUI extends JLayeredPane {
 			btnNomeGiocatoreScambi[x]=new JButton();
 		}
 		
+		pedine = new ArrayList<>();
+		
 		creaPedine();
 	}
 
@@ -820,7 +822,7 @@ public class MonopolyGUI extends JLayeredPane {
 		immaginiPedine = new ArrayList<>();
 		
 		for(int i = 0; i<giocatori.size(); i++) 
-			immaginiPedine.add(pedine[i]);
+			immaginiPedine.add(pedine.get(i));
 		
 		for (String s: giocatori) {
 
@@ -856,8 +858,8 @@ public class MonopolyGUI extends JLayeredPane {
 			panel_prop_pedina.get(i).add(scrollProp);
 
 			// Label per visualizzare la propria pedina
-			JLabel immaginePedina = new JLabel(immaginiPedine.get(i).getIcon());// Creo una copia di pedine[i] per l'icona
-			panel_prop_pedina.get(i).add(immaginePedina);
+			//JLabel immaginePedina = new JLabel(immaginiPedine.get(i).getIcon());// Creo una copia di pedine per l'icona
+			panel_prop_pedina.get(i).add(new JLabel(pedine.get(i).getIcon()));
 			panelGiocatore.add(panel_prop_pedina.get(i));
 
 			panel_info_giocatori.add(panelGiocatore);
@@ -1198,51 +1200,51 @@ public class MonopolyGUI extends JLayeredPane {
 
 		String [] pedineSelezionate = SceltaPedineController.getPedineScelte();
 		int num = SceltaPedineController.getNumGiocatori();
-		pedine = new JLabel[num];
 
 		for(int i=0; i<num; i++) {
-			pedine[i] = new JLabel();
+			
+			pedine.add(new JLabel());
 
 			switch (pedineSelezionate[i]) {
 			case "Cane":
-				pedine[i].setIcon(new ImageIcon("./icons/cane.png"));		break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/cane.png"));		break;
 			case "Cappello":	
-				pedine[i].setIcon(new ImageIcon("./icons/cappello.png")); 	break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/cappello.png")); 	break;
 			case "Cariola":	
-				pedine[i].setIcon(new ImageIcon("./icons/cariola.png"));	break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/cariola.png"));	break;
 			case "Nave":	
-				pedine[i].setIcon(new ImageIcon("./icons/nave.png"));		break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/nave.png"));		break;
 			case "Ditale":
-				pedine[i].setIcon(new ImageIcon("./icons/ditale.png"));		break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/ditale.png"));		break;
 			case "Ferro":	
-				pedine[i].setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));	break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/ferro_da_stiro.png"));	break;
 			case "Macchina":	
-				pedine[i].setIcon(new ImageIcon("./icons/macchina.png"));	break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/macchina.png"));	break;
 			case "Stivale":	
-				pedine[i].setIcon(new ImageIcon("./icons/stivale.png"));	break;
+				pedine.get(i).setIcon(new ImageIcon("./icons/stivale.png"));	break;
 			}
 		}
 		for(int i=0; i<num; i++) {
-			pedine[i].setBounds(7, 20, 45, 50);
-			caselle[0].add(pedine[i]);
-			caselle[0].setComponentZOrder(pedine[i], 0);
+			pedine.get(i).setBounds(7, 20, 45, 50);
+			caselle[0].add(pedine.get(i));
+			caselle[0].setComponentZOrder(pedine.get(i), 0);
 		}
 	}	
 	
 	public void rimuoviPedina(int posPedina, int pedina) {
-		caselle[posPedina].remove(pedine[pedina]);
+		caselle[posPedina].remove(pedine.get(pedina));
+		pedine.remove(pedina);
 		frame.repaint();
 	}
 
 	public void muoviPedina(int partenza, int arrivo, int pedina) {
 
 		//controlla che il vettore non sia nullo per evitare l'eccezione
-		if(pedine[pedina]!=null) {
-			caselle[partenza].remove(pedine[pedina]); //rimuove il componente
-			caselle[arrivo].add(pedine[pedina]); //aggiunge il componente al pannello di arrivo
-			caselle[arrivo].setComponentZOrder(pedine[pedina], 0); 
+		if(pedine.get(pedina)!=null) {
+			caselle[partenza].remove(pedine.get(pedina)); //rimuove il componente
+			caselle[arrivo].add(pedine.get(pedina)); //aggiunge il componente al pannello di arrivo
+			caselle[arrivo].setComponentZOrder(pedine.get(pedina), 0); 
 		}
-
 		frame.repaint();
 	}
 
