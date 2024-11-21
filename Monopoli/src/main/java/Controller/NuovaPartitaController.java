@@ -31,7 +31,6 @@ public class NuovaPartitaController {
         nuovaPartita.addBtn4(new Btn4());
         nuovaPartita.addBtn5(new Btn5());
         nuovaPartita.addBtn6(new Btn6());
-		
 	}
 	/**
 	 * Metodo per tornare al menu Iniziale dopo aver premuto il tasto indietro

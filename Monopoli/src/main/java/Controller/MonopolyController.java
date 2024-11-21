@@ -7,15 +7,18 @@ import Model.Monopoly;
 import Model.Proprieta;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
+import View.SchermataVincitoreView;
 
 public class MonopolyController {
 
 	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
+	private SchermataVincitoreView schermataVincitore;
 	String index;
 	String[] offerte, richieste;
 	int contaOfferte, contaRichieste;
+	
 	public MonopolyController(SchermataDiGioco frame) {
 
 		MonopolyController.frame = frame;
@@ -241,10 +244,17 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 
 			monopolyGUI.setDecisioneBancarotta();
-			monopolyGUI.rimuoviAcquistoAsta();
 			monopolyGUI.stampa("Sei andato in bancarotta");
 			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
 			monopoly.setBancarotta();
+			
+			if(monopoly.getPlayers().size() == 1) {
+				frame.remove(monopolyGUI.getPanelScelteTurno());
+				frame.remove(monopolyGUI);
+				frame.add(new SchermataVincitoreView(monopoly.getPlayers().get(0).getName())); // Creazione schermata vincitore con nome del giocatore
+				frame.revalidate();
+		        frame.repaint();
+			}
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopolyGUI.rimuoviAcquistoAsta();
 		}
@@ -284,7 +294,7 @@ public class MonopolyController {
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
 			}
 			else {
-				monopolyGUI.btnRitirati.setVisible(false);
+				monopolyGUI.getBtnRitirati().setVisible(false);
 				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
 			}
 		}
@@ -297,7 +307,7 @@ public class MonopolyController {
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
 			}
 			else {
-				monopolyGUI.btnRitirati.setVisible(false);
+				monopolyGUI.getBtnRitirati().setVisible(false);
 				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
 			}
 		}
@@ -310,7 +320,7 @@ public class MonopolyController {
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
 			}
 			else {
-				monopolyGUI.btnRitirati.setVisible(false);
+				monopolyGUI.getBtnRitirati().setVisible(false);
 				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
 			}
 		}
@@ -323,7 +333,7 @@ public class MonopolyController {
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
 			}
 			else {
-				monopolyGUI.btnRitirati.setVisible(false);
+				monopolyGUI.getBtnRitirati().setVisible(false);
 				monopolyGUI.aggiornaOfferta(monopoly.asta.getOfferta());
 			}
 		}
@@ -332,7 +342,7 @@ public class MonopolyController {
 	private class BtnConfermaOfferta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.btnRitirati.setVisible(true);
+			monopolyGUI.getBtnRitirati().setVisible(true);
 			monopoly.asta.prossimoGiocatore();
 			monopolyGUI.aggiornaTurno(monopoly.asta.getName());
 		}

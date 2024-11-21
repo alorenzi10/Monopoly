@@ -46,12 +46,12 @@ public class MonopolyGUI extends JLayeredPane {
 	private JTextField textFieldDenaroRicevuto;
 
 	private JPanel panel_sfondo, panel_gestione_scambi, panel_chiusura_affare;
-	public JPanel panel_scelte_turno;
+	private JPanel panel_scelte_turno;
 	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
 	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta, btnAnnullaScambi, /*scambi*/btnAccettaOfferta;
-	public JButton btnRitirati; //asta
+	private JButton btnRitirati; //asta
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
 
@@ -714,6 +714,13 @@ public class MonopolyGUI extends JLayeredPane {
 	public JScrollPane getScrollPaneElencoPropGiCorrente() {
 		return scrollPaneElencoPropGiCorrente;
 	}
+	public JButton getBtnRitirati() {
+		return btnRitirati;
+	}
+	public JPanel getPanelScelteTurno() {
+		return panel_scelte_turno;
+	}
+
 	
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
