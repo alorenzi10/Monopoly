@@ -45,13 +45,14 @@ public class MonopolyGUI extends JLayeredPane {
 	private JTextField textFieldDenaroOfferto;
 	private JTextField textFieldDenaroRicevuto;
 
-	private JPanel panel_sfondo, panel_gestione_scambi, panel_chiusura_affare;
-	private JPanel panel_scelte_turno;
-	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno, btnAcquista, btnAsta;
+	private JPanel panel_sfondo, panel_gestione_scambi, panel_chiusura_affare, panel_scelte_turno;
+	
+	private JButton btnTiraDadi, btnScambi, btnProprieta, btnDichiaraBancarotta, btnFineTurno;
+	private JButton btnAcquista, btnAsta;
 	private JButton btnConfermaBancarotta, btnNoBancarotta;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
-	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta, btnAnnullaScambi, /*scambi*/btnAccettaOfferta;
-	private JButton btnRitirati; //asta
+	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta,btnRitirati;//asta
+	private JButton  btnAnnullaScambi, btnAccettaOfferta; /*scambi*/
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
 
@@ -182,9 +183,12 @@ public class MonopolyGUI extends JLayeredPane {
 		btnPagaCauzione.setBounds(259, 85, 223, 60);
 		btnPagaCauzione.setEnabled(false);
 		panel_azioni_prigione.add(btnPagaCauzione);
-
+		
+		//Opzioni atterraggio su proprieta vuota
 		btnAcquista = new JButton("Acquisto");
 		btnAsta = new JButton("Asta");
+		
+		//bancarotta
 		btnConfermaBancarotta = new JButton("Confermo");
 		btnNoBancarotta = new JButton("No, torna al gioco");
 
@@ -707,11 +711,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public JPanel getPanelChiusuraAffare() {
 		return panel_chiusura_affare;
 	}
-	
 	public JPanel getPanelSfondo() {
 		return panel_sfondo;
 	}
-	
 	public JScrollPane getScrollPaneElencoPropRicevente() {
 		return scrollPaneElencoPropRicevente;
 	}
@@ -724,8 +726,28 @@ public class MonopolyGUI extends JLayeredPane {
 	public JPanel getPanelScelteTurno() {
 		return panel_scelte_turno;
 	}
+	public JPanel getPanelGestioneScambi() {
+		return panel_gestione_scambi;
+	}
+	public JButton getBottonePropOfferte(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnProprietaOfferte[i].getActionCommand().equals(command)){
+				return btnProprietaOfferte[i];
+			}
+		}
+		return null;
+		
+	}
+	public JButton getBottonePropRichieste(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnProprietaRichieste[i].getActionCommand().equals(command)){
+				return btnProprietaRichieste[i];
+			}
+		}
+		return null;
+		
+	}
 
-	
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
 	}
@@ -807,9 +829,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		return textFieldDenaroRicevuto.getText();	
 	}
-	public JPanel getPanelGestioneScambi() {
-		return panel_gestione_scambi;
-	}
+
 	
 	public void mostraInfoGiocatori(ArrayList<String> giocatori) {
 		
@@ -1185,26 +1205,6 @@ public class MonopolyGUI extends JLayeredPane {
 		pannello.setViewportView(panelInterno);
 		pannello.revalidate();
 		pannello.repaint();
-	}
-
-	public JButton getBottonePropOfferte(String command) {
-		for(int i=0; i<40; i++) {
-			if(btnProprietaOfferte[i].getActionCommand().equals(command)){
-				return btnProprietaOfferte[i];
-			}
-		}
-		return null;
-		
-	}
-	
-	public JButton getBottonePropRichieste(String command) {
-		for(int i=0; i<40; i++) {
-			if(btnProprietaRichieste[i].getActionCommand().equals(command)){
-				return btnProprietaRichieste[i];
-			}
-		}
-		return null;
-		
 	}
 
 	public void creaPedine() {

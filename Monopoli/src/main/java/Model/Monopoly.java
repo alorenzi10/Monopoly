@@ -114,7 +114,7 @@ public class Monopoly {
 						}
 					}
 				}
-			}print.stampa("Sei in debito, trova i soldi o vai in bancarotta");
+			} else {print.stampa("Sei in debito, trova i soldi o vai in bancarotta");}
 		} 
 		else {
 			print.stampa("Hai già tirato! Scegli un'altra azione.");
