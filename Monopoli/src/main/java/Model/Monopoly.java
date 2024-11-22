@@ -270,10 +270,10 @@ public class Monopoly {
 	private void azioneCarta(Carta carta) {
 		int partenza, pos;
 
-		switch (carta.getAction()) {
+		switch (carta.getAzione()) {
 		case Mazzo.AZIONE_VAI_AVANTI:
 			int diff;
-			int destinazione=carta.getDestination();
+			int destinazione=carta.getDestinazione();
 			partenza=giCorrente.getLocation();
 			if(giCorrente.getLocation()<destinazione) {
 				diff=destinazione-giCorrente.getLocation();
@@ -290,7 +290,7 @@ public class Monopoly {
 
 		case Mazzo.AZIONE_VAI_INDIETRO:
 			partenza=giCorrente.getLocation();
-			giCorrente.muovi(carta.getDestination());
+			giCorrente.muovi(carta.getDestinazione());
 			pos=giCorrente.getLocation();
 			print.muoviPedina(partenza, pos, giCorrente.getId());
 			arrivoCasella();

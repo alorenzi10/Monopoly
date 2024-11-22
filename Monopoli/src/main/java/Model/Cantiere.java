@@ -6,19 +6,19 @@ public class Cantiere extends Proprieta {
 	private GruppoColore gruppoColore;
 	private int numCostruzioni;
 	private int costoCasa;
-	private final int MAX_NUM_UNITS = 5;
+	private final int NUM_MAX_UNITA = 5;
 	private final int id;
 
-	public Cantiere(String name,int id, int price, int mortgageValue, int[] tabellaAffitti, GruppoColore colourGroup, int costoCasa) {
-		super(name, price, mortgageValue);
-		this.id=id;
+	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
+		super(name, prezzo, valoreIpoteca);
+		this.id = id;
 		this.tabellaAffitti = tabellaAffitti;
-		this.gruppoColore = colourGroup;
+		this.gruppoColore = gruppoColore;
 		this.costoCasa = costoCasa;
 		this.numCostruzioni = 0;
-		colourGroup.addMember(this);
+		gruppoColore.addMember(this);
 	}
-	
+
 	public boolean haCase() {
 		boolean b = false;
 		if(numCostruzioni > 0) {
@@ -26,7 +26,7 @@ public class Cantiere extends Proprieta {
 		}
 		return b;
 	}
-	
+
 	public void costruisci() {
 		numCostruzioni++;
 	}
@@ -37,11 +37,11 @@ public class Cantiere extends Proprieta {
 
 	public int getAffitto(){
 		int affitto;
-		if (numCostruzioni==0 && super.getPossessore().possessoreGruppo(this)==false) {
+		if (numCostruzioni == 0 && super.getPossessore().possessoreGruppo(this) == false) {
 			affitto = tabellaAffitti[0];
-		}else if (numCostruzioni==0 && super.getPossessore().possessoreGruppo(this)==true) { 
+		}else if (numCostruzioni == 0 && super.getPossessore().possessoreGruppo(this) == true) { 
 			//se il possessore ha tutte le proprieta del gruppo l'affitto raddoppia
-			affitto = tabellaAffitti[0]*2;
+			affitto = tabellaAffitti[0] * 2;
 		}else {
 			affitto = tabellaAffitti[numCostruzioni];
 		}
@@ -50,19 +50,19 @@ public class Cantiere extends Proprieta {
 
 	public int getNumCase() {
 		int numCase;
-		if (numCostruzioni < 5) {
+		if (numCostruzioni < NUM_MAX_UNITA) {
 			numCase = numCostruzioni;
 		}
-		else {numCase=0;}
+		else {numCase = 0;}
 		return numCase;
 	}
 
 	public int getNumAlberghi() {
 		int numAlberghi;
-		if (numCostruzioni == 5) {
+		if (numCostruzioni == NUM_MAX_UNITA) {
 			numAlberghi = 1;
 		}
-		else {numAlberghi=0;}
+		else {numAlberghi = 0;}
 		return numAlberghi;
 	}
 
@@ -73,7 +73,7 @@ public class Cantiere extends Proprieta {
 	public int getNumCostruzioni() {
 		return numCostruzioni;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -81,10 +81,11 @@ public class Cantiere extends Proprieta {
 	public int getCostoCasa() {
 		return costoCasa;
 	}
-	public int getMortgage() {
+	
+	public int getPrezzoIpoteca() {
 		return getPrezzoIpoteca();
 	}
 
-	
+
 
 }

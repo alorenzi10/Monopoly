@@ -30,6 +30,7 @@ public class SchermataVincitoreView extends JPanel {
 		lblNomeGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNomeGiocatore.setBackground(new Color(255, 0, 0));
 		lblNomeGiocatore.setBounds(477, 193, 585, 106);
+		/**/lblNomeGiocatore.setBackground(new Color(50,205,50));
 		add(lblNomeGiocatore);
 		
 		JLabel lblCongratulazioni = new JLabel("Congratulazioni!");
@@ -37,12 +38,14 @@ public class SchermataVincitoreView extends JPanel {
 		lblCongratulazioni.setBackground(new Color(255, 0, 0));
 		lblCongratulazioni.setFont(new Font("Monopoly Inline", Font.PLAIN, 99));
 		lblCongratulazioni.setBounds(362, 5, 816, 116);
+		/**/lblCongratulazioni.setBackground(new Color(50,205,50));
 		add(lblCongratulazioni);
 		
 		JLabel lblHaiVinto = new JLabel("Hai vinto!");
 		lblHaiVinto.setBackground(new Color(255, 0, 0));
 		lblHaiVinto.setFont(new Font("Monopoly Inline", Font.PLAIN, 70));
 		lblHaiVinto.setBounds(650, 379, 239, 82);
+		/**/lblHaiVinto.setBackground(new Color(50,205,50));
 		add(lblHaiVinto);
 		
 		JPanel panel_bottoni = new JPanel();
@@ -59,6 +62,7 @@ public class SchermataVincitoreView extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		btnMenuPrincipale.setBackground(new Color(50,205,50));
 		panel_bottoni.add(btnMenuPrincipale);
 		
 		JButton btnEsci = new JButton(" Esci");
@@ -69,6 +73,7 @@ public class SchermataVincitoreView extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		btnEsci.setBackground(new Color(50,205,50));
 		panel_bottoni.add(btnEsci);
 		
 		contentPane = new JPanel();

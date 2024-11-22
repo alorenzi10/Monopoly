@@ -129,7 +129,7 @@ public class Player {
 	public boolean haUscitaGratis() {
 		boolean haCarta = false;
 		if (carte.size()>0) {
-			haCarta = carte.get(0).getAction() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
+			haCarta = carte.get(0).getAzione() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
 		}
 		return haCarta;
 	}
