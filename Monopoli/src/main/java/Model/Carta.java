@@ -2,50 +2,50 @@ package Model;
 
 public class Carta {
 	private int tipo;
-	private String message;
-	private int actionID;
-	private int parameter;
+	private String messaggio;
+	private int IDAzione;
+	private int parametro;
 	private int[] parameters;
 	private int destinazione;
 
 	//diversi tipi di carte
 	public Carta() {
-		message = "";
+		messaggio = "";
 	}
 
-	public Carta(int type, String message, int actionID) {
-		this.tipo = type;
-		this.message = message;
-		this.actionID = actionID;
+	public Carta(int tipo, String messaggio, int actionID) {
+		this.tipo = tipo;
+		this.messaggio = messaggio;
+		this.IDAzione = actionID;
 	}
 
-	public Carta(int type, String message, int actionID, int parameter) {
-		this.tipo = type;
-		this.message = message;
-		this.actionID = actionID;
-		this.parameter = parameter;
+	public Carta(int tipo, String messaggio, int actionID, int parameter) {
+		this.tipo = tipo;
+		this.messaggio = messaggio;
+		this.IDAzione = actionID;
+		this.parametro = parameter;
 	}
 
-	public Carta(int type, String message, int actionID, int[] parameters) {
-		this.tipo = type;
-		this.message = message;
-		this.actionID = actionID;
+	public Carta(int tipo, String messaggio, int actionID, int[] parameters) {
+		this.tipo = tipo;
+		this.messaggio = messaggio;
+		this.IDAzione = actionID;
 		this.parameters = parameters;
 	}
 
-	public Carta(int type, String message, int actionID, int parameter, int destinazione) {
-		this.tipo = type;
-		this.message = message;
-		this.actionID = actionID;
-		this.parameter = parameter;
+	public Carta(int tipo, String messaggio, int actionID, int parameter, int destinazione) {
+		this.tipo = tipo;
+		this.messaggio = messaggio;
+		this.IDAzione = actionID;
+		this.parametro = parameter;
 		this.destinazione=destinazione;
 	}
 
-	public int getAction () {
-		return actionID;
+	public int getAzione () {
+		return IDAzione;
 	}
 
-	public int getDestination() {
+	public int getDestinazione() {
 		return destinazione; //ritorna la destinazione 
 	}
 
@@ -58,11 +58,11 @@ public class Carta {
 	}
 
 	public String getMessaggio() {
-		return message;
+		return messaggio;
 	}
 
 	public int getQtaSoldi() {
-		return parameter;
+		return parametro;
 	}
 
 	public int getTipo() {
