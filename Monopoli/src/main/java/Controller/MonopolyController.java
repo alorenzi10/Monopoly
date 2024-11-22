@@ -1,10 +1,19 @@
 package Controller;
 
+import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import Model.Monopoly;
 import Model.Proprieta;
+import Model.jsonDb;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 import View.SchermataVincitoreView;
@@ -107,7 +116,14 @@ public class MonopolyController {
 	private class BtnSalva1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nomeSalavaggio=monopolyGUI.getNomeSalvataggio();
+			//si potrebbe 
+			//salva nome partita, id giocatore corrente
+			String nome=monopolyGUI.getNomeSalvataggio();
+			monopoly.setSalvaPartita(nome, monopoly.getGiCorrente().getId());
+			monopoly.setTempo();
+			Gson gson=new Gson();
+			String json3=gson.toJson(monopoly);
+			System.out.println(json3);
 			///azioni di salvataggio
 			monopolyGUI.rimuoviAcquistoAsta();
 		}

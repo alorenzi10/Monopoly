@@ -3,10 +3,10 @@ package Model;
 public class Cantiere extends Proprieta {
 
 	private int[] tabellaAffitti; //0- affitto, 1-4 case, 5 albergo
-	private GruppoColore gruppoColore;
+	private transient GruppoColore gruppoColore;
 	private int numCostruzioni;
 	private int costoCasa;
-	private final int NUM_MAX_UNITA = 5;
+	private transient final int NUM_MAX_UNITA = 5;
 	private final int id;
 
 	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {

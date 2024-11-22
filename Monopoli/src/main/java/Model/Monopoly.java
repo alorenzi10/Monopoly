@@ -1,29 +1,33 @@
 package Model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import View.*;
 
 public class Monopoly {
 	
+	private String nomePartita; //campi per json
+	private int idCorrente; //campi per json
+	private String salvataggioDateTime;
     private final int MONEY_START = 1500; // Denaro iniziale
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
-    public int numero_giocatori; 
+    private int numero_giocatori; 
     private ArrayList<Player> players;
-    private Player giCorrente; // Giocatore del turno corrente
-    private Dadi dice;
+    private transient Player giCorrente; // Giocatore del turno corrente
+    private transient Dadi dice;
     private boolean tiroDadiFatto;
     private int nDadiDoppi;
-    private Tabellone tabellone;
+    private transient Tabellone tabellone;
     private MazzoProbabilita mazzoProbabilita;
     private MazzoImprevisti mazzoImprevisti;
     private boolean gameOver;
-    private boolean fineTurno; //da rimuovere?
-    private MonopolyGUI print;
-    public Asta asta;
+    private transient MonopolyGUI print;
+    public  transient Asta asta; //da sistemare
     
-    private ArrayList<Proprieta> listaPropBancarotta;
-    private int conta;
+    private transient ArrayList<Proprieta> listaPropBancarotta;
+    private transient int conta;
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
@@ -65,7 +69,6 @@ public class Monopoly {
 			print.attivaUscitaConCauzione(false);
 		}
 		
-		fineTurno = false;
 		tiroDadiFatto = false;
 		nDadiDoppi = 0;
 		print.stampa("tocca a " + giCorrente.getName());
@@ -216,7 +219,17 @@ public class Monopoly {
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
 		}
 	}
+	public void setSalvaPartita(String nome, int id) {
+		nomePartita=nome;
+		idCorrente=id;
+	}
 	
+	public void setTempo() {
+		
+		LocalDateTime salvaggioData=LocalDateTime.now();
+		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		salvataggioDateTime=salvaggioData.format(formatter);
+	}
 	public void controlloPassaggioVia() {
 		
 		if (giCorrente.passaggioVia()) {

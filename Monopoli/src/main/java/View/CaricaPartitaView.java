@@ -10,9 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import Model.GestioneDb2;
-import Model.GestioneDB;
-
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.DefaultCellEditor;
@@ -86,20 +83,13 @@ public class CaricaPartitaView extends JPanel {
         
         table = new JTable();
        
-        if(GestioneDb2.readData()==null) {
-        	mostraLabel();
-        }
-       
-        table.setModel(GestioneDb2.readData());
-       
         scrollPane.setViewportView(table);
         scrollPane.revalidate();
         scrollPane.repaint();
 	}
 	public void aggiorna() {
-		table.setModel(GestioneDb2.readData());
 		 scrollPane.revalidate();
-	        scrollPane.repaint();
+	       scrollPane.repaint();
 	}
 	public void mostraLabel() {
 		JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
