@@ -46,12 +46,9 @@ public class MonopolyController {
 		monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
 		monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
 		monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
-
 		monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
 		
-		monopolyGUI.addBtnSalva(new BtnSalva());
-		monopolyGUI.addBtnEsci(new BtnEsci());
-
+		//giocatore atterra su proprietà vuota
 		monopolyGUI.addBtnAcquista(new BtnAcquista());
 		monopolyGUI.addBtnAsta(new BtnAsta());
 		
@@ -66,9 +63,6 @@ public class MonopolyController {
 		monopolyGUI.addBtn50(new Btn50());
 		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
 		monopolyGUI.addBtnRitirati(new BtnRitirati());
-		
-		monopolyGUI.addBtnSalva1(new BtnSalva1());
-		monopolyGUI.addBtnAnnulla(new BtnAnnulla());
 	}
 	
 	//SCELTE 
@@ -266,40 +260,6 @@ public class MonopolyController {
 		monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
 		frame.revalidate();
 		frame.repaint();
-	}
-	
-	private class BtnSalva implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.salva();
-		}
-	}
-	
-	private class BtnEsci implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			frame.remove(monopolyGUI.getPanelScelteTurno());
-			frame.remove(monopolyGUI);
-			new MenuController(frame);
-			
-		}
-	}
-	
-	private class BtnSalva1 implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String nomeSalavaggio=monopolyGUI.getNomeSalvataggio();
-			///azioni di salvataggio
-			monopolyGUI.rimuoviAcquistoAsta();
-		}
-	}
-	
-	private class BtnAnnulla implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.rimuoviAcquistoAsta();
-		}
 	}
 
 

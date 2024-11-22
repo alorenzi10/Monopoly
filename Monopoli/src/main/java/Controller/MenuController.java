@@ -30,8 +30,6 @@ public class MenuController {
 		menuIniziale.addNuovaPartitaListener(new NuovaPartitaListener());
 		menuIniziale.addCaricaPartitaListener(new CaricaPartitaListener()); //da fare
 		menuIniziale.addEsciListener(new EsciListener());
-		frame.revalidate();
-		frame.repaint();
 	}
 	
 	public static MenuInizialeView getMenuIniziale() {
@@ -64,18 +62,20 @@ public class MenuController {
     }
 	
     public void creaNuovaPartita() { 
-    	
     	menuIniziale.setVisible(false);
     	new NuovaPartitaController(new NuovaPartitaView(), frame);
     }
     
     public void caricaPartita() throws SQLException{  //da fare
     	
-    	menuIniziale.setVisible(false);
-    	new CaricaPartitaController(new CaricaPartitaView(), frame); //da finire
-       
+    	frame.remove(menuIniziale);
+    	
+    	CaricaPartitaView caricaPartita = new CaricaPartitaView(); //da finire
+        caricaPartita.setBounds(0, 0, 1920, 1080);
+        
+        frame.add(caricaPartita);
+        frame.repaint();
     }
-
 
 }
 
