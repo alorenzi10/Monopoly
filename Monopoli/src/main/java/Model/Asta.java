@@ -28,7 +28,7 @@ public class Asta {
 	}
 
 	public void inizio() {
-		monopolyGUI.asta(giCorrente.getName());
+		monopolyGUI.asta(giCorrente.getName(), proprieta.getNome());
 	}
 
 	public boolean aggiornaOfferta(int i) {

@@ -106,7 +106,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			monopolyGUI.setDecisioneBancarotta();
+			monopolyGUI.setDecisioneBancarotta(true);
 			monopolyGUI.stampa("Sei andato in bancarotta");
 			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
 			monopoly.setBancarotta();
@@ -120,14 +120,14 @@ public class MonopolyController {
 			}
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopoly.aggiornaVisualizzazioneInfo();
-			monopolyGUI.rimuoviAcquistoAsta();
+			// monopolyGUI.rimuoviAcquistoAsta(); 
 		}
 	}
 
 	private class BtnNoBancarotta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			monopolyGUI.setDecisioneBancarotta(false);
 			monopolyGUI.rimuoviAcquistoAsta();
 		}
 	}
@@ -378,6 +378,11 @@ public class MonopolyController {
 				monopolyGUI.rimuoviAcquistoAsta();
 				monopoly.asta.fineAsta();
 				monopoly.aggiornaVisualizzazioneInfo();
+				if(monopolyGUI.getDecisioneBancarotta()) {
+					if(monopoly.getConta()) {
+						monopoly.astaBancarotta();
+					}
+				}
 			}
 			else {
 				monopolyGUI.aggiornaTurno(monopoly.asta.getName());
