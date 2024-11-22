@@ -722,6 +722,11 @@ public class MonopolyGUI extends JLayeredPane {
 	public JButton getBtnRitirati() {
 		return btnRitirati;
 	}
+	public JButton getBtnConfermaOfferta() {
+		return btnConfermaOfferta;
+	}
+	
+	
 	public JPanel getPanelScelteTurno() {
 		return panel_scelte_turno;
 	}
@@ -1341,6 +1346,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		btnConfermaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnConfermaOfferta.setBounds(21, 400, 230, 82);
+		btnConfermaOfferta.setVisible(true);
 		panel_asta.add(btnConfermaOfferta);
 
 		btnRitirati.setFont(new Font("Tahoma", Font.PLAIN, 30));
