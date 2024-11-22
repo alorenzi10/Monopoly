@@ -153,28 +153,18 @@ public class Monopoly {
 			
 			listaPropBancarotta=giTemp.getListaProprieta();
 			conta=0;
-			astaBancarotta();
-			/*for(Proprieta p: giTemp.getListaProprieta()) {
-				p.setProprietario(null);
-				p.setPosseduta(false); 
-				print.stampa(p.getNome()+" viene messa all'asta");
-				asta = new Asta(giCorrente, players, p, print);
-				asta.inizio(); 
+			if(!listaPropBancarotta.isEmpty()){
+				astaBancarotta(); }
+			else {
+				attivitaPostBancarotta();
 			}
-			print.stampa("SONO USCITO");
-			
-			giTemp.getListaProprieta().clear();*/
-			
-			// Controllo eventuale vittoria
-			/*if(players.size() == 1) {
-				gameOver = true;
-				print.stampa(players.get(0).getName() + " ha vinto!!");
-			}else {
-				inizioTurno();
-				aggiornaVisualizzazioneInfo(); 
-			}*/
 		}
 		
+	}
+	
+	public void attivitaPostBancarotta() {
+		inizioTurno();
+		aggiornaVisualizzazioneInfo(); 
 	}
 	
 	public boolean getConta() {
@@ -182,6 +172,8 @@ public class Monopoly {
 			return true;
 		}
 		else {
+			print.stampa("Le prorpietà all'asta sono finite");
+			attivitaPostBancarotta();
 			return false;
 		}
 	}
