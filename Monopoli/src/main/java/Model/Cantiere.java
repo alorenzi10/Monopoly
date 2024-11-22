@@ -83,7 +83,7 @@ public class Cantiere extends Proprieta {
 	}
 	
 	public int getPrezzoIpoteca() {
-		return getPrezzoIpoteca();
+		return super.getPrezzoIpoteca();
 	}
 
 

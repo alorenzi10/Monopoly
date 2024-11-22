@@ -34,6 +34,11 @@ public class MonopolyController {
 		monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
 		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
 		monopolyGUI.addBtnProprieta(new BtnProprieta());
+		monopolyGUI.addBtnSalva(new BtnSalva());
+		monopolyGUI.addBtnEsci(new BtnEsci());
+		
+		monopolyGUI.addBtnSalva1(new BtnSalva1());
+		monopolyGUI.addBtnAnnulla(new BtnAnnulla());
 		
 		//bancarotta
 		monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
@@ -92,6 +97,39 @@ public class MonopolyController {
 		}
 	}
 	
+	private class BtnSalva implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopolyGUI.salva();
+		}
+	}
+	
+	private class BtnSalva1 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String nomeSalavaggio=monopolyGUI.getNomeSalvataggio();
+			///azioni di salvataggio
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+	
+	private class BtnAnnulla implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+	
+	private class BtnEsci implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			frame.remove(monopolyGUI.getPanelScelteTurno());
+			frame.remove(monopolyGUI);
+			new MenuController(frame);
+			
+		}
+	}
 	//BANCAROTTA
 	private class BtnDichiaraBancarotta implements ActionListener{
 		@Override
