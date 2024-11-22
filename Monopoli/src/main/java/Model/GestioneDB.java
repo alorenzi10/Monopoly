@@ -1,8 +1,6 @@
 package Model;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.Scanner;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +11,6 @@ public class GestioneDB {
 	
 	public static void main(String[] args) throws SQLException {
 		creaTabella();
-		inserisciDati();
 	}
 
     public static String DB_REL_FILE = "./db/mydb.db3";
@@ -43,12 +40,12 @@ public class GestioneDB {
     }
     
     //per quando si decide di uscire e salvare la partita
-    public static void inserisciDati() throws SQLException {
+   /* public static void inserisciDati() throws SQLException {
     	
     	Connection conn = DriverManager.getConnection(DB_URL);
     	try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Inserisci il nome del giocatore: ");//deve farlo la gui
-            String username = scanner.nextLine();/**/
+            String username = scanner.nextLine();
 
             System.out.println("Inserisci la posizione della pedina: ");
             int posPedina = scanner.nextInt();
@@ -66,44 +63,26 @@ public class GestioneDB {
                 pstmt.setInt(3, posPedina);
                 pstmt.setInt(4, soldi);
                 pstmt.executeUpdate();
-                System.out.println("Dati inseriti con successo.");/**/
+                System.out.println("Dati inseriti con successo.");
             }catch (SQLException e) {
                 System.out.println(e.getMessage());
             } finally {
-                System.out.println("Esecuzione terminata.");/**/
+                System.out.println("Esecuzione terminata.");
             }	
         }
-    }
+    } */
     
     //per quando nel menu si vuole far scegliere la partita da caricare
-    public static void visualizzaDati(JTable table) throws SQLException {
+    public static void visualizzaDati(JTable table) throws SQLException { //ci sta
     	
     	table.setEnabled(false);
+    	
     	Connection conn = DriverManager.getConnection(DB_URL);
     	String sqlSelect = "SELECT * FROM " + NomeTabella;
     	
     	DefaultTableModel model = new DefaultTableModel();
         try (Statement stmt = conn.createStatement();
-             ResultSet resultSet = stmt.executeQuery(sqlSelect)) {
-
-        	//da far fare alla GUI
-            /*System.out.println("Risultati della query:");
-            while (resultSet.next()) {			// Per il test
-                String idPartita = resultSet.getString("ID_PARTITA");
-                String player = resultSet.getString("PLAYER");
-                int posPedina = resultSet.getInt("POS_PEDINA");
-                int soldi = resultSet.getInt("SOLDI");
-
-                System.out.println("ID_PARTITA: " + idPartita + ", PLAYER: " + player + 
-                                   ", POS_PEDINA: " + posPedina + ", SOLDI: " + soldi);
-            }*/
-            
-        	//ResultSetMetaData metaData = resultSet.getMetaData();
-            //int columnCount = metaData.getColumnCount();
-            
-           /* for (int i = 1; i <= 2; i++) {
-                model.addColumn(metaData.getColumnLabel(i));
-            }*/
+            ResultSet resultSet = stmt.executeQuery(sqlSelect)) {
             
             boolean hasData = false;
             
@@ -126,8 +105,9 @@ public class GestioneDB {
         conn.close();   
         }
     }
+    
     //se si vogliono cancellare salvataggi(???)
-    public static void eliminaDati() throws SQLException {
+    /*public static void eliminaDati() throws SQLException {
     	
     	Connection conn = DriverManager.getConnection(DB_URL);
     	try (Scanner scanner = new Scanner(System.in)) {
@@ -147,6 +127,6 @@ public class GestioneDB {
         } finally {
         	System.out.println("Esecuzione terminata.");
         }
-    }
+    } */
     
 }
