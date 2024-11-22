@@ -73,7 +73,7 @@ public class MonopolyController {
 			partenza = monopoly.getGiCorrente().getLocation();
 			monopoly.tiraDadi();
 			arrivo = monopoly.getGiCorrente().getLocation();
-			monopolyGUI.muoviPedina(partenza, arrivo, monopoly.getGiCorrente().getId() );
+			monopolyGUI.muoviPedina(partenza, arrivo, monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
 		}
 	}
 	
@@ -152,10 +152,10 @@ public class MonopolyController {
 			
 			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(),false);
 			
-			offerte=new String[40];
-			richieste=new String[40];
-			contaOfferte=0;
-			contaRichieste=0;
+			offerte = new String[40];
+			richieste = new String[40];
+			contaOfferte = 0;
+			contaRichieste = 0;
 		}
 	}
 	
@@ -188,7 +188,7 @@ public class MonopolyController {
 				denaroOfferto = Integer.parseInt(monopolyGUI.getDenaroOfferto()); //controllo anche se negativi o fuori limite int?
 			}catch (NumberFormatException exe) {
 				
-		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro");
+		    	monopolyGUI.stampa("Per scambiare riempi anche i campi denaro"); // Non serve perchè c'è 0 di default (che però è eliminabile...)
 		    	annullaScambio();
 		    	return;
 			}
@@ -279,7 +279,36 @@ public class MonopolyController {
 		}
 	}
 
-	
+	private class BtnBancarotta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			monopolyGUI.setDecisioneBancarotta();
+			monopolyGUI.stampa("Sei andato in bancarotta");
+			monopolyGUI.rimuoviPedina(monopoly.getGiCorrente().getLocation(), monopoly.getPlayers().indexOf(monopoly.getGiCorrente()));
+			monopoly.setBancarotta();
+			
+			if(monopoly.getPlayers().size() == 1) {
+				frame.remove(monopolyGUI.getPanelScelteTurno());
+				frame.remove(monopolyGUI);
+				frame.add(new SchermataVincitoreView(monopoly.getPlayers().get(0).getName())); // Creazione schermata vincitore con nome del giocatore
+				frame.revalidate();
+		        frame.repaint();
+			}
+			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
+			monopoly.aggiornaVisualizzazioneInfo();
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+
+	private class BtnNoBancarotta implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			monopolyGUI.rimuoviAcquistoAsta();
+		}
+	}
+
 	//PRIGIONE
 	private class BtnUsaCartaEsciDiPrigione implements ActionListener{
 		@Override
@@ -376,7 +405,4 @@ public class MonopolyController {
 			}
 		}
 	}
-
-	
-
 }

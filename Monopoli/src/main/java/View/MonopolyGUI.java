@@ -64,7 +64,6 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste;
 	
 	private ArrayList<JTextArea> txtPropGiocatori;
-	private ArrayList<JLabel> immaginiPedine;
 	
 	private JPanel panel_info_giocatori;
 
@@ -850,10 +849,6 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_prop_pedina = new ArrayList<>();
 		lblSaldoGiocatori = new ArrayList<>();
 		txtPropGiocatori = new ArrayList<>();
-		immaginiPedine = new ArrayList<>();
-		
-		for(int i = 0; i<giocatori.size(); i++) 
-			immaginiPedine.add(pedine.get(i));
 		
 		for (String s: giocatori) {
 
@@ -889,7 +884,6 @@ public class MonopolyGUI extends JLayeredPane {
 			panel_prop_pedina.get(i).add(scrollProp);
 
 			// Label per visualizzare la propria pedina
-			//JLabel immaginePedina = new JLabel(immaginiPedine.get(i).getIcon());// Creo una copia di pedine per l'icona
 			panel_prop_pedina.get(i).add(new JLabel(pedine.get(i).getIcon()));
 			panelGiocatore.add(panel_prop_pedina.get(i));
 
