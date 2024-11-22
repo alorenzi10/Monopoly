@@ -722,6 +722,11 @@ public class MonopolyGUI extends JLayeredPane {
 	public JButton getBtnRitirati() {
 		return btnRitirati;
 	}
+	public JButton getBtnConfermaOfferta() {
+		return btnConfermaOfferta;
+	}
+	
+	
 	public JPanel getPanelScelteTurno() {
 		return panel_scelte_turno;
 	}
@@ -932,8 +937,8 @@ public class MonopolyGUI extends JLayeredPane {
 	public boolean getDecisioneBancarotta() {
 		return decisioneBancarotta;
 	}
-	public void setDecisioneBancarotta() {
-		decisioneBancarotta = true;
+	public void setDecisioneBancarotta(boolean scelta) {
+		decisioneBancarotta = scelta;
 	}
 
 	public void confermaBancarotta() {
@@ -1289,8 +1294,8 @@ public class MonopolyGUI extends JLayeredPane {
 
 	}
 	//////INIZIO METODI ASTA
-	public void asta(String nomeCorrente) { //forse da mettere da un altra parte
-
+	public void asta(String nomeCorrente, String proprieta) { //forse da mettere da un altra parte
+		
 		buttonsState(false);
 		panel_sfondo = new JPanel();
 		panel_sfondo.setBounds(0, 0, 1540, 845);
@@ -1310,6 +1315,12 @@ public class MonopolyGUI extends JLayeredPane {
 		lblAsta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAsta.setBounds(25, 22, 471, 53);
 		panel_asta.add(lblAsta);
+		
+		JLabel lblAstaNome = new JLabel("La proprietà all'asta è "+proprieta);
+		lblAstaNome.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+		lblAstaNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAstaNome.setBounds(25,80 , 471, 53);
+		panel_asta.add(lblAstaNome);
 
 		lblOfferta = new JLabel("La base d'asta è: 10€");
 		lblOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -1320,7 +1331,7 @@ public class MonopolyGUI extends JLayeredPane {
 		lblTurno = new JLabel(nomeCorrente + " fai la prima offerta");
 		lblTurno.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblTurno.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTurno.setBounds(25, 100, 250, 53);
+		lblTurno.setBounds(25, 110, 300, 53);
 		panel_asta.add(lblTurno);
 
 		btn1.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -1341,11 +1352,13 @@ public class MonopolyGUI extends JLayeredPane {
 
 		btnConfermaOfferta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnConfermaOfferta.setBounds(21, 400, 230, 82);
+		btnConfermaOfferta.setVisible(true);
 		panel_asta.add(btnConfermaOfferta);
 
 		btnRitirati.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnRitirati.setBounds(272, 400, 230, 82);
 		panel_asta.add(btnRitirati);
+
 
 	}	
 
@@ -1365,7 +1378,7 @@ public class MonopolyGUI extends JLayeredPane {
 		revalidate();
 		repaint();
 	}
-
+	
 	public void stampa(String text) {
 		consoleTextArea.append(">> " + text + "\n");
 		consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength()); //scorre alla fine sempre

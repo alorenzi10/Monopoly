@@ -21,6 +21,9 @@ public class Monopoly {
     private boolean fineTurno; //da rimuovere?
     private MonopolyGUI print;
     public Asta asta;
+    
+    private ArrayList<Proprieta> listaPropBancarotta;
+    private int conta;
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
@@ -125,15 +128,16 @@ public class Monopoly {
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
-		print.confermaBancarotta();// Vedo che viene eseguito perche proviene dal event listener del button
+		//print.confermaBancarotta(); // Vedo che viene eseguito perche proviene dal event listener del button
 		if(print.getDecisioneBancarotta()) {
-
+			
+			print.rimuoviAcquistoAsta();
 			// Gestione proprietà del giocatore in bancarotta
-			for(Proprieta p: giCorrente.getListaProprieta()) {
+			/*for(Proprieta p: giCorrente.getListaProprieta()) {
 				p.setProprietario(null);
 				p.setPosseduta(false);
-			}
-			giCorrente.getListaProprieta().clear();
+			} */
+			//giCorrente.getListaProprieta().clear();
 
 			// Set prossimo giocatore			
 			Player giTemp = giCorrente;
@@ -144,18 +148,50 @@ public class Monopoly {
 			else {
 				giCorrente = players.get(0);
 			}
+			
 			players.remove(giTemp);
-
-			inizioTurno();
-
+			
+			listaPropBancarotta=giTemp.getListaProprieta();
+			conta=0;
+			astaBancarotta();
+			/*for(Proprieta p: giTemp.getListaProprieta()) {
+				p.setProprietario(null);
+				p.setPosseduta(false); 
+				print.stampa(p.getNome()+" viene messa all'asta");
+				asta = new Asta(giCorrente, players, p, print);
+				asta.inizio(); 
+			}
+			print.stampa("SONO USCITO");
+			
+			giTemp.getListaProprieta().clear();*/
+			
 			// Controllo eventuale vittoria
-			if(players.size() == 1) {
+			/*if(players.size() == 1) {
 				gameOver = true;
 				print.stampa(players.get(0).getName() + " ha vinto!!");
-			}
+			}else {
+				inizioTurno();
+				aggiornaVisualizzazioneInfo(); 
+			}*/
 		}
-		aggiornaVisualizzazioneInfo();
+		
 	}
+	
+	public boolean getConta() {
+		if(conta<listaPropBancarotta.size()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public void astaBancarotta() {
+		
+		asta = new Asta(giCorrente, players, listaPropBancarotta.get(conta), print);
+		asta.inizio(); 
+		conta++;
+	}
+	
 	
 	public void uscitaGratis() {
 		if (giCorrente.getInPrigione()) {
