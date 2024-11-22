@@ -14,11 +14,13 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
 
 public class SchermataVincitoreView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnMenuPrincipale, btnEsci;
 
 	public SchermataVincitoreView(String nomeVincitore) {
 		setBounds(0, 0, 1540, 840);
@@ -54,7 +56,7 @@ public class SchermataVincitoreView extends JPanel {
 		panel_bottoni.setLayout(null);
 		panel_bottoni.setBackground(new Color(0, 0, 0, 0));
 		
-		JButton btnMenuPrincipale = new JButton(" Menu principale");
+		btnMenuPrincipale = new JButton(" Menu principale");
 		btnMenuPrincipale.setBounds(84, 56, 396, 67);
 		btnMenuPrincipale.setFont(new Font("Monopoly Inline", Font.PLAIN, 50));
 		try {
@@ -65,7 +67,7 @@ public class SchermataVincitoreView extends JPanel {
 		btnMenuPrincipale.setBackground(new Color(50,205,50));
 		panel_bottoni.add(btnMenuPrincipale);
 		
-		JButton btnEsci = new JButton(" Esci");
+		btnEsci = new JButton(" Esci");
 		btnEsci.setBounds(564, 56, 168, 67);
 		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 50));
 		try {
@@ -91,8 +93,15 @@ public class SchermataVincitoreView extends JPanel {
                 int newHeight = (imageHeight * panelWidth) / imageWidth;
                 g.drawImage(image, 0, 0, panelWidth, newHeight, this); 
         	}
-        };
-
-        
+        };        
 	}
+	
+	public void addBtnMenuPrincipale(ActionListener listener) {
+		btnMenuPrincipale.addActionListener(listener);
+	}
+	
+	public void addBtnEsci(ActionListener listener) {
+		btnEsci.addActionListener(listener);
+	}
+
 }

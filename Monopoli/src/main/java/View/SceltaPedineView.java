@@ -2,7 +2,6 @@ package View;
 
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class SceltaPedineView extends JPanel  {
 
 	public SceltaPedineView() {
 
-		this.nomiGiocatori=NomiGiocatoriController.getNomiGiocatori();
+		this.nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
 		setOpaque(false);
 		setBounds(0, 0, 1920, 1080);
 		setLayout(null);
@@ -53,12 +52,12 @@ public class SceltaPedineView extends JPanel  {
 		setUp.setLayout(null);
 
 		JLabel lblSceltaPedine = new JLabel("Scelta pedine");
-		lblSceltaPedine.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblSceltaPedine.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		lblSceltaPedine.setBounds(415, 30, 408, 50);
 		setUp.add(lblSceltaPedine);
 
 		lblTurnoGiocatore = new JLabel(nomiGiocatori[indice] + " scegli la pedina");
-		lblTurnoGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTurnoGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		lblTurnoGiocatore.setBounds(415, 100, 408, 50);
 		setUp.add(lblTurnoGiocatore);
 

@@ -1,25 +1,21 @@
 package View;
 
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 public class GestioneProprietaView extends JPanel {
-	
+
+	private static final long serialVersionUID = 1L;
 	private JPanel panel_sfondo;
 	private JPanel panel_gestione_proprieta;
 	
@@ -34,23 +30,23 @@ public class GestioneProprietaView extends JPanel {
 
 	public GestioneProprietaView(SchermataDiGioco frame) {
 		
-		this.frame=frame;
-		btnBlu=  new JButton("Blu");
-		btnVerde=  new JButton("Verde");
-		btnGiallo=   new JButton("Giallo");
-		btnRosso=   new JButton("Rosso");
-		btnArancio=   new JButton("Arancio");
-		btnViola=   new JButton("Viola");
-		btnAzzurro=   new JButton("Azzurro");
-		btnMarrone= new JButton("Marrone");
-		btnStazione=new JButton("Stazione");
-		btnSocieta=new JButton("Società");
-		btnIndietro1= new JButton("Indietro1");
-		btnIndietro= new JButton("Indietro");
-		btn1=new JButton();
-		btn2=new JButton();
-		btn3=new JButton();
-		btn4=new JButton(); //solo per ferrovie
+		this.frame = frame;
+		btnBlu = new JButton("Blu");
+		btnVerde = new JButton("Verde");
+		btnGiallo = new JButton("Giallo");
+		btnRosso = new JButton("Rosso");
+		btnArancio = new JButton("Arancio");
+		btnViola = new JButton("Viola");
+		btnAzzurro = new JButton("Azzurro");
+		btnMarrone = new JButton("Marrone");
+		btnStazione = new JButton("Stazione");
+		btnSocieta = new JButton("Società");
+		btnIndietro1 = new JButton("Indietro1");
+		btnIndietro = new JButton("Indietro");
+		btn1 = new JButton();
+		btn2 = new JButton();
+		btn3 = new JButton();
+		btn4 = new JButton(); //solo per ferrovie
 		btnFine = new JButton("Fine");
 	
 		btnCostruisci = new JButton("Costruisci");
@@ -61,7 +57,7 @@ public class GestioneProprietaView extends JPanel {
 		
 		btnDisipoteca = new JButton("Disipoteca");
 		
-		lblCosto=null;
+		lblCosto = null;
 		
 		panel_sfondo = new JPanel();
 		panel_sfondo.setBounds(0, 0, 1540, 845);
@@ -74,7 +70,6 @@ public class GestioneProprietaView extends JPanel {
 	
 	public void Scelte() {
 		
-
 		panel_gestione_proprieta = new JPanel() {
 		private static final long serialVersionUID = 1L;
 		protected void paintComponent(Graphics g) {
@@ -111,7 +106,6 @@ public class GestioneProprietaView extends JPanel {
 		btnIpoteca.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnIpoteca);
 
-		
 		btnDemolisci.setBounds(39, 322, 203, 82);
 		btnDemolisci.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_gestione_proprieta.add(btnDemolisci);
@@ -123,6 +117,7 @@ public class GestioneProprietaView extends JPanel {
 		panel_gestione_proprieta.repaint();
 		panel_gestione_proprieta.revalidate();
 	}
+	
 	public void Fine() {
 		panel_sfondo.remove(panel_gestione_proprieta);
 	}
@@ -152,17 +147,16 @@ public class GestioneProprietaView extends JPanel {
 		JLabel lblGestisciLeProprieta = null;
 		switch (scelta) {
 		case 1:
-			lblGestisciLeProprieta= new JLabel("Costruisci sulle tue proprietà");
+			lblGestisciLeProprieta = new JLabel("Costruisci sulle tue proprietà");
 			break;
 		case 2:
 			lblGestisciLeProprieta = new JLabel("Demolisci le tue proprietà");
-			
 			break;
 		case 3:
-			lblGestisciLeProprieta= new JLabel("Ipoteca le tue proprietà");
+			lblGestisciLeProprieta = new JLabel("Ipoteca le tue proprietà");
 			break;
 		case 4:
-			lblGestisciLeProprieta= new JLabel("Disipoteca le tue proprietà");
+			lblGestisciLeProprieta = new JLabel("Disipoteca le tue proprietà");
 			break;
 		}
 
@@ -170,15 +164,19 @@ public class GestioneProprietaView extends JPanel {
 		lblGestisciLeProprieta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		lblGestisciLeProprieta.setBounds(100, 27, 350, 31);
 		panel_gestione_proprieta.add(lblGestisciLeProprieta);
+		
 		btnBlu.setBounds(39, 120, 100, 100);
 		btnBlu.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnBlu);
+		
 		btnVerde.setBounds(140, 120, 100, 100);
 		btnVerde.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnVerde);
+		
 		btnGiallo.setBounds(240, 120, 100, 100);
 		btnGiallo.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnGiallo);
+		
 		btnRosso.setBounds(340, 120, 100, 100);
 		btnRosso.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnRosso);
@@ -186,17 +184,20 @@ public class GestioneProprietaView extends JPanel {
 		btnArancio.setBounds(39, 280, 100, 100);
 		btnArancio.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnArancio);
+		
 		btnViola.setBounds(140, 280,  100, 100);
 		btnViola.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnViola);
+		
 		btnAzzurro.setBounds(240, 280, 100, 100);
 		btnAzzurro.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnAzzurro);
+		
 		btnMarrone.setBounds(340, 280,  100, 100);
 		btnMarrone.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		panel_gestione_proprieta.add(btnMarrone);
 		
-		if(scelta==3 || scelta==4) {
+		if(scelta == 3 || scelta == 4) {
 			btnStazione.setBounds(200, 400, 140, 100);
 			btnStazione.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 			panel_gestione_proprieta.add(btnStazione);
@@ -216,7 +217,7 @@ public class GestioneProprietaView extends JPanel {
 	
 	public void Colore(String colore, int scelta) { //Devo adattare anche alla societa e alle ferrovie
 		
-		contatoreBottone=0;
+		contatoreBottone = 0;
 		panel_sfondo.remove(panel_gestione_proprieta);
 		
 		panel_gestione_proprieta = new JPanel();
@@ -228,29 +229,24 @@ public class GestioneProprietaView extends JPanel {
 		JLabel lblGestisciLeProprieta = null;
 		switch (scelta) {
 		case 1:
-			lblGestisciLeProprieta = new JLabel("Costruisci sul "+colore);
+			lblGestisciLeProprieta = new JLabel("Costruisci sul " + colore);
 			break;
 		case 2:
-			lblGestisciLeProprieta = new JLabel("Demolisci sul "+colore);
-			
+			lblGestisciLeProprieta = new JLabel("Demolisci sul " + colore);
 			break;
 		case 3:
-			if(colore=="Stazione" || colore=="Società") {
-				lblGestisciLeProprieta= new JLabel("Ipoteca la tue"+colore);
-			}
-			else {
-				lblGestisciLeProprieta= new JLabel("Ipoteca la tue proprietà "+colore);
-			}
-			
+			if(colore == "Stazione" || colore == "Società") {
+				lblGestisciLeProprieta= new JLabel("Ipoteca la tue" + colore);
+			}	else {
+				lblGestisciLeProprieta= new JLabel("Ipoteca la tue proprietà " + colore);
+				}
 			break;
 		case 4:
-			if(colore=="Stazione" || colore=="Società") {
-				lblGestisciLeProprieta= new JLabel("Disipoteca la tue "+colore);
-			}
-			else {
-				lblGestisciLeProprieta= new JLabel("Disipoteca la tue proprietà "+colore);
-			}
-			
+			if(colore == "Stazione" || colore == "Società") {
+				lblGestisciLeProprieta= new JLabel("Disipoteca la tue " + colore);
+			}	else {
+				lblGestisciLeProprieta= new JLabel("Disipoteca la tue proprietà " + colore);
+				}
 			break;
 		}
 		
@@ -259,37 +255,35 @@ public class GestioneProprietaView extends JPanel {
 		lblGestisciLeProprieta.setBounds(80, 27, 400, 31);
 		panel_gestione_proprieta.add(lblGestisciLeProprieta);
 		
-		int costo=0;
-		if(scelta==1 || scelta==2) {
+		int costo = 0;
+		if(scelta == 1 || scelta == 2) {
 		
-			if(colore=="marrone" || colore=="azzurro") {
-			costo=50;
+			if(colore == "marrone" || colore == "azzurro") {
+			costo = 50;
 			}
-			if(colore=="viola" || colore=="arancione") {
+			if(colore == "viola" || colore == "arancione") {
 			costo=100;
 			}
-			if(colore=="rosso" || colore=="giallo") {
+			if(colore == "rosso" || colore == "giallo") {
 			costo=150;
 			}
-			if(colore=="verde" || colore=="blu") {
-			costo=200;
+			if(colore == "verde" || colore == "blu") {
+			costo = 200;
 			}
 		}
 		
 		switch (scelta) {
 		case 1:
-			lblCosto = new JLabel("Il costo di una casa è di: "+costo);
+			lblCosto = new JLabel("Il costo di una casa è di: " + costo);
 			break;
 		case 2:
-			lblCosto = new JLabel("Dalla demolizione ti tornano: "+costo/2);
+			lblCosto = new JLabel("Dalla demolizione ti tornano: " + costo/2);
 			break;
 		case 3:
-			lblCosto= new JLabel("Valori ipoteche in ordine: ");
+			lblCosto = new JLabel("Valori ipoteche in ordine: ");
 			break;
 		case 4:
-			
-			lblCosto= new JLabel("Costo disipoteche in ordine: ");
-			
+			lblCosto = new JLabel("Costo disipoteche in ordine: ");
 			break;
 		}
 		
@@ -330,63 +324,72 @@ public class GestioneProprietaView extends JPanel {
 	public void aggiungiBottone(String proprietà) {
 		
 		contatoreBottone++;
-		if(contatoreBottone==1) {
+		if(contatoreBottone == 1) {
 			btn1.setText(proprietà);
 			btn1.setVisible(true);
 		}
-		if(contatoreBottone==2) {
+		if(contatoreBottone == 2) {
 			btn2.setText(proprietà);
 			btn2.setVisible(true);
 		}
-		if(contatoreBottone==3) {
+		if(contatoreBottone == 3) {
 			btn3.setText(proprietà);
 			btn3.setVisible(true);
 		}
-		if(contatoreBottone==4) {
+		if(contatoreBottone == 4) {
 			btn4.setText(proprietà);
 			btn4.setVisible(true);
 		}
 	}
 
 	public void valoriIpoteche(double d) {
-		lblCosto.setText(lblCosto.getText()+(int )d+ " ");
+		lblCosto.setText(lblCosto.getText() + (int) d + " ");
 	}
-	
 	
 	public void addBtnCostruisci(ActionListener listener) {
 		btnCostruisci.addActionListener(listener);
 	}
+	
 	public void addBtnDemolisci(ActionListener listener) {
 		btnDemolisci.addActionListener(listener);
 	}
+	
 	public void addBtnIpoteca(ActionListener listener) {
 		btnIpoteca.addActionListener(listener);
 	}
+	
 	public void addBtnDisipoteca(ActionListener listener) {
 		btnDisipoteca.addActionListener(listener);
 	}
-
+	
 	public void addBtnMarrone(ActionListener listener) {
 		btnMarrone.addActionListener(listener);
 	}
+	
 	public void addBtnAzzurro(ActionListener listener) {
 		btnAzzurro.addActionListener(listener);
 	}
+	
 	public void addBtnViola(ActionListener listener) {
 		btnViola.addActionListener(listener);
 	}
+	
 	public void addBtnArancio(ActionListener listener) {
 		btnArancio.addActionListener(listener);
 	}
+	
 	public void addBtnRosso(ActionListener listener) {
 		btnRosso.addActionListener(listener);
 	}
+	
 	public void addBtnGiallo(ActionListener listener) {
 		btnGiallo.addActionListener(listener);
 	}
+	
 	public void addBtnVerde(ActionListener listener) {
 		btnVerde.addActionListener(listener);
 	}
+	
 	public void addBtnBlu(ActionListener listener) {
 		btnBlu.addActionListener(listener);
 	}
@@ -422,9 +425,9 @@ public class GestioneProprietaView extends JPanel {
 	public void addBtnStazione(ActionListener listener) {
 		btnStazione.addActionListener(listener);
 	}
+	
 	public void addBtnSocieta(ActionListener listener) {
 		btnSocieta.addActionListener(listener);
 	}
-	
 
 }

@@ -1,9 +1,6 @@
 package View;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,19 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Model.GestioneDb2;
-import Model.GestioneDB;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 public class CaricaPartitaView extends JPanel {
 
@@ -53,22 +43,22 @@ public class CaricaPartitaView extends JPanel {
         
         JLabel lblCaricaPartita = new JLabel("Carica partita");
         lblCaricaPartita.setBounds(740, 50, 400, 64);
-        lblCaricaPartita.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        lblCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 40));
         setUp.add(lblCaricaPartita);
         
         btnIndietro = new JButton("Indietro");
         btnIndietro.setBounds(10, 415, 152, 60);
-        btnIndietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
         setUp.add(btnIndietro);
         
         btnCarica = new JButton("Carica");
         btnCarica.setBounds(10, 215, 152, 60);
-        btnCarica.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnCarica.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
         setUp.add(btnCarica);
         
         btnElimina = new JButton("Elimina");
         btnElimina.setBounds(10, 315, 152, 60);
-        btnElimina.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        btnElimina.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
         setUp.add(btnElimina);
         
         carica=new JTextField();
@@ -103,7 +93,7 @@ public class CaricaPartitaView extends JPanel {
 	}
 	public void mostraLabel() {
 		JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
-		lblNoPartiteSalvate.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNoPartiteSalvate.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		lblNoPartiteSalvate.setBounds(320, 80, 357, 41);
 		setUp.add(lblNoPartiteSalvate);
 		setUp.setComponentZOrder(lblNoPartiteSalvate, 0);

@@ -1,15 +1,8 @@
 package View;
 
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,11 +38,11 @@ public class NomiGiocatoriView extends JPanel {
 
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(50, 550, 200, 60);
-		btnIndietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		setUp.add(btnIndietro);  
 
 		JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
-		lblInserisciNomi.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblInserisciNomi.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		lblInserisciNomi.setBounds(396, 30, 408, 50);
 		setUp.add(lblInserisciNomi);
 
@@ -58,7 +51,7 @@ public class NomiGiocatoriView extends JPanel {
 
 		for (int i = 0; i < numGiocatori; i++) {
 			JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
-			lblNomeGiocatore.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 			lblNomeGiocatore.setBounds(200, 150 + (i * 40), 150, 30);
 			setUp.add(lblNomeGiocatore);
 
@@ -69,14 +62,14 @@ public class NomiGiocatoriView extends JPanel {
 
 		// Pulsante per confermare i nomi
 		btnConferma = new JButton("Conferma");
-		btnConferma.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnConferma.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		btnConferma.setBounds(950, 550, 200, 60);
 		setUp.add(btnConferma);
 
 		revalidate();
 		repaint();   
 	}
-	
+
 	// Metodo che mostra un avviso quando manca l'assegnazione del nome ad uno o più giocatori
 	public void completaInserimento() {
 		JOptionPane.showMessageDialog(NomiGiocatoriView.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -85,7 +78,7 @@ public class NomiGiocatoriView extends JPanel {
 	public static int getNumGiocatori() {
 		return numGiocatori;
 	}
-	
+
 	// Metodo che ritorna le stringhe dei JTextField
 	public JTextField[] getCampoNomi() {
 		return playerNames;
