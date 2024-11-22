@@ -120,7 +120,6 @@ public class MonopolyController {
 			}
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopoly.aggiornaVisualizzazioneInfo();
-			// monopolyGUI.rimuoviAcquistoAsta(); 
 		}
 	}
 
