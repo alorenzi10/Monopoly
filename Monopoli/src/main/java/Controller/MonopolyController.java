@@ -3,12 +3,18 @@ package Controller;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import Model.Monopoly;
@@ -116,16 +122,49 @@ public class MonopolyController {
 	private class BtnSalva1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//si potrebbe 
-			//salva nome partita, id giocatore corrente
+			
+			String filePath="partiteMonopoli.json";
 			String nome=monopolyGUI.getNomeSalvataggio();
+			if(nome.length()!=0) {
 			monopoly.setSalvaPartita(nome, monopoly.getGiCorrente().getId());
 			monopoly.setTempo();
+			
+			File file=new File(filePath);
 			Gson gson=new Gson();
-			String json3=gson.toJson(monopoly);
-			System.out.println(json3);
-			///azioni di salvataggio
+			
+			if(!file.exists()) {
+				try {
+					file.createNewFile();
+					
+					JsonArray jsonArray=new JsonArray();
+					try(FileWriter writer=new FileWriter(filePath)){
+						gson.toJson(jsonArray,writer);
+					}
+				}
+				catch(IOException e1){
+					e1.printStackTrace();
+				}
+			}
+			
+			try {
+				JsonArray existingData=new JsonArray();
+				try(FileReader reader=new FileReader(filePath)){
+					existingData=JsonParser.parseReader(reader).getAsJsonArray();
+				}
+				String json=gson.toJson(monopoly);
+				
+				existingData.add(json);
+				try(FileWriter writer=new FileWriter(filePath)){
+					gson.toJson(existingData,writer);
+				}
+			} catch(IOException e1) {
+				e1.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(monopolyGUI, "Partita salvata");
 			monopolyGUI.rimuoviAcquistoAsta();
+		}else {
+			JOptionPane.showMessageDialog(monopolyGUI, "Per salvare inserisci un nome al salvataggio");
+			}
 		}
 	}
 	

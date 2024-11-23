@@ -7,7 +7,7 @@ public class Proprieta extends Casella {
     private int costo;
     private transient Player possessore;
     private boolean ipotecata;
-    private int prezzoIpoteca;
+    private transient int prezzoIpoteca;
 
     public Proprieta(String name, int costo, int prezzoIpoteca) {
     	super(name);

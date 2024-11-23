@@ -7,13 +7,14 @@ import View.*;
 
 public class Monopoly {
 	
-	private String nomePartita; //campi per json
-	private int idCorrente; //campi per json
+	public String nomePartita; //campi per json
+	
 	private String salvataggioDateTime;
-    private final int MONEY_START = 1500; // Denaro iniziale
-    private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
-    private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
+    private transient final int MONEY_START = 1500; // Denaro iniziale
+    private transient final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
+    private transient final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
     private int numero_giocatori; 
+    private int idCorrente; //campi per json
     private ArrayList<Player> players;
     private transient Player giCorrente; // Giocatore del turno corrente
     private transient Dadi dice;

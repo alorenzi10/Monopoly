@@ -19,14 +19,16 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class CaricaPartitaView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static JPanel setUp;
+	public JPanel setUp;
 	private static JTable table;
+	private static DefaultTableModel model;
 	private JButton btnIndietro, btnCarica, btnElimina;
 	private JTextField carica, elimina;
 	static JScrollPane scrollPane;
@@ -82,26 +84,44 @@ public class CaricaPartitaView extends JPanel {
         setUp.add(scrollPane);
         
         table = new JTable();
-       
+        model=new DefaultTableModel();
+        model.addColumn("Nome");
+        model.addColumn("Num. Giocatori");
+        model.addColumn("Oraio di salvataggio");
+        table.setModel(model);
         scrollPane.setViewportView(table);
         scrollPane.revalidate();
         scrollPane.repaint();
 	}
+	
+	public void aggiungiATabella(String nome,String num, String data) {
+		Object[] row=new Object[3];
+		row[0]=nome;
+		row[1]=num;
+		row[2]=data;
+		model.addRow(row);
+	}
+	
+	public void nuovaModello() {
+		model=new DefaultTableModel();
+        model.addColumn("Nome");
+        model.addColumn("Num. Giocatori");
+        model.addColumn("Oraio di salvataggio");
+        table.setModel(model);
+	}
 	public void aggiorna() {
 		 scrollPane.revalidate();
-	       scrollPane.repaint();
+	     scrollPane.repaint();
 	}
 	public void mostraLabel() {
+		
 		JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
 		lblNoPartiteSalvate.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNoPartiteSalvate.setBounds(320, 80, 357, 41);
+		lblNoPartiteSalvate.setBounds(630, 150, 600, 300);
 		setUp.add(lblNoPartiteSalvate);
 		setUp.setComponentZOrder(lblNoPartiteSalvate, 0);
 	}
 	
-	public static void Avviso(String text) {
-		JOptionPane.showMessageDialog(setUp, text);
-	}
 	public void addBtnCarica(ActionListener listener) {
 
 		btnCarica.addActionListener(listener);

@@ -2,7 +2,7 @@ package Model;
 
 public class Cantiere extends Proprieta {
 
-	private int[] tabellaAffitti; //0- affitto, 1-4 case, 5 albergo
+	private transient int[] tabellaAffitti; //0- affitto, 1-4 case, 5 albergo
 	private transient GruppoColore gruppoColore;
 	private int numCostruzioni;
 	private int costoCasa;

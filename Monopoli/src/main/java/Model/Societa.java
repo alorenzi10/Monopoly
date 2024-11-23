@@ -2,7 +2,7 @@ package Model;
 
 public class Societa extends Proprieta {
 	
-    private int[] rentTable;
+    private transient int[] rentTable;
     private  transient Dadi dice;
 
     public Societa(String name, int price, int mortgageValue, int[] rentTable, Dadi dice) {
