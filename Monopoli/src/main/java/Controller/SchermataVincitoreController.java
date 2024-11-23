@@ -10,13 +10,13 @@ public class SchermataVincitoreController {
 
 	// Per fine partita
 	private static SchermataVincitoreView schermataVincitore;
-	private String vincitore;
 	private static SchermataDiGioco frame;
 	
 	
-	public SchermataVincitoreController (SchermataDiGioco frame) {
-		schermataVincitore = new SchermataVincitoreView(vincitore);
-		SchermataVincitoreController.frame=frame;
+	public SchermataVincitoreController (String vincitore, SchermataDiGioco frame) {
+		
+		SchermataVincitoreController.frame = frame;
+		schermataVincitore = new SchermataVincitoreView(vincitore, frame);
 		frame.add(schermataVincitore);
 		frame.revalidate();
 		frame.repaint();
@@ -35,6 +35,9 @@ public class SchermataVincitoreController {
 	private class BtnMenuPrincipale implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			frame.remove(schermataVincitore);
+			frame.revalidate();
+			frame.repaint();
 			new MenuController(frame);
 		}
 	}

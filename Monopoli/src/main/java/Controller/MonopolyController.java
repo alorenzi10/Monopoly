@@ -151,7 +151,7 @@ public class MonopolyController {
 			if(monopoly.getPlayers().size() == 1) {
 				frame.remove(monopolyGUI.getPanelScelteTurno());
 				frame.remove(monopolyGUI);
-				frame.add(new SchermataVincitoreView(monopoly.getPlayers().get(0).getName())); // Creazione schermata vincitore con nome del giocatore
+				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName(), frame); // Creazione schermata vincitore con nome del giocatore
 				frame.revalidate();
 				frame.repaint();
 			}
