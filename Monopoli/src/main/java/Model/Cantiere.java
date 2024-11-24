@@ -6,7 +6,7 @@ public class Cantiere extends Proprieta {
 	private GruppoColore gruppoColore;
 	private int numCostruzioni;
 	private int costoCasa;
-	private final int NUM_MAX_UNITA = 5;
+	public final int NUM_MAX_UNITA = 5;
 	private final int id;
 
 	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
