@@ -3,6 +3,9 @@ package Model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import com.google.gson.Gson;
+
 import View.*;
 
 public class Monopoly {
@@ -10,17 +13,17 @@ public class Monopoly {
 	public String nomePartita; //campi per json
 	
 	private String salvataggioDateTime;
-    private transient final int MONEY_START = 1500; // Denaro iniziale
-    private transient final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
-    private transient final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
+    private final int MONEY_START = 1500; // Denaro iniziale
+    private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
+    private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
     private int numero_giocatori; 
-    private int idCorrente; //campi per json
+    private int indexCorrente; //campi per json
     private ArrayList<Player> players;
     private transient Player giCorrente; // Giocatore del turno corrente
     private transient Dadi dice;
     private boolean tiroDadiFatto;
     private int nDadiDoppi;
-    private transient Tabellone tabellone;
+    private transient Tabellone tabellone;	
     private MazzoProbabilita mazzoProbabilita;
     private MazzoImprevisti mazzoImprevisti;
     private boolean gameOver;
@@ -29,6 +32,7 @@ public class Monopoly {
     
     private transient ArrayList<Proprieta> listaPropBancarotta;
     private transient int conta;
+    private String[] pedineSelezionate;
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
@@ -95,7 +99,7 @@ public class Monopoly {
 							tiroDadiFatto = true;
 						}
 					}
-					else { tiroDadiFatto = true; 
+					else {  tiroDadiFatto = true; 
 					}
 				}
 				else {  //Se il giocatore si trova in prigione
@@ -222,7 +226,7 @@ public class Monopoly {
 	}
 	public void setSalvaPartita(String nome, int id) {
 		nomePartita=nome;
-		idCorrente=id;
+		indexCorrente= getPlayers().indexOf(getGiCorrente());
 	}
 	
 	public void setTempo() {
@@ -477,8 +481,10 @@ public class Monopoly {
 	public void compraProprieta() {
 		
 		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
+
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
+		
 		giCorrente.aggiungiProprieta(proprieta);
 		print.stampa(giCorrente.getName() + " ha acquistato " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 				" pagando: " + proprieta.getCosto() + "€." );
@@ -689,17 +695,96 @@ public class Monopoly {
 	
 	public ArrayList<String> getGiocatoriString(){
 		ArrayList<String> stringheNomiGiocatori = new ArrayList<>();
-		for(Player p: players)
-			stringheNomiGiocatori.add(p.getName());
+		for(Player p: players) {
+			
+			stringheNomiGiocatori.add(p.getName());}
 		return stringheNomiGiocatori;
 	}
 	
 	public int getNumGiocatori() {
 		return players.size();
 	}
-
+	
+	public void setPedineSelezionate() {
+		pedineSelezionate=print.getPedine();
+	}
 	public Tabellone getTabellone() {
 		return tabellone;
 	}
+	
+	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
+		print=monopolyGUI;
+		giCorrente=players.get(indexCorrente);
+		dice = new Dadi();
+    	tabellone = new Tabellone(dice);
+
+    	for(Player p: players) {
+    		
+    		ArrayList<Proprieta> daRimuovere=new ArrayList<>();
+    		ArrayList<Proprieta> daAggiungere=new ArrayList<>();
+    		print.muoviPedina(0, p.getLocation(), players.indexOf(p));
+    		
+    		for(Casella c: p.getListaProprieta()) {
+    			
+    			for(int i=0; i<40; i++) {
+    				
+    				Casella casella=tabellone.getSquare(i);
+    				
+    				if(casella.getNome().equals(c.getNome())) { //passa salvataggi genereli proprietà
+    					
+    					
+    					if(((Proprieta)c).isIpotecata()) {
+    						((Proprieta)casella).setIpotecata(true);
+    					}
+    					if(((Proprieta)c).posseduta()) {
+    						((Proprieta)casella).setProprietario(p);
+    					}
+    					
+    					if(casella instanceof Cantiere) {//passa salvataggi cantieri
+    						
+    						for(int [] coppia: coppie) {
+    							if(coppia[0]==((Cantiere) casella).getId())
+    							{
+    								 if (coppia[1] > 0) {
+    									 ((Cantiere) casella).setNumCostruzioni(coppia[1]);
+    	    						        if (((Cantiere) casella).getNumAlberghi() == 1) {
+    	    						            print.case12.mostraAlbergho(((Cantiere) casella).getId() - 1);
+    	    						        } else if (((Cantiere) casella).getNumCase() > 0) {
+    	    						            for (int z = 1; z <= ((Cantiere) casella).getNumCase(); z++) {
+    	    						                print.case12.mostraCasa((((Cantiere) casella).getId() * 4) - 4 + z - 1);
+    	    						                
+    	    						            }
+    	    						        }
+    	    						    }
+    							}
+    						}
+    					}
+    					if(c instanceof Proprieta && casella instanceof Proprieta){
+        					
+        					daRimuovere.add((Proprieta) c);
+        					daAggiungere.add((Proprieta) casella);
+        				}
+    				}
+    			}
+    		}
+    		for(Proprieta a: daRimuovere) {
+    			
+    			p.rimuoviProprieta(a);
+    		}for(Proprieta a: daAggiungere) {
+    			
+    			p.aggiungiProprieta(a);
+    		}
+
+    	}
+    	
+    	aggiornaVisualizzazioneInfo();
+    	inizioTurno();
+	}
+	
+	public String[] getPedineSelezionate(){
+		return pedineSelezionate;
+	}
+
+	
 }
   

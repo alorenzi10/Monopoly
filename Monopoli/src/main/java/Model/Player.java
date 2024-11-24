@@ -61,7 +61,7 @@ public class Player {
 		listaProprieta.add(proprieta);
 	}
 	
-	public void rimuoviProprieta(Proprieta proprieta) {
+	public void rimuoviProprieta(Proprieta proprieta) { //da controllare???
 		listaProprieta.remove(proprieta);
 	}
 	

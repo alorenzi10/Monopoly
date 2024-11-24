@@ -8,7 +8,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -91,7 +94,65 @@ public class CaricaPartitaController {
 	private class BtnCarica implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String name=caricaPartita.getCarica();
+			String nomeCaricamento=caricaPartita.getCarica();
+			boolean trovato=false;
+			Monopoly monopoly=null;
+			List<int[]> coppie = new ArrayList<>();
+			
+			try {	
+	            // Leggi il file JSON
+	            FileReader reader = new FileReader("partiteMonopoli.json");
+	            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+	            Gson gson = new Gson();
+	            
+	            for (JsonElement element : jsonArray) {
+	            	String jsonString = element.getAsString();	
+	                JsonElement jsonObject = JsonParser.parseString(jsonString);
+	                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
+
+	                if (nomePartita.equals(nomeCaricamento)) {
+	                	trovato=true;
+	                	monopoly=gson.fromJson(jsonObject, Monopoly.class);
+	                	
+	                	JsonArray giocatoriArray = jsonObject.getAsJsonObject().getAsJsonArray("players");
+
+	                    // Itera sui giocatori
+	                    for (JsonElement giocatoreElement : giocatoriArray) {
+	                        JsonObject giocatore = giocatoreElement.getAsJsonObject();
+	                        String nomeGiocatore = giocatore.get("name").getAsString();
+	                        
+
+	                        // Estrai la lista delle proprietà del giocatore
+	                        JsonArray proprietaArray = giocatore.getAsJsonArray("listaProprieta");
+
+	                        // Itera sulle proprietà e filtra i cantieri
+	                        for (JsonElement proprietaElement : proprietaArray) {
+	                            JsonObject proprieta = proprietaElement.getAsJsonObject();
+
+	                                if (proprieta.has("id") && proprieta.has("numCostruzioni")) {
+	                                    int id = proprieta.get("id").getAsInt();
+	                                    int numCostruzioni = proprieta.get("numCostruzioni").getAsInt();
+	                                   
+	                                    coppie.add(new int[] {id, numCostruzioni});
+	                                }
+	                        }
+
+	                        // Aggiungi una riga vuota per separare i giocatori
+	                        
+	                    }
+	                }
+	            }
+			
+			}catch (IOException e1) {
+	            e1.printStackTrace();
+	        }
+			if(trovato) {
+				caricaPartita.setVisible(false);
+				new MonopolyController(frame, monopoly, coppie);
+			}
+			else {
+				JOptionPane.showMessageDialog(caricaPartita, "Partita non trovata");
+			}
 			
 		}
 	}
