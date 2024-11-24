@@ -7,7 +7,6 @@ import Model.Monopoly;
 import Model.Proprieta;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
-import View.SchermataVincitoreView;
 
 public class MonopolyController {
 
