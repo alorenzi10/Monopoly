@@ -60,10 +60,10 @@ public class CaricaPartitaController {
 					// Estrazione dei campi
 					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 					String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
-					String numGiocatori= jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
-					caricaPartita.aggiungiATabella(nomePartita,numGiocatori, salvataggioDateTime);
+					String numGiocatori = jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
+					caricaPartita.aggiungiATabella(nomePartita, numGiocatori, salvataggioDateTime);
 				}
-			}else {
+			} else {
 				caricaPartita.mostraLabel();
 			}
 
@@ -72,10 +72,10 @@ public class CaricaPartitaController {
 			File file = new File("partiteMonopoli.json");
 			Gson gson = new Gson();
 			try {
+				
 				file.createNewFile();
-
-				JsonArray jsonArray=new JsonArray();
-				try(FileWriter writer=new FileWriter("partiteMonopoli.json")){
+				JsonArray jsonArray = new JsonArray();
+				try(FileWriter writer = new FileWriter("partiteMonopoli.json")){
 					gson.toJson(jsonArray,writer);
 				}
 			}
@@ -98,8 +98,8 @@ public class CaricaPartitaController {
 		public void actionPerformed(ActionEvent e) {
 			String nomeCaricamento=caricaPartita.getCarica(); //prende il nome del salvataggio inserito dall'utente
 
-			boolean trovato=false;
-			Monopoly monopoly=null;
+			boolean trovato = false;
+			Monopoly monopoly = null;
 			List<int[]> coppie = new ArrayList<>();
 
 			try {	
@@ -113,9 +113,9 @@ public class CaricaPartitaController {
 					JsonElement jsonObject = JsonParser.parseString(jsonString);
 					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 
-					if (nomePartita.equals(nomeCaricamento)) { //cerca la partita con lo stesso nome richiesto dall'utente
-						trovato=true;
-						monopoly=gson.fromJson(jsonObject, Monopoly.class); //Crea l'oggetto monopoly
+					if (nomePartita.equals(nomeCaricamento)) { // Cerca la partita con lo stesso nome richiesto dall'utente
+						trovato = true;
+						monopoly=gson.fromJson(jsonObject, Monopoly.class); // Crea l'oggetto monopoly
 
 						JsonArray giocatoriArray = jsonObject.getAsJsonObject().getAsJsonArray("players");
 
@@ -188,7 +188,7 @@ public class CaricaPartitaController {
 				e1.printStackTrace();
 			}
 
-			caricaPartita.nuovoModello(); //ricarica la tabella
+			caricaPartita.nuovoModello(); // Ricarica la tabella
 			aggiornaTabella();
 			caricaPartita.getSetUp().revalidate();
 			caricaPartita.getSetUp().repaint();

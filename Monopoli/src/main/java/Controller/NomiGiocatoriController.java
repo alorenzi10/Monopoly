@@ -3,7 +3,6 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import View.NomiGiocatoriView;
@@ -42,6 +41,7 @@ public class NomiGiocatoriController {
 			NuovaPartitaController.getNuovaPartita().setVisible(true);
 		}
 	}
+
 	// Salviamo i nomi solo dopo aver premuto il tasto conferma
 	private class BtnConferma implements ActionListener{
 		@Override
@@ -49,7 +49,7 @@ public class NomiGiocatoriController {
 			if (controlloNomeGiocatori()) {
 
 				JTextField[] playerNames=nomiGiocatoriView.getCampoNomi();
-				nomiGiocatori= new String[numGiocatori];
+				nomiGiocatori = new String[numGiocatori];
 				// Memorizza i nomi dei giocatori
 				for (int i = 0; i < numGiocatori; i++) {
 					nomiGiocatori[i] = playerNames[i].getText();
@@ -64,10 +64,11 @@ public class NomiGiocatoriController {
 			}
 		}
 	}
+
 	// Metodo per controllare che non manchino nomi ai giocatori
 	private boolean controlloNomeGiocatori() {
 
-		JTextField[] playerNames=nomiGiocatoriView.getCampoNomi();
+		JTextField[] playerNames = nomiGiocatoriView.getCampoNomi();
 
 		for (JTextField field : playerNames) {
 			if (field.getText().isEmpty()) {

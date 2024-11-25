@@ -1,14 +1,11 @@
 package Controller;
 
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -17,11 +14,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import Model.Monopoly;
 import Model.Proprieta;
-import Model.jsonDb;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
@@ -34,8 +29,8 @@ public class MonopolyController {
 	private String[] offerte, richieste;
 	private int contaOfferte, contaRichieste, carteOfferte, carteRichieste;
 	private boolean baseAsta;
-	
-	
+
+
 	public MonopolyController(SchermataDiGioco frame) {
 
 		MonopolyController.frame = frame;
@@ -47,68 +42,65 @@ public class MonopolyController {
 		aggiuntaListener();
 		frame.revalidate();
 		frame.repaint();
-		
-		
 	}
 	//da caricamento
 	public MonopolyController(SchermataDiGioco frame, Monopoly monopoly, List<int[]> coppie) {
 
 		MonopolyController.frame = frame;
 		this.monopoly = monopoly;
-		
+
 		monopolyGUI = new MonopolyGUI(frame, monopoly.getNumGiocatori(), monopoly.getPedineSelezionate());
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
-		
+
 		monopolyGUI.mostraInfoGiocatori(this.monopoly.getGiocatoriString());
 		this.monopoly.caricamento(monopolyGUI, coppie); //per settare le proprieta del giocatore e le relative costruzioni
 		frame.add(monopolyGUI);
 		aggiuntaListener();
 		frame.revalidate();
 		frame.repaint(); 
-
 	}
-	
+
 	private void aggiuntaListener() {
 		//scelte 
-				monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
-				monopolyGUI.addBtnFineTurno(new BtnFineTurno());
-				monopolyGUI.addBtnProprieta(new BtnProprieta());
-				monopolyGUI.addBtnSalva(new BtnSalva());
-				monopolyGUI.addBtnEsci(new BtnEsci());
-				
-				monopolyGUI.addBtnSalva1(new BtnSalva1());
-				monopolyGUI.addBtnAnnulla(new BtnAnnulla());
-				
-				//bancarotta
-				monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
-				monopolyGUI.addBtnConfermaBancarotta(new BtnBancarotta());
-				monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
-				
-				//scambi
-				monopolyGUI.addBtnScambi(new BtnScambi());
-				monopolyGUI.addBtnNomeGiocatoreScambi(new BtnNomeGiocatoreScambi());
-				monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
-				monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
-				monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
-				monopolyGUI.addBtnCarteOfferte(new BtnCarteOfferte());
-				monopolyGUI.addBtnCarteRichieste(new BtnCarteRichieste());
-				monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
-				
-				//giocatore atterra su proprietà vuota
-				monopolyGUI.addBtnAcquista(new BtnAcquista());
-				monopolyGUI.addBtnAsta(new BtnAsta());
-				
-				//prigione
-				monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
-				monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
-				
-				//asta
-				monopolyGUI.addBtn1(new Btn1());
-				monopolyGUI.addBtn5(new Btn5());
-				monopolyGUI.addBtn10(new Btn10());
-				monopolyGUI.addBtn50(new Btn50());
-				monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
-				monopolyGUI.addBtnRitirati(new BtnRitirati());
+		monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
+		monopolyGUI.addBtnFineTurno(new BtnFineTurno());
+		monopolyGUI.addBtnProprieta(new BtnProprieta());
+		monopolyGUI.addBtnSalva(new BtnSalva());
+		monopolyGUI.addBtnEsci(new BtnEsci());
+
+		monopolyGUI.addBtnSalva1(new BtnSalva1());
+		monopolyGUI.addBtnAnnulla(new BtnAnnulla());
+
+		//bancarotta
+		monopolyGUI.addBtnDichiaraBancarotta(new BtnDichiaraBancarotta());
+		monopolyGUI.addBtnConfermaBancarotta(new BtnBancarotta());
+		monopolyGUI.addBtnNoBancarotta(new BtnNoBancarotta());
+
+		//scambi
+		monopolyGUI.addBtnScambi(new BtnScambi());
+		monopolyGUI.addBtnNomeGiocatoreScambi(new BtnNomeGiocatoreScambi());
+		monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
+		monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
+		monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
+		monopolyGUI.addBtnCarteOfferte(new BtnCarteOfferte());
+		monopolyGUI.addBtnCarteRichieste(new BtnCarteRichieste());
+		monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
+
+		//giocatore atterra su proprietà vuota
+		monopolyGUI.addBtnAcquista(new BtnAcquista());
+		monopolyGUI.addBtnAsta(new BtnAsta());
+
+		//prigione
+		monopolyGUI.addBtnUsaCartaEsciDiPrigione(new BtnUsaCartaEsciDiPrigione());
+		monopolyGUI.addBtnPagaCauzione(new BtnPagaCauzione());
+
+		//asta
+		monopolyGUI.addBtn1(new Btn1());
+		monopolyGUI.addBtn5(new Btn5());
+		monopolyGUI.addBtn10(new Btn10());
+		monopolyGUI.addBtn50(new Btn50());
+		monopolyGUI.addBtnConfermaOfferta(new BtnConfermaOfferta());
+		monopolyGUI.addBtnRitirati(new BtnRitirati());
 	}
 
 	//SCELTE 
@@ -144,67 +136,67 @@ public class MonopolyController {
 			monopolyGUI.salva();
 		}
 	}
-	
+
 	private class BtnSalva1 implements ActionListener{ //devo fare controllo no duplicati nel nome
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			monopoly.setPedineSelezionate(); //salva come stringa le pedine scelte. Utile per il caricamento della partita.
 			String filePath="partiteMonopoli.json";
-			String nome=monopolyGUI.getNomeSalvataggio(); //prende il nome del salvataggio scelto dall'utente
-			if(nome.length()!=0) { 
+			String nome = monopolyGUI.getNomeSalvataggio(); //prende il nome del salvataggio scelto dall'utente
+			if(nome.length() != 0) { 
 				monopoly.setSalvaPartita(nome);  //da un nome all'oggetto monopoly e salva l'indice del giCorrente rispetto all'arraylist players.Utile per il caricamento della partita.
 				monopoly.setTempo(); //salva la data del salvataggio
-			
-				File file=new File(filePath);
-				Gson gson=new Gson();
-			
+
+				File file = new File(filePath);
+				Gson gson = new Gson();
+
 				if(!file.exists()) { //crea il file se non esiste
 					try {
 						file.createNewFile();
-					
+
 						JsonArray jsonArray=new JsonArray();
 						try(FileWriter writer=new FileWriter(filePath)){
-							gson.toJson(jsonArray,writer);
+							gson.toJson(jsonArray, writer);
 						}
 					}
 					catch(IOException e1){
 						e1.printStackTrace();
 					}
 				}
-			
-			try {
-				JsonArray existingData=new JsonArray();
-				
-				try(FileReader reader=new FileReader(filePath)){
-					existingData=JsonParser.parseReader(reader).getAsJsonArray();
-				}
-	            
-		            for (JsonElement element : existingData) {// Iterazione su ciascun elemento (stringa JSON)
-		            	String jsonString = element.getAsString();	
-		                JsonElement jsonObject = JsonParser.parseString(jsonString);
-		                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 
-		                if (nomePartita.equals(nome)) { //controlla se esiste un altro salvataggio con lo stesso nome
-		                	JOptionPane.showMessageDialog(monopolyGUI, "Questo nome è gia in uso");
-		                	return;
-		                	}
-		            }
-		            
-				String json=gson.toJson(monopoly);
-				existingData.add(json);
-				
-				try(FileWriter writer=new FileWriter(filePath)){
-					gson.toJson(existingData,writer);
+				try {
+					JsonArray existingData=new JsonArray();
+
+					try(FileReader reader=new FileReader(filePath)){
+						existingData = JsonParser.parseReader(reader).getAsJsonArray();
+					}
+
+					for (JsonElement element : existingData) {// Iterazione su ciascun elemento (stringa JSON)
+						String jsonString = element.getAsString();	
+						JsonElement jsonObject = JsonParser.parseString(jsonString);
+						String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
+
+						if (nomePartita.equals(nome)) { //controlla se esiste un altro salvataggio con lo stesso nome
+							JOptionPane.showMessageDialog(monopolyGUI, "Questo nome è gia in uso");
+							return;
+						}
+					}
+
+					String json=gson.toJson(monopoly);
+					existingData.add(json);
+
+					try(FileWriter writer=new FileWriter(filePath)){
+						gson.toJson(existingData,writer);
+					}
+
+				} catch(IOException e1) {
+					e1.printStackTrace();
 				}
-				
-			} catch(IOException e1) {
-				e1.printStackTrace();
-			}
-			JOptionPane.showMessageDialog(monopolyGUI, "Partita salvata");
-			monopolyGUI.rimuoviAcquistoAsta();
-		}else {
-			JOptionPane.showMessageDialog(monopolyGUI, "Per salvare inserisci un nome al salvataggio");
+				JOptionPane.showMessageDialog(monopolyGUI, "Partita salvata");
+				monopolyGUI.rimuoviAcquistoAsta();
+			}else {
+				JOptionPane.showMessageDialog(monopolyGUI, "Per salvare inserisci un nome al salvataggio");
 			}
 		}
 	}
@@ -226,6 +218,7 @@ public class MonopolyController {
 
 		}
 	}
+	
 	//BANCAROTTA
 	private class BtnDichiaraBancarotta implements ActionListener{
 		@Override
@@ -271,7 +264,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {	
 			monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
 			monopoly.aggiornaVisualizzazioneInfo();
-			
+
 		}
 	}
 
@@ -291,9 +284,9 @@ public class MonopolyController {
 			richieste = new String[40];
 			contaOfferte = 0;
 			contaRichieste = 0;
-			carteRichieste=0;
-			carteOfferte=0;
-			
+			carteRichieste = 0;
+			carteOfferte = 0;
+
 		}
 	}
 
@@ -301,7 +294,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 
-			offerte[contaOfferte]=(e.getActionCommand());
+			offerte[contaOfferte] = (e.getActionCommand());
 			monopolyGUI.getBottonePropOfferte(e.getActionCommand()).setEnabled(false);
 			contaOfferte++;
 		}
@@ -311,12 +304,12 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 
-			richieste[contaRichieste]=(e.getActionCommand());
+			richieste[contaRichieste] = (e.getActionCommand());
 			monopolyGUI.getBottonePropRichieste(e.getActionCommand()).setEnabled(false);
 			contaRichieste++; 
 		}
 	}
-	
+
 	public class BtnCarteRichieste implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -325,7 +318,7 @@ public class MonopolyController {
 			monopolyGUI.getBottoneCarteRichieste(e.getActionCommand()).setEnabled(false);
 		}
 	}
-	
+
 	public class BtnCarteOfferte implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -360,7 +353,7 @@ public class MonopolyController {
 
 			Proprieta[] propOff = new Proprieta[40];
 			for(int i=0; i<40; i++) {
-				if(offerte[i]!=null) {
+				if(offerte[i] != null) {
 					propOff[i] = monopoly.getCorrispondenzaProprieta(offerte[i], monopoly.getGiCorrente());
 
 				}
@@ -368,7 +361,7 @@ public class MonopolyController {
 
 			Proprieta[] propRic = new Proprieta[40];
 			for(int i=0; i<40; i++) {
-				if(richieste[i]!=null) {
+				if(richieste[i] != null) {
 					propRic[i] = monopoly.getCorrispondenzaProprieta(richieste[i], monopoly.getCorrispondenzaPlayer(index));
 				}
 			}
@@ -379,7 +372,7 @@ public class MonopolyController {
 				monopoly.getCorrispondenzaPlayer(index).doTransaction(denaroOfferto);
 				monopoly.getCorrispondenzaPlayer(index).doTransaction(-denaroRicevuto);
 				for(int i=0; i<40; i++) {
-					if(propRic[i]!=null) {
+					if(propRic[i] != null) {
 						monopoly.getCorrispondenzaPlayer(index).rimuoviProprieta(propRic[i]);
 						monopoly.getGiCorrente().aggiungiProprieta(propRic[i]);
 					}
@@ -390,14 +383,14 @@ public class MonopolyController {
 						monopoly.getCorrispondenzaPlayer(index).aggiungiProprieta(propOff[i]);
 					}
 				}
-				
+
 				for(int i=0; i<carteOfferte; i++) {
 					monopoly.getCorrispondenzaPlayer(index).addCarta(monopoly.getGiCorrente().getCarta());
 				}
 				for(int i=0; i<carteRichieste; i++) {
 					monopoly.getGiCorrente().addCarta(monopoly.getCorrispondenzaPlayer(index).getCarta());
 				}
-				
+
 				monopolyGUI.stampa("Scambio andato a buon fine");
 				monopoly.aggiornaVisualizzazioneInfo();
 				annullaScambio();
@@ -408,7 +401,6 @@ public class MonopolyController {
 			}
 		}
 	}
-
 
 	private class BtnAnnullaScambi implements ActionListener{
 		@Override
@@ -423,7 +415,6 @@ public class MonopolyController {
 		frame.revalidate();
 		frame.repaint();
 	}
-
 
 	//ATTERRAGGIO SU CASELLA VUOTA
 	private class BtnAcquista implements ActionListener{
@@ -455,6 +446,7 @@ public class MonopolyController {
 
 		}
 	}
+	
 	private class BtnPagaCauzione implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -525,13 +517,13 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(monopoly.asta.controlloOfferta()) {
-				baseAsta=false;
+				baseAsta = false;
 				monopolyGUI.getBtnRitirati().setVisible(true);
 				monopolyGUI.getBtnConfermaOfferta().setVisible(false);
 				monopoly.asta.prossimoGiocatore();
 				monopolyGUI.aggiornaTurno(monopoly.asta.getName());
 			}{
-				baseAsta=true;
+				baseAsta = true;
 				monopolyGUI.getBtnConfermaOfferta().setVisible(false);
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta, ritirati");
 			}
@@ -560,6 +552,4 @@ public class MonopolyController {
 			}
 		}
 	}
-	
-	
 }

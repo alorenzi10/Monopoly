@@ -48,6 +48,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnCappello implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -57,6 +58,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnCariola implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -66,6 +68,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnDitale implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -75,6 +78,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnFerro implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -84,6 +88,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnMacchina implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -93,6 +98,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnNave implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -102,6 +108,7 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
+	
 	private class BtnStivale implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

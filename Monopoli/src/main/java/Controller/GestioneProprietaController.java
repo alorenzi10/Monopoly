@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
 import Model.Cantiere;
 import Model.GruppoColore;
 import Model.Monopoly;
@@ -18,7 +16,7 @@ import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
 public class GestioneProprietaController {
-	
+
 	GestioneProprietaView gestioneProprieta;
 	Monopoly monopoly;
 	MonopolyGUI monopolyGUI;
@@ -30,20 +28,20 @@ public class GestioneProprietaController {
 	Societa[] societa;
 	int scelta; //1 costruisci, 2 demolisci, 3 ipoteca, 4 dispoteca
 	int tipo; //1 colore, 2 stazioni, 3 societa
-	
+
 	public GestioneProprietaController(SchermataDiGioco frame, MonopolyGUI monopolyGUI, Monopoly monopoly) {
-		this.monopolyGUI=monopolyGUI;
-		this.monopoly=monopoly;
-		this.tabellone=monopoly.getTabellone();
-		this.frame=frame;
-		gestioneProprieta=new GestioneProprietaView(frame);
+		this.monopolyGUI = monopolyGUI;
+		this.monopoly = monopoly;
+		this.tabellone = monopoly.getTabellone();
+		this.frame = frame;
+		gestioneProprieta = new GestioneProprietaView(frame);
 		gestioneProprieta.Scelte();
-		
+
 		gestioneProprieta.addBtnCostruisci(new BtnCostruisci());
 		gestioneProprieta.addBtnDemolisci(new BtnDemolisci());
 		gestioneProprieta.addBtnIpoteca(new BtnIpoteca());
 		gestioneProprieta.addBtnDisipoteca(new BtnDisipoteca());
-		
+
 		gestioneProprieta.addBtnFine(new BtnFine());
 		gestioneProprieta.addBtnMarrone(new BtnMarrone());
 		gestioneProprieta.addBtnAzzurro(new BtnAzzurro());
@@ -55,45 +53,43 @@ public class GestioneProprietaController {
 		gestioneProprieta.addBtnBlu(new BtnBlu());
 		gestioneProprieta.addBtnSocieta(new BtnSocieta());
 		gestioneProprieta.addBtnStazione(new BtnStazione());
-		
+
 		gestioneProprieta.addBtnIndietro(new BtnIndietro());
 		gestioneProprieta.addBtnIndietro1(new BtnIndietro1());
 		gestioneProprieta.addBtn1(new Btn1());
 		gestioneProprieta.addBtn2(new Btn2());
 		gestioneProprieta.addBtn3(new Btn3());
 		gestioneProprieta.addBtn4(new Btn4());
-		
-		
 	}	
-	
+
 	private class BtnCostruisci implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			scelta=1;
+			scelta = 1;
 			gestioneProprieta.Costruisci(scelta);
 		}
 	}
-	
+
 	private class BtnDemolisci implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			scelta=2;
+			scelta = 2;
 			gestioneProprieta.Costruisci(scelta);	
 		}
 	}
-	
+
 	private class BtnIpoteca implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			scelta=3;
+			scelta = 3;
 			gestioneProprieta.Costruisci(scelta);	
 		}
 	}
-	
+
 	private class BtnDisipoteca implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			scelta=4;
+			scelta = 4;
 			gestioneProprieta.Costruisci(scelta);	
 		}
 	}
@@ -102,16 +98,16 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("marrone", scelta);
-			tipo=1;
-			colore=tabellone.getMarrone();
-			prova=colore.getMembri();
+			tipo = 1;
+			colore = tabellone.getMarrone();
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
@@ -120,16 +116,16 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("azzurro", scelta);
-			colore=tabellone.getAzzurro();
-			tipo=1;
-			prova=colore.getMembri();
+			colore = tabellone.getAzzurro();
+			tipo = 1;
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
@@ -138,16 +134,16 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("viola", scelta);
-			colore=tabellone.getViola();
-			tipo=1;
-			prova=colore.getMembri();
+			colore = tabellone.getViola();
+			tipo = 1;
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
@@ -157,153 +153,156 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("arancione", scelta);
-			colore=tabellone.getArancione();
-			tipo=1;
-			prova=colore.getMembri();
+			colore = tabellone.getArancione();
+			tipo = 1;
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
 	}
+	
 	private class BtnRosso implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("rosso", scelta);
-			colore=tabellone.getRosso();
-			tipo=1;
-			prova=colore.getMembri();
+			colore = tabellone.getRosso();
+			tipo = 1;
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
 	}
+	
 	private class BtnGiallo implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("giallo", scelta);
-			tipo=1;
-			colore=tabellone.getGiallo();
-			prova=colore.getMembri();
+			tipo = 1;
+			colore = tabellone.getGiallo();
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
 	}
+	
 	private class BtnVerde implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("verde", scelta);
-			colore=tabellone.getVerde();
-			tipo=1;
-			prova=colore.getMembri();
+			colore = tabellone.getVerde();
+			tipo = 1;
+			prova = colore.getMembri();
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
 	}
+	
 	private class BtnBlu implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("blu", scelta);
-			colore=tabellone.getBlu();
-			prova=colore.getMembri();
-			tipo=1;
+			colore = tabellone.getBlu();
+			prova = colore.getMembri();
+			tipo = 1;
 			for(Cantiere p: prova) {
 				gestioneProprieta.aggiungiBottone(p.getNome());
-				if(scelta==3) {
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
 				}
 			}
 		}
 	}
-	
+
 	private class BtnStazione implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("Stazione", scelta);
-			tipo=2;
-			stazioni=tabellone.getStazioni();
-			
+			tipo = 2;
+			stazioni = tabellone.getStazioni();
+
 			for(Stazione p: stazioni) {
 				gestioneProprieta.aggiungiBottone( p.getNome());
-				
-				if(scelta==3) {
+
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
-					
+
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
-				
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
+
 				}
 			}
 		}
 	}
-	
+
 	private class BtnSocieta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Colore("Società", scelta);
-			tipo=3;
-			societa=tabellone.getSocieta();
+			tipo = 3;
+			societa = tabellone.getSocieta();
 			for(Societa p: societa) {
 				gestioneProprieta.aggiungiBottone( p.getNome());
-				
-				if(scelta==3) {
+
+				if(scelta == 3) {
 					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca());
-					
+
 				}
-				if(scelta==4) {
-					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca()*1.1);
-				
+				if(scelta == 4) {
+					gestioneProprieta.valoriIpoteche(p.getPrezzoIpoteca() * 1.1);
+
 				}
 			}
 		}
 	}
-	
+
 	private class BtnIndietro implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gestioneProprieta.Fine();
 			gestioneProprieta.Scelte();
-		
 		}
 	}
-	
+
 	private class BtnIndietro1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			gestioneProprieta.Costruisci(scelta);
-			
 		}
 	}
+	
 	private class BtnFine implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -311,33 +310,33 @@ public class GestioneProprietaController {
 			monopolyGUI.buttonsState(true);
 		}
 	}
-	
+
 	private class Btn1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Cantiere p=null;
+			Cantiere p = null;
 			Proprieta pr = null;
-			if(tipo==1) {
-				pr=prova.get(0);
+			if(tipo == 1) {
+				pr = prova.get(0);
 			}
-			if(tipo==2) {
-				pr=stazioni[0];
+			if(tipo == 2) {
+				pr = stazioni[0];
 			}
-			if(tipo==3) {	
-				pr=societa[0];
+			if(tipo == 3) {	
+				pr = societa[0];
 			}
 
 			switch (scelta) {
 			case 1:
-				 p=prova.get(0);
+				p = prova.get(0);
 				monopoly.costruisci(p);
 				break;
 			case 2:
-				 p=prova.get(0);
+				p = prova.get(0);
 				monopoly.demolisci(p);
 				break;
 			case 3:
-				 monopoly.ipoteca(pr);
+				monopoly.ipoteca(pr);
 				break;
 			case 4:
 				monopoly.disipoteca(pr);
@@ -345,35 +344,34 @@ public class GestioneProprietaController {
 			}
 		}
 	}
-	
-	
+
 	private class Btn2 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Cantiere p=null;
+			Cantiere p = null;
 			Proprieta pr = null;
-			if(tipo==1) {
+			if(tipo == 1) {
 				pr=prova.get(1);
 			}
-			if(tipo==2) {
-				pr=stazioni[1];
+			if(tipo == 2) {
+				pr = stazioni[1];
 			}
-			if(tipo==3) {	
-				pr=societa[1];
+			if(tipo == 3) {	
+				pr = societa[1];
 			}
 
 
 			switch (scelta) {
 			case 1:
-				p=prova.get(1);
+				p = prova.get(1);
 				monopoly.costruisci(p);
 				break;
 			case 2:
-				p=prova.get(1);
+				p = prova.get(1);
 				monopoly.demolisci(p);
 				break;
 			case 3:
-				 monopoly.ipoteca(pr);
+				monopoly.ipoteca(pr);
 				break;
 			case 4:
 				monopoly.disipoteca(pr);
@@ -381,31 +379,30 @@ public class GestioneProprietaController {
 			}
 		}
 	}
-	
-	
+
 	private class Btn3 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Cantiere p=null;
+			Cantiere p = null;
 			Proprieta pr = null;
-			if(tipo==1) {
-				pr=prova.get(2);
+			if(tipo == 1) {
+				pr = prova.get(2);
 			}
-			if(tipo==2) {
-				pr=stazioni[2];
+			if(tipo == 2) {
+				pr = stazioni[2];
 			}
-			
+
 			switch (scelta) {
 			case 1:
-				p=prova.get(2);
+				p = prova.get(2);
 				monopoly.costruisci(p);
 				break;
 			case 2:
-				p=prova.get(2);
+				p = prova.get(2);
 				monopoly.demolisci(p);
 				break;
 			case 3:
-				 monopoly.ipoteca(pr);
+				monopoly.ipoteca(pr);
 				break;
 			case 4:
 				monopoly.disipoteca(pr);
@@ -413,20 +410,20 @@ public class GestioneProprietaController {
 			}
 		}
 	}
-	
+
 	private class Btn4 implements ActionListener{ //solo in caso di ferrovia
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Proprieta pr=stazioni[3];
+			Proprieta pr = stazioni[3];
 			switch (scelta) {
 			case 3:
-				 monopoly.ipoteca(pr);
+				monopoly.ipoteca(pr);
 				break;
 			case 4:
 				monopoly.disipoteca(pr);
 				break;
 			}
-			}
 		}
+	}
 
 }
