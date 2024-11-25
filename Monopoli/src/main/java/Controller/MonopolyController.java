@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,17 +60,14 @@ public class MonopolyController {
 		monopolyGUI = new MonopolyGUI(frame, monopoly.getNumGiocatori(), monopoly.getPedineSelezionate());
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
 		
-		
 		monopolyGUI.mostraInfoGiocatori(this.monopoly.getGiocatoriString());
-		this.monopoly.caricamento(monopolyGUI, coppie);
+		this.monopoly.caricamento(monopolyGUI, coppie); //per settare le proprieta del giocatore e le relative costruzioni
 		frame.add(monopolyGUI);
 		aggiuntaListener();
 		frame.revalidate();
 		frame.repaint(); 
 
 	}
-	
-	
 	
 	private void aggiuntaListener() {
 		//scelte 
@@ -150,41 +148,55 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			monopoly.setPedineSelezionate();
+			monopoly.setPedineSelezionate(); //salva come stringa le pedine scelte. Utile per il caricamento della partita.
 			String filePath="partiteMonopoli.json";
-			String nome=monopolyGUI.getNomeSalvataggio();
-			if(nome.length()!=0) {
-			monopoly.setSalvaPartita(nome, monopoly.getGiCorrente().getId());
-			monopoly.setTempo();
+			String nome=monopolyGUI.getNomeSalvataggio(); //prende il nome del salvataggio scelto dall'utente
+			if(nome.length()!=0) { 
+				monopoly.setSalvaPartita(nome);  //da un nome all'oggetto monopoly e salva l'indice del giCorrente rispetto all'arraylist players.Utile per il caricamento della partita.
+				monopoly.setTempo(); //salva la data del salvataggio
 			
-			File file=new File(filePath);
-			Gson gson=new Gson();
+				File file=new File(filePath);
+				Gson gson=new Gson();
 			
-			if(!file.exists()) {
-				try {
-					file.createNewFile();
+				if(!file.exists()) { //crea il file se non esiste
+					try {
+						file.createNewFile();
 					
-					JsonArray jsonArray=new JsonArray();
-					try(FileWriter writer=new FileWriter(filePath)){
-						gson.toJson(jsonArray,writer);
+						JsonArray jsonArray=new JsonArray();
+						try(FileWriter writer=new FileWriter(filePath)){
+							gson.toJson(jsonArray,writer);
+						}
+					}
+					catch(IOException e1){
+						e1.printStackTrace();
 					}
 				}
-				catch(IOException e1){
-					e1.printStackTrace();
-				}
-			}
 			
 			try {
 				JsonArray existingData=new JsonArray();
+				
 				try(FileReader reader=new FileReader(filePath)){
 					existingData=JsonParser.parseReader(reader).getAsJsonArray();
 				}
+	            
+		            for (JsonElement element : existingData) {// Iterazione su ciascun elemento (stringa JSON)
+		            	String jsonString = element.getAsString();	
+		                JsonElement jsonObject = JsonParser.parseString(jsonString);
+		                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
+
+		                if (nomePartita.equals(nome)) { //controlla se esiste un altro salvataggio con lo stesso nome
+		                	JOptionPane.showMessageDialog(monopolyGUI, "Questo nome è gia in uso");
+		                	return;
+		                	}
+		            }
+		            
 				String json=gson.toJson(monopoly);
-				
 				existingData.add(json);
+				
 				try(FileWriter writer=new FileWriter(filePath)){
 					gson.toJson(existingData,writer);
 				}
+				
 			} catch(IOException e1) {
 				e1.printStackTrace();
 			}

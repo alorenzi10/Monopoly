@@ -1,5 +1,5 @@
 package Controller;
-import java.awt.Window.Type;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -18,18 +17,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import Model.Monopoly;
 import View.CaricaPartitaView;
-import View.NuovaPartitaView;
 import View.SchermataDiGioco;
+
 public class CaricaPartitaController {
+	
 	private SchermataDiGioco frame;
-	private static CaricaPartitaView caricaPartita;
+	private CaricaPartitaView caricaPartita;
 	
 	public CaricaPartitaController(CaricaPartitaView caricaPartita, SchermataDiGioco frame) {
-		CaricaPartitaController.caricaPartita = caricaPartita;
+		this.caricaPartita = caricaPartita;
 		this.frame = frame;
 		
 		aggiornaTabella();
@@ -38,36 +37,38 @@ public class CaricaPartitaController {
 		frame.revalidate();
         frame.repaint();
         
-        CaricaPartitaController.caricaPartita.getBtnIndietro().addActionListener(e->tornaMenuIniziale());
+        caricaPartita.getBtnIndietro().addActionListener(e->tornaMenuIniziale());
         caricaPartita.addBtnCarica(new BtnCarica());
         caricaPartita.addBtnElimina(new BtnElimina());
         
 	}
 	
 	public void aggiornaTabella() {
+		
 		try {	
 			FileReader reader=new FileReader("partiteMonopoli.json");
 			JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
             
-            // Iterazione su ciascun elemento (stringa JSON)
-			if(jsonArray.size()>0) {
-            for (JsonElement element : jsonArray) {
-                // Parsing della stringa come JSON
-                String jsonString = element.getAsString();	
-                JsonElement jsonObject = JsonParser.parseString(jsonString);
+           
+			if(jsonArray.size()>0) {//controllo che il file abbia un salvataggio
+				
+				for (JsonElement element : jsonArray) { // Iterazione su ciascun elemento (stringa JSON)
+					// Parsing della stringa come JSON
+					String jsonString = element.getAsString();	
+					JsonElement jsonObject = JsonParser.parseString(jsonString);
                 
-                // Estrazione dei campi
-                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
-                String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
-                String numGiocatori= jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
-                caricaPartita.aggiungiATabella(nomePartita,numGiocatori, salvataggioDateTime);
+					// Estrazione dei campi
+					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
+					String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
+					String numGiocatori= jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
+					caricaPartita.aggiungiATabella(nomePartita,numGiocatori, salvataggioDateTime);
             	}
 			}else {
 				caricaPartita.mostraLabel();
 			}
-
-        } catch (Exception e) {
-            e.printStackTrace();
+			
+        } catch (FileNotFoundException e) { //nel caso non trovi il file dei salvataggi ne crea uno.
+            
             File file=new File("partiteMonopoli.json");
 			Gson gson=new Gson();
 				try {
@@ -86,6 +87,7 @@ public class CaricaPartitaController {
 	}
 	
 	public void tornaMenuIniziale() {
+		
 		caricaPartita.setVisible(false);
 		MenuController.getMenuIniziale().setVisible(true);
 		
@@ -94,7 +96,8 @@ public class CaricaPartitaController {
 	private class BtnCarica implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nomeCaricamento=caricaPartita.getCarica();
+			String nomeCaricamento=caricaPartita.getCarica(); //prende il nome del salvataggio inserito dall'utente
+			
 			boolean trovato=false;
 			Monopoly monopoly=null;
 			List<int[]> coppie = new ArrayList<>();
@@ -105,40 +108,34 @@ public class CaricaPartitaController {
 	            JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
 	            Gson gson = new Gson();
 	            
-	            for (JsonElement element : jsonArray) {
+	            for (JsonElement element : jsonArray) {// Iterazione su ciascun elemento (stringa JSON)
 	            	String jsonString = element.getAsString();	
 	                JsonElement jsonObject = JsonParser.parseString(jsonString);
 	                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 
-	                if (nomePartita.equals(nomeCaricamento)) {
+	                if (nomePartita.equals(nomeCaricamento)) { //cerca la partita con lo stesso nome richiesto dall'utente
 	                	trovato=true;
-	                	monopoly=gson.fromJson(jsonObject, Monopoly.class);
+	                	monopoly=gson.fromJson(jsonObject, Monopoly.class); //Crea l'oggetto monopoly
 	                	
 	                	JsonArray giocatoriArray = jsonObject.getAsJsonObject().getAsJsonArray("players");
 
-	                    // Itera sui giocatori
-	                    for (JsonElement giocatoreElement : giocatoriArray) {
+	                    for (JsonElement giocatoreElement : giocatoriArray) {// Itera sui giocatori
 	                        JsonObject giocatore = giocatoreElement.getAsJsonObject();
-	                        String nomeGiocatore = giocatore.get("name").getAsString();
-	                        
-
+	                       
 	                        // Estrai la lista delle proprietà del giocatore
 	                        JsonArray proprietaArray = giocatore.getAsJsonArray("listaProprieta");
 
-	                        // Itera sulle proprietà e filtra i cantieri
+	                        // Itera sulle proprietà
 	                        for (JsonElement proprietaElement : proprietaArray) {
 	                            JsonObject proprieta = proprietaElement.getAsJsonObject();
 
 	                                if (proprieta.has("id") && proprieta.has("numCostruzioni")) {
 	                                    int id = proprieta.get("id").getAsInt();
 	                                    int numCostruzioni = proprieta.get("numCostruzioni").getAsInt();
-	                                   
+	                                    //gson non riusciva a ricrere questi campi in monopoly (si poteva usare i TypeAdapter)
 	                                    coppie.add(new int[] {id, numCostruzioni});
 	                                }
 	                        }
-
-	                        // Aggiungi una riga vuota per separare i giocatori
-	                        
 	                    }
 	                }
 	            }
@@ -146,6 +143,7 @@ public class CaricaPartitaController {
 			}catch (IOException e1) {
 	            e1.printStackTrace();
 	        }
+			
 			if(trovato) {
 				caricaPartita.setVisible(false);
 				new MonopolyController(frame, monopoly, coppie);
@@ -173,7 +171,7 @@ public class CaricaPartitaController {
 	                JsonElement jsonObject = JsonParser.parseString(jsonString);
 	                String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 	                
-	                // Se il nome della partita non corrisponde, la aggiungi all'array aggiornato
+	                // Se il nome della partita non corrisponde, lo aggiungi all'array aggiornato
 	                if (!nomePartita.equals(nomeRimozione)) {
 	                    updatedArray.add(element);
 	                }
@@ -189,10 +187,11 @@ public class CaricaPartitaController {
 	        } catch (IOException e1) {
 	            e1.printStackTrace();
 	        }
-			caricaPartita.nuovaModello();
+			
+			caricaPartita.nuovoModello(); //ricarica la tabella
 			aggiornaTabella();
-			caricaPartita.setUp.revalidate();
-			caricaPartita.setUp.repaint();
+			caricaPartita.getSetUp().revalidate();
+			caricaPartita.getSetUp().repaint();
 			
 	}
 	}

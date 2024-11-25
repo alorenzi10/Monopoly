@@ -224,7 +224,7 @@ public class Monopoly {
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
 		}
 	}
-	public void setSalvaPartita(String nome, int id) {
+	public void setSalvaPartita(String nome) {
 		nomePartita=nome;
 		indexCorrente= getPlayers().indexOf(getGiCorrente());
 	}
@@ -713,8 +713,9 @@ public class Monopoly {
 	}
 	
 	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
+		
 		print=monopolyGUI;
-		giCorrente=players.get(indexCorrente);
+		giCorrente=players.get(indexCorrente); 
 		dice = new Dadi();
     	tabellone = new Tabellone(dice);
 
