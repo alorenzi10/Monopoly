@@ -2,12 +2,14 @@ package Model;
 
 public class Cantiere extends Proprieta {
 
-	private int[] tabellaAffitti; //0- affitto, 1-4 case, 5 albergo
-	private GruppoColore gruppoColore;
+	private transient int[] tabellaAffitti; //0- affitto, 1-4 case, 5 albergo
+	private transient GruppoColore gruppoColore;
 	private int numCostruzioni;
-	private int costoCasa;
-	public final int NUM_MAX_UNITA = 5;
-	private final int id;
+
+
+	private transient int costoCasa;
+	private transient final int NUM_MAX_UNITA = 5;
+	private final int id; 
 
 	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
 		super(name, prezzo, valoreIpoteca);
@@ -84,6 +86,10 @@ public class Cantiere extends Proprieta {
 	
 	public int getPrezzoIpoteca() {
 		return super.getPrezzoIpoteca();
+	}
+	
+	void setNumCostruzioni(int numCostruzioni) {
+		this.numCostruzioni = numCostruzioni;
 	}
 
 

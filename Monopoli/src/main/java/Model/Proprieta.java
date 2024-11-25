@@ -2,12 +2,12 @@ package Model;
 
 public class Proprieta extends Casella {
 	
-    private final double VALORE_DISIPOTECA = 1.1;
+    private transient final double VALORE_DISIPOTECA = 1.1;
     private boolean isOwned;
-    private int costo;
-    private Player possessore;
+    private transient int costo;
+    private transient Player possessore;
     private boolean ipotecata;
-    private int prezzoIpoteca;
+    private transient int prezzoIpoteca;
 
     public Proprieta(String name, int costo, int prezzoIpoteca) {
     	super(name);
@@ -49,6 +49,8 @@ public class Proprieta extends Casella {
 	public int getPrezzoIpoteca() {
 		return prezzoIpoteca;
 	}
+	
+	
 
 	public int getCostoDisipoteca() {
 		return (int) (prezzoIpoteca*VALORE_DISIPOTECA);

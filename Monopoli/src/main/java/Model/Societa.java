@@ -2,8 +2,8 @@ package Model;
 
 public class Societa extends Proprieta {
 	
-    private int[] rentTable;
-    private Dadi dice;
+    private transient int[] rentTable;
+    private  transient Dadi dice;
 
     public Societa(String name, int price, int mortgageValue, int[] rentTable, Dadi dice) {
     	super(name, price, mortgageValue);

@@ -3,26 +3,26 @@ package View;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import Model.GestioneDb2;
-
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
+
 
 public class CaricaPartitaView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static JPanel setUp;
-	private static JTable table;
+	private JPanel setUp;
+	private JTable table;
+	private DefaultTableModel model;
 	private JButton btnIndietro, btnCarica, btnElimina;
 	private JTextField carica, elimina;
-	static JScrollPane scrollPane;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -34,7 +34,6 @@ public class CaricaPartitaView extends JPanel {
 		setBounds(0, 0, 1920, 485);	
 		setLayout(null);
 	
-        
         setUp = new JPanel();
         setUp.setBounds(0, 0, 1920, 485);
         setUp.setOpaque(false);
@@ -69,39 +68,47 @@ public class CaricaPartitaView extends JPanel {
         elimina.setBounds(170, 315, 152, 60);
         setUp.add(elimina);
         
-		// Panel con barra di scorrimento
         scrollPane = new JScrollPane();
         scrollPane.setBounds(614, 150, 600, 300);
         setUp.add(scrollPane);
         
         table = new JTable();
-       
-        if(GestioneDb2.readData()==null) {
-        	mostraLabel();
-        }
-       
-        table.setModel(GestioneDb2.readData());
-       
+        nuovoModello();
         scrollPane.setViewportView(table);
         scrollPane.revalidate();
         scrollPane.repaint();
 	}
-	public void aggiorna() {
-		table.setModel(GestioneDb2.readData());
-		 scrollPane.revalidate();
-	        scrollPane.repaint();
+	
+	public void aggiungiATabella(String nome,String num, String data) {
+		Object[] row=new Object[3];
+		row[0]=nome;
+		row[1]=num;
+		row[2]=data;
+		model.addRow(row);
 	}
+	
+	public void nuovoModello() {
+		model=new DefaultTableModel() {
+			 @Override
+			 public boolean isCellEditable(int row, int column) {
+				 return false;
+			 }
+		};
+        model.addColumn("Nome");
+        model.addColumn("Num. Giocatori");
+        model.addColumn("Oraio di salvataggio");
+        table.setModel(model);
+	}
+	
 	public void mostraLabel() {
-		JLabel lblNoPartiteSalvate = new JLabel("non ci sono partite salvate");
+
+		JLabel lblNoPartiteSalvate = new JLabel("Non ci sono partite salvate");
 		lblNoPartiteSalvate.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		lblNoPartiteSalvate.setBounds(320, 80, 357, 41);
+		lblNoPartiteSalvate.setBounds(630, 150, 600, 300);
 		setUp.add(lblNoPartiteSalvate);
 		setUp.setComponentZOrder(lblNoPartiteSalvate, 0);
 	}
 	
-	public static void Avviso(String text) {
-		JOptionPane.showMessageDialog(setUp, text);
-	}
 	public void addBtnCarica(ActionListener listener) {
 
 		btnCarica.addActionListener(listener);
@@ -125,5 +132,8 @@ public class CaricaPartitaView extends JPanel {
 		return btnIndietro;
 	}
 	
+	public JPanel getSetUp() {
+		return setUp;
+	}
 	
  }

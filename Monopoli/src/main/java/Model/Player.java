@@ -11,7 +11,7 @@ public class Player {
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
     private boolean inPrigione;
-    private final int TENTATIVI_MASSIMI_PRIGIONE = 3;
+    private transient final int TENTATIVI_MASSIMI_PRIGIONE = 3;
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
   
@@ -61,7 +61,7 @@ public class Player {
 		listaProprieta.add(proprieta);
 	}
 	
-	public void rimuoviProprieta(Proprieta proprieta) {
+	public void rimuoviProprieta(Proprieta proprieta) { //da controllare???
 		listaProprieta.remove(proprieta);
 	}
 	

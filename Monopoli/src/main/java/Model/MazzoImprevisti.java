@@ -2,7 +2,7 @@ package Model;
 
 public class MazzoImprevisti extends Mazzo { // Da controllare e ultimare azione paga case 13/11/2024
 	
-    public static final int IMPREVISTI = 0;
+    public final int IMPREVISTI = 0;
 
     MazzoImprevisti(){
     	

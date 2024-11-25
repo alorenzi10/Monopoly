@@ -72,9 +72,14 @@ public class MonopolyGUI extends JLayeredPane {
 
 	private boolean decisioneBancarotta;
 	public CaseAlberghiView case12;//Per la visualizzazione di case e hotel
+	private int numGiocatori;
+	private String[] pedineSelezionate;
 
-	public MonopolyGUI(SchermataDiGioco frame) {
-
+	public MonopolyGUI(SchermataDiGioco frame, int numGiocatori, String [] pedineSelezionate) {
+												//da cambiare da Sceltapedinacontroller.getgiocatori() e scelta pedine
+		
+		this.pedineSelezionate=pedineSelezionate;
+		this.numGiocatori=numGiocatori;
 		this.frame=frame;
 		caselle = new JPanel[40];
 		setBounds(0, 0, 1540, 845);
@@ -235,11 +240,11 @@ public class MonopolyGUI extends JLayeredPane {
 
 		btnProprietaOfferte= new JButton[40];
 		for(int x=0; x<40;  x++){
-			btnProprietaOfferte[x]=new JButton();
-		}
-
-		btnNomeGiocatoreScambi = new JButton[SceltaPedineController.getNumGiocatori() - 1];
-		for(int x=0; x<(SceltaPedineController.getNumGiocatori() - 1);  x++){
+					btnProprietaOfferte[x]=new JButton();
+				}
+		
+		btnNomeGiocatoreScambi = new JButton[numGiocatori - 1];
+		for(int x=0; x<(numGiocatori - 1);  x++){
 			btnNomeGiocatoreScambi[x]=new JButton();
 		}
 
@@ -750,6 +755,10 @@ public class MonopolyGUI extends JLayeredPane {
 	public JButton getBtnConfermaOfferta() {
 		return btnConfermaOfferta;
 	}
+	public String[] getPedine() {
+		return pedineSelezionate;
+		
+	}
 	public JPanel getPanelScelteTurno() {
 		return panel_scelte_turno;
 	}
@@ -1233,11 +1242,8 @@ public class MonopolyGUI extends JLayeredPane {
 
 	public void creaPedine() {
 
-		String [] pedineSelezionate = SceltaPedineController.getPedineScelte();
-		int num = SceltaPedineController.getNumGiocatori();
-
-		for(int i=0; i<num; i++) {
-
+		for(int i=0; i<numGiocatori; i++) {
+			
 			pedine.add(new JLabel());
 
 			switch (pedineSelezionate[i]) {
@@ -1259,7 +1265,7 @@ public class MonopolyGUI extends JLayeredPane {
 				pedine.get(i).setIcon(new ImageIcon("./icons/stivale.png"));	break;
 			}
 		}
-		for(int i=0; i<num; i++) {
+		for(int i=0; i<numGiocatori; i++) {
 			pedine.get(i).setBounds(7, 20, 45, 50);
 			caselle[0].add(pedine.get(i));
 			caselle[0].setComponentZOrder(pedine.get(i), 0);
@@ -1267,9 +1273,19 @@ public class MonopolyGUI extends JLayeredPane {
 	}	
 
 	public void rimuoviPedina(int posPedina, int pedina) {
+		pedineSelezionate=removeElement(pedineSelezionate, pedina);
 		caselle[posPedina].remove(pedine.get(pedina));
 		pedine.remove(pedina);
 		frame.repaint();
+	}
+	public String[] removeElement(String[] array, int posizione) {
+		String [] newArray=new String[array.length-1];
+		for(int i=0, j=0; i<array.length; i++) {
+			if(i != posizione) {
+				newArray[j++]=array[i];
+			}
+		}
+		return newArray;
 	}
 
 	public void muoviPedina(int partenza, int arrivo, int pedina) {

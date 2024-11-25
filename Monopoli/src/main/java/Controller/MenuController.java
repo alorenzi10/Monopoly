@@ -2,7 +2,6 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import View.CaricaPartitaView;
 import View.MenuInizialeView;
@@ -49,11 +48,7 @@ public class MenuController {
 	private class CaricaPartitaListener implements ActionListener{ //da fare
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
 				caricaPartita();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
     }
 	
@@ -69,10 +64,10 @@ public class MenuController {
     	new NuovaPartitaController(new NuovaPartitaView(), frame);
     }
     
-    public void caricaPartita() throws SQLException{  //da fare
+    public void caricaPartita(){ 
     	
     	menuIniziale.setVisible(false);
-    	new CaricaPartitaController(new CaricaPartitaView(), frame); //da finire
+    	new CaricaPartitaController(new CaricaPartitaView(), frame); 
 
     }
 
