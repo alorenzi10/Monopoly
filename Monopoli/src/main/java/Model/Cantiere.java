@@ -8,7 +8,7 @@ public class Cantiere extends Proprieta {
 
 
 	private transient int costoCasa;
-	private transient final int NUM_MAX_UNITA = 5;
+	transient final int NUM_MAX_UNITA = 5;
 	private final int id; 
 
 	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
