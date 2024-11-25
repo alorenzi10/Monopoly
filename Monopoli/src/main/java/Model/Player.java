@@ -200,7 +200,13 @@ public class Player {
 		
 	    ArrayList<String> listaPropString = new ArrayList<>();
 		for (Proprieta prop : getListaProprieta()) 
-	        listaPropString.add(prop.getNome());
+			if(prop instanceof Cantiere) {
+				if(((Cantiere)prop).getNumCostruzioni()==0) {
+					listaPropString.add(prop.getNome());
+				}
+			}else { 
+				listaPropString.add(prop.getNome());
+			}
 	    return listaPropString;
 	}
 
