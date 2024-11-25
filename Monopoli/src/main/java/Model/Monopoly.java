@@ -470,6 +470,13 @@ public class Monopoly {
 			elencoProp.add(proprietaGiocatore);
 		}
 		print.aggiornaVisProprietaGiocatori(elencoProp, getGiocatoriString()); // Aggiorna la visualizzazione delle proprietà dei giocatori
+		
+		ArrayList<Integer> valoriCarte = new ArrayList<>();
+		for(Player p: players) 
+			valoriCarte.add(p.getNumCarte());
+		print.aggiornaVisCarte(valoriCarte, getGiocatoriString());
+		
+		
 	}
 	
 	public void iniziaAsta() {

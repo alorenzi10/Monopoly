@@ -62,9 +62,9 @@ public class MonopolyGUI extends JLayeredPane {
 	// Per scambi
 	private String giocatoreRicevente;
 
-	private ArrayList<JLabel> lblSaldoGiocatori;
+	private ArrayList<JLabel> lblSaldoGiocatori, lblCarteGiocatori;
 
-	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste;
+	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste,  btnCarteOfferte, btnCarteRichieste;
 
 	private ArrayList<JTextArea> txtPropGiocatori;
 
@@ -242,6 +242,15 @@ public class MonopolyGUI extends JLayeredPane {
 		for(int x=0; x<40;  x++){
 					btnProprietaOfferte[x]=new JButton();
 				}
+		
+		btnCarteRichieste= new JButton[10];
+		for(int x=0; x<10;  x++){
+			btnCarteRichieste[x]=new JButton();
+		}
+		btnCarteOfferte= new JButton[10];
+		for(int x=0; x<10;  x++){
+			btnCarteOfferte[x]=new JButton();
+		}
 		
 		btnNomeGiocatoreScambi = new JButton[numGiocatori - 1];
 		for(int x=0; x<(numGiocatori - 1);  x++){
@@ -782,7 +791,26 @@ public class MonopolyGUI extends JLayeredPane {
 		}
 		return null;
 	}
+	
+	public JButton getBottoneCarteOfferte(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnCarteOfferte[i].getActionCommand().equals(command)){
+				return btnCarteOfferte[i];
+			}
+		}
+		return null;
 
+	}
+	public JButton getBottoneCarteRichieste(String command) {
+		for(int i=0; i<40; i++) {
+			if(btnCarteRichieste[i].getActionCommand().equals(command)){
+				return btnCarteRichieste[i];
+			}
+		}
+		return null;
+
+	}
+	
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
 	}
@@ -873,6 +901,16 @@ public class MonopolyGUI extends JLayeredPane {
 		for(JButton button: btnProprietaOfferte)
 			button.addActionListener(listener);
 	}
+	
+	public void addBtnCarteOfferte(ActionListener listener) {
+		for(JButton button: btnCarteOfferte)
+			button.addActionListener(listener);
+	}
+	
+	public void addBtnCarteRichieste(ActionListener listener) {
+		for(JButton button: btnCarteRichieste)
+			button.addActionListener(listener);
+	}
 
 
 	public String getDenaroOfferto() { 
@@ -895,7 +933,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
-		panel_info_giocatori.setBounds(760, 82, 770, 398);
+		panel_info_giocatori.setBounds(760, 30, 770, 450);
 		add(panel_info_giocatori);
 
 		panel_info_giocatori.setLayout(new GridLayout(2, 3, 10, 10));
@@ -903,6 +941,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_prop_pedina = new ArrayList<>();
 		lblSaldoGiocatori = new ArrayList<>();
 		txtPropGiocatori = new ArrayList<>();
+		lblCarteGiocatori= new ArrayList<>();
 
 		for (String s: giocatori) {
 
@@ -919,9 +958,14 @@ public class MonopolyGUI extends JLayeredPane {
 			int i = giocatori.indexOf(s);
 			// Saldo del giocatore
 			lblSaldoGiocatori.add(new JLabel("Saldo: 1500€"));
-			lblSaldoGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 16));
+			lblSaldoGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 14));
 			lblSaldoGiocatori.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblSaldoGiocatori.get(i));
+			
+			lblCarteGiocatori.add(new JLabel("Carte uscita prigione: 0"));
+			lblCarteGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 14));
+			lblCarteGiocatori.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
+			panelGiocatore.add(lblCarteGiocatori.get(i));
 
 			// Panel per la suddivisione dello spazio tra la lista delle proprietà e l'immagine della pedina
 			panel_prop_pedina.add(new JPanel());
@@ -959,6 +1003,13 @@ public class MonopolyGUI extends JLayeredPane {
 			int i = giocatori.indexOf(s);
 			String elenco = String.join("\n", elencoProp.get(i));
 			txtPropGiocatori.get(i).setText(elenco);
+		}
+	}
+	
+	public void aggiornaVisCarte(ArrayList<Integer> valoriCarte, ArrayList<String> giocatori) {
+		for(String s: giocatori) {
+			int i = giocatori.indexOf(s);
+			lblCarteGiocatori.get(i).setText("Carte uscita prigione: "+valoriCarte.get(i)) ;
 		}
 	}
 
@@ -1205,7 +1256,7 @@ public class MonopolyGUI extends JLayeredPane {
 	}
 
 	// Per gli scambi
-	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello, boolean offerta) {
+	public void elencaPropGiocatore(ArrayList<String> proprietaPossedute, JScrollPane pannello, boolean offerta, int numCarte) {
 
 		JPanel panelInterno = new JPanel();
 		panelInterno.setLayout(null);
@@ -1233,7 +1284,24 @@ public class MonopolyGUI extends JLayeredPane {
 				i++;
 			}
 		}
-
+		for(int z=0; z<numCarte; z++) {
+			if(offerta) {
+				btnCarteOfferte[z].setText("Carta uscita prigione");
+				btnCarteOfferte[z].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+				btnCarteOfferte[z].setBounds(40, y, 250, 40);
+				btnCarteOfferte[z].setEnabled(true);
+				btnCarteOfferte[z].setActionCommand("uscitaprigione"+z);
+				panelInterno.add(btnCarteOfferte[z]);
+			}else {
+				btnCarteRichieste[z].setText("Carta Uscita Prigione");
+				btnCarteRichieste[z].setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+				btnCarteRichieste[z].setBounds(40, y, 250, 40);
+				btnCarteRichieste[z].setEnabled(true);
+				btnCarteRichieste[z].setActionCommand("uscitaprigioneR"+z);
+				panelInterno.add(btnCarteRichieste[z]);
+			}
+			y += 48;
+		}
 		panelInterno.setPreferredSize(new java.awt.Dimension(300, y + 10));
 		pannello.setViewportView(panelInterno);
 		pannello.revalidate();

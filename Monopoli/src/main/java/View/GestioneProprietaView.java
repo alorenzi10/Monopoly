@@ -41,7 +41,7 @@ public class GestioneProprietaView extends JPanel {
 		btnMarrone = new JButton("Marrone");
 		btnStazione = new JButton("Stazione");
 		btnSocieta = new JButton("Società");
-		btnIndietro1 = new JButton("Indietro1");
+		btnIndietro1 = new JButton("Indietro");
 		btnIndietro = new JButton("Indietro");
 		btn1 = new JButton();
 		btn2 = new JButton();

@@ -139,6 +139,9 @@ public class Player {
 		carte.remove(0);
 		return carta;
 	}
+	public int getNumCarte() {
+		return carte.size();
+	}
 	
     public int getNumCasePossedute() {
 		int numCase = 0;

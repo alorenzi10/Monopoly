@@ -32,7 +32,7 @@ public class MonopolyController {
 	private Monopoly monopoly;
 	private String index;
 	private String[] offerte, richieste;
-	private int contaOfferte, contaRichieste;
+	private int contaOfferte, contaRichieste, carteOfferte, carteRichieste;
 	private boolean baseAsta;
 	
 	
@@ -90,6 +90,8 @@ public class MonopolyController {
 				monopolyGUI.addBtnAnnullaScambi(new BtnAnnullaScambi());
 				monopolyGUI.addBtnProprietaRichieste(new BtnProprietaRichieste());
 				monopolyGUI.addBtnProprietaOfferte(new BtnProprietaOfferte());
+				monopolyGUI.addBtnCarteOfferte(new BtnCarteOfferte());
+				monopolyGUI.addBtnCarteRichieste(new BtnCarteRichieste());
 				monopolyGUI.addBtnAccettaOfferta(new BtnAccettaOfferta());
 				
 				//giocatore atterra su proprietà vuota
@@ -281,14 +283,17 @@ public class MonopolyController {
 			monopolyGUI.getPanelGestioneScambi().removeAll();
 			monopolyGUI.contrattazioneScambi();
 
-			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente(),true);
+			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente(),true, monopoly.getGiCorrente().getNumCarte());
 
-			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(),false);
+			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(),false, monopoly.getCorrispondenzaPlayer(index).getNumCarte());
 
 			offerte = new String[40];
 			richieste = new String[40];
 			contaOfferte = 0;
 			contaRichieste = 0;
+			carteRichieste=0;
+			carteOfferte=0;
+			
 		}
 	}
 
@@ -309,6 +314,24 @@ public class MonopolyController {
 			richieste[contaRichieste]=(e.getActionCommand());
 			monopolyGUI.getBottonePropRichieste(e.getActionCommand()).setEnabled(false);
 			contaRichieste++; 
+		}
+	}
+	
+	public class BtnCarteRichieste implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+
+			carteRichieste++;
+			monopolyGUI.getBottoneCarteRichieste(e.getActionCommand()).setEnabled(false);
+		}
+	}
+	
+	public class BtnCarteOfferte implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+
+			carteOfferte++;
+			monopolyGUI.getBottoneCarteOfferte(e.getActionCommand()).setEnabled(false);
 		}
 	}
 
@@ -367,6 +390,14 @@ public class MonopolyController {
 						monopoly.getCorrispondenzaPlayer(index).aggiungiProprieta(propOff[i]);
 					}
 				}
+				
+				for(int i=0; i<carteOfferte; i++) {
+					monopoly.getCorrispondenzaPlayer(index).addCarta(monopoly.getGiCorrente().getCarta());
+				}
+				for(int i=0; i<carteRichieste; i++) {
+					monopoly.getGiCorrente().addCarta(monopoly.getCorrispondenzaPlayer(index).getCarta());
+				}
+				
 				monopolyGUI.stampa("Scambio andato a buon fine");
 				monopoly.aggiornaVisualizzazioneInfo();
 				annullaScambio();
