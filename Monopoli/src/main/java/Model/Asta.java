@@ -43,6 +43,14 @@ public class Asta {
 			return risultato;
 		}
 	}
+	
+	public boolean controlloOfferta() {
+
+		boolean risultato = false;
+		risultato = giCorrente.controlloFondi(offerta_corrente);	
+		return risultato;
+	}
+
 
 	public void prossimoGiocatore() {
 

@@ -216,7 +216,7 @@ public class Monopoly {
 			}
 		aggiornaVisualizzazioneInfo();
 	}
-	
+	//da aggiungere controllo sui fondi
 	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
 		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
 			setProssimoGiocatore();
