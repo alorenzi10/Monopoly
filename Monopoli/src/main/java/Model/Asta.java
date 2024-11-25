@@ -38,10 +38,8 @@ public class Asta {
 
 		if(risultato) {
 			offerta_corrente += i;
-			return risultato;
-		}else {
-			return risultato;
 		}
+		return risultato;
 	}
 	
 	public boolean controlloOfferta() {
