@@ -67,7 +67,7 @@ public class Monopoly {
 			print.attivaUscitaConCarta(false);
 		}
 		
-		if(giCorrente.getInPrigione()){ //se è in prigione attiva la possibilità di pagare la cauzione
+		if(giCorrente.getInPrigione() && giCorrente.controlloFondi(CAUZIONE_PRIGIONE)){ //se è in prigione attiva la possibilità di pagare la cauzione
 			print.attivaUscitaConCauzione(true); 
 		}
 		else{
@@ -159,8 +159,8 @@ public class Monopoly {
 			
 			players.remove(giTemp);
 			
-			listaPropBancarotta=giTemp.getListaProprieta();
-			conta=0;
+			listaPropBancarotta = giTemp.getListaProprieta();
+			conta = 0;
 			if(!listaPropBancarotta.isEmpty()){
 				astaBancarotta(); }
 			else {
@@ -176,7 +176,7 @@ public class Monopoly {
 	}
 	
 	public boolean getConta() {
-		if(conta<listaPropBancarotta.size()) {
+		if(conta < listaPropBancarotta.size()) {
 			return true;
 		}
 		else {
@@ -201,7 +201,7 @@ public class Monopoly {
 			} else {print.stampa("Non hai carte uscite gratis di prigione!");} //probabilmente qua non entra mai dato che disabilitiamo il bottone
 		}
 	}
-	
+
 	public void pagaUscitaPrigione() {
 		if (giCorrente.getInPrigione()) { //anche questo forse inutile perché disattiviamo i bottoni quando non è in prigione
 			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
@@ -210,10 +210,10 @@ public class Monopoly {
 				print.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
 			} else {
 				print.stampa("Non hai abbastanza soldi!");
-				}
+			}
 		} else {
 			print.stampa("Il giocatore non è in prigione");
-			}
+		}
 		aggiornaVisualizzazioneInfo();
 	}
 	//da aggiungere controllo sui fondi
@@ -652,7 +652,7 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	 
-	private void setProssimoGiocatore() {
+	public void setProssimoGiocatore() {
 		
 		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
 			giCorrente = players.get(players.indexOf(giCorrente) + 1);
