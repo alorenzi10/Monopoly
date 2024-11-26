@@ -2,21 +2,21 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import com.google.gson.Gson;
-
-import View.*;
+import View.MonopolyGUI;
 
 public class Monopoly {
 	
 	public String nomePartita; //campi per json
-	
+	private int numero_giocatori; 
 	private String salvataggioDateTime;
+	
     private final int MONEY_START = 1500; // Denaro iniziale
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
-    private int numero_giocatori; 
     private int indexCorrente; //campi per json
     private ArrayList<Player> players;
     private transient Player giCorrente; // Giocatore del turno corrente
@@ -29,6 +29,7 @@ public class Monopoly {
     private boolean gameOver;
     private transient MonopolyGUI print;
     public  transient Asta asta; //da sistemare
+    private transient Random random= new Random();
     
     private transient ArrayList<Proprieta> listaPropBancarotta;
     private transient int conta;
@@ -46,7 +47,6 @@ public class Monopoly {
     		players.add(newPlayer);
     	}
     	//scelta casuale di chi inizia a giocare
-    	Random random = new Random();
     	giCorrente = players.get(random.nextInt(numero_giocatori));
     	
     	dice = new Dadi();
@@ -367,7 +367,7 @@ public class Monopoly {
 
 			if(carta.getTipo()==0) {
 				for (Player p : players) {
-					if(p.getName() != giCorrente.getName()) {
+					if(!p.getName().equals(giCorrente.getName())) {
 						if(p.controlloFondi(carta.getQtaSoldi())){
 							p.doTransaction(carta.getQtaSoldi());
 							print.stampa(giCorrente.getName() + " ha regalato 50€ a " + p.getName() + ".");
@@ -377,7 +377,7 @@ public class Monopoly {
 				giCorrente.doTransaction(-carta.getQtaSoldi()*(players.size()-1));
 			}else {
 				for (Player p : players) {
-					if(p.getName() != giCorrente.getName()) {
+					if(!p.getName().equals(giCorrente.getName()) ) {
 						if(p.controlloFondi(-carta.getQtaSoldi())){
 							p.doTransaction(-carta.getQtaSoldi());
 							print.stampa(p.getName() + " ha regalato 10€ a " + giCorrente.getName() + ".");
@@ -407,7 +407,7 @@ public class Monopoly {
 			controlloPassaggioVia();
 
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
-				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
+				if(!((Proprieta) tabellone.getSquare(pos)).getPossessore().getName().equals(giCorrente.getName())){
 					dice.roll();
 					print.stampa("Dado 1: " + dice.getDado1()); //lancio dei dadi per calcolare il coeffx10
 					print.stampa("Dado 2: " + dice.getDado2());
@@ -437,7 +437,7 @@ public class Monopoly {
 			controlloPassaggioVia();
 
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
-				if(((Proprieta) tabellone.getSquare(pos)).getPossessore().getName() !=giCorrente.getName()){
+				if(!((Proprieta) tabellone.getSquare(pos)).getPossessore().getName().equals(giCorrente.getName())){
 
 					print.stampa("Devi pagare il doppio del totale dovuto");
 					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*-2);
@@ -610,7 +610,7 @@ public class Monopoly {
 						aggiornaVisualizzazioneInfo();
 					}else {print.stampa("Distruzione non valida, la differenza tra le case non può essere maggiore di uno.");}
 				}else {print.stampa("Non hai case su questa proprietà");}
-			}else {print.stampa("Non puoi costruire su questa proprietà.");}
+			}else {print.stampa("Non puoi demolire su questa proprietà.");}
 		}else {print.stampa("Non puoi demolire se una proprietà che non possiedi");}
 	}
 	

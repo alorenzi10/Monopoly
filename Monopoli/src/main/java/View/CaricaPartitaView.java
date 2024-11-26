@@ -89,7 +89,9 @@ public class CaricaPartitaView extends JPanel {
 	
 	public void nuovoModello() {
 		model=new DefaultTableModel() {
-			 @Override
+			private static final long serialVersionUID = 3070725680915610586L;
+
+			@Override
 			 public boolean isCellEditable(int row, int column) {
 				 return false;
 			 }

@@ -12,7 +12,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import Controller.SceltaPedineController;
+
 
 import javax.swing.JButton;
 
@@ -60,8 +60,6 @@ public class MonopolyGUI extends JLayeredPane {
 	private JTextField nomeSalvataggio;
 
 	// Per scambi
-	private String giocatoreRicevente;
-
 	private ArrayList<JLabel> lblSaldoGiocatori, lblCarteGiocatori;
 
 	private JButton[] btnNomeGiocatoreScambi, btnProprietaOfferte, btnProprietaRichieste,  btnCarteOfferte, btnCarteRichieste;
@@ -1074,10 +1072,6 @@ public class MonopolyGUI extends JLayeredPane {
 			e.printStackTrace();
 		}
 		panel_conferma_bancarotta.add(lblIconaBancarotta);
-	}
-
-	public String getRicevente() {
-		return giocatoreRicevente;
 	}
 
 	public void mostraScambi(ArrayList<String> acquirenti, String giCorrente, ArrayList<String> propGiCorrente) {
