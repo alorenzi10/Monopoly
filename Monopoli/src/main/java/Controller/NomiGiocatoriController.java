@@ -65,7 +65,7 @@ public class NomiGiocatoriController {
 				
 				NomiGiocatoriView.getNomiGiocatoriView().setVisible(false);
 				// L'inserimento dei nomi è completato, bisogna scegliere le pedine
-				SceltaPedineController.getSceltaPedineController();
+				SceltaPedineController.getSceltaPedineController().inizializzaController();
 				SceltaPedineView.getSceltaPedineView().setVisible(true);
 
 			} 

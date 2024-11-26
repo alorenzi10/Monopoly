@@ -35,13 +35,16 @@ public class SceltaPedineController {
 		if(sceltaPedineController ==null) {
 			sceltaPedineController=new SceltaPedineController();
 		}
+		return  sceltaPedineController;
+		
+	}
+	
+	public void inizializzaController() {
 		sceltaPedineController.indice=0;
 		sceltaPedineController.numGiocatori=NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori();
 		sceltaPedineController.pedineScelte=new String[sceltaPedineController.numGiocatori];
 		
 		SceltaPedineView.getSceltaPedineView().resetBottoni();
-		return  sceltaPedineController;
-		
 	}
 
 	//I bottoni delle pedine una volta scelti diventano invisibili e aggiornano il turno

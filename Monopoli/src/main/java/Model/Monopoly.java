@@ -491,8 +491,9 @@ public class Monopoly {
 
 	public void compraProprieta() {
 		
-		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
-
+		if(tabellone.getSquare(giCorrente.getLocation()) instanceof Proprieta){
+			Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
+		
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
 		
@@ -504,6 +505,7 @@ public class Monopoly {
 			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
 			iniziaAsta();
+			}
 		}
 		 
 	}
