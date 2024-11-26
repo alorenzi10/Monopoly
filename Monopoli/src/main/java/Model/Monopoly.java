@@ -277,13 +277,17 @@ public class Monopoly {
 					tabellone.getSquare(giCorrente.getLocation()).getNome());
 
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){ //Proprietà di un altro giocatore
+				
+				if(((Proprieta) casella).isIpotecata()) {
+					print.stampa("Non paghi l'affitto perché è ipotecata ");
+				}else {
+					int totale = ((Proprieta) casella).getAffitto(); 
+					Player possessore = ((Proprieta) casella).getPossessore();
+					print.stampa("Dai " + totale + "€ a " + possessore.getName() );
 
-				int totale = ((Proprieta) casella).getAffitto(); 
-				Player possessore = ((Proprieta) casella).getPossessore();
-				print.stampa("Dai " + totale + "€ a " + possessore.getName() );
-
-				giCorrente.doTransaction(-totale); //va bene cosi senza controllo sui fondi?
-				possessore.doTransaction(totale);
+					giCorrente.doTransaction(-totale); //va bene cosi senza controllo sui fondi?
+					possessore.doTransaction(totale);
+				}
 
 			} 
 			else if(((Proprieta) casella).posseduta() && ((Proprieta) casella).getPossessore().equals(giCorrente)){ //Proprietà del giocatore
