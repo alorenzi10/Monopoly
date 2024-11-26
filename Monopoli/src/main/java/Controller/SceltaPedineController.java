@@ -8,34 +8,40 @@ import View.SchermataDiGioco;
 
 public class SceltaPedineController {
 
-	private SceltaPedineView sceltaPedineView;
-	private SchermataDiGioco frame;
+	private static  SceltaPedineController  sceltaPedineController;
 
-	private static int numGiocatori;
+	private int numGiocatori;
 	private int indice;
-	public static String[] pedineScelte;
+	private String[] pedineScelte;
 
-	public SceltaPedineController(int giocatori, SchermataDiGioco frame) {
+	private SceltaPedineController() {
 
-		indice = 0;
-		this.frame = frame;
-		SceltaPedineController.numGiocatori = giocatori;
-		pedineScelte = new String[numGiocatori];
-		sceltaPedineView = new SceltaPedineView();
+		SchermataDiGioco.getSchermataDiGioco().add(SceltaPedineView.getSceltaPedineView());
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint();
 
-		frame.add(sceltaPedineView);
-		frame.revalidate();
-		frame.repaint();
+		SceltaPedineView.getSceltaPedineView().addBtnCane(new BtnCane());
+		SceltaPedineView.getSceltaPedineView().addBtnCappello(new BtnCappello());
+		SceltaPedineView.getSceltaPedineView().addBtnCariola(new BtnCariola());
+		SceltaPedineView.getSceltaPedineView().addBtnDitale(new BtnDitale());
+		SceltaPedineView.getSceltaPedineView().addBtnFerro(new BtnFerro());
+		SceltaPedineView.getSceltaPedineView().addBtnMacchina(new BtnMacchina());
+		SceltaPedineView.getSceltaPedineView().addBtnNave(new BtnNave());
+		SceltaPedineView.getSceltaPedineView().addBtnStivale(new BtnStivale());
 
-		sceltaPedineView.addBtnCane(new BtnCane());
-		sceltaPedineView.addBtnCappello(new BtnCappello());
-		sceltaPedineView.addBtnCariola(new BtnCariola());
-		sceltaPedineView.addBtnDitale(new BtnDitale());
-		sceltaPedineView.addBtnFerro(new BtnFerro());
-		sceltaPedineView.addBtnMacchina(new BtnMacchina());
-		sceltaPedineView.addBtnNave(new BtnNave());
-		sceltaPedineView.addBtnStivale(new BtnStivale());
-
+	}
+	
+	public synchronized static SceltaPedineController getSceltaPedineController() {
+		if(sceltaPedineController ==null) {
+			sceltaPedineController=new SceltaPedineController();
+		}
+		sceltaPedineController.indice=0;
+		sceltaPedineController.numGiocatori=NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori();
+		sceltaPedineController.pedineScelte=new String[sceltaPedineController.numGiocatori];
+		
+		SceltaPedineView.getSceltaPedineView().resetBottoni();
+		return  sceltaPedineController;
+		
 	}
 
 	//I bottoni delle pedine una volta scelti diventano invisibili e aggiornano il turno
@@ -44,7 +50,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Cane";
-			sceltaPedineView.btnCane.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnCane.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -54,7 +60,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Cappello";
-			sceltaPedineView.btnCappello.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnCappello.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -64,7 +70,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Cariola";
-			sceltaPedineView.btnCariola.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnCariola.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -74,7 +80,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Ditale";
-			sceltaPedineView.btnDitale.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnDitale.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -84,7 +90,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Ferro";
-			sceltaPedineView.btnFerro.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnFerro.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -94,7 +100,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Macchina";
-			sceltaPedineView.btnMacchina.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnMacchina.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -104,7 +110,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Nave";
-			sceltaPedineView.btnNave.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnNave.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -114,7 +120,7 @@ public class SceltaPedineController {
 		public void actionPerformed(ActionEvent e) {
 
 			pedineScelte[indice] = "Stivale";
-			sceltaPedineView.btnStivale.setVisible(false);
+			SceltaPedineView.getSceltaPedineView().btnStivale.setVisible(false);
 			aggiornaTurno();
 		}
 	}
@@ -125,21 +131,18 @@ public class SceltaPedineController {
 		indice++;  // Passa al giocatore successivo
 		if (indice < numGiocatori) {
 			// Aggiorna la label per il turno del prossimo giocatore
-			sceltaPedineView.aggiornaTurno(indice);
+			SceltaPedineView.getSceltaPedineView().aggiornaTurno(indice);
 
 		} 
 		else {
 			// Tutti i giocatori hanno scelto la pedina e possiamo iniziare il gioco
-			sceltaPedineView.setVisible(false);
-			new MonopolyController(frame);
+			SceltaPedineView.getSceltaPedineView().setVisible(false);
+			//new MonopolyController(frame);
 		}
 	}
 
-	public static String[] getPedineScelte() {
+	public String[] getPedineScelte() {
 		return pedineScelte;
 	}
 
-	public static int getNumGiocatori() {
-		return numGiocatori;
-	}
 }

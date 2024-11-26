@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class NuovaPartitaView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static NuovaPartitaView nuovaPartitaView;
 	public JPanel setUp;  // Panel interno per i vari step del processo
 
 	private JButton btn_2;
@@ -20,10 +21,9 @@ public class NuovaPartitaView extends JPanel {
 	private JButton btn_4;
 	private JButton btn_5;
 	private JButton btn_6;
-	private JButton btnEsci;
 	private JButton btnIndietro;
 
-	public NuovaPartitaView() {
+	private NuovaPartitaView() {
 
 		setOpaque(false);
 		setBounds(0, 0, 1920, 1080);
@@ -77,12 +77,6 @@ public class NuovaPartitaView extends JPanel {
 		btn_6.setBounds(835, 56, 100, 50);
 		panel_bottoni.add(btn_6);
 
-		// Pulsante Esci
-		btnEsci = new JButton("Esci");
-		btnEsci.setBounds(500, 415, 200, 60);
-		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		setUp.add(btnEsci);
-
 		// Bottone indietro
 		btnIndietro = new JButton("Indietro");
 		btnIndietro.setBounds(50, 415, 200, 60);
@@ -91,6 +85,13 @@ public class NuovaPartitaView extends JPanel {
 
 		setUp.revalidate();  // Aggiorna il pannello
 		setUp.repaint();
+	}
+	
+	public synchronized static NuovaPartitaView getNuovaPartitaView() {
+		if(nuovaPartitaView==null) {
+			nuovaPartitaView=new NuovaPartitaView();
+		}
+		return nuovaPartitaView;
 	}
 
 	public JButton getBtnIndietro() {

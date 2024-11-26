@@ -15,7 +15,6 @@ public class Main {
 		 * Creazione del frame che conterrà i vari pannelli della view Creazione del
 		 * controller per il menu iniziale
 		 */
-		SchermataDiGioco frame = new SchermataDiGioco();
-		new MenuController(frame);
+		MenuController.getMenuIniziale();
 	}
 }

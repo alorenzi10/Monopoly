@@ -15,7 +15,7 @@ class MonopolyTest {
     @BeforeEach
     void setUp() {
         
-        monopoly = new Monopoly(3, nomiGiocatori, new MonopolyGUI(new SchermataDiGioco(), 3, nomiGiocatori));
+        monopoly = new Monopoly(3, nomiGiocatori, new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), 3, nomiGiocatori));
     }
 
     @Test

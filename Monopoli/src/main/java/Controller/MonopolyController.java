@@ -22,7 +22,7 @@ import View.SchermataDiGioco;
 
 public class MonopolyController {
 
-	private static SchermataDiGioco frame; //Per gestire il JFrame
+	private  SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
 	private String index;
@@ -33,9 +33,9 @@ public class MonopolyController {
 
 	public MonopolyController(SchermataDiGioco frame) {
 
-		MonopolyController.frame = frame;
-		monopolyGUI = new MonopolyGUI(frame, SceltaPedineController.getNumGiocatori(),  SceltaPedineController.getPedineScelte() );
-		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
+		this.frame = SchermataDiGioco.getSchermataDiGioco();
+		monopolyGUI = new MonopolyGUI(frame, NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(),  SceltaPedineController.getSceltaPedineController().getPedineScelte() );
+		monopoly = new Monopoly(NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(), NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
 		frame.add(monopolyGUI);
 		monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
@@ -46,7 +46,7 @@ public class MonopolyController {
 	//da caricamento
 	public MonopolyController(SchermataDiGioco frame, Monopoly monopoly, List<int[]> coppie) {
 
-		MonopolyController.frame = frame;
+		this.frame = SchermataDiGioco.getSchermataDiGioco();
 		this.monopoly = monopoly;
 
 		monopolyGUI = new MonopolyGUI(frame, monopoly.getNumGiocatori(), monopoly.getPedineSelezionate());
@@ -214,7 +214,7 @@ public class MonopolyController {
 
 			frame.remove(monopolyGUI.getPanelScelteTurno());
 			frame.remove(monopolyGUI);
-			new MenuController(frame);
+			MenuController.getMenuIniziale();
 
 		}
 	}
@@ -241,7 +241,7 @@ public class MonopolyController {
 			if(monopoly.getPlayers().size() == 1) {
 				frame.remove(monopolyGUI.getPanelScelteTurno());
 				frame.remove(monopolyGUI);
-				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName(), frame); // Creazione schermata vincitore con nome del giocatore
+				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName()); // Creazione schermata vincitore con nome del giocatore
 				frame.revalidate();
 				frame.repaint();
 			}

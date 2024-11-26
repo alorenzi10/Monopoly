@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,7 +19,7 @@ public class SceltaPedineView extends JPanel  {
 	 * seguendo l'ordine di inserimento dei nomi
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private static SceltaPedineView sceltaPedineView;
 	private JPanel setUp;
 	private JLabel lblTurnoGiocatore;
 
@@ -36,9 +35,8 @@ public class SceltaPedineView extends JPanel  {
 	private int indice = 0; //Le lasciamo nella view per semplificare l'implementazione
 	private String[] nomiGiocatori;
 
-	public SceltaPedineView() {
+	private SceltaPedineView() {
 
-		this.nomiGiocatori = NomiGiocatoriController.getNomiGiocatori();
 		setOpaque(false);
 		setBounds(0, 0, 1920, 1080);
 		setLayout(null);
@@ -48,15 +46,13 @@ public class SceltaPedineView extends JPanel  {
 		setUp.setOpaque(false);
 		setUp.setLayout(null);
 		add(setUp);
-		setUp.removeAll();  // Pulisci il pannello
-		setUp.setLayout(null);
 
 		JLabel lblSceltaPedine = new JLabel("Scelta pedine");
 		lblSceltaPedine.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		lblSceltaPedine.setBounds(415, 30, 408, 50);
 		setUp.add(lblSceltaPedine);
 
-		lblTurnoGiocatore = new JLabel(nomiGiocatori[indice] + " scegli la pedina");
+		lblTurnoGiocatore = new JLabel();
 		lblTurnoGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
 		lblTurnoGiocatore.setBounds(415, 100, 408, 50);
 		setUp.add(lblTurnoGiocatore);
@@ -69,12 +65,8 @@ public class SceltaPedineView extends JPanel  {
 		setUp.add(panel_pedine);
 
 		btnCane = new JButton("");
+		btnCane.setIcon(new ImageIcon("./icons/cane.png"));
 		btnCane.setBounds(50, 20, 60, 60);
-		try {
-			btnCane.setIcon(new ImageIcon(ImageIO.read(new File("./icons/cane.png")).getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		panel_pedine.add(btnCane);
 
 		btnCappello = new JButton("");
@@ -115,6 +107,26 @@ public class SceltaPedineView extends JPanel  {
 		setUp.revalidate();  // Aggiorna il pannello
 		setUp.repaint();
 
+	}
+	
+	public void resetBottoni() {
+		btnCane.setVisible(true);
+		btnCappello.setVisible(true);
+		btnCariola.setVisible(true);
+		btnNave.setVisible(true);
+		btnDitale.setVisible(true);
+		btnFerro.setVisible(true);
+		btnMacchina.setVisible(true);
+		btnStivale.setVisible(true);
+		lblTurnoGiocatore.setText(nomiGiocatori[0] + " scegli la pedina");
+	}
+	
+	public synchronized static SceltaPedineView getSceltaPedineView() {
+		if(sceltaPedineView==null) {
+			sceltaPedineView=new SceltaPedineView();
+		}
+		sceltaPedineView.nomiGiocatori=NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori();
+		return sceltaPedineView;
 	}
 
 	public void aggiornaTurno(int i) {

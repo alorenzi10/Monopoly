@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
+import View.MenuInizialeView;
 import View.NomiGiocatoriView;
+import View.NuovaPartitaView;
+import View.SceltaPedineView;
 import View.SchermataDiGioco;
 
 /**
@@ -14,31 +17,36 @@ import View.SchermataDiGioco;
 
 public class NomiGiocatoriController {
 
-	private NomiGiocatoriView nomiGiocatoriView;
-	private SchermataDiGioco frame;
+	private static NomiGiocatoriController nomiGiocatoriController;
+	
 	private int numGiocatori; //valore passato dal bottone scelto
-	private static String[] nomiGiocatori;
+	private String[] nomiGiocatori;
+	private JTextField[] playerNames;
 
-	public NomiGiocatoriController(int giocatori, SchermataDiGioco frame) {
+	private NomiGiocatoriController() {
 
-		this.frame = frame;
-		this.numGiocatori = giocatori;
-		nomiGiocatoriView = new NomiGiocatoriView(giocatori);
+		
+		SchermataDiGioco.getSchermataDiGioco().add(NomiGiocatoriView.getNomiGiocatoriView());
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint();
 
-		frame.add(nomiGiocatoriView);
-		frame.revalidate();
-		frame.repaint();
+		NomiGiocatoriView.getNomiGiocatoriView().addBtnIndietro(new BtnIndietro());
+		NomiGiocatoriView.getNomiGiocatoriView().addBtnConferma(new BtnConferma());
 
-		nomiGiocatoriView.addBtnIndietro(new BtnIndietro());
-		nomiGiocatoriView.addBtnConferma(new BtnConferma());
-
+	}
+	
+	public synchronized static NomiGiocatoriController getNomiGiocatoriController() {
+		if(nomiGiocatoriController==null) {
+			nomiGiocatoriController=new NomiGiocatoriController();
+		}
+		return nomiGiocatoriController;
 	}
 
 	private class BtnIndietro implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			nomiGiocatoriView.setVisible(false);
-			NuovaPartitaController.getNuovaPartita().setVisible(true);
+			NomiGiocatoriView.getNomiGiocatoriView().setVisible(false);
+			NuovaPartitaView.getNuovaPartitaView().setVisible(true);
 		}
 	}
 
@@ -48,19 +56,22 @@ public class NomiGiocatoriController {
 		public void actionPerformed(ActionEvent e) {
 			if (controlloNomeGiocatori()) {
 
-				JTextField[] playerNames=nomiGiocatoriView.getCampoNomi();
+				
 				nomiGiocatori = new String[numGiocatori];
 				// Memorizza i nomi dei giocatori
 				for (int i = 0; i < numGiocatori; i++) {
 					nomiGiocatori[i] = playerNames[i].getText();
 				}
-				nomiGiocatoriView.setVisible(false);
+				
+				NomiGiocatoriView.getNomiGiocatoriView().setVisible(false);
 				// L'inserimento dei nomi è completato, bisogna scegliere le pedine
-				new SceltaPedineController(numGiocatori, frame); 
+				SceltaPedineController.getSceltaPedineController();
+				SceltaPedineView.getSceltaPedineView().setVisible(true);
+
 			} 
 			else { 
 				// Bisogna finire l'inserimento dei nomi
-				nomiGiocatoriView.completaInserimento();
+				NomiGiocatoriView.getNomiGiocatoriView().completaInserimento();
 			}
 		}
 	}
@@ -68,7 +79,7 @@ public class NomiGiocatoriController {
 	// Metodo per controllare che non manchino nomi ai giocatori
 	private boolean controlloNomeGiocatori() {
 
-		JTextField[] playerNames = nomiGiocatoriView.getCampoNomi();
+		playerNames = NomiGiocatoriView.getNomiGiocatoriView().getCampoNomi();
 
 		for (JTextField field : playerNames) {
 			if (field.getText().isEmpty()) {
@@ -77,12 +88,20 @@ public class NomiGiocatoriController {
 		}
 		return true;
 	}
+	public void setNumGiocatori(int i) {
+		numGiocatori=i;
+		NomiGiocatoriView.getNomiGiocatoriView().creaJTextField(numGiocatori);
+	}
+	
+	public int getNumGiocatori() {
+		return numGiocatori;
+	}
 
-	public static String[] getNomiGiocatori() {
+	public String[] getNomiGiocatori() {
 		return nomiGiocatori;
 	}
 
-	public static String getNomiGiocatori(int i) {
+	public String getNomiGiocatori(int i) {
 		return nomiGiocatori[i];
 	}
 }
