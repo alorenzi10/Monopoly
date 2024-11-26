@@ -16,5 +16,6 @@ public class Main {
 		 * controller per il menu iniziale
 		 */
 		MenuController.getMenuIniziale();
+		SchermataDiGioco.getSchermataDiGioco().setVisible(true);
 	}
 }

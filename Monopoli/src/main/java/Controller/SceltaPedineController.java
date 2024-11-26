@@ -137,7 +137,7 @@ public class SceltaPedineController {
 		else {
 			// Tutti i giocatori hanno scelto la pedina e possiamo iniziare il gioco
 			SceltaPedineView.getSceltaPedineView().setVisible(false);
-			//new MonopolyController(frame);
+			new MonopolyController();
 		}
 	}
 

@@ -151,7 +151,7 @@ public class CaricaPartitaController {
 
 			if (trovato) {
 				CaricaPartitaView.getCaricaPartitaView().setVisible(false);
-				new MonopolyController(SchermataDiGioco.getSchermataDiGioco(), monopoly, coppie);
+				new MonopolyController( monopoly, coppie);
 			} else {
 				JOptionPane.showMessageDialog(CaricaPartitaView.getCaricaPartitaView(), "Partita non trovata");
 			}
