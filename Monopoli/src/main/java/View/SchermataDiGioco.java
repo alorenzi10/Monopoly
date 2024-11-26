@@ -38,7 +38,7 @@ public class SchermataDiGioco extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);		
-		contentPane.setBounds(0, 0, 1540, 845); 
+		contentPane.setBounds(0, 0, 1920, 1080); 
 		contentPane.setOpaque(false);
 	}
 }

@@ -31,6 +31,7 @@ public class NuovaPartitaController {
 		nuovaPartita.addBtn4(new Btn4());
 		nuovaPartita.addBtn5(new Btn5());
 		nuovaPartita.addBtn6(new Btn6());
+		nuovaPartita.addBtnEsci(new BtnEsci());
 	}
 	/**
 	 * Metodo per tornare al menu Iniziale dopo aver premuto il tasto indietro
@@ -60,6 +61,7 @@ public class NuovaPartitaController {
 
 		}
 	}
+	
 	private class Btn4 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -68,6 +70,7 @@ public class NuovaPartitaController {
 
 		}
 	}
+	
 	private class Btn5 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -76,11 +79,19 @@ public class NuovaPartitaController {
 
 		}
 	}
+	
 	private class Btn6 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			nuovaPartita.setVisible(false);
 			new NomiGiocatoriController(6, frame);
+		}
+	}
+	
+	private class BtnEsci implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
 		}
 	}
 

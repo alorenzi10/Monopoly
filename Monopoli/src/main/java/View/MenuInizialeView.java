@@ -35,19 +35,19 @@ public class MenuInizialeView extends JPanel {
 		btnNuovaPartita = new JButton("Nuova partita");
 		btnNuovaPartita.setBounds(590, 435, 360, 80);
 		btnNuovaPartita.setBackground(new Color(240, 240, 240));
-		btnNuovaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 39));
+		btnNuovaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnNuovaPartita);
 
 		btnCaricaPartita = new JButton("Carica partita");
 		btnCaricaPartita.setBounds(590, 545, 360, 80);
 		btnCaricaPartita.setBackground(new Color(240, 240, 240));
-		btnCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 39));
+		btnCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnCaricaPartita);
 
 		btnEsci = new JButton("Esci");
 		btnEsci.setBounds(590, 655, 360, 80);
 		btnEsci.setBackground(new Color(240, 240, 240));
-		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 39));
+		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnEsci);
 
 	}

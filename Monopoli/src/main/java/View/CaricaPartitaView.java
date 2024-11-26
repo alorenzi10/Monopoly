@@ -9,9 +9,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.SwingConstants;
 
 
 public class CaricaPartitaView extends JPanel {
@@ -41,31 +41,33 @@ public class CaricaPartitaView extends JPanel {
         add(setUp);
         
         JLabel lblCaricaPartita = new JLabel("Carica partita");
-        lblCaricaPartita.setBounds(740, 50, 400, 64);
-        lblCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 40));
+        lblCaricaPartita.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCaricaPartita.setBounds(664, 41, 592, 87);
+        lblCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 80));
         setUp.add(lblCaricaPartita);
         
         btnIndietro = new JButton("Indietro");
-        btnIndietro.setBounds(10, 415, 152, 60);
-        btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+        btnIndietro.setBounds(10, 415, 161, 61);
+        btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnIndietro);
         
         btnCarica = new JButton("Carica");
-        btnCarica.setBounds(10, 215, 152, 60);
-        btnCarica.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+        btnCarica.setBounds(10, 215, 161, 60);
+        btnCarica.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnCarica);
         
         btnElimina = new JButton("Elimina");
-        btnElimina.setBounds(10, 315, 152, 60);
-        btnElimina.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+        btnElimina.setBounds(10, 315, 161, 60);
+        btnElimina.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnElimina);
         
         carica=new JTextField();
-        carica.setBounds(170, 215, 152, 60);
+        carica.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+        carica.setBounds(191, 215, 152, 60);
         setUp.add(carica);
         
         elimina=new JTextField();
-        elimina.setBounds(170, 315, 152, 60);
+        elimina.setBounds(191, 315, 152, 60);
         setUp.add(elimina);
         
         scrollPane = new JScrollPane();

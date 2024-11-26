@@ -522,7 +522,7 @@ public class MonopolyController {
 				monopolyGUI.getBtnConfermaOfferta().setVisible(false);
 				monopoly.asta.prossimoGiocatore();
 				monopolyGUI.aggiornaTurno(monopoly.asta.getName());
-			}{
+			} else {
 				baseAsta = true;
 				monopolyGUI.getBtnConfermaOfferta().setVisible(false);
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta, ritirati");

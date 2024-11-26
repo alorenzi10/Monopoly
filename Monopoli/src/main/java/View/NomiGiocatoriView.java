@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 /**
  * Classe per scegliere il nome dei giocatori tramite JTextField
  */
@@ -37,13 +38,14 @@ public class NomiGiocatoriView extends JPanel {
 		int numGiocatori = num;
 
 		btnIndietro = new JButton("Indietro");
-		btnIndietro.setBounds(50, 550, 200, 60);
-		btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+		btnIndietro.setBounds(50, 550, 225, 80);
+		btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
 		setUp.add(btnIndietro);  
 
 		JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
-		lblInserisciNomi.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		lblInserisciNomi.setBounds(396, 30, 408, 50);
+		lblInserisciNomi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInserisciNomi.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
+		lblInserisciNomi.setBounds(354, 30, 492, 114);
 		setUp.add(lblInserisciNomi);
 
 		// Crea un array di JTextField per i nomi dei giocatori
@@ -51,19 +53,20 @@ public class NomiGiocatoriView extends JPanel {
 
 		for (int i = 0; i < numGiocatori; i++) {
 			JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
-			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-			lblNomeGiocatore.setBounds(200, 150 + (i * 40), 150, 30);
+			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+			lblNomeGiocatore.setBounds(200, 150 + (i * 50), 150, 45);
 			setUp.add(lblNomeGiocatore);
 
 			playerNames[i] = new JTextField();
-			playerNames[i].setBounds(350, 150 + (i * 40), 300, 30);
+			playerNames[i].setFont(lblNomeGiocatore.getFont());
+			playerNames[i].setBounds(355, 150 + (i * 50), 300, 40);
 			setUp.add(playerNames[i]);
 		}
 
 		// Pulsante per confermare i nomi
 		btnConferma = new JButton("Conferma");
-		btnConferma.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		btnConferma.setBounds(950, 550, 200, 60);
+		btnConferma.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
+		btnConferma.setBounds(950, 550, 225, 60);
 		setUp.add(btnConferma);
 
 		revalidate();
@@ -93,5 +96,4 @@ public class NomiGiocatoriView extends JPanel {
 
 		btnConferma.addActionListener(listener);
 	}
-
 }

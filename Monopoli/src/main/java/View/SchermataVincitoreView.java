@@ -36,7 +36,7 @@ public class SchermataVincitoreView extends JPanel {
 		add(lblCongratulazioni);
 		
 		JLabel lblNomeGiocatore = new JLabel(nomeVincitore);
-		lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 60));
+		lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 65));
 		lblNomeGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNomeGiocatore.setBounds(362, 214, 816, 116);
 		add(lblNomeGiocatore);
