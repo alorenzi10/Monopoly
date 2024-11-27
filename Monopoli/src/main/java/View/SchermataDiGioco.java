@@ -8,12 +8,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controller.MenuController;
+
 public class SchermataDiGioco extends JFrame {
 
 	private static final long serialVersionUID = 1L; 
+	private static SchermataDiGioco frame;
 	private JPanel contentPane;
 
-	public SchermataDiGioco() {
+	private SchermataDiGioco() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); // Massimizza la finestra
@@ -41,4 +44,13 @@ public class SchermataDiGioco extends JFrame {
 		contentPane.setBounds(0, 0, 1920, 1080); 
 		contentPane.setOpaque(false);
 	}
+	
+	public synchronized static SchermataDiGioco getSchermataDiGioco() {
+		if(frame==null) {
+			frame=new SchermataDiGioco();
+		}
+		return frame;
+	}
+	
+	
 }

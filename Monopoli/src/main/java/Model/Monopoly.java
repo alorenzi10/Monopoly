@@ -104,6 +104,8 @@ public class Monopoly {
 				}
 				else {  //Se il giocatore si trova in prigione
 					if (dice.isDouble()) { //se fa dadi doppi viene liberato e mosso in base al risultato
+						print.attivaUscitaConCarta(false);
+						print.attivaUscitaConCauzione(false);
 						giCorrente.liberaDaPrigione();
 						print.stampa(giCorrente.getName() + " è uscito dalla prigione.");
 						giCorrente.muovi(dice.getTotal());
@@ -219,7 +221,11 @@ public class Monopoly {
 	//da aggiungere controllo sui fondi
 	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
 		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
+			if(giCorrente.getWallet()<0) {
+				print.stampa(giCorrente.getName()+ " devi risolvere i debiti se possibile");
+			}else {
 			setProssimoGiocatore();
+			}
 		else{
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
 		}
@@ -311,7 +317,8 @@ public class Monopoly {
 			giCorrente.vaiInPrigione();	
 			print.stampa(giCorrente.getName() + " va in prigione.");
 			arrivo = giCorrente.getLocation();
-			print.muoviPedina(partenza, arrivo, giCorrente.getId());
+			tiroDadiFatto = true;
+			print.muoviPedina(partenza, arrivo, players.indexOf(giCorrente));
 
 		} 
 		aggiornaVisualizzazioneInfo();
@@ -342,7 +349,7 @@ public class Monopoly {
 			partenza=giCorrente.getLocation();
 			giCorrente.muovi(carta.getDestinazione());
 			pos=giCorrente.getLocation();
-			print.muoviPedina(partenza, pos, giCorrente.getId());
+			print.muoviPedina(partenza, pos, players.indexOf(giCorrente));
 			arrivoCasella();
 			break;
 
@@ -403,7 +410,7 @@ public class Monopoly {
 			}
 			pos=giCorrente.getLocation();
 
-			print.muoviPedina(partenza, pos, giCorrente.getId() );
+			print.muoviPedina(partenza, pos, players.indexOf(giCorrente) );
 			controlloPassaggioVia();
 
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
@@ -433,7 +440,7 @@ public class Monopoly {
 				giCorrente.muovi(3);
 			}
 			pos=giCorrente.getLocation();
-			print.muoviPedina(partenza, pos, giCorrente.getId() );
+			print.muoviPedina(partenza, pos, players.indexOf(giCorrente) );
 			controlloPassaggioVia();
 
 			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
@@ -491,8 +498,9 @@ public class Monopoly {
 
 	public void compraProprieta() {
 		
-		Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
-
+		if(tabellone.getSquare(giCorrente.getLocation()) instanceof Proprieta){
+			Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
+		
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
 		
@@ -504,6 +512,7 @@ public class Monopoly {
 			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
 			iniziaAsta();
+			}
 		}
 		 
 	}

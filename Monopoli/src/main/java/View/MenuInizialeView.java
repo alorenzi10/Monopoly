@@ -15,12 +15,12 @@ import java.awt.Color;
  */
 public class MenuInizialeView extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+	private static MenuInizialeView menuInizialeView;
 	private JButton btnNuovaPartita;
 	private JButton btnCaricaPartita;
 	private JButton btnEsci;
 
-	public MenuInizialeView() {
+	private MenuInizialeView() {
 
 		setOpaque(false);
 		setBounds(0, 0, 1920, 1080);
@@ -50,6 +50,15 @@ public class MenuInizialeView extends JPanel {
 		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnEsci);
 
+	}
+	
+	public synchronized static MenuInizialeView getMenuInizialeView() {
+		if(menuInizialeView==null) {
+			menuInizialeView= new MenuInizialeView();
+		}
+		
+		return menuInizialeView;
+		
 	}
 
 	public void addNuovaPartitaListener(ActionListener listener) {

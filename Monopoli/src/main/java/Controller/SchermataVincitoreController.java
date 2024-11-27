@@ -10,12 +10,12 @@ public class SchermataVincitoreController {
 
 	// Per fine partita
 	private static SchermataVincitoreView schermataVincitore;
-	private static SchermataDiGioco frame;
+	private SchermataDiGioco frame;
 
 
-	public SchermataVincitoreController (String vincitore, SchermataDiGioco frame) {
+	public SchermataVincitoreController (String vincitore) {
 
-		SchermataVincitoreController.frame = frame;
+		this.frame = SchermataDiGioco.getSchermataDiGioco();
 		schermataVincitore = new SchermataVincitoreView(vincitore, frame);
 		frame.add(schermataVincitore);
 		frame.revalidate();
@@ -38,7 +38,7 @@ public class SchermataVincitoreController {
 			frame.remove(schermataVincitore);
 			frame.revalidate();
 			frame.repaint();
-			new MenuController(frame);
+			MenuController.getMenuIniziale();
 		}
 	}
 }

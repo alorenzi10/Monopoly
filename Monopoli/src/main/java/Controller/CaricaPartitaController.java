@@ -24,23 +24,28 @@ import View.SchermataDiGioco;
 
 public class CaricaPartitaController {
 
-	private SchermataDiGioco frame;
-	private CaricaPartitaView caricaPartita;
+	private static CaricaPartitaController caricaPartitaController;
 
-	public CaricaPartitaController(CaricaPartitaView caricaPartita, SchermataDiGioco frame) {
-		this.caricaPartita = caricaPartita;
-		this.frame = frame;
+	private CaricaPartitaController() {
 
 		aggiornaTabella();
 
-		frame.add(caricaPartita);
-		frame.revalidate();
-		frame.repaint();
+		SchermataDiGioco.getSchermataDiGioco().add(CaricaPartitaView.getCaricaPartitaView());
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint();
 
-		caricaPartita.getBtnIndietro().addActionListener(e -> tornaMenuIniziale());
-		caricaPartita.addBtnCarica(new BtnCarica());
-		caricaPartita.addBtnElimina(new BtnElimina());
+		CaricaPartitaView.getCaricaPartitaView().getBtnIndietro().addActionListener(e -> tornaMenuIniziale());
+		CaricaPartitaView.getCaricaPartitaView().addBtnCarica(new BtnCarica());
+		CaricaPartitaView.getCaricaPartitaView().addBtnElimina(new BtnElimina());
 
+	}
+	
+	public synchronized static CaricaPartitaController getCaricaPartitaController() {
+		if(caricaPartitaController==null) {
+			caricaPartitaController=new CaricaPartitaController();
+		}
+		CaricaPartitaView.getCaricaPartitaView().setVisible(true);
+		return caricaPartitaController;
 	}
 
 	public void aggiornaTabella() {
@@ -60,10 +65,10 @@ public class CaricaPartitaController {
 					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 					String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
 					String numGiocatori = jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
-					caricaPartita.aggiungiATabella(nomePartita, numGiocatori, salvataggioDateTime);
+					CaricaPartitaView.getCaricaPartitaView().aggiungiATabella(nomePartita, numGiocatori, salvataggioDateTime);
 				}
 			} else {
-				caricaPartita.mostraLabel();
+				CaricaPartitaView.getCaricaPartitaView().mostraLabel();
 			}
 
 		} catch (FileNotFoundException e) { // Nel caso non trovi il file dei salvataggi ne crea uno
@@ -80,21 +85,21 @@ public class CaricaPartitaController {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			caricaPartita.mostraLabel();
+			CaricaPartitaView.getCaricaPartitaView().mostraLabel();
 		}
 	}
 
 	public void tornaMenuIniziale() {
 
-		caricaPartita.setVisible(false);
-		MenuController.getMenuIniziale().setVisible(true);
+		CaricaPartitaView.getCaricaPartitaView().setVisible(false);
+		MenuController.getMenuIniziale();
 
 	}
 
 	private class BtnCarica implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nomeCaricamento = caricaPartita.getCarica(); // prende il nome del salvataggio inserito dall'utente
+			String nomeCaricamento = CaricaPartitaView.getCaricaPartitaView().getCarica(); // prende il nome del salvataggio inserito dall'utente
 
 			boolean trovato = false;
 			Monopoly monopoly = null;
@@ -145,10 +150,10 @@ public class CaricaPartitaController {
 			}
 
 			if (trovato) {
-				caricaPartita.setVisible(false);
-				new MonopolyController(frame, monopoly, coppie);
+				CaricaPartitaView.getCaricaPartitaView().setVisible(false);
+				new MonopolyController( monopoly, coppie);
 			} else {
-				JOptionPane.showMessageDialog(caricaPartita, "Partita non trovata");
+				JOptionPane.showMessageDialog(CaricaPartitaView.getCaricaPartitaView(), "Partita non trovata");
 			}
 
 		}
@@ -157,7 +162,7 @@ public class CaricaPartitaController {
 	private class BtnElimina implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nomeRimozione = caricaPartita.getElimina();
+			String nomeRimozione = CaricaPartitaView.getCaricaPartitaView().getElimina();
 			try {
 				// Leggi il file JSON
 				FileReader reader = new FileReader("partiteMonopoli.json");
@@ -187,10 +192,10 @@ public class CaricaPartitaController {
 				e1.printStackTrace();
 			}
 
-			caricaPartita.nuovoModello(); // Ricarica la tabella
+			CaricaPartitaView.getCaricaPartitaView().nuovoModello(); // Ricarica la tabella
 			aggiornaTabella();
-			caricaPartita.getSetUp().revalidate();
-			caricaPartita.getSetUp().repaint();
+			CaricaPartitaView.getCaricaPartitaView().getSetUp().revalidate();
+			CaricaPartitaView.getCaricaPartitaView().getSetUp().repaint();
 
 		}
 	}

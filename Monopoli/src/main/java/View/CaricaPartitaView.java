@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 public class CaricaPartitaView extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+	private static CaricaPartitaView caricaPartitaView;
 	private JPanel setUp;
 	private JTable table;
 	private DefaultTableModel model;
@@ -28,7 +28,7 @@ public class CaricaPartitaView extends JPanel {
 	 * Launch the application.
 	 */
 	
-	public CaricaPartitaView() {
+	private CaricaPartitaView() {
 		
 		setOpaque(false);
 		setBounds(0, 0, 1920, 485);	
@@ -79,6 +79,13 @@ public class CaricaPartitaView extends JPanel {
         scrollPane.setViewportView(table);
         scrollPane.revalidate();
         scrollPane.repaint();
+	}
+	
+	public synchronized static CaricaPartitaView getCaricaPartitaView() {
+		if(caricaPartitaView==null) {
+			caricaPartitaView=new CaricaPartitaView();
+		}
+		return caricaPartitaView;
 	}
 	
 	public void aggiungiATabella(String nome,String num, String data) {

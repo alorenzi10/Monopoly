@@ -22,7 +22,6 @@ import View.SchermataDiGioco;
 
 public class MonopolyController {
 
-	private static SchermataDiGioco frame; //Per gestire il JFrame
 	private static MonopolyGUI monopolyGUI;
 	private Monopoly monopoly;
 	private String index;
@@ -31,33 +30,32 @@ public class MonopolyController {
 	private boolean baseAsta;
 
 
-	public MonopolyController(SchermataDiGioco frame) {
+	public MonopolyController() {
 
-		MonopolyController.frame = frame;
-		monopolyGUI = new MonopolyGUI(frame, SceltaPedineController.getNumGiocatori(),  SceltaPedineController.getPedineScelte() );
-		monopoly = new Monopoly(SceltaPedineController.getNumGiocatori(), NomiGiocatoriController.getNomiGiocatori(), monopolyGUI);
+
+		monopolyGUI = new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(),  SceltaPedineController.getSceltaPedineController().getPedineScelte() );
+		monopoly = new Monopoly(NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(), NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
-		frame.add(monopolyGUI);
+		SchermataDiGioco.getSchermataDiGioco().add(monopolyGUI);
 		monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 		aggiuntaListener();
-		frame.revalidate();
-		frame.repaint();
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint();
 	}
 	//da caricamento
-	public MonopolyController(SchermataDiGioco frame, Monopoly monopoly, List<int[]> coppie) {
+	public MonopolyController(Monopoly monopoly, List<int[]> coppie) {
 
-		MonopolyController.frame = frame;
 		this.monopoly = monopoly;
 
-		monopolyGUI = new MonopolyGUI(frame, monopoly.getNumGiocatori(), monopoly.getPedineSelezionate());
+		monopolyGUI = new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), monopoly.getNumGiocatori(), monopoly.getPedineSelezionate());
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
 
 		monopolyGUI.mostraInfoGiocatori(this.monopoly.getGiocatoriString());
 		this.monopoly.caricamento(monopolyGUI, coppie); //per settare le proprieta del giocatore e le relative costruzioni
-		frame.add(monopolyGUI);
+		SchermataDiGioco.getSchermataDiGioco().add(monopolyGUI);
 		aggiuntaListener();
-		frame.revalidate();
-		frame.repaint(); 
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint(); 
 	}
 
 	private void aggiuntaListener() {
@@ -126,7 +124,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.buttonsState(false);
-			new GestioneProprietaController(frame, monopolyGUI, monopoly);
+			new GestioneProprietaController(SchermataDiGioco.getSchermataDiGioco(), monopolyGUI, monopoly);
 		}
 	}
 
@@ -212,9 +210,9 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			frame.remove(monopolyGUI.getPanelScelteTurno());
-			frame.remove(monopolyGUI);
-			new MenuController(frame);
+			SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI.getPanelScelteTurno());
+			SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI);
+			MenuController.getMenuIniziale();
 
 		}
 	}
@@ -239,11 +237,11 @@ public class MonopolyController {
 			monopoly.setBancarotta();
 
 			if(monopoly.getPlayers().size() == 1) {
-				frame.remove(monopolyGUI.getPanelScelteTurno());
-				frame.remove(monopolyGUI);
-				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName(), frame); // Creazione schermata vincitore con nome del giocatore
-				frame.revalidate();
-				frame.repaint();
+				SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI.getPanelScelteTurno());
+				SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI);
+				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName()); // Creazione schermata vincitore con nome del giocatore
+				SchermataDiGioco.getSchermataDiGioco().revalidate();
+				SchermataDiGioco.getSchermataDiGioco().repaint();
 			}
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopoly.aggiornaVisualizzazioneInfo();
@@ -412,8 +410,8 @@ public class MonopolyController {
 	private void annullaScambio() {
 		monopolyGUI.getPanelSfondo().remove(monopolyGUI.getPanelChiusuraAffare());
 		monopolyGUI.mostraScambi(monopoly.getListaGiocatoriScambi(), monopoly.getGiCorrente().getName(), monopoly.getGiCorrente().getListaPropString());
-		frame.revalidate();
-		frame.repaint();
+		SchermataDiGioco.getSchermataDiGioco().revalidate();
+		SchermataDiGioco.getSchermataDiGioco().repaint();
 	}
 
 	//ATTERRAGGIO SU CASELLA VUOTA
