@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import View.MenuInizialeView;
 import View.NomiGiocatoriView;
 import View.NuovaPartitaView;
 import View.SceltaPedineView;

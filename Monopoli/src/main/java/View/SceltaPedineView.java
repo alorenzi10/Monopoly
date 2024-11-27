@@ -30,7 +30,6 @@ public class SceltaPedineView extends JPanel  {
 	public JButton btnMacchina;
 	public JButton btnStivale;
 
-	private int indice = 0; //Le lasciamo nella view per semplificare l'implementazione
 	private String[] nomiGiocatori;
 
 	private SceltaPedineView() {
@@ -52,8 +51,9 @@ public class SceltaPedineView extends JPanel  {
 		setUp.add(lblSceltaPedine);
 
 		lblTurnoGiocatore = new JLabel();
-		lblTurnoGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-		lblTurnoGiocatore.setBounds(415, 100, 408, 50);
+		lblTurnoGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTurnoGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 50));
+		lblTurnoGiocatore.setBounds(232, 169, 735, 92);
 		setUp.add(lblTurnoGiocatore);
 
 		// Pedine da scegliere
@@ -107,7 +107,7 @@ public class SceltaPedineView extends JPanel  {
 		setUp.repaint();
 
 	}
-	
+
 	public void resetBottoni() {
 		btnCane.setVisible(true);
 		btnCappello.setVisible(true);
@@ -119,7 +119,7 @@ public class SceltaPedineView extends JPanel  {
 		btnStivale.setVisible(true);
 		lblTurnoGiocatore.setText(nomiGiocatori[0] + " scegli la pedina");
 	}
-	
+
 	public synchronized static SceltaPedineView getSceltaPedineView() {
 		if(sceltaPedineView==null) {
 			sceltaPedineView=new SceltaPedineView();

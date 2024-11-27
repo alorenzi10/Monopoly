@@ -28,6 +28,7 @@ public class NuovaPartitaController {
 		NuovaPartitaView.getNuovaPartitaView().addBtn4(new Btn4());
 		NuovaPartitaView.getNuovaPartitaView().addBtn5(new Btn5());
 		NuovaPartitaView.getNuovaPartitaView().addBtn6(new Btn6());
+		NuovaPartitaView.getNuovaPartitaView().addBtnEsci(new BtnEsci());
 		
 		SchermataDiGioco.getSchermataDiGioco().revalidate();
 		SchermataDiGioco.getSchermataDiGioco().repaint();

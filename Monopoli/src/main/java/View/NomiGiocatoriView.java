@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import Controller.NomiGiocatoriController;
 /**
  * Classe per scegliere il nome dei giocatori tramite JTextField
  */
@@ -80,13 +79,14 @@ public class NomiGiocatoriView extends JPanel {
 
 		for (int i = 0; i < numGiocatori; i++) {
 			JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
-			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
-			lblNomeGiocatore.setBounds(200, 150 + (i * 40), 150, 30);
+			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
+			lblNomeGiocatore.setBounds(200, 150 + (i * 50), 150, 45);
 			labelArray[i]=lblNomeGiocatore;
 			setUp.add(lblNomeGiocatore);
 
 			playerNames[i] = new JTextField();
-			playerNames[i].setBounds(350, 150 + (i * 40), 300, 30);
+			playerNames[i].setFont(lblNomeGiocatore.getFont());
+			playerNames[i].setBounds(355, 150 + (i * 50), 300, 40);
 			setUp.add(playerNames[i]);
 		}
 		setUp.revalidate();
