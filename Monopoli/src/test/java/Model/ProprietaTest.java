@@ -19,6 +19,17 @@ class ProprietaTest {
 	void testProprietaIsPosseduta() {
 		assertTrue(property.posseduta());
 	}
+	
+	@Test
+	void testGetter() {
+		property.setPosseduta(true);
+		assertTrue(property.posseduta());
+		assertEquals(300, property.getCosto());
+		assertEquals(200, property.getPrezzoIpoteca());
+		int disipoteca=(int) (200*1.1);
+		assertEquals(disipoteca, property.getCostoDisipoteca());
+		assertEquals(0, property.getAffitto());
+	}
 
 	@Test
 	void testPossessoreHaProprieta() {

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import View.MonopolyGUI;
+import View.SchermataDiGioco;
+
 class AstaTest {
 
 	private Player tester1;
@@ -40,9 +43,8 @@ class AstaTest {
 
 	@Test
 	void testControllaOfferta() {
-		int valore = 20;
-		int offerta_corrente = 100;
-		assertTrue(tester1.controlloFondi(offerta_corrente + valore));
+		asta.aggiornaOfferta(10);
+		assertTrue(asta.controlloOfferta());
 	}
 	
     @Test
@@ -67,9 +69,14 @@ class AstaTest {
 
     @Test
     void testRitirati() {
-        assertEquals(3, players.size());
+    	Player tester4 = new Player(4, "Mauro", 1500, false, 0);
+    	 players.add(tester4);
+    	asta = new Asta(tester4, players, proprieta, null);
+        asta.ritirati();
+        assertEquals("Mario", asta.getName());
         asta.ritirati();
         assertEquals("Luigi", asta.getName());
+        
     }
 
     @Test
@@ -79,5 +86,18 @@ class AstaTest {
         asta.ritirati();
         asta.ritirati();
         assertEquals(true, asta.controlloFineAsta());
+    }
+    
+    @Test
+    void testConGUI() {
+    	String[] prova=new String[2];
+    	prova[0]="Cane";
+    	prova[1]="Nave";
+        MonopolyGUI monopolyGUI=new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), 2, prova );
+        asta = new Asta(tester1, players, proprieta, monopolyGUI);
+        assertDoesNotThrow(() -> asta.inizio());
+        assertDoesNotThrow(() -> asta.fineAsta());
+        assertEquals(1490, tester1.getWallet());
+        assertTrue(tester1.getListaProprieta().contains(proprieta));
     }
 }

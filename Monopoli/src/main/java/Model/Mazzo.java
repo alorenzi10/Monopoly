@@ -32,10 +32,6 @@ public class Mazzo {
     	return card;
     }
 
-    public Carta put(Carta card) {
-    	cards.add(card);
-		  return card;
-    }
     public boolean isEmpty() {
     	return cards.isEmpty();
     }

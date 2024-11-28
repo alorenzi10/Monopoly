@@ -9,9 +9,6 @@ public class Carta {
 	private int destinazione;
 
 	//diversi tipi di carte
-	public Carta() {
-		messaggio = "";
-	}
 
 	public Carta(int tipo, String messaggio, int actionID) {
 		this.tipo = tipo;

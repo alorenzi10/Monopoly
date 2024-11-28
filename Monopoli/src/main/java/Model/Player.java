@@ -189,6 +189,7 @@ public class Player {
 		
 	public String toStringListaProprieta() {
 		StringBuilder str = new StringBuilder();
+		
 	    for (Proprieta prop : getListaProprieta()) {
 	        str.append(prop.getNome()).append(", ");
 	    }
