@@ -2,7 +2,7 @@ package Model;
 
 import java.util.*;
 
-public class Mazzo {
+public abstract class Mazzo {
 	
     public final static int AZIONE_VAI_AVANTI = 0; //quando la pedina avanza 
     public final static int AZIONE_VAI_INDIETRO = 1; //quando la pedina va indietro
