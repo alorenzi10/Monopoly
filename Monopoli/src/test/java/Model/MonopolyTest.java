@@ -73,63 +73,63 @@ class MonopolyTest {
         
         Player provaPlayer=monopoly.getGiCorrente();
         assertNull(monopoly.getCorrispondenzaProprieta("Vicolo Corto", provaPlayer));
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(1));
-        assertEquals((Proprieta) monopoly.getTabellone().getSquare(1), monopoly.getCorrispondenzaProprieta("Vicolo Corto", provaPlayer));
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(1));
+        assertEquals((Proprieta) monopoly.getTabellone().getCasella(1), monopoly.getCorrispondenzaProprieta("Vicolo Corto", provaPlayer));
         
         
         //test costruisci, ipoteca, disipoteca
         monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //non la possiede
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1)); //non possiede il gruppo
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //non la possiede
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1)); //non possiede il gruppo
         
-        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getSquare(3));//ipotecara casa non posseduta
-        monopoly.disipoteca((Proprieta) monopoly.getTabellone().getSquare(3)); //disipotecara casa non posseduta
+        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getCasella(3));//ipotecara casa non posseduta
+        monopoly.disipoteca((Proprieta) monopoly.getTabellone().getCasella(3)); //disipotecara casa non posseduta
         
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(3)); //ora possiede il gruppo
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(3)); //ora possiede il gruppo
         
-        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getSquare(3));
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1)); //una proprietà del gruppo colore è ipotecata
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //è ipotecata
-        monopoly.disipoteca((Proprieta) monopoly.getTabellone().getSquare(3)); 
+        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getCasella(3));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1)); //una proprietà del gruppo colore è ipotecata
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //è ipotecata
+        monopoly.disipoteca((Proprieta) monopoly.getTabellone().getCasella(3)); 
         
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //una casa
-        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getSquare(3)); //non puoi edificare se sulla proprieta ci sono case
-        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getSquare(1)); //non puoi edificare se su altre proprieta del gruppo ci sono case
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //non puoi avere una differenza maggiore di uno tra varie proprietà
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3));	//due case
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //tre case
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //una casa
+        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getCasella(3)); //non puoi edificare se sulla proprieta ci sono case
+        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getCasella(1)); //non puoi edificare se su altre proprieta del gruppo ci sono case
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //non puoi avere una differenza maggiore di uno tra varie proprietà
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3));	//due case
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //tre case
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
         provaPlayer.doTransaction(-1500); //per prova costruisci senza fondi
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); 
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); 
         provaPlayer.doTransaction(1500);
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //quattro case
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //Albergo
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(1));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //quattro case
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //Albergo
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
         
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(3)); //Ramo hai gia un albergo 
-        assertEquals(5, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
-        assertEquals(5, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //Ramo hai gia un albergo 
+        assertEquals(5, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
+        assertEquals(5, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
         //test demolisci,
-        monopoly.costruisci((Proprieta) monopoly.getTabellone().getSquare(11)); //non la possiedi
+        monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(11)); //non la possiedi
         
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3)); //una casa
-        assertEquals(4, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3)); //non puoi avere una differenza maggiore di uno tra varie proprietà
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(1)); 
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(1));
-        monopoly.demolisci((Proprieta) monopoly.getTabellone().getSquare(3));
-        assertEquals(0, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
-        assertEquals(0, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3)); //una casa
+        assertEquals(4, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3)); //non puoi avere una differenza maggiore di uno tra varie proprietà
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(1)); 
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(1));
+        monopoly.demolisci((Proprieta) monopoly.getTabellone().getCasella(3));
+        assertEquals(0, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
+        assertEquals(0, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
         
         //test tira dadi
         int iniziale=provaPlayer.getLocation();
@@ -258,7 +258,7 @@ class MonopolyTest {
     	Player provaPlayer=monopoly.getGiCorrente();
     	provaPlayer.muovi(1);
     	monopoly.compraProprieta();
-    	assertEquals(provaPlayer, ((Proprieta) monopoly.getTabellone().getSquare(1)).getPossessore());
+    	assertEquals(provaPlayer, ((Proprieta) monopoly.getTabellone().getCasella(1)).getPossessore());
     }
     
     @Test
@@ -266,13 +266,13 @@ class MonopolyTest {
     	
     	Player provaPlayer=monopoly.getGiCorrente();
         assertNull(monopoly.getCorrispondenzaProprieta("Vicolo Corto", provaPlayer));
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(1));
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(3));
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(12));
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(1));
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(3));
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(12));
         
-        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getSquare(15));
+        provaPlayer.aggiungiProprieta((Proprieta) monopoly.getTabellone().getCasella(15));
         monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
-        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getSquare(15));
+        monopoly.ipoteca((Proprieta) monopoly.getTabellone().getCasella(15));
         
         List<int[]> coppie = new ArrayList<>();
         coppie.add(new int[] { 1, 1 });
@@ -280,9 +280,9 @@ class MonopolyTest {
     	monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
     	monopoly.caricamento(monopolyGUI,coppie );
     	
-    	assertEquals(provaPlayer.getName(),((Proprieta) monopoly.getTabellone().getSquare(1)).getPossessore().getName());
-    	assertEquals(1, ((Cantiere) monopoly.getTabellone().getSquare(1)).getNumCostruzioni());
-        assertEquals(5, ((Cantiere) monopoly.getTabellone().getSquare(3)).getNumCostruzioni());
+    	assertEquals(provaPlayer.getName(),((Proprieta) monopoly.getTabellone().getCasella(1)).getPossessore().getName());
+    	assertEquals(1, ((Cantiere) monopoly.getTabellone().getCasella(1)).getNumCostruzioni());
+        assertEquals(5, ((Cantiere) monopoly.getTabellone().getCasella(3)).getNumCostruzioni());
     	
     }
   
