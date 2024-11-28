@@ -82,7 +82,7 @@ public class Player {
 	
 	public boolean tentativiTerminati() {
 		boolean tentativiTerminati = false;
-		if(tentativiUscitaPrigione >= TENTATIVI_MASSIMI_PRIGIONE) {
+		if(tentativiUscitaPrigione == TENTATIVI_MASSIMI_PRIGIONE) {
 			tentativiTerminati = true;
 		}
 		return tentativiTerminati;

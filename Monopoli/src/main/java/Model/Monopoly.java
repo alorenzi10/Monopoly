@@ -92,7 +92,7 @@ public class Monopoly {
 					giCorrente.muovi(dice.getTotal()); 
 					controlloPassaggioVia(); //se con il metodo muovi() il giocatore raggiunge/supera il via, viene inizializzata una variabile di giocatore a true.
 					arrivoCasella();
-					if (dice.isDouble() == true) { //se ha fatto un dado doppio ha diritto ad un altro tiro
+					if (dice.isDouble()) { //se ha fatto un dado doppio ha diritto ad un altro tiro
 						nDadiDoppi++;
 						if(nDadiDoppi == 3) { //fino ad un massimo di 2 dadi doppi, dopo di che viene trasferito in prigione
 							giCorrente.vaiInPrigione();
@@ -520,7 +520,7 @@ public class Monopoly {
 	public void costruisci(Proprieta prop) {
 		
 		if (prop.posseduta() && prop.getPossessore().equals(giCorrente)) {
-			if (prop instanceof Cantiere) {
+			if (prop instanceof Cantiere) { //in teoria non entrera mai in questo ciclo salvo spostiamo l'if sopra
 				Cantiere cant = (Cantiere) prop;
 				if (giCorrente.possessoreGruppo(cant)) {
 					
@@ -806,6 +806,8 @@ public class Monopoly {
 		return pedineSelezionate;
 	}
 
-	
+	public Dadi getDice() {
+		return dice;
+	}
 }
   
