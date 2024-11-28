@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controller.MenuController;
-
 public class SchermataDiGioco extends JFrame {
 
 	private static final long serialVersionUID = 1L; 
@@ -46,8 +44,8 @@ public class SchermataDiGioco extends JFrame {
 	}
 	
 	public synchronized static SchermataDiGioco getSchermataDiGioco() {
-		if(frame==null) {
-			frame=new SchermataDiGioco();
+		if(frame == null) {
+			frame = new SchermataDiGioco();
 		}
 		return frame;
 	}

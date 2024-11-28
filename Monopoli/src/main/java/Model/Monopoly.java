@@ -11,7 +11,6 @@ import View.MonopolyGUI;
 public class Monopoly {
 	
 	public String nomePartita; //campi per json
-	private int numero_giocatori; 
 	private String salvataggioDateTime;
 	
     private final int MONEY_START = 1500; // Denaro iniziale
@@ -29,7 +28,7 @@ public class Monopoly {
     private boolean gameOver;
     private transient MonopolyGUI print;
     public  transient Asta asta; //da sistemare
-    private transient Random random= new Random();
+    private transient Random random = new Random();
     
     private transient ArrayList<Proprieta> listaPropBancarotta;
     private transient int conta;
@@ -39,8 +38,8 @@ public class Monopoly {
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
     	
     	this.print = monopolyGUI;
-    	this.numero_giocatori = numero_giocatori;
     	players = new ArrayList<Player>();
+    	
     	//Inizializzazione dei giocatori
     	for(int i=0; i<numero_giocatori; i++) {
     		Player newPlayer = new Player(i, nomi[i], MONEY_START, false, 0);
@@ -62,15 +61,13 @@ public class Monopoly {
 		
 		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
 			print.attivaUscitaConCarta(true); //carta per uscire dei prigione
-		}
-		else{
+		} else{
 			print.attivaUscitaConCarta(false);
 		}
 		
 		if(giCorrente.getInPrigione() && giCorrente.controlloFondi(CAUZIONE_PRIGIONE)){ //se è in prigione attiva la possibilità di pagare la cauzione
 			print.attivaUscitaConCauzione(true); 
-		}
-		else{
+		} else{
 			print.attivaUscitaConCauzione(false);
 		}
 		
@@ -138,21 +135,13 @@ public class Monopoly {
 	
 	public void setBancarotta(){
 		// Chiedo al giocatore se è sicuro
-		//print.confermaBancarotta(); // Vedo che viene eseguito perche proviene dal event listener del button
 		if(print.getDecisioneBancarotta()) {
 			
 			print.mostraScelteTurno();
-			// Gestione proprietà del giocatore in bancarotta
-			/*for(Proprieta p: giCorrente.getListaProprieta()) {
-				p.setProprietario(null);
-				p.setPosseduta(false);
-			} */
-			//giCorrente.getListaProprieta().clear();
-
+			// Gestione proprietà del giocatore in bancarotta, vanno all'asta
 			// Set prossimo giocatore			
 			Player giTemp = giCorrente;
 			if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
-				
 				giCorrente = players.get(players.indexOf(giCorrente) + 1);
 			}
 			else {
@@ -169,7 +158,6 @@ public class Monopoly {
 				attivitaPostBancarotta();
 			}
 		}
-		
 	}
 	
 	public void attivitaPostBancarotta() {
@@ -218,36 +206,44 @@ public class Monopoly {
 		}
 		aggiornaVisualizzazioneInfo();
 	}
-	//da aggiungere controllo sui fondi
+	
 	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
 		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
 			if(giCorrente.getWallet()<0) {
 				print.stampa(giCorrente.getName()+ " devi risolvere i debiti se possibile");
 			}else {
-			setProssimoGiocatore();
+				setProssimoGiocatore();
 			}
 		else{
 			print.stampa(giCorrente.getName()+ " devi ancora tirare");
 		}
 	}
+	
 	public void setSalvaPartita(String nome) {
-		nomePartita=nome;
-		indexCorrente= getPlayers().indexOf(getGiCorrente());
+		nomePartita = nome;
+		indexCorrente = getPlayers().indexOf(getGiCorrente());
 	}
 	
 	public void setTempo() {
-		
-		LocalDateTime salvaggioData=LocalDateTime.now();
-		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		salvataggioDateTime=salvaggioData.format(formatter);
+		LocalDateTime salvataggioData = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		setSalvataggioDateTime(salvataggioData.format(formatter));
 	}
+	
+	public void setSalvataggioDateTime(String salvataggioDateTime) {
+		this.salvataggioDateTime = salvataggioDateTime;
+	}
+
+	public String getSalvataggioDateTime() {
+		return salvataggioDateTime;
+	}
+
 	public void controlloPassaggioVia() {
 		
 		if (giCorrente.passaggioVia()) {
 			giCorrente.doTransaction(MONEY_VIA);
 			print.stampa("Il giocatore: " + giCorrente.getName() + " è passato dal via, riceve 200€." );
 		}
-		
 	}
 	
 	public void arrivoCasella() {
