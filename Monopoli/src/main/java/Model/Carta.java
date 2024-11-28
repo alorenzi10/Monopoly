@@ -5,36 +5,36 @@ public class Carta {
 	private String messaggio;
 	private int IDAzione;
 	private int parametro;
-	private int[] parameters;
+	private int[] parametri;
 	private int destinazione;
 
 	//diversi tipi di carte
 
-	public Carta(int tipo, String messaggio, int actionID) {
+	public Carta(int tipo, String messaggio, int IDAzione) {
 		this.tipo = tipo;
 		this.messaggio = messaggio;
-		this.IDAzione = actionID;
+		this.IDAzione = IDAzione;
 	}
 
-	public Carta(int tipo, String messaggio, int actionID, int parameter) {
+	public Carta(int tipo, String messaggio, int IDAzione, int parameter) {
 		this.tipo = tipo;
 		this.messaggio = messaggio;
-		this.IDAzione = actionID;
+		this.IDAzione = IDAzione;
 		this.parametro = parameter;
 	}
 
-	public Carta(int tipo, String messaggio, int actionID, int[] parameters) {
+	public Carta(int tipo, String messaggio, int IDAzione, int[] parametri) {
 		this.tipo = tipo;
 		this.messaggio = messaggio;
-		this.IDAzione = actionID;
-		this.parameters = parameters;
+		this.IDAzione = IDAzione;
+		this.parametri = parametri;
 	}
 
-	public Carta(int tipo, String messaggio, int actionID, int parameter, int destinazione) {
+	public Carta(int tipo, String messaggio, int IDAzione, int parametro, int destinazione) {
 		this.tipo = tipo;
 		this.messaggio = messaggio;
-		this.IDAzione = actionID;
-		this.parametro = parameter;
+		this.IDAzione = IDAzione;
+		this.parametro = parametro;
 		this.destinazione=destinazione;
 	}
 
@@ -47,11 +47,11 @@ public class Carta {
 	}
 
 	public int getCostoCase() {
-		return parameters[0];
+		return parametri[0];
 	}
 
 	public int getCostoAlberghi() {
-		return parameters[1];
+		return parametri[1];
 	}
 
 	public String getMessaggio() {

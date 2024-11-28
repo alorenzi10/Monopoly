@@ -3,27 +3,27 @@ package Model;
 public class Proprieta extends Casella {
 	
     private transient final double VALORE_DISIPOTECA = 1.1;
-    private boolean isOwned;
+    private boolean isPosseduta;
     private transient int costo;
     private transient Player possessore;
     private boolean ipotecata;
     private transient int prezzoIpoteca;
 
-    public Proprieta(String name, int costo, int prezzoIpoteca) {
-    	super(name);
+    public Proprieta(String nome, int costo, int prezzoIpoteca) {
+    	super(nome);
     	this.costo = costo;
-    	isOwned = false;
+    	isPosseduta = false;
     	possessore = null;
     	ipotecata = false;
     	this.prezzoIpoteca = prezzoIpoteca;
     }
 
 	public boolean posseduta() {
-		return isOwned;
+		return isPosseduta;
 	}
 	
-	public void setPosseduta(boolean state) {
-		isOwned = state;
+	public void setPosseduta(boolean stato) {
+		isPosseduta = stato;
 	}
 
 	public Player getPossessore() {
@@ -50,15 +50,13 @@ public class Proprieta extends Casella {
 		return prezzoIpoteca;
 	}
 	
-	
-
 	public int getCostoDisipoteca() {
 		return (int) (prezzoIpoteca*VALORE_DISIPOTECA);
 	}
 
 	public void setProprietario(Player player) {
 		possessore = player;
-		isOwned = true;
+		isPosseduta = true;
 	}
 
 }

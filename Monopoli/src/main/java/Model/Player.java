@@ -40,7 +40,7 @@ public class Player {
     
     public void muovi(int spostamento) { 
     	location += spostamento;
-    	if (location >= Tabellone.NUM_SQUARES) {
+    	if (location >= Tabellone.NUM_CASELLE) {
     		location -= 40;
     		passatoVia = true;
     	}

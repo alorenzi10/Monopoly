@@ -21,7 +21,7 @@ public class MenuController {
 
 		//Listener dei vari bottoni per la scelta dal menu
 		MenuInizialeView.getMenuInizialeView().addNuovaPartitaListener(new NuovaPartitaListener());
-		MenuInizialeView.getMenuInizialeView().addCaricaPartitaListener(new CaricaPartitaListener()); //da fare
+		MenuInizialeView.getMenuInizialeView().addCaricaPartitaListener(new CaricaPartitaListener());
 		MenuInizialeView.getMenuInizialeView().addEsciListener(new EsciListener());
 
 		SchermataDiGioco.getSchermataDiGioco().revalidate();
@@ -29,8 +29,8 @@ public class MenuController {
 	}
 
 	public synchronized static MenuController getMenuIniziale() {
-		if(menuController==null) {
-			menuController=new MenuController();
+		if(menuController == null) {
+			menuController = new MenuController();
 		}
 		MenuInizialeView.getMenuInizialeView().setVisible(true);
 		return menuController;
@@ -60,11 +60,8 @@ public class MenuController {
 		}
 	}
 
-
 	public void caricaPartita(){ 
 		MenuInizialeView.getMenuInizialeView().setVisible(false);
 		CaricaPartitaController.getCaricaPartitaController();
 	}
-
 }
-

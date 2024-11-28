@@ -164,9 +164,9 @@ public class MonopolyController {
 				}
 
 				try {
-					JsonArray existingData=new JsonArray();
+					JsonArray existingData = new JsonArray();
 
-					try(FileReader reader=new FileReader(filePath)){
+					try(FileReader reader = new FileReader(filePath)){
 						existingData = JsonParser.parseReader(reader).getAsJsonArray();
 					}
 
@@ -181,10 +181,10 @@ public class MonopolyController {
 						}
 					}
 
-					String json=gson.toJson(monopoly);
+					String json = gson.toJson(monopoly);
 					existingData.add(json);
 
-					try(FileWriter writer=new FileWriter(filePath)){
+					try(FileWriter writer = new FileWriter(filePath)){
 						gson.toJson(existingData,writer);
 					}
 
@@ -192,7 +192,7 @@ public class MonopolyController {
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(monopolyGUI, "Partita salvata");
-				monopolyGUI.rimuoviAcquistoAsta();
+				monopolyGUI.mostraScelteTurno();
 			}else {
 				JOptionPane.showMessageDialog(monopolyGUI, "Per salvare inserisci un nome al salvataggio");
 			}
@@ -202,7 +202,7 @@ public class MonopolyController {
 	private class BtnAnnulla implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.rimuoviAcquistoAsta();
+			monopolyGUI.mostraScelteTurno();
 		}
 	}
 
@@ -222,8 +222,6 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.confermaBancarotta();
-			////////////temporaneo
-			//monopoly.stampaDati();
 		}
 	}
 
@@ -252,7 +250,7 @@ public class MonopolyController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			monopolyGUI.setDecisioneBancarotta(false);
-			monopolyGUI.rimuoviAcquistoAsta();
+			monopolyGUI.mostraScelteTurno();
 		}
 	}
 
@@ -273,10 +271,8 @@ public class MonopolyController {
 
 			monopolyGUI.getPanelGestioneScambi().removeAll();
 			monopolyGUI.contrattazioneScambi();
-
-			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente(),true, monopoly.getGiCorrente().getNumCarte());
-
-			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(),false, monopoly.getCorrispondenzaPlayer(index).getNumCarte());
+			monopolyGUI.elencaPropGiocatore(monopoly.getGiCorrente().getListaPropString(), monopolyGUI.getScrollPaneElencoPropGiCorrente(), true, monopoly.getGiCorrente().getNumCarte());
+			monopolyGUI.elencaPropGiocatore(monopoly.getCorrispondenzaPlayer(index).getListaPropString(), monopolyGUI.getScrollPaneElencoPropRicevente(), false, monopoly.getCorrispondenzaPlayer(index).getNumCarte());
 
 			offerte = new String[40];
 			richieste = new String[40];
@@ -284,7 +280,6 @@ public class MonopolyController {
 			contaRichieste = 0;
 			carteRichieste = 0;
 			carteOfferte = 0;
-
 		}
 	}
 
@@ -298,7 +293,7 @@ public class MonopolyController {
 		}
 	}
 
-	public class BtnProprietaRichieste implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+	public class BtnProprietaRichieste implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 
@@ -308,7 +303,7 @@ public class MonopolyController {
 		}
 	}
 
-	public class BtnCarteRichieste implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+	public class BtnCarteRichieste implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 
@@ -317,7 +312,7 @@ public class MonopolyController {
 		}
 	}
 
-	public class BtnCarteOfferte implements ActionListener{ //se qualcuno spamma il bottone rompe il gioco, serve controllo
+	public class BtnCarteOfferte implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 
@@ -328,14 +323,14 @@ public class MonopolyController {
 
 	private class BtnAccettaOfferta implements ActionListener{
 		@Override
-		public void actionPerformed(ActionEvent e) {	//da sposare nel model mi sa
+		public void actionPerformed(ActionEvent e) {
 			// Recupero i dati dalla GUI
 			int denaroOfferto = 0;
 			try {
-				denaroOfferto = Integer.parseInt(monopolyGUI.getDenaroOfferto()); //controllo anche se negativi o fuori limite int?
+				denaroOfferto = Integer.parseInt(monopolyGUI.getDenaroOfferto());
 			}catch (NumberFormatException exe) {
 
-				monopolyGUI.stampa("Per scambiare riempi anche i campi denaro"); // Non serve perchè c'è 0 di default (che però è eliminabile...)
+				monopolyGUI.stampa("Per scambiare riempi anche i campi denaro"); //0 di default (eliminabile)
 				annullaScambio();
 				return;
 			}
@@ -418,7 +413,7 @@ public class MonopolyController {
 	private class BtnAcquista implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.rimuoviAcquistoAsta();
+			monopolyGUI.mostraScelteTurno();
 			monopoly.compraProprieta();
 			monopoly.aggiornaVisualizzazioneInfo();
 		}
@@ -427,7 +422,7 @@ public class MonopolyController {
 	private class BtnAsta implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			monopolyGUI.rimuoviAcquistoAsta();
+			monopolyGUI.mostraScelteTurno();
 			baseAsta=false;
 			monopoly.iniziaAsta();
 		}
@@ -441,7 +436,6 @@ public class MonopolyController {
 			monopoly.uscitaGratis();
 			monopolyGUI.attivaUscitaConCarta(false);
 			monopolyGUI.attivaUscitaConCauzione(false);
-
 		}
 	}
 	
@@ -458,7 +452,7 @@ public class MonopolyController {
 	private class Btn1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!monopoly.asta.aggiornaOfferta(1)) { //si potrebbe fare un metodo per queste azioni
+			if(!monopoly.asta.aggiornaOfferta(1)) { 
 				monopolyGUI.stampa("Non hai fondi a sufficenza per questa offerta");
 			}
 			else {
@@ -533,7 +527,7 @@ public class MonopolyController {
 		public void actionPerformed(ActionEvent e) {
 			monopoly.asta.ritirati();
 			if(monopoly.asta.controlloFineAsta()) {
-				monopolyGUI.rimuoviAcquistoAsta();
+				monopolyGUI.mostraScelteTurno();
 				monopoly.asta.fineAsta();
 				monopoly.aggiornaVisualizzazioneInfo();
 				if(monopolyGUI.getDecisioneBancarotta()) {

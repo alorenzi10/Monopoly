@@ -18,7 +18,7 @@ public class Cantiere extends Proprieta {
 		this.gruppoColore = gruppoColore;
 		this.costoCasa = costoCasa;
 		this.numCostruzioni = 0;
-		gruppoColore.addMember(this);
+		gruppoColore.aggiungiMembro(this);
 	}
 
 	public boolean haCase() {
@@ -39,9 +39,10 @@ public class Cantiere extends Proprieta {
 
 	public int getAffitto(){
 		int affitto;
-		if (numCostruzioni == 0 && super.getPossessore().possessoreGruppo(this) == false) {
+		if (numCostruzioni == 0 && !super.getPossessore().possessoreGruppo(this)) {
+			//Se il possessore non ha tutte le proprietà del gruppo
 			affitto = tabellaAffitti[0];
-		}else if (numCostruzioni == 0 && super.getPossessore().possessoreGruppo(this) == true) { 
+		}else if (numCostruzioni == 0 && super.getPossessore().possessoreGruppo(this)) { 
 			//se il possessore ha tutte le proprieta del gruppo l'affitto raddoppia
 			affitto = tabellaAffitti[0] * 2;
 		}else {

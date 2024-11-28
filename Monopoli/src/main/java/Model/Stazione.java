@@ -1,15 +1,15 @@
 package Model;
 
 public class Stazione extends Proprieta {
-    private int[] rentTable;
+    private int[] valoreIpoteca;
 
-    public Stazione(String name, int price, int mortgageValue, int[] rentTable) {
-    	super(name, price, mortgageValue);
-		this.rentTable = rentTable;
+    public Stazione(String nome, int prezzo, int prezzoIpoteca, int[] valoreIpoteca) {
+    	super(nome, prezzo, prezzoIpoteca);
+		this.valoreIpoteca = valoreIpoteca;
     }
     
     public int getAffitto() {
-		return rentTable[super.getPossessore().getNumStazioniPossedute()-1];
+		return valoreIpoteca[super.getPossessore().getNumStazioniPossedute()-1];
     	
     }
 

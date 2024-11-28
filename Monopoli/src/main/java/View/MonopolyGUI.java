@@ -261,7 +261,7 @@ public class MonopolyGUI extends JLayeredPane {
 		creaPedine();
 	}
 
-	public void creazioneCaselle() {
+	public void creazioneCaselle() { //creazione del tabellone
 		JPanel casella0 = new JPanel();
 		casella0.setLayout(null);
 		casella0.setBounds(30, 30, 90, 90);
@@ -790,7 +790,6 @@ public class MonopolyGUI extends JLayeredPane {
 		}
 		return null;
 	}
-	
 	public JButton getBottoneCarteOfferte(String command) {
 		for(int i=0; i<40; i++) {
 			if(btnCarteOfferte[i].getActionCommand().equals(command)){
@@ -888,7 +887,6 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnAccettaOfferta(ActionListener listener) {
 		btnAccettaOfferta.addActionListener(listener);
 	}
-
 	public void addBtnNomeGiocatoreScambi(ActionListener listener) {
 		for(JButton button: btnNomeGiocatoreScambi)
 			button.addActionListener(listener);
@@ -897,17 +895,16 @@ public class MonopolyGUI extends JLayeredPane {
 		for(JButton button: btnProprietaRichieste)
 			button.addActionListener(listener);
 	}
-
 	public void addBtnProprietaOfferte(ActionListener listener) {
 		for(JButton button: btnProprietaOfferte)
 			button.addActionListener(listener);
 	}
-	
+
 	public void addBtnCarteOfferte(ActionListener listener) {
 		for(JButton button: btnCarteOfferte)
 			button.addActionListener(listener);
 	}
-	
+
 	public void addBtnCarteRichieste(ActionListener listener) {
 		for(JButton button: btnCarteRichieste)
 			button.addActionListener(listener);
@@ -922,7 +919,7 @@ public class MonopolyGUI extends JLayeredPane {
 		return textFieldDenaroRicevuto.getText();	
 	}
 
-
+	// Pannello con le informaziomi dei giocatori
 	public void mostraInfoGiocatori(ArrayList<String> giocatori) {
 
 		if (panel_info_giocatori != null) {
@@ -995,6 +992,7 @@ public class MonopolyGUI extends JLayeredPane {
 		}
 	}
 
+	// Aggiorna le informazioni nel pannello
 	public void aggiornaVisSaldoGiocatori(ArrayList<Integer> valoriSaldo, ArrayList<String> giocatori) {
 		for(String s: giocatori) {
 			int i = giocatori.indexOf(s);
@@ -1017,6 +1015,7 @@ public class MonopolyGUI extends JLayeredPane {
 		}
 	}
 
+	// Rendono cliccabili i bottoni
 	public void attivaUscitaConCarta(boolean decisione){
 		btnUsaCartaEsciDiPrigione.setEnabled(decisione);
 	}
@@ -1037,6 +1036,7 @@ public class MonopolyGUI extends JLayeredPane {
 		decisioneBancarotta = scelta;
 	}
 
+	// Chiede conferma
 	public void confermaBancarotta() {
 
 		buttonsState(false);
@@ -1060,11 +1060,9 @@ public class MonopolyGUI extends JLayeredPane {
 		lblConfermaBancarotta.setBounds(27, 22, 471, 53);
 		panel_conferma_bancarotta.add(lblConfermaBancarotta);
 
-
 		btnConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		btnConfermaBancarotta.setBounds(21, 252, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
-
 
 		btnNoBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
 		btnNoBancarotta.setBounds(272, 252, 230, 82);
@@ -1076,6 +1074,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_conferma_bancarotta.add(lblIconaBancarotta);
 	}
 
+	// Schermata scambi tra giocatori
 	public void mostraScambi(ArrayList<String> acquirenti, String giCorrente, ArrayList<String> propGiCorrente) {
 
 		buttonsState(false);
@@ -1141,7 +1140,6 @@ public class MonopolyGUI extends JLayeredPane {
 		btnFine.setBounds(10, 467, 140, 43);
 		panel_gestione_scambi.add(btnFine);	
 	}
-
 	public void contrattazioneScambi() {
 
 		panel_chiusura_affare = new JPanel();
@@ -1355,6 +1353,7 @@ public class MonopolyGUI extends JLayeredPane {
 		return newArray;
 	}
 
+	// Spostamenti pedine
 	public void muoviPedina(int partenza, int arrivo, int pedina) {
 
 		//controlla che il vettore non sia nullo per evitare l'eccezione
@@ -1366,6 +1365,7 @@ public class MonopolyGUI extends JLayeredPane {
 		frame.repaint();
 	}
 
+	// Scelta compra/asta
 	public void atterraggioSuProprietaVuota() {
 
 		buttonsState(false);
@@ -1402,7 +1402,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 
 	}
-	//////INIZIO METODI ASTA
+	//INIZIO METODI ASTA
 	public void asta(String nomeCorrente, String proprieta) { //forse da mettere da un altra parte
 
 		buttonsState(false);
@@ -1479,10 +1479,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public void aggiornaTurno(String nome) {
 		lblTurno.setText(nome + " tocca a te partecipare all'asta");
 	}
-	/////FINE METODI ASTA
+	//FINE METODI ASTA
 
-	//rimuove anche bancarotta //anche salva
-	public void rimuoviAcquistoAsta() {
+	public void mostraScelteTurno() {
 		buttonsState(true);
 		remove(panel_sfondo);
 		revalidate();
@@ -1533,6 +1532,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 	}
 
+	// Aggiunge l'azione alla console
 	public void stampa(String text) {
 		consoleTextArea.append(">> " + text + "\n");
 		consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength()); //scorre alla fine sempre

@@ -32,11 +32,10 @@ public class SceltaPedineController {
 	}
 	
 	public synchronized static SceltaPedineController getSceltaPedineController() {
-		if(sceltaPedineController ==null) {
-			sceltaPedineController=new SceltaPedineController();
+		if(sceltaPedineController == null) {
+			sceltaPedineController = new SceltaPedineController();
 		}
 		return  sceltaPedineController;
-		
 	}
 	
 	public void inizializzaController() {
@@ -135,7 +134,6 @@ public class SceltaPedineController {
 		if (indice < numGiocatori) {
 			// Aggiorna la label per il turno del prossimo giocatore
 			SceltaPedineView.getSceltaPedineView().aggiornaTurno(indice);
-
 		} 
 		else {
 			// Tutti i giocatori hanno scelto la pedina e possiamo iniziare il gioco

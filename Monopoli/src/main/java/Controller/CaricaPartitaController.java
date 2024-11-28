@@ -116,8 +116,7 @@ public class CaricaPartitaController {
 					JsonElement jsonObject = JsonParser.parseString(jsonString);
 					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 
-					if (nomePartita.equals(nomeCaricamento)) { // Cerca la partita con lo stesso nome richiesto
-																// dall'utente
+					if (nomePartita.equals(nomeCaricamento)) { // Cerca la partita con lo stesso nome richiesto dall'utente
 						trovato = true;
 						monopoly = gson.fromJson(jsonObject, Monopoly.class); // Crea l'oggetto monopoly
 
@@ -136,8 +135,7 @@ public class CaricaPartitaController {
 								if (proprieta.has("id") && proprieta.has("numCostruzioni")) {
 									int id = proprieta.get("id").getAsInt();
 									int numCostruzioni = proprieta.get("numCostruzioni").getAsInt();
-									// gson non riusciva a ricrere questi campi in monopoly (si poteva usare i
-									// TypeAdapter)
+									// gson non riusciva a ricrere questi campi in monopoly (si poteva usare i TypeAdapter)
 									coppie.add(new int[] { id, numCostruzioni });
 								}
 							}
@@ -151,7 +149,7 @@ public class CaricaPartitaController {
 
 			if (trovato) {
 				CaricaPartitaView.getCaricaPartitaView().setVisible(false);
-				new MonopolyController( monopoly, coppie);
+				new MonopolyController(monopoly, coppie);
 			} else {
 				JOptionPane.showMessageDialog(CaricaPartitaView.getCaricaPartitaView(), "Partita non trovata");
 			}

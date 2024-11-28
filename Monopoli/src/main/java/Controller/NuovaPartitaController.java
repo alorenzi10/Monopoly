@@ -41,18 +41,14 @@ public class NuovaPartitaController {
 		NuovaPartitaView.getNuovaPartitaView().setVisible(true);
 		return nuovaPartitaController;
 	}
-	/**
-	 * Metodo per tornare al menu Iniziale dopo aver premuto il tasto indietro
-	 */
+	
+	// Metodo per tornare al menu Iniziale dopo aver premuto il tasto indietro
 	public void tornaMenuIniziale() {
 		NuovaPartitaView.getNuovaPartitaView().setVisible(false);
 		MenuInizialeView.getMenuInizialeView().setVisible(true);
 	}
 
-	/**
-	 * Listener che in base alla scelta dell'utente, costruiscono 
-	 * l'interfaccia adatta per la scelta dei nomi dei giocatori
-	 */
+	// Listener che in base alla scelta dell'utente, costruiscono l'interfaccia adatta per la scelta dei nomi dei giocatori
 	private class Btn2 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

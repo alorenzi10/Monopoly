@@ -2,21 +2,21 @@ package Model;
 
 public class Societa extends Proprieta {
 	
-    private transient int[] rentTable;
-    private  transient Dadi dice;
+    private transient int[] tabellaAffitti;
+    private  transient Dadi dadi;
 
-    public Societa(String name, int price, int mortgageValue, int[] rentTable, Dadi dice) {
-    	super(name, price, mortgageValue);
-		this.rentTable = rentTable;
-		this.dice = dice;
+    public Societa(String nome, int prezzo, int prezzoIpoteca, int[] tabellaAffitti, Dadi dadi) {
+    	super(nome, prezzo, prezzoIpoteca);
+		this.tabellaAffitti = tabellaAffitti;
+		this.dadi = dadi;
     }
     
     public int getAffitto() {
-    	return dice.getTotal()*getMoltiplicatoreAffitto();
+    	return dadi.getTotal()*getMoltiplicatoreAffitto();
     }
 
 	private int getMoltiplicatoreAffitto() {
-		return rentTable[super.getPossessore().getNumSocietaPossedute()-1];
+		return tabellaAffitti[super.getPossessore().getNumSocietaPossedute()-1];
 	}
 
 }

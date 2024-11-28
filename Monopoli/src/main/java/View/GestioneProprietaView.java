@@ -67,7 +67,7 @@ public class GestioneProprietaView extends JPanel {
 
 	}
 
-	public void Scelte() {
+	public void scelte() {
 
 		panel_gestione_proprieta = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -118,11 +118,11 @@ public class GestioneProprietaView extends JPanel {
 		panel_gestione_proprieta.revalidate();
 	}
 
-	public void Fine() {
+	public void fine() {
 		panel_sfondo.remove(panel_gestione_proprieta);
 	}
 
-	public void Costruisci(int scelta) {
+	public void costruisci(int scelta) {
 
 		panel_sfondo.remove(panel_gestione_proprieta);
 

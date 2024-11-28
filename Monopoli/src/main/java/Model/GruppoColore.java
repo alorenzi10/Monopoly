@@ -12,7 +12,7 @@ public class GruppoColore {
     	this.cantieri= new ArrayList<>();
     }
     
-    public void addMember(Cantiere cantiere) {
+    public void aggiungiMembro(Cantiere cantiere) {
     	this.cantieri.add(cantiere);
     }
 

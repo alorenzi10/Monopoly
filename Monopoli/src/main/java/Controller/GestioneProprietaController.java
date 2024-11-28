@@ -35,7 +35,7 @@ public class GestioneProprietaController {
 		this.tabellone = monopoly.getTabellone();
 		this.frame = frame;
 		gestioneProprieta = new GestioneProprietaView(frame);
-		gestioneProprieta.Scelte();
+		gestioneProprieta.scelte();
 
 		gestioneProprieta.addBtnCostruisci(new BtnCostruisci());
 		gestioneProprieta.addBtnDemolisci(new BtnDemolisci());
@@ -66,7 +66,7 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			scelta = 1;
-			gestioneProprieta.Costruisci(scelta);
+			gestioneProprieta.costruisci(scelta);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			scelta = 2;
-			gestioneProprieta.Costruisci(scelta);	
+			gestioneProprieta.costruisci(scelta);	
 		}
 	}
 
@@ -82,7 +82,7 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			scelta = 3;
-			gestioneProprieta.Costruisci(scelta);	
+			gestioneProprieta.costruisci(scelta);	
 		}
 	}
 
@@ -90,7 +90,7 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			scelta = 4;
-			gestioneProprieta.Costruisci(scelta);	
+			gestioneProprieta.costruisci(scelta);	
 		}
 	}
 
@@ -290,8 +290,8 @@ public class GestioneProprietaController {
 	private class BtnIndietro implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			gestioneProprieta.Fine();
-			gestioneProprieta.Scelte();
+			gestioneProprieta.fine();
+			gestioneProprieta.scelte();
 		}
 	}
 
@@ -299,14 +299,14 @@ public class GestioneProprietaController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			gestioneProprieta.Costruisci(scelta);
+			gestioneProprieta.costruisci(scelta);
 		}
 	}
 	
 	private class BtnFine implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			gestioneProprieta.Fine();
+			gestioneProprieta.fine();
 			monopolyGUI.buttonsState(true);
 		}
 	}
@@ -411,7 +411,7 @@ public class GestioneProprietaController {
 		}
 	}
 
-	private class Btn4 implements ActionListener{ //solo in caso di ferrovia
+	private class Btn4 implements ActionListener{ // Solo in caso di stazione
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Proprieta pr = stazioni[3];

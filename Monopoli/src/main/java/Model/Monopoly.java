@@ -141,7 +141,7 @@ public class Monopoly {
 		//print.confermaBancarotta(); // Vedo che viene eseguito perche proviene dal event listener del button
 		if(print.getDecisioneBancarotta()) {
 			
-			print.rimuoviAcquistoAsta();
+			print.mostraScelteTurno();
 			// Gestione proprietà del giocatore in bancarotta
 			/*for(Proprieta p: giCorrente.getListaProprieta()) {
 				p.setProprietario(null);
@@ -251,7 +251,7 @@ public class Monopoly {
 	}
 	
 	public void arrivoCasella() {
-		Casella casella = tabellone.getSquare(giCorrente.getLocation());
+		Casella casella = tabellone.getCasella(giCorrente.getLocation());
 
 		if (casella instanceof Imprevisti) {
 			if(( mazzoImprevisti).isEmpty()){
@@ -280,7 +280,7 @@ public class Monopoly {
 
 		else if (casella instanceof Proprieta) {
 			print.stampa(giCorrente.getName() + " è atterrato sulla proprietà " + 
-					tabellone.getSquare(giCorrente.getLocation()).getNome());
+					tabellone.getCasella(giCorrente.getLocation()).getNome());
 
 			if (((Proprieta) casella).posseduta() && !((Proprieta) casella).getPossessore().equals(giCorrente)){ //Proprietà di un altro giocatore
 				
@@ -302,7 +302,7 @@ public class Monopoly {
 				return;
 			}
 			else if(((Proprieta) casella).posseduta() == false) { //Proprietà non posseduta
-				print.stampa(tabellone.getSquare(giCorrente.getLocation()).getNome() + " non ha nessun proprietario" );
+				print.stampa(tabellone.getCasella(giCorrente.getLocation()).getNome() + " non ha nessun proprietario" );
 				if(giCorrente.getWallet()<((Proprieta) casella).getCosto()) { //se il giocatore non ha i fondi sufficenti va direttamente all'asta
 					iniziaAsta();
 				}else {
@@ -413,15 +413,15 @@ public class Monopoly {
 			print.muoviPedina(partenza, pos, players.indexOf(giCorrente) );
 			controlloPassaggioVia();
 
-			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
-				if(!((Proprieta) tabellone.getSquare(pos)).getPossessore().getName().equals(giCorrente.getName())){
+			if(((Proprieta) tabellone.getCasella(pos)).posseduta()) {
+				if(!((Proprieta) tabellone.getCasella(pos)).getPossessore().getName().equals(giCorrente.getName())){
 					dice.roll();
 					print.stampa("Dado 1: " + dice.getDado1()); //lancio dei dadi per calcolare il coeffx10
 					print.stampa("Dado 2: " + dice.getDado2());
 					print.stampa("Devi pagare "+ dice.getTotal()+"0 volte il totale dovuto");
-					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*dice.getTotal()*-10);
-					((Proprieta) tabellone.getSquare(pos)).getPossessore()
-					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*dice.getTotal()*10);
+					giCorrente.doTransaction(((Proprieta) tabellone.getCasella(pos)).getAffitto()*dice.getTotal()*-10);
+					((Proprieta) tabellone.getCasella(pos)).getPossessore()
+					.doTransaction(((Proprieta) tabellone.getCasella(pos)).getAffitto()*dice.getTotal()*10);
 				}
 			}else {
 				print.atterraggioSuProprietaVuota();
@@ -443,13 +443,13 @@ public class Monopoly {
 			print.muoviPedina(partenza, pos, players.indexOf(giCorrente) );
 			controlloPassaggioVia();
 
-			if(((Proprieta) tabellone.getSquare(pos)).posseduta()) {
-				if(!((Proprieta) tabellone.getSquare(pos)).getPossessore().getName().equals(giCorrente.getName())){
+			if(((Proprieta) tabellone.getCasella(pos)).posseduta()) {
+				if(!((Proprieta) tabellone.getCasella(pos)).getPossessore().getName().equals(giCorrente.getName())){
 
 					print.stampa("Devi pagare il doppio del totale dovuto");
-					giCorrente.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*-2);
-					((Proprieta) tabellone.getSquare(pos)).getPossessore()
-					.doTransaction(((Proprieta) tabellone.getSquare(pos)).getAffitto()*2);
+					giCorrente.doTransaction(((Proprieta) tabellone.getCasella(pos)).getAffitto()*-2);
+					((Proprieta) tabellone.getCasella(pos)).getPossessore()
+					.doTransaction(((Proprieta) tabellone.getCasella(pos)).getAffitto()*2);
 				}
 			}else {
 				print.atterraggioSuProprietaVuota();
@@ -492,24 +492,24 @@ public class Monopoly {
 	
 	public void iniziaAsta() {
 		//passaggio dei dati utili per l'asta
-		asta = new Asta(giCorrente, players, (Proprieta) tabellone.getSquare(giCorrente.getLocation()), print);
+		asta = new Asta(giCorrente, players, (Proprieta) tabellone.getCasella(giCorrente.getLocation()), print);
 		asta.inizio(); 
 	}
 
 	public void compraProprieta() {
 		
-		if(tabellone.getSquare(giCorrente.getLocation()) instanceof Proprieta){
-			Proprieta proprieta = (Proprieta) tabellone.getSquare(giCorrente.getLocation());
+		if(tabellone.getCasella(giCorrente.getLocation()) instanceof Proprieta){
+			Proprieta proprieta = (Proprieta) tabellone.getCasella(giCorrente.getLocation());
 		
 		if(giCorrente.controlloFondi(proprieta.getCosto())) {
 		giCorrente.doTransaction(-proprieta.getCosto());
 		
 		giCorrente.aggiungiProprieta(proprieta);
-		print.stampa(giCorrente.getName() + " ha acquistato " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
+		print.stampa(giCorrente.getName() + " ha acquistato " + tabellone.getCasella(giCorrente.getLocation()).getNome()+
 				" pagando: " + proprieta.getCosto() + "€." );
 		}
 		else {
-			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getSquare(giCorrente.getLocation()).getNome()+
+			print.stampa(giCorrente.getName() + " hai fondi insufficenti, " + tabellone.getCasella(giCorrente.getLocation()).getNome()+
 					" Va all'asta" );
 			iniziaAsta();
 			}
@@ -749,7 +749,7 @@ public class Monopoly {
     			
     			for(int i=0; i<40; i++) {
     				
-    				Casella casella=tabellone.getSquare(i);
+    				Casella casella=tabellone.getCasella(i);
     				
     				if(casella.getNome().equals(c.getNome())) { //passa salvataggi genereli proprietà
     					

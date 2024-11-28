@@ -15,24 +15,24 @@ public class Mazzo {
     public final static int AZIONE_SOCIETA_VICINA=8; //quando la pedina avanza alla società piu vicina
     public final static int AZIONE_FERROVIA_VICINA=9; //quando la pedina avanza alla ferrovia piu vicina
     
-    ArrayList<Carta> cards = new ArrayList<Carta>();
+    ArrayList<Carta> carte = new ArrayList<Carta>();
 
     public void add(Carta card) {
-    	this.cards.add(card);
+    	this.carte.add(card);
     }
     
     public void shuffle() {
-    	Collections.shuffle(cards);
+    	Collections.shuffle(carte);
     }
     
     public Carta get() {//prende la carta in cima al mazzo
     	
-    	Carta card = cards.get(0);
-    	cards.remove(0);
+    	Carta card = carte.get(0);
+    	carte.remove(0);
     	return card;
     }
 
     public boolean isEmpty() {
-    	return cards.isEmpty();
+    	return carte.isEmpty();
     }
 }
