@@ -12,10 +12,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+
+import java.awt.Color;
 
 
 public class CaricaPartitaView extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private static CaricaPartitaView caricaPartitaView;
 	private JPanel setUp;
 	private JTable table;
@@ -23,10 +27,6 @@ public class CaricaPartitaView extends JPanel {
 	private JButton btnIndietro, btnCarica, btnElimina;
 	private JTextField carica, elimina;
 	private JScrollPane scrollPane;
-
-	/**
-	 * Launch the application.
-	 */
 	
 	private CaricaPartitaView() {
 		
@@ -41,37 +41,45 @@ public class CaricaPartitaView extends JPanel {
         add(setUp);
         
         JLabel lblCaricaPartita = new JLabel("Carica partita");
+        lblCaricaPartita.setForeground(new Color(255, 255, 255));
+        lblCaricaPartita.setBackground(new Color(224, 0, 0));
+        lblCaricaPartita.setOpaque(true);
         lblCaricaPartita.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCaricaPartita.setBounds(664, 41, 592, 87);
+        lblCaricaPartita.setBounds(724, 41, 471, 87);
+        lblCaricaPartita.setBorder(new MatteBorder(3, 3, 3, 3, Color.black));
         lblCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 80));
         setUp.add(lblCaricaPartita);
         
         btnIndietro = new JButton("Indietro");
-        btnIndietro.setBounds(10, 415, 161, 61);
+        btnIndietro.setBackground(new Color(192, 226, 202));
+        btnIndietro.setBounds(10, 415, 174, 61);
         btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnIndietro);
         
         btnCarica = new JButton("Carica");
+        btnCarica.setBackground(new Color(192, 226, 202));
         btnCarica.setBounds(10, 215, 161, 60);
         btnCarica.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnCarica);
         
         btnElimina = new JButton("Elimina");
+        btnElimina.setBackground(new Color(192, 226, 202));
         btnElimina.setBounds(10, 315, 161, 60);
         btnElimina.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnElimina);
         
-        carica=new JTextField();
-        carica.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
+        carica = new JTextField();
+        carica.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
         carica.setBounds(191, 215, 152, 60);
         setUp.add(carica);
         
-        elimina=new JTextField();
+        elimina = new JTextField();
+        elimina.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
         elimina.setBounds(191, 315, 152, 60);
         setUp.add(elimina);
         
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(614, 150, 600, 300);
+        scrollPane.setBounds(660, 150, 600, 300);
         setUp.add(scrollPane);
         
         table = new JTable();

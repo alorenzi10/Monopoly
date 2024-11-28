@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+
+import java.awt.Color;
 
 /**
  * Classe per scegliere il nome dei giocatori tramite JTextField
@@ -22,7 +25,7 @@ public class NomiGiocatoriView extends JPanel {
 	private JButton btnIndietro;
 	private JButton btnConferma;
 
-	//static int numGiocatori; //Alcuni variabili che poi passeremo al modello
+	//Alcuni variabili che poi passeremo al modello
 	private JTextField[] playerNames;  // Array per i campi di testo dei nomi dei giocatori
 	private JLabel[] labelArray;
 
@@ -39,23 +42,29 @@ public class NomiGiocatoriView extends JPanel {
 		add(setUp);
 		setUp.setLayout(null);
 
-		//int numGiocatori = num;
-
 		btnIndietro = new JButton("Indietro");
+		btnIndietro.setBackground(new Color(192, 226, 202));
 		btnIndietro.setBounds(50, 550, 225, 80);
 		btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
+		btnIndietro.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		setUp.add(btnIndietro);  
 
 		JLabel lblInserisciNomi = new JLabel("Inserisci i nomi dei giocatori:");
+		lblInserisciNomi.setForeground(new Color(255, 255, 255));
+		lblInserisciNomi.setBackground(new Color(224, 0, 0));
+		lblInserisciNomi.setBorder(new MatteBorder(3, 3, 3, 3, Color.black));
+		lblInserisciNomi.setOpaque(true);
 		lblInserisciNomi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInserisciNomi.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
-		lblInserisciNomi.setBounds(354, 30, 492, 114);
+		lblInserisciNomi.setBounds(354, 60, 507, 65);
 		setUp.add(lblInserisciNomi);
 
 		// Pulsante per confermare i nomi
 		btnConferma = new JButton("Conferma");
+		btnConferma.setBackground(new Color(192, 226, 202));
 		btnConferma.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
-		btnConferma.setBounds(950, 550, 225, 60);
+		btnConferma.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
+		btnConferma.setBounds(950, 550, 225, 80);
 		setUp.add(btnConferma);
 
 		setUp.revalidate();
@@ -80,8 +89,13 @@ public class NomiGiocatoriView extends JPanel {
 		for (int i = 0; i < numGiocatori; i++) {
 			JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");
 			lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-			lblNomeGiocatore.setBounds(200, 150 + (i * 50), 150, 45);
-			labelArray[i]=lblNomeGiocatore;
+			lblNomeGiocatore.setBounds(195, 150 + (i * 50), 155, 41);
+			lblNomeGiocatore.setBackground(new Color(224, 0, 0));
+			lblNomeGiocatore.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
+			lblNomeGiocatore.setForeground(new Color(255, 255, 255));
+			lblNomeGiocatore.setOpaque(true);
+			lblNomeGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
+			labelArray[i] = lblNomeGiocatore;
 			setUp.add(lblNomeGiocatore);
 
 			playerNames[i] = new JTextField();
@@ -94,8 +108,8 @@ public class NomiGiocatoriView extends JPanel {
 	}
 	
 	public synchronized static NomiGiocatoriView getNomiGiocatoriView() {
-		if(nomiGiocatoriView==null) {
-			nomiGiocatoriView=new NomiGiocatoriView();
+		if(nomiGiocatoriView == null) {
+			nomiGiocatoriView = new NomiGiocatoriView();
 		}
 		return nomiGiocatoriView;
 	}
@@ -104,10 +118,6 @@ public class NomiGiocatoriView extends JPanel {
 	public void completaInserimento() {
 		JOptionPane.showMessageDialog(NomiGiocatoriView.this, "Tutti i nomi devono essere riempiti!", "Errore", JOptionPane.ERROR_MESSAGE);
 	}
-
-	/*public static int getNumGiocatori() {
-		return numGiocatori;
-	} */
 
 	// Metodo che ritorna le stringhe dei JTextField
 	public JTextField[] getCampoNomi() {

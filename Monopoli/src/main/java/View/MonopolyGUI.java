@@ -51,7 +51,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JButton btnConfermaBancarotta, btnNoBancarotta;
 	private JButton btnUsaCartaEsciDiPrigione, btnPagaCauzione;
 	private JButton btn1, btn5, btn10, btn50, btnConfermaOfferta,btnRitirati;//asta
-	private JButton  btnAnnullaScambi, btnAccettaOfferta; /*scambi*/
+	private JButton btnAnnullaScambi, btnAccettaOfferta; /*scambi*/
 	private JButton btnEsci, btnSalva;
 	private JLabel lblTurno, lblOfferta;
 	private JScrollPane scrollPaneElencoPropRicevente, scrollPaneElencoPropGiCorrente;
@@ -76,9 +76,9 @@ public class MonopolyGUI extends JLayeredPane {
 	public MonopolyGUI(SchermataDiGioco frame, int numGiocatori, String [] pedineSelezionate) {
 												//da cambiare da Sceltapedinacontroller.getgiocatori() e scelta pedine
 		
-		this.pedineSelezionate=pedineSelezionate;
-		this.numGiocatori=numGiocatori;
-		this.frame=frame;
+		this.pedineSelezionate = pedineSelezionate;
+		this.numGiocatori = numGiocatori;
+		this.frame = frame;
 		caselle = new JPanel[40];
 		setBounds(0, 0, 1540, 845);
 		setLayout(null);
@@ -108,6 +108,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		panel_scelte_turno = new JPanel();
 		panel_scelte_turno.setBounds(130, 130, 520, 520);
+		panel_scelte_turno.setBackground(new Color(192, 226, 202));
 		panel_scelte_turno.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK)); 
 		frame.add(panel_scelte_turno);
 		panel_scelte_turno.setLayout(null);
@@ -812,29 +813,31 @@ public class MonopolyGUI extends JLayeredPane {
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
 	}
+	
 	public void addBtnDichiaraBancarotta(ActionListener listener) {
 		btnDichiaraBancarotta.addActionListener(listener);
 	}
+	
 	public void addBtnScambi(ActionListener listener) {
 		btnScambi.addActionListener(listener);
 	}
+	
 	public void addBtnProprieta(ActionListener listener) {
 		btnProprieta.addActionListener(listener);
 	}
+	
 	public void addBtnFineTurno(ActionListener listener) {
 		btnFineTurno.addActionListener(listener);
 	}
 
 	public void addBtnSalva(ActionListener listener) {
-
 		btnSalva.addActionListener(listener);
 	}
 
 	public void addBtnEsci(ActionListener listener) {
-
 		btnEsci.addActionListener(listener);
 	}
-
+	
 	public void addBtnSalva1(ActionListener listener) {
 		btnSalva1.addActionListener(listener);
 	}
@@ -931,6 +934,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		panel_info_giocatori = new JPanel();
 		panel_info_giocatori.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
+		panel_info_giocatori.setBackground(new Color(192, 226, 202));
 		panel_info_giocatori.setBounds(760, 30, 770, 450);
 		add(panel_info_giocatori);
 
@@ -939,7 +943,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_prop_pedina = new ArrayList<>();
 		lblSaldoGiocatori = new ArrayList<>();
 		txtPropGiocatori = new ArrayList<>();
-		lblCarteGiocatori= new ArrayList<>();
+		lblCarteGiocatori = new ArrayList<>();
 
 		for (String s: giocatori) {
 
@@ -956,12 +960,12 @@ public class MonopolyGUI extends JLayeredPane {
 			int i = giocatori.indexOf(s);
 			// Saldo del giocatore
 			lblSaldoGiocatori.add(new JLabel("Saldo: 1500€"));
-			lblSaldoGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 14));
+			lblSaldoGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 15));
 			lblSaldoGiocatori.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblSaldoGiocatori.get(i));
 			
 			lblCarteGiocatori.add(new JLabel("Carte uscita prigione: 0"));
-			lblCarteGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 14));
+			lblCarteGiocatori.get(i).setFont(new Font("Arial", Font.PLAIN, 15));
 			lblCarteGiocatori.get(i).setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			panelGiocatore.add(lblCarteGiocatori.get(i));
 
@@ -969,18 +973,20 @@ public class MonopolyGUI extends JLayeredPane {
 			panel_prop_pedina.add(new JPanel());
 			panel_prop_pedina.get(i).setLayout(new BoxLayout(panel_prop_pedina.get(i), BoxLayout.X_AXIS));
 			panel_prop_pedina.get(i).setMaximumSize(new Dimension(250, 200));
+			panel_prop_pedina.get(i).setBackground(new Color(192, 226, 202));
 
 			//textArea per l'elenco delle proprietà dei giocatori
 			txtPropGiocatori.add(new JTextArea());
 			txtPropGiocatori.get(i).setEditable(false);
 			txtPropGiocatori.get(i).setFont(new Font("Monopoly Inline", consoleTextArea.getFont().getStyle(), 18));
-
+			
 			// Pannello scorrevole per l'elenco delle proprietà
 			JScrollPane scrollProp = new JScrollPane(txtPropGiocatori.get(i));
 			panel_prop_pedina.get(i).add(scrollProp);
 
 			// Label per visualizzare la propria pedina
 			panel_prop_pedina.get(i).add(new JLabel(pedine.get(i).getIcon()));
+			panelGiocatore.setBackground(new Color(192, 226, 202));
 			panelGiocatore.add(panel_prop_pedina.get(i));
 
 			panel_info_giocatori.add(panelGiocatore);
@@ -1010,7 +1016,6 @@ public class MonopolyGUI extends JLayeredPane {
 			lblCarteGiocatori.get(i).setText("Carte uscita prigione: "+valoriCarte.get(i)) ;
 		}
 	}
-
 
 	public void attivaUscitaConCarta(boolean decisione){
 		btnUsaCartaEsciDiPrigione.setEnabled(decisione);
@@ -1045,6 +1050,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JPanel panel_conferma_bancarotta = new JPanel();
 		panel_conferma_bancarotta.setBounds(130, 130, 520, 520);
 		panel_conferma_bancarotta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
+		panel_conferma_bancarotta.setBackground(new Color(192, 226, 202));
 		panel_sfondo.add(panel_conferma_bancarotta);
 		panel_conferma_bancarotta.setLayout(null);
 
@@ -1056,21 +1062,17 @@ public class MonopolyGUI extends JLayeredPane {
 
 
 		btnConfermaBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
-		btnConfermaBancarotta.setBounds(21, 232, 230, 82);
+		btnConfermaBancarotta.setBounds(21, 252, 230, 82);
 		panel_conferma_bancarotta.add(btnConfermaBancarotta);
 
 
 		btnNoBancarotta.setFont(new Font("Monopoly Inline", Font.PLAIN, 25));
-		btnNoBancarotta.setBounds(272, 232, 230, 82);
+		btnNoBancarotta.setBounds(272, 252, 230, 82);
 		panel_conferma_bancarotta.add(btnNoBancarotta);
 
 		JLabel lblIconaBancarotta = new JLabel("");
-		lblIconaBancarotta.setBounds(212, 102, 100, 100);
-		try {
-			lblIconaBancarotta.setIcon(new ImageIcon(ImageIO.read(new File("./icons/bankrupt.png")).getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		lblIconaBancarotta.setBounds(212, 102, 128, 128);
+		lblIconaBancarotta.setIcon(new ImageIcon("./icons/bankrupt_128.png"));
 		panel_conferma_bancarotta.add(lblIconaBancarotta);
 	}
 
@@ -1146,6 +1148,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_chiusura_affare.setBounds(30, 30, 720, 720);
 		panel_sfondo.add(panel_chiusura_affare);
 		panel_chiusura_affare.setLayout(null);
+		panel_chiusura_affare.setBackground(new Color(192, 226, 202));
 		panel_chiusura_affare.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
 
 		JLabel lblContrattazione = new JLabel("Contrattazione");
@@ -1164,6 +1167,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_proprieta_offerta.setBounds(10, 130, 340, 497);
 		panel_chiusura_affare.add(panel_proprieta_offerta);
 		panel_proprieta_offerta.setLayout(null);
+		panel_proprieta_offerta.setBackground(new Color(192, 226, 202));
 
 		textFieldDenaroOfferto = new JTextField("0");
 		textFieldDenaroOfferto.setBounds(64, 446, 212, 36);
@@ -1208,6 +1212,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JPanel panel_proprieta_offerta_1 = new JPanel();
 		panel_proprieta_offerta_1.setLayout(null);
 		panel_proprieta_offerta_1.setBounds(372, 130, 340, 497);
+		panel_proprieta_offerta_1.setBackground(new Color(192, 226, 202));
 		panel_chiusura_affare.add(panel_proprieta_offerta_1);
 
 		textFieldDenaroRicevuto = new JTextField("0");
@@ -1374,6 +1379,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 		JPanel panel_decisione_proprieta = new JPanel();
 		panel_decisione_proprieta.setBounds(130, 130, 520, 520);
+		panel_decisione_proprieta.setBackground(new Color(192, 226, 202));
 		panel_decisione_proprieta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
 		panel_sfondo.add(panel_decisione_proprieta);
 		panel_decisione_proprieta.setLayout(null);
@@ -1410,6 +1416,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JPanel panel_asta = new JPanel();
 		panel_asta.setBounds(130, 130, 520, 520);
 		panel_asta.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
+		panel_asta.setBackground(new Color(192, 226, 202));
 		panel_sfondo.add(panel_asta);
 		panel_asta.setLayout(null);
 
@@ -1498,6 +1505,7 @@ public class MonopolyGUI extends JLayeredPane {
 		JPanel panel_salva = new JPanel();
 		panel_salva.setBounds(130, 130, 520, 520);
 		panel_salva.setBorder(new MatteBorder(5, 5, 5, 5, Color.BLACK));
+		panel_salva.setBackground(new Color(192, 226, 202));
 		panel_sfondo.add(panel_salva);
 		panel_salva.setLayout(null);
 

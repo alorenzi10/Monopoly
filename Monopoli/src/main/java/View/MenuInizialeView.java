@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+
 import java.awt.Color;
 /**
  * Classe per mostrare il menu iniziale.
@@ -15,6 +17,7 @@ import java.awt.Color;
  */
 public class MenuInizialeView extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private static MenuInizialeView menuInizialeView;
 	private JButton btnNuovaPartita;
 	private JButton btnCaricaPartita;
@@ -33,20 +36,26 @@ public class MenuInizialeView extends JPanel {
 		add(title_label);
 
 		btnNuovaPartita = new JButton("Nuova partita");
+		btnNuovaPartita.setForeground(new Color(0, 0, 0));
+		btnNuovaPartita.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		btnNuovaPartita.setBounds(590, 435, 360, 80);
-		btnNuovaPartita.setBackground(new Color(240, 240, 240));
+		btnNuovaPartita.setBackground(new Color(192, 226, 202));
 		btnNuovaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnNuovaPartita);
 
 		btnCaricaPartita = new JButton("Carica partita");
+		btnCaricaPartita.setForeground(new Color(0, 0, 0));
 		btnCaricaPartita.setBounds(590, 545, 360, 80);
-		btnCaricaPartita.setBackground(new Color(240, 240, 240));
+		btnCaricaPartita.setBackground(new Color(192, 226, 202));
+		btnCaricaPartita.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		btnCaricaPartita.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnCaricaPartita);
 
 		btnEsci = new JButton("Esci");
+		btnEsci.setForeground(new Color(0, 0, 0));
 		btnEsci.setBounds(590, 655, 360, 80);
-		btnEsci.setBackground(new Color(240, 240, 240));
+		btnEsci.setBackground(new Color(192, 226, 202));
+		btnEsci.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		btnEsci.setFont(new Font("Monopoly Inline", Font.PLAIN, 55));
 		add(btnEsci);
 

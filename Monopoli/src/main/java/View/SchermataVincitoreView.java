@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -28,28 +29,37 @@ public class SchermataVincitoreView extends JPanel {
 		setBackground(new Color(0, 0, 0, 0));
 		
 		JLabel lblCongratulazioni = new JLabel("Congratulazioni!");
+		lblCongratulazioni.setForeground(new Color(255, 255, 255));
 		lblCongratulazioni.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCongratulazioni.setBackground(new Color(255, 0, 0));
+		lblCongratulazioni.setBackground(new Color(224, 0, 0));
 		lblCongratulazioni.setFont(new Font("Monopoly Inline", Font.PLAIN, 99));
-		lblCongratulazioni.setBounds(362, 5, 816, 116);
-		/**/lblCongratulazioni.setBackground(new Color(50,205,50));
+		lblCongratulazioni.setBounds(434, 74, 671, 116);
+		lblCongratulazioni.setBorder(new MatteBorder(3, 3, 3, 3, Color.black));
+		lblCongratulazioni.setOpaque(true);
 		add(lblCongratulazioni);
 		
 		JLabel lblNomeGiocatore = new JLabel(nomeVincitore);
+		lblNomeGiocatore.setBackground(new Color(224, 0, 0));
+		lblNomeGiocatore.setForeground(new Color(255, 255, 255));
 		lblNomeGiocatore.setFont(new Font("Monopoly Inline", Font.PLAIN, 65));
 		lblNomeGiocatore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNomeGiocatore.setBounds(362, 214, 816, 116);
+		lblNomeGiocatore.setOpaque(true);
+		lblNomeGiocatore.setBorder(new MatteBorder(3, 3, 3, 3, Color.black));
+		lblNomeGiocatore.setBounds(451, 264, 638, 91);
 		add(lblNomeGiocatore);
 		
 		JLabel lblHaiVinto = new JLabel("Hai vinto!");
-		lblHaiVinto.setBackground(new Color(255, 0, 0));
+		lblHaiVinto.setForeground(new Color(255, 255, 255));
+		lblHaiVinto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHaiVinto.setBackground(new Color(224, 0, 0));
 		lblHaiVinto.setFont(new Font("Monopoly Inline", Font.PLAIN, 70));
-		lblHaiVinto.setBounds(650, 379, 239, 82);
-		/**/lblHaiVinto.setBackground(new Color(50,205,50));
+		lblHaiVinto.setBounds(626, 429, 287, 82);
+		lblHaiVinto.setBorder(new MatteBorder(3, 3, 3, 3, Color.black));
+		lblHaiVinto.setOpaque(true);
 		add(lblHaiVinto);
 		
 		JPanel panel_bottoni = new JPanel();
-		panel_bottoni.setBounds(362, 570, 816, 180);
+		panel_bottoni.setBounds(362, 585, 816, 180);
 		add(panel_bottoni);
 		panel_bottoni.setLayout(null);
 		panel_bottoni.setBackground(new Color(0, 0, 0, 0));
@@ -62,7 +72,8 @@ public class SchermataVincitoreView extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		btnMenuPrincipale.setBackground(new Color(50,205,50));
+		btnMenuPrincipale.setBackground(new Color(192, 226, 202));
+		btnMenuPrincipale.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		panel_bottoni.add(btnMenuPrincipale);
 		
 		btnEsci = new JButton(" Esci");
@@ -73,7 +84,8 @@ public class SchermataVincitoreView extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		btnEsci.setBackground(new Color(50,205,50));
+		btnEsci.setBackground(new Color(192, 226, 202));
+		btnEsci.setBorder(new MatteBorder(2, 2, 2, 2, Color.black));
 		panel_bottoni.add(btnEsci);		
 		
 		contentPane = new JPanel();
