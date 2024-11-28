@@ -17,13 +17,13 @@ class PlayerTest {
         player = new Player(1, "Mario", 1500, false, 0);
         property = new Proprieta("Via Roma", 300, 200);
     }
-
+    //Controlla se un giocatore può permettersi una determinata spesa
     @Test
     void testControlloFondi() {
         assertTrue(player.controlloFondi(500)); // Ha fondi sufficienti
         assertFalse(player.controlloFondi(2000)); // Non ha fondi sufficienti
     }
-
+    //Controlla che le transazioni sul conto del giocatore venano eseguite 
     @Test
     void testDoTransaction() {
         player.doTransaction(-500); // Sottrae 500
@@ -32,7 +32,7 @@ class PlayerTest {
         player.doTransaction(300); // Aggiunge 300
         assertEquals(1300, player.getWallet());
     }
-
+    //Controllo che lo spostamento funzioni e che tenga conto della dimensione limitata del tabellone
     @Test
     void testMuovi() {
         player.muovi(10); // Si sposta di 10
@@ -75,7 +75,7 @@ class PlayerTest {
         player.liberaDaPrigione();
         assertFalse(player.getInPrigione());
     }
-
+    //Controlla che i metodi relativi al lancio di dadi quando si è in prigione funzionino 
     @Test
     void testFallitoTentativo() {
         player.vaiInPrigione();
@@ -87,7 +87,7 @@ class PlayerTest {
         player.fallitoTentativo();
         assertTrue(player.tentativiTerminati());
     }
-
+    //Controlla i metodi che restitutiscono il numero di societa o stazioni possedute
     @Test
     void testGetNumProprieta() {
         Proprieta stazione = new Stazione("Stazione Termini", 200, 100, new int[] {25, 50, 100, 200});
@@ -101,7 +101,7 @@ class PlayerTest {
         assertEquals(1, player.getNumSocietaPossedute());
         
     }
-    
+    //Controlla i metodi che restitutiscono il numero di case o alberghi posseduti
     @Test
     void testGestioneCostruzioni() {
     	GruppoColore marrone = new GruppoColore("marrone");
@@ -123,7 +123,7 @@ class PlayerTest {
         assertEquals(1, player.getNumAlberghiPosseduti());
         
     }
-    
+    //Controllo del metodo che ritorna tutti i nome delle proprietà possedute come stringa
    @Test
     void testToStringListaProprieta() {
 	   assertEquals("", player.toStringListaProprieta());
@@ -136,7 +136,7 @@ class PlayerTest {
     	player.aggiungiProprieta(cantiere);
     	assertEquals("Via Roma, Vicolo Corto", player.toStringListaProprieta());
     } 
-   
+   //Controllo del metodo che ritorna tutti i nome delle proprietà possedute come elementi di un ArrayList di stringhe
    @Test
    void testGetListaPropString() {
    		GruppoColore marrone = new GruppoColore("marrone");
@@ -171,7 +171,7 @@ class PlayerTest {
         assertEquals(nonCartaEsciGratis, player.getCarta());
         assertFalse(player.haUscitaGratis());
     }
-    
+    //Controlla se il giocatore è possessore o meno di un gruppo colore
     @Test
     void testPossessoreGruppo() {
     	Player player2 = new Player(2, "Fabio", 1500, false, 0);
@@ -191,7 +191,7 @@ class PlayerTest {
     
     
     @Test
-    void testgetDati() {
+    void testGetDati() {
     	 assertEquals(1 ,player.getId());
     	 assertEquals("Mario" ,player.getName());
     }

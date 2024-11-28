@@ -34,7 +34,7 @@ public class Player {
     	}
     }
     
-    public void doTransaction(int totale) { // Bisognerebbe integrare dentro transaction il controllo dei fondi
+    public void doTransaction(int totale) { //Si potrebbe integrare dentro transaction il controllo dei fondi
     	wallet += totale; //da aggiungere controllo se bastano i soldi
     }
     

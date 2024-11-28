@@ -6,29 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+//Testa la classe Mazzo e la classe Carte
+class MazzoECarteTest {
 
-public class CarteTest {
-
+		//Controlla che la creazione dei mazzi e il mescolamento non dia eccezioni
 	    @Test
 	    void testCreazione() { //carte e mazzi
-	    	
 	    	assertDoesNotThrow(() -> new MazzoImprevisti());
 	    	assertDoesNotThrow(() -> new MazzoProbabilita());
 	    }
 	    
+	    //Controlla che una volta pescate tutte le carte del mazzo risulti vuoto e che l'aggiunta di una carta non lo renda più vuoto
 	    @Test
-	    void testMazzo() {
+	    void testRimozioneEAggiuntaCarte() {
 	    	Mazzo mazzoImprevist=new MazzoImprevisti();
 	    	assertFalse(mazzoImprevist.isEmpty());
 	    	for(int i=0; i<15; i++) {
-	    		Carta carta=mazzoImprevist.get();
+	    		mazzoImprevist.get();
 	    	}
 	    	assertTrue(mazzoImprevist.isEmpty());
 	    	Carta prova=new Carta(0, "Fate 3 passi indietro (con tanti auguri!).", 1, 0, -3); 
 	    	((Mazzo)mazzoImprevist).add(prova);
 	    	assertFalse(mazzoImprevist.isEmpty());
-	}
-	    
+	    }
+	    //Controlla i getter della classe Carta
 	    @Test
 	    void testCarte() {
 	    	Carta prova=new Carta(0, "Fate 3 passi indietro (con tanti auguri!).", 1, 0, -3); 

@@ -32,7 +32,6 @@ public class MonopolyController {
 
 	public MonopolyController() {
 
-
 		monopolyGUI = new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(),  SceltaPedineController.getSceltaPedineController().getPedineScelte() );
 		monopoly = new Monopoly(NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(), NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori(), monopolyGUI);
 		monopolyGUI.setBounds(0, 0, 1920, 1080); 
