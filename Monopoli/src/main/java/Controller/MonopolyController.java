@@ -17,6 +17,7 @@ import com.google.gson.JsonParser;
 
 import Model.Monopoly;
 import Model.Proprieta;
+import View.CaricaPartitaView;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 

@@ -21,7 +21,9 @@ import com.google.gson.JsonParser;
 import Model.Monopoly;
 import View.CaricaPartitaView;
 import View.SchermataDiGioco;
-
+/**
+ * Classe per controllare, l'aggiornamento, il caricamento e l'eliminazione delle partite passate.
+ */
 public class CaricaPartitaController {
 
 	private static CaricaPartitaController caricaPartitaController;
@@ -35,6 +37,7 @@ public class CaricaPartitaController {
 		SchermataDiGioco.getSchermataDiGioco().repaint();
 
 		CaricaPartitaView.getCaricaPartitaView().getBtnIndietro().addActionListener(e -> tornaMenuIniziale());
+		CaricaPartitaView.getCaricaPartitaView().addBtnAggiorna(new BtnAggiorna());
 		CaricaPartitaView.getCaricaPartitaView().addBtnCarica(new BtnCarica());
 		CaricaPartitaView.getCaricaPartitaView().addBtnElimina(new BtnElimina());
 
@@ -47,9 +50,10 @@ public class CaricaPartitaController {
 		CaricaPartitaView.getCaricaPartitaView().setVisible(true);
 		return caricaPartitaController;
 	}
-
-	public void aggiornaTabella() {
-
+	
+	public void aggiornaTabella() { /* Metodo che prova a carica tutti i dati in un modello di una tabella di CaricaPartitaView.
+									*  Nel metodo aggiugniATabella c'è un controllo per evitare la duplicazione.
+									*/
 		try {
 			FileReader reader = new FileReader("partiteMonopoli.json");
 			JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
@@ -65,10 +69,11 @@ public class CaricaPartitaController {
 					String nomePartita = jsonObject.getAsJsonObject().get("nomePartita").getAsString();
 					String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
 					String numGiocatori = jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
+					// Aggiunge alla tabella una nuova riga
 					CaricaPartitaView.getCaricaPartitaView().aggiungiATabella(nomePartita, numGiocatori, salvataggioDateTime);
 				}
 			} else {
-				CaricaPartitaView.getCaricaPartitaView().mostraLabel();
+				CaricaPartitaView.getCaricaPartitaView().mostraLabel(); // Mostra all'utente che non ci sono partite salvate
 			}
 
 		} catch (FileNotFoundException e) { // Nel caso non trovi il file dei salvataggi ne crea uno
@@ -90,12 +95,12 @@ public class CaricaPartitaController {
 	}
 
 	public void tornaMenuIniziale() {
-
+		
 		CaricaPartitaView.getCaricaPartitaView().setVisible(false);
 		MenuController.getMenuIniziale();
 
 	}
-
+	//Metodo che prova a caricare una partita in base al nome del salvataggio immesso dall'utente
 	private class BtnCarica implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -129,13 +134,16 @@ public class CaricaPartitaController {
 							JsonArray proprietaArray = giocatore.getAsJsonArray("listaProprieta");
 
 							// Itera sulle proprietà
-							for (JsonElement proprietaElement : proprietaArray) {
+							/* Gson non riesce a ricrere questi campi nel oggetto monopoly, perché non vede che determinate proprietà sono anche cantieri
+							 * (Forse si potevano usare i TypeAdapter)
+							 */
+							for (JsonElement proprietaElement : proprietaArray) {					   
 								JsonObject proprieta = proprietaElement.getAsJsonObject();
 
 								if (proprieta.has("id") && proprieta.has("numCostruzioni")) {
 									int id = proprieta.get("id").getAsInt();
 									int numCostruzioni = proprieta.get("numCostruzioni").getAsInt();
-									// gson non riusciva a ricrere questi campi in monopoly (si poteva usare i TypeAdapter)
+									
 									coppie.add(new int[] { id, numCostruzioni });
 								}
 							}
@@ -149,14 +157,14 @@ public class CaricaPartitaController {
 
 			if (trovato) {
 				CaricaPartitaView.getCaricaPartitaView().setVisible(false);
-				new MonopolyController(monopoly, coppie);
+				new MonopolyController(monopoly, coppie); // Passiamo anche i dati di coppie per gestirli in un secondo momento
 			} else {
 				JOptionPane.showMessageDialog(CaricaPartitaView.getCaricaPartitaView(), "Partita non trovata");
 			}
 
 		}
 	}
-
+	//Metodo che prova a eliminare una partita in base al nome del salvataggio immesso dall'utente
 	private class BtnElimina implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -180,7 +188,7 @@ public class CaricaPartitaController {
 					}
 				}
 
-				// Scrivere il nuovo JSON nel file
+				// Scrivere il nuovo JSON, con la partita rimossa, nel file
 				FileWriter writer = new FileWriter("partiteMonopoli.json");
 				Gson gson = new Gson();
 				gson.toJson(updatedArray, writer);
@@ -195,6 +203,13 @@ public class CaricaPartitaController {
 			CaricaPartitaView.getCaricaPartitaView().getSetUp().revalidate();
 			CaricaPartitaView.getCaricaPartitaView().getSetUp().repaint();
 
+		}
+	}
+	
+	private class BtnAggiorna implements ActionListener { // Utile per quando salvi una partita e avevi precedentemente aperto da menu carica partita
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			aggiornaTabella();
 		}
 	}
 }

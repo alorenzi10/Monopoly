@@ -18,7 +18,6 @@ public class MenuController {
 
 		SchermataDiGioco.getSchermataDiGioco().add(MenuInizialeView.getMenuInizialeView() );  
 		
-
 		//Listener dei vari bottoni per la scelta dal menu
 		MenuInizialeView.getMenuInizialeView().addNuovaPartitaListener(new NuovaPartitaListener());
 		MenuInizialeView.getMenuInizialeView().addCaricaPartitaListener(new CaricaPartitaListener());
@@ -39,7 +38,6 @@ public class MenuController {
 	private class NuovaPartitaListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
 			MenuInizialeView.getMenuInizialeView().setVisible(false);
 			NuovaPartitaController.getNuovaPartitaController();
 		}
@@ -58,10 +56,5 @@ public class MenuController {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
 		}
-	}
-
-	public void caricaPartita(){ 
-		MenuInizialeView.getMenuInizialeView().setVisible(false);
-		CaricaPartitaController.getCaricaPartitaController();
 	}
 }

@@ -24,7 +24,7 @@ public class CaricaPartitaView extends JPanel {
 	private JPanel setUp;
 	private JTable table;
 	private DefaultTableModel model;
-	private JButton btnIndietro, btnCarica, btnElimina;
+	private JButton btnIndietro, btnCarica, btnElimina,btnAggiorna;
 	private JTextField carica, elimina;
 	private JScrollPane scrollPane;
 	
@@ -55,6 +55,12 @@ public class CaricaPartitaView extends JPanel {
         btnIndietro.setBounds(10, 415, 174, 61);
         btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnIndietro);
+        
+        btnAggiorna = new JButton("Aggiorna");
+        btnAggiorna.setBackground(new Color(192, 226, 202));
+        btnAggiorna.setBounds(10, 115, 161, 60);
+        btnAggiorna.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
+        setUp.add(btnAggiorna);
         
         btnCarica = new JButton("Carica");
         btnCarica.setBackground(new Color(192, 226, 202));
@@ -97,11 +103,19 @@ public class CaricaPartitaView extends JPanel {
 	}
 	
 	public void aggiungiATabella(String nome,String num, String data) {
+		boolean daAggiungere=true;
 		Object[] row=new Object[3];
 		row[0]=nome;
 		row[1]=num;
 		row[2]=data;
-		model.addRow(row);
+		for(int i=0; i<model.getRowCount(); i++) {
+			if(model.getValueAt(i, 0).equals(nome)) {
+				daAggiungere=false;
+			}
+		}
+		if(daAggiungere) {
+			model.addRow(row);
+		}
 	}
 	
 	public void nuovoModello() {
@@ -135,6 +149,10 @@ public class CaricaPartitaView extends JPanel {
 	public void addBtnElimina(ActionListener listener) {
 
 		btnElimina.addActionListener(listener);
+	}
+	public void addBtnAggiorna(ActionListener listener) {
+
+		btnAggiorna.addActionListener(listener);
 	}
 	
 	public String getCarica() {
