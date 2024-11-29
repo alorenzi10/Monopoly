@@ -37,7 +37,6 @@ public class CaricaPartitaController {
 		SchermataDiGioco.getSchermataDiGioco().repaint();
 
 		CaricaPartitaView.getCaricaPartitaView().getBtnIndietro().addActionListener(e -> tornaMenuIniziale());
-		CaricaPartitaView.getCaricaPartitaView().addBtnAggiorna(new BtnAggiorna());
 		CaricaPartitaView.getCaricaPartitaView().addBtnCarica(new BtnCarica());
 		CaricaPartitaView.getCaricaPartitaView().addBtnElimina(new BtnElimina());
 
@@ -47,6 +46,7 @@ public class CaricaPartitaController {
 		if(caricaPartitaController==null) {
 			caricaPartitaController=new CaricaPartitaController();
 		}
+		caricaPartitaController.aggiornaTabella();
 		CaricaPartitaView.getCaricaPartitaView().setVisible(true);
 		return caricaPartitaController;
 	}
@@ -168,6 +168,7 @@ public class CaricaPartitaController {
 	private class BtnElimina implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			boolean trovata=false;
 			String nomeRimozione = CaricaPartitaView.getCaricaPartitaView().getElimina();
 			try {
 				// Leggi il file JSON
@@ -185,31 +186,29 @@ public class CaricaPartitaController {
 					// Se il nome della partita non corrisponde, lo aggiungi all'array aggiornato
 					if (!nomePartita.equals(nomeRimozione)) {
 						updatedArray.add(element);
+					}else {
+						trovata=true;
 					}
 				}
-
-				// Scrivere il nuovo JSON, con la partita rimossa, nel file
-				FileWriter writer = new FileWriter("partiteMonopoli.json");
-				Gson gson = new Gson();
-				gson.toJson(updatedArray, writer);
-				writer.close();
-
+				if(trovata) {
+					// Scrivere il nuovo JSON, con la partita rimossa, nel file
+					FileWriter writer = new FileWriter("partiteMonopoli.json");
+					Gson gson = new Gson();
+					gson.toJson(updatedArray, writer);
+					writer.close();
+					
+					CaricaPartitaView.getCaricaPartitaView().nuovoModello(); // Ricarica la tabella
+					aggiornaTabella();
+					CaricaPartitaView.getCaricaPartitaView().getSetUp().revalidate();
+					CaricaPartitaView.getCaricaPartitaView().getSetUp().repaint();
+				}else {
+					JOptionPane.showMessageDialog(CaricaPartitaView.getCaricaPartitaView(), "Partita da eliminare non trovata");
+				}
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 
-			CaricaPartitaView.getCaricaPartitaView().nuovoModello(); // Ricarica la tabella
-			aggiornaTabella();
-			CaricaPartitaView.getCaricaPartitaView().getSetUp().revalidate();
-			CaricaPartitaView.getCaricaPartitaView().getSetUp().repaint();
-
-		}
-	}
-	
-	private class BtnAggiorna implements ActionListener { // Utile per quando salvi una partita e avevi precedentemente aperto da menu carica partita
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			aggiornaTabella();
 		}
 	}
 }

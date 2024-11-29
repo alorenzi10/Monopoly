@@ -56,12 +56,6 @@ public class CaricaPartitaView extends JPanel {
         btnIndietro.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnIndietro);
         
-        btnAggiorna = new JButton("Aggiorna");
-        btnAggiorna.setBackground(new Color(192, 226, 202));
-        btnAggiorna.setBounds(10, 115, 191, 61);
-        btnAggiorna.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
-        setUp.add(btnAggiorna);
-        
         btnCarica = new JButton("Carica");
         btnCarica.setBackground(new Color(192, 226, 202));
         btnCarica.setBounds(10, 215, 161, 60);
@@ -149,10 +143,6 @@ public class CaricaPartitaView extends JPanel {
 	public void addBtnElimina(ActionListener listener) {
 
 		btnElimina.addActionListener(listener);
-	}
-	public void addBtnAggiorna(ActionListener listener) {
-
-		btnAggiorna.addActionListener(listener);
 	}
 	
 	public String getCarica() {
