@@ -5,21 +5,27 @@ import java.awt.event.ActionListener;
 
 import View.SceltaPedineView;
 import View.SchermataDiGioco;
-
+/**
+ * Controller per la gestione della scelta delle pedine.
+ * Coordina la selezione delle pedine da parte dei giocatori e aggiorna il flusso di gioco.
+ */
 public class SceltaPedineController {
-
+	// Singleton per il controller
 	private static  SceltaPedineController  sceltaPedineController;
-
+	// Numero di giocatori, indice corrente e pedine selezionate salvate come String
 	private int numGiocatori;
 	private int indice;
 	private String[] pedineScelte;
-
+	 /**
+     * Costruttore privato per implementare il pattern Singleton.
+     * Configura la vista e associa i listener ai bottoni delle pedine.
+     */
 	private SceltaPedineController() {
-
+		// Aggiunge la vista alla schermata principale
 		SchermataDiGioco.getSchermataDiGioco().add(SceltaPedineView.getSceltaPedineView());
 		SchermataDiGioco.getSchermataDiGioco().revalidate();
 		SchermataDiGioco.getSchermataDiGioco().repaint();
-
+		// Associa i listener ai bottoni delle pedine
 		SceltaPedineView.getSceltaPedineView().addBtnCane(new BtnCane());
 		SceltaPedineView.getSceltaPedineView().addBtnCappello(new BtnCappello());
 		SceltaPedineView.getSceltaPedineView().addBtnCariola(new BtnCariola());
@@ -30,19 +36,25 @@ public class SceltaPedineController {
 		SceltaPedineView.getSceltaPedineView().addBtnStivale(new BtnStivale());
 
 	}
-	
+	 /**
+     * Metodo per ottenere l'istanza singleton del controller.
+     * @return l'istanza di SceltaPedineController
+     */
 	public synchronized static SceltaPedineController getSceltaPedineController() {
 		if(sceltaPedineController == null) {
 			sceltaPedineController = new SceltaPedineController();
 		}
 		return  sceltaPedineController;
 	}
-	
+	 /**
+     * Inizializza il controller per una nuova selezione di pedine.
+     * Resetta i dati e i bottoni della vista.
+     */
 	public void inizializzaController() {
 		sceltaPedineController.indice=0;
 		sceltaPedineController.numGiocatori=NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori();
 		sceltaPedineController.pedineScelte=new String[sceltaPedineController.numGiocatori];
-		
+		// Resetta lo stato dei bottoni nella vista
 		SceltaPedineView.getSceltaPedineView().resetBottoni();
 	}
 
@@ -50,9 +62,11 @@ public class SceltaPedineController {
 	private class BtnCane implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			// Assegna la pedina al giocatore corrente
 			pedineScelte[indice] = "Cane";
+			// Nasconde il bottone della pedina selezionata
 			SceltaPedineView.getSceltaPedineView().btnCane.setVisible(false);
+			// Aggiorna il turno
 			aggiornaTurno();
 		}
 	}
@@ -126,8 +140,11 @@ public class SceltaPedineController {
 			aggiornaTurno();
 		}
 	}
-
-	// Funzione per aggiornare il turno di scelta
+	
+	/**
+     * Aggiorna il turno di selezione.
+     * Se tutti i giocatori hanno scelto, passa al controller principale del gioco.
+     */
 	public void aggiornaTurno() {
 
 		indice++;  // Passa al giocatore successivo
@@ -136,12 +153,15 @@ public class SceltaPedineController {
 			SceltaPedineView.getSceltaPedineView().aggiornaTurno(indice);
 		} 
 		else {
-			// Tutti i giocatori hanno scelto la pedina e possiamo iniziare il gioco
+			// Se tutti hanno scelto, passa alla fase successiva del gioco
 			SceltaPedineView.getSceltaPedineView().setVisible(false);
-			new MonopolyController();
+			new MonopolyController(); // Inizializza il gioco
 		}
 	}
-
+    /**
+     * Ritorna l'array delle pedine selezionate dai giocatori.
+     * @return array di pedine
+     */
 	public String[] getPedineScelte() {
 		return pedineScelte;
 	}

@@ -19,7 +19,7 @@ public class NuovaPartitaController {
 	private static NuovaPartitaController nuovaPartitaController;
 	 /**
      * Costruttore privato per implementare il pattern Singleton.
-     * Configura la vista e associa i listener ai pulsanti.
+     * Configura la vista e associa i listener ai bottoni delle pedine.
      */
 	private NuovaPartitaController() {
 		 // Aggiunge la vista della nuova partita alla schermata di gioco
