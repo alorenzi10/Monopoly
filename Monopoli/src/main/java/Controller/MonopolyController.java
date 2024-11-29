@@ -17,7 +17,6 @@ import com.google.gson.JsonParser;
 
 import Model.Monopoly;
 import Model.Proprieta;
-import View.CaricaPartitaView;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
@@ -237,9 +236,7 @@ public class MonopolyController {
 			if(monopoly.getPlayers().size() == 1) {
 				SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI.getPanelScelteTurno());
 				SchermataDiGioco.getSchermataDiGioco().remove(monopolyGUI);
-				new SchermataVincitoreController(monopoly.getPlayers().get(0).getName()); // Creazione schermata vincitore con nome del giocatore
-				SchermataDiGioco.getSchermataDiGioco().revalidate();
-				SchermataDiGioco.getSchermataDiGioco().repaint();
+				SchermataVincitoreController.getSchermataVincitoreController(monopoly.getPlayers().get(0).getName()); // Creazione schermata vincitore con nome del giocatore
 			}
 			monopolyGUI.mostraInfoGiocatori(monopoly.getGiocatoriString());
 			monopoly.aggiornaVisualizzazioneInfo();
