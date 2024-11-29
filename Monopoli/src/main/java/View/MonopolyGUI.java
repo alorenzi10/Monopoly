@@ -74,7 +74,6 @@ public class MonopolyGUI extends JLayeredPane {
 	private String[] pedineSelezionate;
 
 	public MonopolyGUI(SchermataDiGioco frame, int numGiocatori, String [] pedineSelezionate) {
-												//da cambiare da Sceltapedinacontroller.getgiocatori() e scelta pedine
 		
 		this.pedineSelezionate = pedineSelezionate;
 		this.numGiocatori = numGiocatori;
@@ -1528,6 +1527,7 @@ public class MonopolyGUI extends JLayeredPane {
 		panel_salva.add(btnAnnulla);
 
 		nomeSalvataggio.setBounds(100, 200, 300, 100);
+		nomeSalvataggio.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		panel_salva.add(nomeSalvataggio);
 
 	}

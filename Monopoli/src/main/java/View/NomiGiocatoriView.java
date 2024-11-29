@@ -84,7 +84,7 @@ public class NomiGiocatoriView extends JPanel {
 		// Crea un array di JTextField per i nomi dei giocatori
 		int numGiocatori=numGiocatori1;
 		playerNames = new JTextField[numGiocatori];
-		labelArray=new JLabel[numGiocatori];
+		labelArray = new JLabel[numGiocatori];
 
 		for (int i = 0; i < numGiocatori; i++) {
 			JLabel lblNomeGiocatore = new JLabel("Giocatore " + (i + 1) + ":");

@@ -58,7 +58,7 @@ public class CaricaPartitaView extends JPanel {
         
         btnAggiorna = new JButton("Aggiorna");
         btnAggiorna.setBackground(new Color(192, 226, 202));
-        btnAggiorna.setBounds(10, 115, 161, 60);
+        btnAggiorna.setBounds(10, 115, 191, 61);
         btnAggiorna.setFont(new Font("Monopoly Inline", Font.PLAIN, 45));
         setUp.add(btnAggiorna);
         
