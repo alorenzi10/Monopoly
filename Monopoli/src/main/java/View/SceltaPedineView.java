@@ -150,8 +150,11 @@ public class SceltaPedineView extends JPanel  {
 		if(sceltaPedineView==null) {
 			sceltaPedineView=new SceltaPedineView();
 		}
-		sceltaPedineView.nomiGiocatori=NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori();
 		return sceltaPedineView;
+	}
+	
+	public void aggiornaNomi(String [] nomiGiocatori) {
+		sceltaPedineView.nomiGiocatori=nomiGiocatori;
 	}
 
 	public void aggiornaTurno(int i) {
