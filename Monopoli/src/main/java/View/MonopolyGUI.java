@@ -69,7 +69,7 @@ public class MonopolyGUI extends JLayeredPane {
 	private JPanel panel_info_giocatori;
 
 	private boolean decisioneBancarotta;
-	public CaseAlberghiView case12;//Per la visualizzazione di case e hotel
+	private CaseAlberghiView case_2; //Per la visualizzazione di case e hotel
 	private int numGiocatori;
 	private String[] pedineSelezionate;
 
@@ -83,15 +83,15 @@ public class MonopolyGUI extends JLayeredPane {
 		setLayout(null);
 
 
-		case12=new CaseAlberghiView(); 
+		case_2 = new CaseAlberghiView(); 
 
 		for(int i=0; i<22; i++) {
-			JLabel prova=case12.getAlbergo(i);
+			JLabel prova = case_2.getAlbergo(i);
 			add(prova);
 		}
 
 		for(int i=0; i<88; i++) {
-			JLabel prova=case12.getCasa(i);
+			JLabel prova=case_2.getCasa(i);
 			add(prova);
 		}
 
@@ -166,11 +166,6 @@ public class MonopolyGUI extends JLayeredPane {
 			e.printStackTrace();
 		}
 		panel_scelte_turno.add(btnFineTurno);
-
-		/*JPanel panel_azioni_prigione = new JPanel();
-		panel_azioni_prigione.setBounds(10, 232, 500, 184);
-		panel_scelte_turno.add(panel_azioni_prigione);
-		panel_azioni_prigione.setLayout(null);*/
 
 		JLabel lblAzioniPrigione = new JLabel("Azioni prigione");
 		lblAzioniPrigione.setFont(new Font("Monopoly Inline", Font.PLAIN, 20));
@@ -744,6 +739,9 @@ public class MonopolyGUI extends JLayeredPane {
 		caselle[39]=casella39;
 	}
 
+	public CaseAlberghiView getCase() {
+		return case_2;
+	}
 	public JPanel getPanelChiusuraAffare() {
 		return panel_chiusura_affare;
 	}

@@ -356,7 +356,7 @@ public class MonopolyController {
 				}
 			}
 
-			if(monopoly.getGiCorrente().controlloFondi(denaroOfferto) &&  monopoly.getCorrispondenzaPlayer(index).controlloFondi(denaroRicevuto)) {
+			if((monopoly.getGiCorrente().controlloFondi(denaroOfferto) || denaroOfferto == 0) && (monopoly.getCorrispondenzaPlayer(index).controlloFondi(denaroRicevuto) || denaroRicevuto == 0)) {
 				monopoly.getGiCorrente().doTransaction(-denaroOfferto);
 				monopoly.getGiCorrente().doTransaction(denaroRicevuto);
 				monopoly.getCorrispondenzaPlayer(index).doTransaction(denaroOfferto);
@@ -384,7 +384,7 @@ public class MonopolyController {
 				monopolyGUI.stampa("Scambio andato a buon fine");
 				monopoly.aggiornaVisualizzazioneInfo();
 				annullaScambio();
-			}else {
+			} else {
 				monopolyGUI.stampa("Fondi insufficenti per questo scambio");
 				annullaScambio();
 				return;

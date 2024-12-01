@@ -7,19 +7,19 @@ import javax.swing.JPanel;
 public class CaseAlberghiView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	public JLabel[] case1;
-	public JLabel[] alberghi;
+	private JLabel[] case_1;
+	private JLabel[] alberghi;
 
 
 	public CaseAlberghiView() {
 
-		case1 = new JLabel[88];
+		case_1 = new JLabel[88];
 		alberghi = new JLabel[22];
 
 		for(int i=0; i<88; i++) {
 			JLabel casa = new JLabel("");
 			casa.setIcon(new ImageIcon("./icons/Case.png"));
-			case1[i] = casa;
+			case_1[i] = casa;
 
 		}
 
@@ -46,8 +46,8 @@ public class CaseAlberghiView extends JPanel {
 			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
-				case1[contatoreCase].setBounds(posCasa + 14 * i, 102, 12, 12);
-				case1[contatoreCase].setVisible(false);
+				case_1[contatoreCase].setBounds(posCasa + 14 * i, 102, 12, 12);
+				case_1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -65,8 +65,8 @@ public class CaseAlberghiView extends JPanel {
 			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
-				case1[contatoreCase].setBounds(665, posCasa + 14 * i, 12, 12);
-				case1[contatoreCase].setVisible(false);
+				case_1[contatoreCase].setBounds(665, posCasa + 14 * i, 12, 12);
+				case_1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -84,8 +84,8 @@ public class CaseAlberghiView extends JPanel {
 			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
-				case1[contatoreCase].setBounds(posCasa-i*14, 665, 12, 12);
-				case1[contatoreCase].setVisible(false);
+				case_1[contatoreCase].setBounds(posCasa-i*14, 665, 12, 12);
+				case_1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -102,8 +102,8 @@ public class CaseAlberghiView extends JPanel {
 			alberghi[contatoreAlberghi].setVisible(false);
 			contatoreAlberghi++;
 			for(int i=0; i<4; i++) {
-				case1[contatoreCase].setBounds(104, posCasa - i * 14, 12, 12);
-				case1[contatoreCase].setVisible(false);
+				case_1[contatoreCase].setBounds(104, posCasa - i * 14, 12, 12);
+				case_1[contatoreCase].setVisible(false);
 				contatoreCase++;
 			}
 		}
@@ -111,7 +111,7 @@ public class CaseAlberghiView extends JPanel {
 	}
 
 	public void mostraCasa(int i) {
-		case1[i].setVisible(true);
+		case_1[i].setVisible(true);
 	}
 
 	public void mostraAlbergho(int i) {
@@ -119,7 +119,7 @@ public class CaseAlberghiView extends JPanel {
 	}
 
 	public void rimuoviCasa(int i) {
-		case1[i].setVisible(false);
+		case_1[i].setVisible(false);
 	}
 
 	public void rimuoviAlbergho(int i) {
@@ -127,7 +127,7 @@ public class CaseAlberghiView extends JPanel {
 	}
 
 	public JLabel getCasa(int i) {
-		JLabel prova = case1[i];
+		JLabel prova = case_1[i];
 		return prova;
 	}
 
