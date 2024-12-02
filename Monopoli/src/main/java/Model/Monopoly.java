@@ -730,7 +730,6 @@ public class Monopoly {
 	
 	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
 		
-		monopolyGUI = monopolyGUI;
 		giCorrente = players.get(indexCorrente); 
 		dadi = new Dadi();
     	tabellone = new Tabellone(dadi);

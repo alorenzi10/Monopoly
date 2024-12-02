@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controller.NomiGiocatoriController;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
