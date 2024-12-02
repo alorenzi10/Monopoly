@@ -127,12 +127,10 @@ public class CaseAlberghiView extends JPanel {
 	}
 
 	public JLabel getCasa(int i) {
-		JLabel prova = case_1[i];
-		return prova;
+		return case_1[i];
 	}
 
 	public JLabel getAlbergo(int i) {
-		JLabel prova = alberghi[i];
-		return prova;
+		return alberghi[i];
 	}
 }

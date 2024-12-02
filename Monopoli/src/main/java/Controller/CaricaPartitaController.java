@@ -42,7 +42,7 @@ public class CaricaPartitaController {
 
 	}
 	
-	public synchronized static CaricaPartitaController getCaricaPartitaController() {
+	public static synchronized CaricaPartitaController getCaricaPartitaController() {
 		if(caricaPartitaController==null) {
 			caricaPartitaController=new CaricaPartitaController();
 		}

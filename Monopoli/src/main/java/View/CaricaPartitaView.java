@@ -89,7 +89,7 @@ public class CaricaPartitaView extends JPanel {
         scrollPane.repaint();
 	}
 	
-	public synchronized static CaricaPartitaView getCaricaPartitaView() {
+	public static synchronized CaricaPartitaView getCaricaPartitaView() {
 		if(caricaPartitaView==null) {
 			caricaPartitaView=new CaricaPartitaView();
 		}

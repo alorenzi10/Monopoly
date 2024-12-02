@@ -78,9 +78,7 @@ public class Asta {
 		if(partecipanti.size() == 1) {
 			return true;
 		}
-		else {
 			return false;
-		}
 	}
 
 	public void fineAsta() { // Visualizzazione vincitore asta
