@@ -5,9 +5,9 @@ import java.util.*;
 public class Player {
 
     private int id;
-    private String name;
-    private int wallet;
-    private int location;
+    private String nome;
+    private int portafoglio;
+    private int posizione;
     private boolean passatoVia;
     private ArrayList<Proprieta> listaProprieta;
     private boolean inPrigione;
@@ -15,18 +15,18 @@ public class Player {
     private int tentativiUscitaPrigione;
     private ArrayList<Carta> carte;
   
-    public Player(int id, String name, int wallet, boolean isInJail, int location) {
+    public Player(int id, String nome, int portafoglio, boolean inPrigione, int posizione) {
     	this.id = id;
-    	this.name = name;
-    	this.wallet = wallet;
+    	this.nome = nome;
+    	this.portafoglio = portafoglio;
     	this.inPrigione = false;
-    	this.location = 0;
+    	this.posizione = 0;
     	this.listaProprieta = new ArrayList<>();
     	this.carte = new ArrayList<>();
     }
     		
     public boolean controlloFondi(int totale) {
-    	if(wallet >= totale) {
+    	if(portafoglio >= totale) {
     		return true;
     	}
     	else{
@@ -34,21 +34,21 @@ public class Player {
     	}
     }
     
-    public void doTransaction(int totale) { //Si potrebbe integrare dentro transaction il controllo dei fondi
-    	wallet += totale;
+    public void doTransazione(int totale) { //Si potrebbe integrare dentro transaction il controllo dei fondi
+    	portafoglio += totale;
     }
     
     public void muovi(int spostamento) { 
-    	location += spostamento;
-    	if (location >= Tabellone.NUM_CASELLE) {
-    		location -= 40;
+    	posizione += spostamento;
+    	if (posizione >= Tabellone.NUM_CASELLE) {
+    		posizione -= 40;
     		passatoVia = true;
     	}
     	else {
     		passatoVia = false;
     	}
-    	if (location < 0) {
-    		location = location + 40;
+    	if (posizione < 0) {
+    		posizione = posizione + 40;
     	}
     }
 
@@ -89,7 +89,7 @@ public class Player {
 	}
 	
 	public void vaiInPrigione() {
-		location = Tabellone.POS_PRIGIONE;
+		posizione = Tabellone.POS_PRIGIONE;
 		inPrigione = true;
 		tentativiUscitaPrigione = 0;
 	}
@@ -103,15 +103,15 @@ public class Player {
 	}
 	
     public int getWallet() {
-    	return wallet;
+    	return portafoglio;
     }
     
     public int getLocation() {
-    	return location;
+    	return posizione;
     }
     
     public String getName() {
-		return name;
+		return nome;
 	}
 
 	public boolean getInPrigione() {
@@ -139,6 +139,7 @@ public class Player {
 		carte.remove(0);
 		return carta;
 	}
+	
 	public int getNumCarte() {
 		return carte.size();
 	}

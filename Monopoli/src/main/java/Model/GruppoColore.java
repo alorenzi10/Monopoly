@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class GruppoColore {
 	
     private ArrayList<Cantiere> cantieri;
-    private String name;
+    private String nome;
 
-    public GruppoColore(String name) {
-    	this.name = name;
+    public GruppoColore(String nome) {
+    	this.nome = nome;
     	this.cantieri= new ArrayList<>();
     }
     
@@ -20,8 +20,8 @@ public class GruppoColore {
     	return cantieri;
     }
 
-    public String getName() {
-    	return this.name;
+    public String getNome() {
+    	return this.nome;
     }
 
     public int size() {

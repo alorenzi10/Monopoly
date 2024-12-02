@@ -357,10 +357,10 @@ public class MonopolyController {
 			}
 
 			if((monopoly.getGiCorrente().controlloFondi(denaroOfferto) || denaroOfferto == 0) && (monopoly.getCorrispondenzaPlayer(index).controlloFondi(denaroRicevuto) || denaroRicevuto == 0)) {
-				monopoly.getGiCorrente().doTransaction(-denaroOfferto);
-				monopoly.getGiCorrente().doTransaction(denaroRicevuto);
-				monopoly.getCorrispondenzaPlayer(index).doTransaction(denaroOfferto);
-				monopoly.getCorrispondenzaPlayer(index).doTransaction(-denaroRicevuto);
+				monopoly.getGiCorrente().doTransazione(-denaroOfferto);
+				monopoly.getGiCorrente().doTransazione(denaroRicevuto);
+				monopoly.getCorrispondenzaPlayer(index).doTransazione(denaroOfferto);
+				monopoly.getCorrispondenzaPlayer(index).doTransazione(-denaroRicevuto);
 				for(int i=0; i<40; i++) {
 					if(propRic[i] != null) {
 						monopoly.getCorrispondenzaPlayer(index).rimuoviProprieta(propRic[i]);

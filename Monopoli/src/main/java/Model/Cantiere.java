@@ -11,8 +11,8 @@ public class Cantiere extends Proprieta {
 	transient final int NUM_MAX_UNITA = 5;
 	private final int id; 
 
-	public Cantiere(String name, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
-		super(name, prezzo, valoreIpoteca);
+	public Cantiere(String nome, int id, int prezzo, int valoreIpoteca, int[] tabellaAffitti, GruppoColore gruppoColore, int costoCasa) {
+		super(nome, prezzo, valoreIpoteca);
 		this.id = id;
 		this.tabellaAffitti = tabellaAffitti;
 		this.gruppoColore = gruppoColore;

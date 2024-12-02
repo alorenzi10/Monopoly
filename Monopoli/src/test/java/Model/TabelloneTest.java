@@ -19,14 +19,14 @@ class TabelloneTest {
     	Tabellone tabellone=new Tabellone(dadi);
     	
     	//test dei vari get
-    	assertEquals("marrone", tabellone.getMarrone().getName());
-    	assertEquals("azzurro", tabellone.getAzzurro().getName());
-    	assertEquals("viola", tabellone.getViola().getName());
-    	assertEquals("arancio", tabellone.getArancione().getName());
-    	assertEquals("rosso", tabellone.getRosso().getName());
-    	assertEquals("giallo", tabellone.getGiallo().getName());
-    	assertEquals("verde", tabellone.getVerde().getName());
-    	assertEquals("blu", tabellone.getBlu().getName());
+    	assertEquals("marrone", tabellone.getMarrone().getNome());
+    	assertEquals("azzurro", tabellone.getAzzurro().getNome());
+    	assertEquals("viola", tabellone.getViola().getNome());
+    	assertEquals("arancio", tabellone.getArancione().getNome());
+    	assertEquals("rosso", tabellone.getRosso().getNome());
+    	assertEquals("giallo", tabellone.getGiallo().getNome());
+    	assertEquals("verde", tabellone.getVerde().getNome());
+    	assertEquals("blu", tabellone.getBlu().getNome());
     	
     	//controlla che non ritorni caselle nulle
     	for(int i=0; i<40; i++) {

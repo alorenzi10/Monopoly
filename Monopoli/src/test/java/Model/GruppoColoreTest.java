@@ -38,7 +38,7 @@ class GruppoColoreTest {
 
     @Test
     void testGetName() {
-        assertEquals("Blu", gruppoColore.getName());
+        assertEquals("Blu", gruppoColore.getNome());
     }
 
     @Test

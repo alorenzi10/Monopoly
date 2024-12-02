@@ -16,11 +16,11 @@ public class Carta {
 		this.IDAzione = IDAzione;
 	}
 
-	public Carta(int tipo, String messaggio, int IDAzione, int parameter) {
+	public Carta(int tipo, String messaggio, int IDAzione, int parametro) {
 		this.tipo = tipo;
 		this.messaggio = messaggio;
 		this.IDAzione = IDAzione;
-		this.parametro = parameter;
+		this.parametro = parametro;
 	}
 
 	public Carta(int tipo, String messaggio, int IDAzione, int[] parametri) {

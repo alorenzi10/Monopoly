@@ -2,13 +2,13 @@ package Model;
 
 public class Casella {
 	
-    private String name;
+    private String nome;
     
-    public Casella(String name) {
-		this.name = name;
+    public Casella(String nome) {
+		this.nome = nome;
     }
     
     public String getNome() {
-    	return name;
+    	return nome;
     }
 }

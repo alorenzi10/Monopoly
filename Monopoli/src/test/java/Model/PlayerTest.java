@@ -26,10 +26,10 @@ class PlayerTest {
     //Controlla che le transazioni sul conto del giocatore venano eseguite 
     @Test
     void testDoTransaction() {
-        player.doTransaction(-500); // Sottrae 500
+        player.doTransazione(-500); // Sottrae 500
         assertEquals(1000, player.getWallet());
 
-        player.doTransaction(300); // Aggiunge 300
+        player.doTransazione(300); // Aggiunge 300
         assertEquals(1300, player.getWallet());
     }
     //Controllo che lo spostamento funzioni e che tenga conto della dimensione limitata del tabellone

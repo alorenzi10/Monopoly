@@ -49,7 +49,6 @@ public class Asta {
 		return risultato;
 	}
 
-
 	public void prossimoGiocatore() {
 
 		if(partecipanti.indexOf(giCorrente) + 1 <partecipanti.size()) {
@@ -83,7 +82,7 @@ public class Asta {
 
 	public void fineAsta() { // Visualizzazione vincitore asta
 
-		giCorrente.doTransaction(-offerta_corrente);
+		giCorrente.doTransazione(-offerta_corrente);
 		giCorrente.aggiungiProprieta(proprieta);
 		monopolyGUI.stampa(giCorrente.getName() + " ha acquistato " + proprieta.getNome()+
 				" pagando: " + offerta_corrente + "€." );

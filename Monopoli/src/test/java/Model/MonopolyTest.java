@@ -73,7 +73,7 @@ class MonopolyTest {
         	
         	monopoly.tiraDadi();
 
-        	if(monopoly.getDice().isDouble()) { //dadi doppi allora esce di prigione senza pagare
+        	if(monopoly.getDadi().isDouble()) { //dadi doppi allora esce di prigione senza pagare
         		uscitaConDadi=true;
         		arrivo=provaPlayer.getLocation();  //spostamento dopo l'uscita
         		break;
@@ -111,12 +111,12 @@ class MonopolyTest {
         	provaPlayer.liberaDaPrigione();//con tira dadi potrebbe finire in prigione
         	monopoly.tiraDadi();
 
-        	if(monopoly.getDice().isDouble() && !provaPlayer.getInPrigione()) { //se finisse in prigione i dadi non vengono ritirati e darebbe un falso triplo doppio dato
+        	if(monopoly.getDadi().isDouble() && !provaPlayer.getInPrigione()) { //se finisse in prigione i dadi non vengono ritirati e darebbe un falso triplo doppio dato
         		monopoly.tiraDadi();
 
-        		if(monopoly.getDice().isDouble() && !provaPlayer.getInPrigione()) {
+        		if(monopoly.getDadi().isDouble() && !provaPlayer.getInPrigione()) {
         				monopoly.tiraDadi();
-        				if(monopoly.getDice().isDouble()) {
+        				if(monopoly.getDadi().isDouble()) {
         						treDoppi=true;
         				
         				}
@@ -142,7 +142,7 @@ class MonopolyTest {
     	monopoly.compraProprieta();
     	assertEquals(provaPlayer, ((Proprieta) monopoly.getTabellone().getCasella(1)).getPossessore());
     	
-    	provaPlayer.doTransaction(-1439);
+    	provaPlayer.doTransazione(-1439);
     	provaPlayer.muovi(2); //su Vicolo Stretto
     	assertDoesNotThrow(()-> monopoly.compraProprieta()); //controlla che il lancio dell'asta non causi eccezzioni
     }
@@ -216,9 +216,9 @@ class MonopolyTest {
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //tre case
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
-        provaPlayer.doTransaction(-1500); //per prova costruisci senza fondi
+        provaPlayer.doTransazione(-1500); //per prova costruisci senza fondi
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); 
-        provaPlayer.doTransaction(1500);
+        provaPlayer.doTransazione(1500);
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //quattro case
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(1));
         monopoly.costruisci((Proprieta) monopoly.getTabellone().getCasella(3)); //Albergo
@@ -253,10 +253,10 @@ class MonopolyTest {
         	for(int i=0; i<20; i++) {
         		assertDoesNotThrow(()->monopoly.tiraDadi());
 
-            	if(monopoly.getDice().isDouble() && !monopoly.getGiCorrente().getInPrigione()) { 
+            	if(monopoly.getDadi().isDouble() && !monopoly.getGiCorrente().getInPrigione()) { 
             		assertDoesNotThrow(()->monopoly.tiraDadi());
 
-            		if(monopoly.getDice().isDouble() && !monopoly.getGiCorrente().getInPrigione()) {
+            		if(monopoly.getDadi().isDouble() && !monopoly.getGiCorrente().getInPrigione()) {
             			assertDoesNotThrow(()->	monopoly.tiraDadi());
 
             		}
@@ -283,7 +283,7 @@ class MonopolyTest {
         assertEquals(1450, provaPlayer.getWallet());
         assertDoesNotThrow( ()->monopoly.pagaUscitaPrigione());
         
-        provaPlayer.doTransaction(-1449); 
+        provaPlayer.doTransazione(-1449); 
         provaPlayer.vaiInPrigione();
         monopoly.pagaUscitaPrigione(); //prova a pagare cauzione ma non ha i fondi sufficenti->resta in prigione
         assertTrue(provaPlayer.getInPrigione());
