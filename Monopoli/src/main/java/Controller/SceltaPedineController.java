@@ -44,6 +44,7 @@ public class SceltaPedineController {
 		if(sceltaPedineController == null) {
 			sceltaPedineController = new SceltaPedineController();
 		}
+		SceltaPedineView.getSceltaPedineView().aggiornaNomi(NomiGiocatoriController.getNomiGiocatoriController().getNomiGiocatori());
 		return  sceltaPedineController;
 	}
 	 /**

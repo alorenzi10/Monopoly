@@ -21,8 +21,8 @@ public class Player {
     	this.wallet = wallet;
     	this.inPrigione = false;
     	this.location = 0;
-    	this.listaProprieta=new ArrayList<>();
-    	this.carte=new ArrayList<>();
+    	this.listaProprieta = new ArrayList<>();
+    	this.carte = new ArrayList<>();
     }
     		
     public boolean controlloFondi(int totale) {
@@ -35,7 +35,7 @@ public class Player {
     }
     
     public void doTransaction(int totale) { //Si potrebbe integrare dentro transaction il controllo dei fondi
-    	wallet += totale; //da aggiungere controllo se bastano i soldi
+    	wallet += totale;
     }
     
     public void muovi(int spostamento) { 
@@ -61,7 +61,7 @@ public class Player {
 		listaProprieta.add(proprieta);
 	}
 	
-	public void rimuoviProprieta(Proprieta proprieta) { //da controllare???
+	public void rimuoviProprieta(Proprieta proprieta) {
 		listaProprieta.remove(proprieta);
 	}
 	

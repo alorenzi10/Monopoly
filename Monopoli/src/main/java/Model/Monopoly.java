@@ -12,7 +12,6 @@ public class Monopoly {
 	
 	public String nomePartita; //campi per json
 	private String salvataggioDateTime;
-	private int numero_giocatori; 
 	
     private final int MONEY_START = 1500; // Denaro iniziale
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
@@ -38,7 +37,6 @@ public class Monopoly {
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
     	
-    	this.numero_giocatori = numero_giocatori;
     	this.print = monopolyGUI;
     	players = new ArrayList<Player>();
     	
@@ -118,7 +116,7 @@ public class Monopoly {
 						
 						if (giCorrente.tentativiTerminati() == true) { //se il giocatore è al terzo tentativo fallito è costretto a pagare
 							print.stampa(giCorrente.getName() + " Paga 50 di cauzione");
-							giCorrente.doTransaction(-CAUZIONE_PRIGIONE); //controllo su fondi giocatore ////DA DISCUTERE COME GESTIRE
+							giCorrente.doTransaction(-CAUZIONE_PRIGIONE); //controllo su fondi giocatore
 							giCorrente.liberaDaPrigione();
 							giCorrente.muovi(dice.getTotal());
 							
@@ -190,12 +188,12 @@ public class Monopoly {
 			if (giCorrente.haUscitaGratis()) {
 				giCorrente.getCarta();
 				giCorrente.liberaDaPrigione();
-			} else {print.stampa("Non hai carte uscite gratis di prigione!");} //probabilmente qua non entra mai dato che disabilitiamo il bottone
+			} else {print.stampa("Non hai carte uscite gratis di prigione!");} // qua non entra mai dato che disabilitiamo il bottone
 		}
 	}
 
 	public void pagaUscitaPrigione() {
-		if (giCorrente.getInPrigione()) { //anche questo forse inutile perché disattiviamo i bottoni quando non è in prigione
+		if (giCorrente.getInPrigione()) { // inutile perché disattiviamo i bottoni quando non è in prigione
 			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
 				giCorrente.doTransaction(-CAUZIONE_PRIGIONE);
 				giCorrente.liberaDaPrigione();
@@ -289,7 +287,7 @@ public class Monopoly {
 					Player possessore = ((Proprieta) casella).getPossessore();
 					print.stampa("Dai " + totale + "€ a " + possessore.getName() );
 
-					giCorrente.doTransaction(-totale); //va bene cosi senza controllo sui fondi?
+					giCorrente.doTransaction(-totale);
 					possessore.doTransaction(totale);
 				}
 
@@ -458,7 +456,7 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	public void aggiornaVisualizzazioneInfo() {  //con refactoring 21/11/2024 mi sono fermato qui
+	public void aggiornaVisualizzazioneInfo() { 
 		//Aggiornamento nel pannello delle info dei giocatori (saldo)
 		ArrayList<Integer> valoriSaldo = new ArrayList<>();
 		for(Player p: players) 
@@ -554,14 +552,14 @@ public class Monopoly {
 									id=cant.getId();
 									
 									if(cant.getNumCostruzioni()<5) {
-										print.case12.mostraCasa((id*4)-4+num-1);
+										print.getCase().mostraCasa((id*4)-4+num-1);
 									}
 									else {
 										
 										for(int i=0; i<4; i++ ){
-											print.case12.rimuoviCasa((id*4)-4+i);
+											print.getCase().rimuoviCasa((id*4)-4+i);
 										}
-										print.case12.mostraAlbergho(id-1);
+										print.getCase().mostraAlbergho(id-1);
 									}
 									aggiornaVisualizzazioneInfo();
 									
@@ -603,15 +601,15 @@ public class Monopoly {
 						giCorrente.doTransaction(cant.getCostoCasa()/2);
 						if(cant.getNumCostruzioni()==4) {
 						
-							print.case12.rimuoviAlbergho(id-1);
+							print.getCase().rimuoviAlbergho(id-1);
 							
 							for(int i=0; i<4; i++ ){
-								print.case12.mostraCasa((id*4)-4+i);
+								print.getCase().mostraCasa((id*4)-4+i);
 							}
 						}
 						else {
 							
-							print.case12.rimuoviCasa((id*4)-1-(4-num));
+							print.getCase().rimuoviCasa((id*4)-1-(4-num));
 					
 						}
 						aggiornaVisualizzazioneInfo();
@@ -732,8 +730,8 @@ public class Monopoly {
 	
 	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
 		
-		print=monopolyGUI;
-		giCorrente=players.get(indexCorrente); 
+		print = monopolyGUI;
+		giCorrente = players.get(indexCorrente); 
 		dice = new Dadi();
     	tabellone = new Tabellone(dice);
 
@@ -767,10 +765,10 @@ public class Monopoly {
     								 if (coppia[1] > 0) {
     									 ((Cantiere) casella).setNumCostruzioni(coppia[1]);
     	    						        if (((Cantiere) casella).getNumAlberghi() == 1) {
-    	    						            print.case12.mostraAlbergho(((Cantiere) casella).getId() - 1);
+    	    						            print.getCase().mostraAlbergho(((Cantiere) casella).getId() - 1);
     	    						        } else if (((Cantiere) casella).getNumCase() > 0) {
     	    						            for (int z = 1; z <= ((Cantiere) casella).getNumCase(); z++) {
-    	    						                print.case12.mostraCasa((((Cantiere) casella).getId() * 4) - 4 + z - 1);
+    	    						                print.getCase().mostraCasa((((Cantiere) casella).getId() * 4) - 4 + z - 1);
     	    						                
     	    						            }
     	    						        }

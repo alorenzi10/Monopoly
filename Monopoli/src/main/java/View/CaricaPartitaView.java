@@ -24,7 +24,7 @@ public class CaricaPartitaView extends JPanel {
 	private JPanel setUp;
 	private JTable table;
 	private DefaultTableModel model;
-	private JButton btnIndietro, btnCarica, btnElimina,btnAggiorna;
+	private JButton btnIndietro, btnCarica, btnElimina;
 	private JTextField carica, elimina;
 	private JScrollPane scrollPane;
 	
