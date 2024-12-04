@@ -739,6 +739,7 @@ public class MonopolyGUI extends JLayeredPane {
 		caselle[39]=casella39;
 	}
 
+	//GETTER
 	public CaseAlberghiView getCase() {
 		return case_2;
 	}
@@ -806,6 +807,7 @@ public class MonopolyGUI extends JLayeredPane {
 
 	}
 	
+	//AGGIUNTA AI BOTTONI DEI LISTENER
 	public void addBtnTiraDadi(ActionListener listener) {
 		btnTiraDadi.addActionListener(listener);
 	}
@@ -1476,7 +1478,7 @@ public class MonopolyGUI extends JLayeredPane {
 	public void aggiornaTurno(String nome) {
 		lblTurno.setText(nome + " tocca a te partecipare all'asta");
 	}
-	//FINE METODI ASTA
+
 
 	public void mostraScelteTurno() {
 		buttonsState(true);
