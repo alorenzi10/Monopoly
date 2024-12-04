@@ -57,9 +57,9 @@ public class CaricaPartitaController {
 		try {
 			FileReader reader = new FileReader("partiteMonopoli.json");
 			JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
-
+			CaricaPartitaView.getCaricaPartitaView().rimuoviLabel();
 			if (jsonArray.size() > 0) { // Controllo che il file abbia un salvataggio
-
+				
 				for (JsonElement element : jsonArray) { // Iterazione su ciascun elemento (stringa JSON)
 					// Parsing della stringa come JSON
 					String jsonString = element.getAsString();
@@ -70,6 +70,7 @@ public class CaricaPartitaController {
 					String salvataggioDateTime = jsonObject.getAsJsonObject().get("salvataggioDateTime").getAsString();
 					String numGiocatori = jsonObject.getAsJsonObject().get("numero_giocatori").getAsString();
 					// Aggiunge alla tabella una nuova riga
+					
 					CaricaPartitaView.getCaricaPartitaView().aggiungiATabella(nomePartita, numGiocatori, salvataggioDateTime);
 				}
 			} else {

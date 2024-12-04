@@ -20,16 +20,37 @@ import Model.Proprieta;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
 
+/**
+ * Controller principale per il gioco di Monopoly. 
+ * Gestisce la logica del gioco, interagisce con l'interfaccia utente e coordina i diversi eventi.
+ */
 public class MonopolyController {
 
-	private static MonopolyGUI monopolyGUI;
-	private Monopoly monopoly;
-	private String index;
-	private String[] offerte, richieste;
-	private int contaOfferte, contaRichieste, carteOfferte, carteRichieste;
-	private boolean baseAsta;
+	 /** Interfaccia grafica del gioco Monopoly */
+    private static MonopolyGUI monopolyGUI;
+    
+    /** Modello di logica del gioco Monopoly */
+    private Monopoly monopoly;
+    
+    /** Indice dell'utente attualmente selezionato per scambi */
+    private String index;
+    
+    /** Liste delle proprietà offerte e richieste durante uno scambio */
+    private String[] offerte, richieste;
+    
+    /** Contatori per offerte e richieste di proprietà durante uno scambio */
+    private int contaOfferte, contaRichieste;
+    
+    /** Numero di carte offerte e richieste durante uno scambio */
+    private int carteOfferte, carteRichieste;
+    
+    /** Flag per controllare la base d'asta */
+    private boolean baseAsta;
 
-
+    
+    /**
+     * Costruttore predefinito. Inizializza la GUI e il modello del gioco.
+     */
 	public MonopolyController() {
 
 		monopolyGUI = new MonopolyGUI(SchermataDiGioco.getSchermataDiGioco(), NomiGiocatoriController.getNomiGiocatoriController().getNumGiocatori(),  SceltaPedineController.getSceltaPedineController().getPedineScelte() );
@@ -41,7 +62,11 @@ public class MonopolyController {
 		SchermataDiGioco.getSchermataDiGioco().revalidate();
 		SchermataDiGioco.getSchermataDiGioco().repaint();
 	}
-	//da caricamento
+	/**
+     * Costruttore per il caricamento di una partita salvata.
+     * @param monopoly Istanza del modello caricata.
+     * @param coppie Lista di coppie di proprietà e relative costruzioni.
+     */
 	public MonopolyController(Monopoly monopoly, List<int[]> coppie) {
 
 		this.monopoly = monopoly;
@@ -56,7 +81,9 @@ public class MonopolyController {
 		SchermataDiGioco.getSchermataDiGioco().revalidate();
 		SchermataDiGioco.getSchermataDiGioco().repaint(); 
 	}
-
+	/**
+     * Aggiunge tutti i listener agli elementi interattivi della GUI.
+     */
 	private void aggiuntaListener() {
 		//scelte 
 		monopolyGUI.addBtnTiraDadi(new BtnTiraDadi());
@@ -134,7 +161,7 @@ public class MonopolyController {
 		}
 	}
 
-	private class BtnSalva1 implements ActionListener{ //devo fare controllo no duplicati nel nome
+	private class BtnSalva1 implements ActionListener{ 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 

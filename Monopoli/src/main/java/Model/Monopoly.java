@@ -12,7 +12,7 @@ public class Monopoly {
 	
 	public String nomePartita; //campi per json
 	private String salvataggioDateTime;
-	
+	private int numero_giocatori; 
     private final int MONEY_START = 1500; // Denaro iniziale
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
@@ -36,7 +36,7 @@ public class Monopoly {
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
-    	
+    	this.numero_giocatori=numero_giocatori;
     	this.monopolyGUI = monopolyGUI;
     	players = new ArrayList<Player>();
     	
@@ -729,7 +729,7 @@ public class Monopoly {
 	}
 	
 	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
-		
+		this.monopolyGUI=monopolyGUI;
 		giCorrente = players.get(indexCorrente); 
 		dadi = new Dadi();
     	tabellone = new Tabellone(dadi);
