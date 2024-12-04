@@ -139,6 +139,16 @@ public class CaricaPartitaView extends JPanel {
 		labelAttivo=true;
 	}
 	
+	public void rimuoviLabel() {
+		if(labelAttivo) {
+			labelAttivo=false;
+			lblNoPartiteSalvate.setVisible(false);
+			setUp.revalidate();
+			setUp.repaint();
+		}
+	}
+	
+	
 	public void addBtnCarica(ActionListener listener) {
 
 		btnCarica.addActionListener(listener);
