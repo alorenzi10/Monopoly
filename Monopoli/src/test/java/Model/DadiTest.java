@@ -19,7 +19,7 @@ class DadiTest {
 	@Test
 	public void testDadi() {
 		
-		for(int i=0; i<1; i++) {
+		for(int i=0; i<100; i++) {
 			dadi.roll();
 			dado1 = dadi.getDado1();
 			dado2 = dadi.getDado2();
