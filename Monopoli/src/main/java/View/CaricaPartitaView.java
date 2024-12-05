@@ -21,6 +21,8 @@ public class CaricaPartitaView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static CaricaPartitaView caricaPartitaView;
+	private JLabel lblNoPartiteSalvate;
+	private boolean labelAttivo=false;
 	private JPanel setUp;
 	private JTable table;
 	private DefaultTableModel model;
@@ -129,12 +131,23 @@ public class CaricaPartitaView extends JPanel {
 	
 	public void mostraLabel() {
 
-		JLabel lblNoPartiteSalvate = new JLabel("Non ci sono partite salvate");
+		lblNoPartiteSalvate = new JLabel("Non ci sono partite salvate");
 		lblNoPartiteSalvate.setFont(new Font("Monopoly Inline", Font.PLAIN, 30));
 		lblNoPartiteSalvate.setBounds(630, 150, 600, 300);
 		setUp.add(lblNoPartiteSalvate);
 		setUp.setComponentZOrder(lblNoPartiteSalvate, 0);
+		labelAttivo=true;
 	}
+	
+	public void rimuoviLabel() {
+		if(labelAttivo) {
+			labelAttivo=false;
+			lblNoPartiteSalvate.setVisible(false);
+			setUp.revalidate();
+			setUp.repaint();
+		}
+	}
+	
 	
 	public void addBtnCarica(ActionListener listener) {
 

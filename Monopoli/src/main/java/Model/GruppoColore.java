@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class GruppoColore {
 	
-    private ArrayList<Cantiere> cantieri;
-    private String nome;
+    private ArrayList<Cantiere> cantieri; // Lista di cantieri che appartengono a questo gruppo
+    private String nome; // Il nome del gruppo di colore (es. "Verde", "Blu", ecc.)
 
     public GruppoColore(String nome) {
     	this.nome = nome;

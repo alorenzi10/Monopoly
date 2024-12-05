@@ -24,7 +24,7 @@ public class Player {
     	this.listaProprieta = new ArrayList<>();
     	this.carte = new ArrayList<>();
     }
-    		
+    //GESTIONE DENARO	
     public boolean controlloFondi(int totale) {
     	if(portafoglio >= totale) {
     		return true;
@@ -38,6 +38,10 @@ public class Player {
     	portafoglio += totale;
     }
     
+    public int getWallet() {
+    	return portafoglio;
+    }
+    //MOVIMENTO DEL GIOCATORE
     public void muovi(int spostamento) { 
     	posizione += spostamento;
     	if (posizione >= Tabellone.NUM_CASELLE) {
@@ -55,7 +59,11 @@ public class Player {
 	public boolean passaggioVia() {
 		return passatoVia;
 	}
-
+	
+    public int getLocation() {
+    	return posizione;
+    }
+	//PROPRIETA
 	public void aggiungiProprieta(Proprieta proprieta) {
 		proprieta.setProprietario(this);
 		listaProprieta.add(proprieta);
@@ -75,76 +83,7 @@ public class Player {
 		}
 		return haTutteProprieta;
 	}
-
-	public void fallitoTentativo() {
-		tentativiUscitaPrigione++;
-	}
-	
-	public boolean tentativiTerminati() {
-		boolean tentativiTerminati = false;
-		if(tentativiUscitaPrigione == TENTATIVI_MASSIMI_PRIGIONE) {
-			tentativiTerminati = true;
-		}
-		return tentativiTerminati;
-	}
-	
-	public void vaiInPrigione() {
-		posizione = Tabellone.POS_PRIGIONE;
-		inPrigione = true;
-		tentativiUscitaPrigione = 0;
-	}
-
-	public void liberaDaPrigione() {
-		inPrigione = false;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-    public int getWallet() {
-    	return portafoglio;
-    }
-    
-    public int getLocation() {
-    	return posizione;
-    }
-    
-    public String getName() {
-		return nome;
-	}
-
-	public boolean getInPrigione() {
-		return inPrigione;
-	}
-	
-	public int getTentativi() {
-		return tentativiUscitaPrigione;
-	}
-	
-	public void addCarta(Carta carta) {
-		carte.add(carta);
-	}
-	
-	public boolean haUscitaGratis() {
-		boolean haCarta = false;
-		if (carte.size()>0) {
-			haCarta = carte.get(0).getAzione() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
-		}
-		return haCarta;
-	}
-	
-	public Carta getCarta() {
-		Carta carta = carte.get(0);
-		carte.remove(0);
-		return carta;
-	}
-	
-	public int getNumCarte() {
-		return carte.size();
-	}
-	
-    public int getNumCasePossedute() {
+	public int getNumCasePossedute() {
 		int numCase = 0;
 		for (Proprieta p : listaProprieta) {
 			if (p instanceof Cantiere) {
@@ -215,5 +154,66 @@ public class Player {
 	    return listaPropString;
 	}
 
+	//AZIONI PRIGIONE
+	public void fallitoTentativo() {
+		tentativiUscitaPrigione++;
+	}
+	
+	public boolean tentativiTerminati() {
+		boolean tentativiTerminati = false;
+		if(tentativiUscitaPrigione == TENTATIVI_MASSIMI_PRIGIONE) {
+			tentativiTerminati = true;
+		}
+		return tentativiTerminati;
+	}
+	
+	public void vaiInPrigione() {
+		posizione = Tabellone.POS_PRIGIONE;
+		inPrigione = true;
+		tentativiUscitaPrigione = 0;
+	}
+
+	public void liberaDaPrigione() {
+		inPrigione = false;
+	}
+	
+	public boolean getInPrigione() {
+		return inPrigione;
+	}
+	
+	public int getTentativi() {
+		return tentativiUscitaPrigione;
+	}
+	//CARTE USCITA DI PRIGIONE
+	public void addCarta(Carta carta) {
+		carte.add(carta);
+	}
+	
+	public boolean haUscitaGratis() {
+		boolean haCarta = false;
+		if (carte.size()>0) {
+			haCarta = carte.get(0).getAzione() == Mazzo.AZIONE_ESCI_DAL_CARCERE;
+		}
+		return haCarta;
+	}
+	
+	public Carta getCarta() {
+		Carta carta = carte.get(0);
+		carte.remove(0);
+		return carta;
+	}
+	
+	public int getNumCarte() {
+		return carte.size();
+	}
+	
+	//METODI VARI
+	public int getId() {
+		return id;
+	}
+	
+    public String getName() {
+		return nome;
+	}
 
 }

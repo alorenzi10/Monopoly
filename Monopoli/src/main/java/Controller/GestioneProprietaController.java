@@ -14,34 +14,52 @@ import Model.Tabellone;
 import View.GestioneProprietaView;
 import View.MonopolyGUI;
 import View.SchermataDiGioco;
-
+/**
+ * Controller per la gestione delle proprietà nel gioco Monopoly.
+ * Gestisce le interazioni tra l'utente e le viste relative alla gestione delle proprietà.
+ * Consente operazioni come costruzione, demolizione, ipoteca e disipoteca sulle proprietà.
+ */
 public class GestioneProprietaController {
-
+	
+	// Riferimenti ai modelli e alle viste
 	GestioneProprietaView gestioneProprieta;
 	Monopoly monopoly;
 	MonopolyGUI monopolyGUI;
 	Tabellone tabellone;
 	SchermataDiGioco frame;
+	// Variabili per la gestione delle azioni e dei tipi di proprietà
 	GruppoColore colore;
 	ArrayList<Cantiere> prova;
 	Stazione[] stazioni;
 	Societa[] societa;
 	int scelta; //1 costruisci, 2 demolisci, 3 ipoteca, 4 dispoteca
-	int tipo; //1 colore, 2 stazioni, 3 societa
-
+	int tipo; //1 cantiere, 2 stazioni, 3 societa
+	
+	/**
+     * Costruttore del controller.
+     * @param frame finestra principale del gioco.
+     * @param monopolyGUI oggetto per la gestione della GUI principale.
+     * @param monopoly modello principale del gioco.
+     */
 	public GestioneProprietaController(SchermataDiGioco frame, MonopolyGUI monopolyGUI, Monopoly monopoly) {
 		this.monopolyGUI = monopolyGUI;
 		this.monopoly = monopoly;
 		this.tabellone = monopoly.getTabellone();
 		this.frame = frame;
+		
+		// Inizializza la vista di gestione proprietà e configura i pulsanti
 		gestioneProprieta = new GestioneProprietaView(frame);
 		gestioneProprieta.scelte();
-
+		
+		// Aggiunta dei listener ai pulsanti principali
 		gestioneProprieta.addBtnCostruisci(new BtnCostruisci());
 		gestioneProprieta.addBtnDemolisci(new BtnDemolisci());
 		gestioneProprieta.addBtnIpoteca(new BtnIpoteca());
 		gestioneProprieta.addBtnDisipoteca(new BtnDisipoteca());
-
+		gestioneProprieta.addBtnIndietro(new BtnIndietro());
+		gestioneProprieta.addBtnIndietro1(new BtnIndietro1());
+		
+		// Aggiunta dei listener ai pulsanti per i gruppi di colore
 		gestioneProprieta.addBtnFine(new BtnFine());
 		gestioneProprieta.addBtnMarrone(new BtnMarrone());
 		gestioneProprieta.addBtnAzzurro(new BtnAzzurro());
@@ -51,11 +69,11 @@ public class GestioneProprietaController {
 		gestioneProprieta.addBtnGiallo(new BtnGiallo());
 		gestioneProprieta.addBtnVerde(new BtnVerde());
 		gestioneProprieta.addBtnBlu(new BtnBlu());
+		 // Aggiunta dei listener ai pulsanti per stazioni e società
 		gestioneProprieta.addBtnSocieta(new BtnSocieta());
 		gestioneProprieta.addBtnStazione(new BtnStazione());
 
-		gestioneProprieta.addBtnIndietro(new BtnIndietro());
-		gestioneProprieta.addBtnIndietro1(new BtnIndietro1());
+		 // Aggiunta dei listener ai pulsanti numerici che possono rappresentare vari cantieri/società/stazioni
 		gestioneProprieta.addBtn1(new Btn1());
 		gestioneProprieta.addBtn2(new Btn2());
 		gestioneProprieta.addBtn3(new Btn3());

@@ -12,11 +12,12 @@ public class Monopoly {
 	
 	public String nomePartita; //campi per json
 	private String salvataggioDateTime;
-	
+	private int numero_giocatori; 
+	 private int indexCorrente; //campi per json
+	 
     private final int MONEY_START = 1500; // Denaro iniziale
     private final int MONEY_VIA = 200; // Denaro ricevuto quando si passa/transita dal via
     private final int CAUZIONE_PRIGIONE = 50; // Costo per uscire dalla prigione
-    private int indexCorrente; //campi per json
     private ArrayList<Player> players;
     private transient Player giCorrente; // Giocatore del turno corrente
     private transient Dadi dadi;
@@ -25,9 +26,8 @@ public class Monopoly {
     private transient Tabellone tabellone;	
     private MazzoProbabilita mazzoProbabilita;
     private MazzoImprevisti mazzoImprevisti;
-    private boolean gameOver;
     private transient MonopolyGUI monopolyGUI;
-    public  transient Asta asta; //da sistemare
+    public  transient Asta asta; 
     private transient Random random = new Random();
     
     private transient ArrayList<Proprieta> listaPropBancarotta;
@@ -36,7 +36,7 @@ public class Monopoly {
 
     // Crea nuova partita
     public Monopoly(int numero_giocatori, String[] nomi, MonopolyGUI monopolyGUI){
-    	
+    	this.numero_giocatori=numero_giocatori;
     	this.monopolyGUI = monopolyGUI;
     	players = new ArrayList<Player>();
     	
@@ -52,30 +52,11 @@ public class Monopoly {
     	tabellone = new Tabellone(dadi);
     	mazzoProbabilita = new MazzoProbabilita();
     	mazzoImprevisti = new MazzoImprevisti();
-    	gameOver = false;
     	
     	inizioTurno();
     }
 
-	public void inizioTurno() { 
-		
-		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
-			monopolyGUI.attivaUscitaConCarta(true); //carta per uscire dei prigione
-		} else{
-			monopolyGUI.attivaUscitaConCarta(false);
-		}
-		
-		if(giCorrente.getInPrigione() && giCorrente.controlloFondi(CAUZIONE_PRIGIONE)){ //se è in prigione attiva la possibilità di pagare la cauzione
-			monopolyGUI.attivaUscitaConCauzione(true); 
-		} else{
-			monopolyGUI.attivaUscitaConCauzione(false);
-		}
-		
-		tiroDadiFatto = false;
-		nDadiDoppi = 0;
-		monopolyGUI.stampa("tocca a " + giCorrente.getName());
-	}
-
+    //GIOCO
 	public void tiraDadi() {
 		
 		//questo metodo viene chiamato dopo che il giocatore preme il bottone tira dadi
@@ -133,111 +114,6 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	
-	public void setBancarotta(){
-		// Chiedo al giocatore se è sicuro
-		if(monopolyGUI.getDecisioneBancarotta()) {
-			
-			monopolyGUI.mostraScelteTurno();
-			// Gestione proprietà del giocatore in bancarotta, vanno all'asta
-			// Set prossimo giocatore			
-			Player giTemp = giCorrente;
-			if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
-				giCorrente = players.get(players.indexOf(giCorrente) + 1);
-			}
-			else {
-				giCorrente = players.get(0);
-			}
-			
-			players.remove(giTemp);
-			
-			listaPropBancarotta = giTemp.getListaProprieta();
-			conta = 0;
-			if(!listaPropBancarotta.isEmpty()){
-				astaBancarotta(); }
-			else {
-				attivitaPostBancarotta();
-			}
-		}
-	}
-	
-	public void attivitaPostBancarotta() {
-		inizioTurno();
-		aggiornaVisualizzazioneInfo(); 
-	}
-	
-	public boolean getConta() {
-		if(conta < listaPropBancarotta.size()) {
-			return true;
-		}
-		else {
-			monopolyGUI.stampa("Le prorpietà all'asta sono finite");
-			attivitaPostBancarotta();
-			return false;
-		}
-	}
-	
-	public void astaBancarotta() {
-		
-		asta = new Asta(giCorrente, players, listaPropBancarotta.get(conta), monopolyGUI);
-		asta.inizio(); 
-		conta++;
-	}
-	
-	public void uscitaGratis() {
-		if (giCorrente.getInPrigione()) {
-			if (giCorrente.haUscitaGratis()) {
-				giCorrente.getCarta();
-				giCorrente.liberaDaPrigione();
-			} else {monopolyGUI.stampa("Non hai carte uscite gratis di prigione!");} // qua non entra mai dato che disabilitiamo il bottone
-		}
-	}
-
-	public void pagaUscitaPrigione() {
-		if (giCorrente.getInPrigione()) { // inutile perché disattiviamo i bottoni quando non è in prigione
-			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
-				giCorrente.doTransazione(-CAUZIONE_PRIGIONE);
-				giCorrente.liberaDaPrigione();
-				monopolyGUI.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
-			} else {
-				monopolyGUI.stampa("Non hai abbastanza soldi!");
-			}
-		} else {
-			monopolyGUI.stampa("Il giocatore non è in prigione");
-		}
-		aggiornaVisualizzazioneInfo();
-	}
-	
-	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
-		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
-			if(giCorrente.getWallet()<0) {
-				monopolyGUI.stampa(giCorrente.getName()+ " devi risolvere i debiti se possibile");
-			}else {
-				setProssimoGiocatore();
-			}
-		else{
-			monopolyGUI.stampa(giCorrente.getName()+ " devi ancora tirare");
-		}
-	}
-	
-	public void setSalvaPartita(String nome) {
-		nomePartita = nome;
-		indexCorrente = getPlayers().indexOf(getGiCorrente());
-	}
-	
-	public void setTempo() {
-		LocalDateTime salvataggioData = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		setSalvataggioDateTime(salvataggioData.format(formatter));
-	}
-	
-	public void setSalvataggioDateTime(String salvataggioDateTime) {
-		this.salvataggioDateTime = salvataggioDateTime;
-	}
-
-	public String getSalvataggioDateTime() {
-		return salvataggioDateTime;
-	}
-
 	public void controlloPassaggioVia() {
 		
 		if (giCorrente.passaggioVia()) {
@@ -319,7 +195,7 @@ public class Monopoly {
 		} 
 		aggiornaVisualizzazioneInfo();
 	}
-
+	
 	private void azioneCarta(Carta carta) {
 		int partenza, pos;
 
@@ -455,37 +331,51 @@ public class Monopoly {
 
 		aggiornaVisualizzazioneInfo();
 	}
-	
-	public void aggiornaVisualizzazioneInfo() { 
-		//Aggiornamento nel pannello delle info dei giocatori (saldo)
-		ArrayList<Integer> valoriSaldo = new ArrayList<>();
-		for(Player p: players) 
-			valoriSaldo.add(p.getWallet());
-		monopolyGUI.aggiornaVisSaldoGiocatori(valoriSaldo, getGiocatoriString()); // Aggiorna la visualizzazione del saldo dei giocatori
+
+	//TURNO
+	public void inizioTurno() { 
 		
-		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
-		ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
-		for(Player player: players) {
-			ArrayList<String> proprietaGiocatore = new ArrayList<>();
-			for (Proprieta prop: player.getListaProprieta())
-				if(prop.isIpotecata()) {
-					proprietaGiocatore.add(prop.getNome()+ " (ipotecata)");
-				}
-				else {
-					proprietaGiocatore.add(prop.getNome());
-				}
-			elencoProp.add(proprietaGiocatore);
+		if(giCorrente.getInPrigione() && giCorrente.haUscitaGratis()){
+			monopolyGUI.attivaUscitaConCarta(true); //carta per uscire dei prigione
+		} else{
+			monopolyGUI.attivaUscitaConCarta(false);
 		}
-		monopolyGUI.aggiornaVisProprietaGiocatori(elencoProp, getGiocatoriString()); // Aggiorna la visualizzazione delle proprietà dei giocatori
 		
-		ArrayList<Integer> valoriCarte = new ArrayList<>();
-		for(Player p: players) 
-			valoriCarte.add(p.getNumCarte());
-		monopolyGUI.aggiornaVisCarte(valoriCarte, getGiocatoriString());
+		if(giCorrente.getInPrigione() && giCorrente.controlloFondi(CAUZIONE_PRIGIONE)){ //se è in prigione attiva la possibilità di pagare la cauzione
+			monopolyGUI.attivaUscitaConCauzione(true); 
+		} else{
+			monopolyGUI.attivaUscitaConCauzione(false);
+		}
 		
-		
+		tiroDadiFatto = false;
+		nDadiDoppi = 0;
+		monopolyGUI.stampa("tocca a " + giCorrente.getName());
 	}
 	
+	public void setFineTurno() { //il metodo viene chiamato quando il giocatore preme il bottone per finire il turno
+		if (tiroDadiFatto) //non si puo finire il turno se non si finiscono i tiri disponibili
+			if(giCorrente.getWallet()<0) {
+				monopolyGUI.stampa(giCorrente.getName()+ " devi risolvere i debiti se possibile");
+			}else {
+				setProssimoGiocatore();
+			}
+		else{
+			monopolyGUI.stampa(giCorrente.getName()+ " devi ancora tirare");
+		}
+	}
+	
+	public void setProssimoGiocatore() {
+		
+		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
+			giCorrente = players.get(players.indexOf(giCorrente) + 1);
+		}
+		else {
+			giCorrente = players.get(0);
+		}
+		inizioTurno();
+	}
+	
+	//GESTIONE PROPRIETA
 	public void iniziaAsta() {
 		//passaggio dei dati utili per l'asta
 		asta = new Asta(giCorrente, players, (Proprieta) tabellone.getCasella(giCorrente.getLocation()), monopolyGUI);
@@ -661,75 +551,107 @@ public class Monopoly {
 		aggiornaVisualizzazioneInfo();
 	}
 	 
-	public void setProssimoGiocatore() {
-		
-		if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
-			giCorrente = players.get(players.indexOf(giCorrente) + 1);
-		}
-		else {
-			giCorrente = players.get(0);
-		}
-		inizioTurno();
-	}
-
-	public boolean isGameOver() {
-		return gameOver;
-	}
-	
-	public Player getGiCorrente() {
-		return giCorrente;
-	}
-	
-	public ArrayList<String> getListaGiocatoriScambi(){
-		ArrayList<Player> acquirenti = new ArrayList<>(getPlayers());
-		acquirenti.remove(giCorrente);
-		ArrayList<String> acquirentiString = new ArrayList<>();
-		for(Player p: acquirenti)
-			acquirentiString.add(p.getName());
-		return acquirentiString;
-	}
-	
-	public ArrayList<Player> getPlayers(){
-		return players;
-	}
-	
-	public Player getCorrispondenzaPlayer(String nome) {
-		for(Player p: getPlayers()){
-			if(p.getName().equals(nome)){
-				return p;
+	//BANCAROTTA
+	public void setBancarotta(){
+		// Chiedo al giocatore se è sicuro
+		if(monopolyGUI.getDecisioneBancarotta()) {
+			
+			monopolyGUI.mostraScelteTurno();
+			// Gestione proprietà del giocatore in bancarotta, vanno all'asta
+			// Set prossimo giocatore			
+			Player giTemp = giCorrente;
+			if(players.indexOf(giCorrente) + 1<getPlayers().size()) {
+				giCorrente = players.get(players.indexOf(giCorrente) + 1);
+			}
+			else {
+				giCorrente = players.get(0);
+			}
+			
+			players.remove(giTemp);
+			
+			listaPropBancarotta = giTemp.getListaProprieta();
+			conta = 0;
+			if(!listaPropBancarotta.isEmpty()){
+				astaBancarotta(); }
+			else {
+				attivitaPostBancarotta();
 			}
 		}
-		return null;
 	}
 	
-	public Proprieta getCorrispondenzaProprieta(String nomeProp, Player nomeGioc) {
-		for(Proprieta p: nomeGioc.getListaProprieta())
-			if(p.getNome().equals(nomeProp))
-				return p;				
-		return null;
+	public void attivitaPostBancarotta() {
+		inizioTurno();
+		aggiornaVisualizzazioneInfo(); 
 	}
 	
-	public ArrayList<String> getGiocatoriString(){
-		ArrayList<String> stringheNomiGiocatori = new ArrayList<>();
-		for(Player p: players) {
-			
-			stringheNomiGiocatori.add(p.getName());}
-		return stringheNomiGiocatori;
+	public boolean getConta() {
+		if(conta < listaPropBancarotta.size()) {
+			return true;
+		}
+		else {
+			monopolyGUI.stampa("Le prorpietà all'asta sono finite");
+			attivitaPostBancarotta();
+			return false;
+		}
 	}
 	
-	public int getNumGiocatori() {
-		return players.size();
+	public void astaBancarotta() {
+		
+		asta = new Asta(giCorrente, players, listaPropBancarotta.get(conta), monopolyGUI);
+		asta.inizio(); 
+		conta++;
 	}
 	
+	public void uscitaGratis() {
+		if (giCorrente.getInPrigione()) {
+			if (giCorrente.haUscitaGratis()) {
+				giCorrente.getCarta();
+				giCorrente.liberaDaPrigione();
+			} else {monopolyGUI.stampa("Non hai carte uscite gratis di prigione!");} // qua non entra mai dato che disabilitiamo il bottone
+		}
+	}
+
+	public void pagaUscitaPrigione() {
+		if (giCorrente.getInPrigione()) { // inutile perché disattiviamo i bottoni quando non è in prigione
+			if (giCorrente.getWallet() >= CAUZIONE_PRIGIONE) {
+				giCorrente.doTransazione(-CAUZIONE_PRIGIONE);
+				giCorrente.liberaDaPrigione();
+				monopolyGUI.stampa("Il giocatore " + giCorrente.getName() + " ha pagato 50€ ed è uscito dalla prigione.");
+			} else {
+				monopolyGUI.stampa("Non hai abbastanza soldi!");
+			}
+		} else {
+			monopolyGUI.stampa("Il giocatore non è in prigione");
+		}
+		aggiornaVisualizzazioneInfo();
+	}
+	
+	//SALVATAGGIO E CARICAMENTO DI UNA PARTITA
+	public void setSalvaPartita(String nome) {
+		nomePartita = nome;
+		indexCorrente = getPlayers().indexOf(getGiCorrente());
+	}
+	
+	public void setTempo() {
+		LocalDateTime salvataggioData = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		setSalvataggioDateTime(salvataggioData.format(formatter));
+	}
+	
+	public void setSalvataggioDateTime(String salvataggioDateTime) {
+		this.salvataggioDateTime = salvataggioDateTime;
+	}
+
+	public String getSalvataggioDateTime() {
+		return salvataggioDateTime;
+	}
+
 	public void setPedineSelezionate() {
 		pedineSelezionate=monopolyGUI.getPedine();
 	}
-	public Tabellone getTabellone() {
-		return tabellone;
-	}
 	
 	public void caricamento(MonopolyGUI monopolyGUI, List<int[]> coppie) {
-		
+		this.monopolyGUI=monopolyGUI;
 		giCorrente = players.get(indexCorrente); 
 		dadi = new Dadi();
     	tabellone = new Tabellone(dadi);
@@ -797,6 +719,88 @@ public class Monopoly {
     	inizioTurno();
 	}
 	
+	
+	//AGGIORNAMENTO GUI A SEGUITO DI CAMBIO DEI DATI
+	public void aggiornaVisualizzazioneInfo() { 
+		//Aggiornamento nel pannello delle info dei giocatori (saldo)
+		ArrayList<Integer> valoriSaldo = new ArrayList<>();
+		for(Player p: players) 
+			valoriSaldo.add(p.getWallet());
+		monopolyGUI.aggiornaVisSaldoGiocatori(valoriSaldo, getGiocatoriString()); // Aggiorna la visualizzazione del saldo dei giocatori
+		
+		//Aggiornamento nel pannello delle info dei giocatori (elenco proprietà)
+		ArrayList<ArrayList<String>> elencoProp = new ArrayList<>();
+		for(Player player: players) {
+			ArrayList<String> proprietaGiocatore = new ArrayList<>();
+			for (Proprieta prop: player.getListaProprieta())
+				if(prop.isIpotecata()) {
+					proprietaGiocatore.add(prop.getNome()+ " (ipotecata)");
+				}
+				else {
+					proprietaGiocatore.add(prop.getNome());
+				}
+			elencoProp.add(proprietaGiocatore);
+		}
+		monopolyGUI.aggiornaVisProprietaGiocatori(elencoProp, getGiocatoriString()); // Aggiorna la visualizzazione delle proprietà dei giocatori
+		
+		ArrayList<Integer> valoriCarte = new ArrayList<>();
+		for(Player p: players) 
+			valoriCarte.add(p.getNumCarte());
+		monopolyGUI.aggiornaVisCarte(valoriCarte, getGiocatoriString());
+		
+		
+	}
+	
+	//GETTER
+	public Player getGiCorrente() {
+		return giCorrente;
+	}
+	
+	public ArrayList<String> getListaGiocatoriScambi(){
+		ArrayList<Player> acquirenti = new ArrayList<>(getPlayers());
+		acquirenti.remove(giCorrente);
+		ArrayList<String> acquirentiString = new ArrayList<>();
+		for(Player p: acquirenti)
+			acquirentiString.add(p.getName());
+		return acquirentiString;
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+	
+	public Player getCorrispondenzaPlayer(String nome) {
+		for(Player p: getPlayers()){
+			if(p.getName().equals(nome)){
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public Proprieta getCorrispondenzaProprieta(String nomeProp, Player nomeGioc) {
+		for(Proprieta p: nomeGioc.getListaProprieta())
+			if(p.getNome().equals(nomeProp))
+				return p;				
+		return null;
+	}
+	
+	public ArrayList<String> getGiocatoriString(){
+		ArrayList<String> stringheNomiGiocatori = new ArrayList<>();
+		for(Player p: players) {
+			
+			stringheNomiGiocatori.add(p.getName());}
+		return stringheNomiGiocatori;
+	}
+	
+	public int getNumGiocatori() {
+		return players.size();
+	}
+	
+	public Tabellone getTabellone() {
+		return tabellone;
+	}
+
 	public String[] getPedineSelezionate(){
 		return pedineSelezionate;
 	}

@@ -164,9 +164,7 @@ class MonopolyTest {
     	assertNull( monopoly.getCorrispondenzaPlayer("monopoli"));
     	assertEquals("Mario", monopoly.getCorrispondenzaPlayer("Mario").getName());
     	assertNull( monopoly.getCorrispondenzaPlayer("monopoli"));
-        assertFalse(monopoly.isGameOver());
-        
-        
+                
         ArrayList<String> giocatori=new ArrayList<>();
         for(String p: nomiGiocatori) {
         	if(!p.equals(monopoly.getGiCorrente().getName())) {
