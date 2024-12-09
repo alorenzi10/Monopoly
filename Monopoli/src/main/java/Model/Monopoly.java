@@ -291,9 +291,8 @@ public class Monopoly {
 					monopolyGUI.stampa("Dado 1: " + dadi.getDado1()); //lancio dei dadi per calcolare il coeffx10
 					monopolyGUI.stampa("Dado 2: " + dadi.getDado2());
 					monopolyGUI.stampa("Devi pagare "+ dadi.getTotal()+"0 volte il totale dovuto");
-					giCorrente.doTransazione(((Proprieta) tabellone.getCasella(pos)).getAffitto()*dadi.getTotal()*-10);
-					((Proprieta) tabellone.getCasella(pos)).getPossessore()
-					.doTransazione(((Proprieta) tabellone.getCasella(pos)).getAffitto()*dadi.getTotal()*10);
+					giCorrente.doTransazione(dadi.getTotal() * (-10));
+					((Proprieta) tabellone.getCasella(pos)).getPossessore().doTransazione(dadi.getTotal() * 10);
 				}
 			}else {
 				monopolyGUI.atterraggioSuProprietaVuota();
